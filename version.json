@@ -1,4 +1,4 @@
 {
-  "version": "11.0.0",
-  "notes": "Канонічні вертикальні/горизонтальні Bullet Hell, напрямні попередження, сильніша й більша чорна діра з притяганням, підказка причини поразки"
+  "version": "12.0.0",
+  "notes": "Власні піксельні спрайти Calamitas, Sepulcher, Brimstone Hearts, Cataclysm, Catastrophe, Soul Seekers і черепів. Рухомі проходи та попереджені прицільні залпи у всіх Bullet Hell."
 }
