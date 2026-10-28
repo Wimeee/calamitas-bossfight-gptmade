@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Supreme Calamitas — Brimstone Trial v15</title><style>
+<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Supreme Calamitas — Brimstone Trial v16</title><style>
 *{box-sizing:border-box}html,body{margin:0;background:#09090e;color:#eedfde;font-family:system-ui,Segoe UI,sans-serif}#scal-game{max-width:1050px;margin:0 auto;padding:12px}#scal-game .shell{background:linear-gradient(#190c16,#0c101b);border:1px solid #754044;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0009}#scal-game header{padding:15px 19px 10px;background:linear-gradient(90deg,#321320,#171423)}#scal-game .eyebrow{font-size:10px;letter-spacing:3px;color:#ed959d;font-weight:800}#scal-game .title{font-size:clamp(22px,3.8vw,33px);font-weight:1000;line-height:1.2;color:#ffe2d8;text-shadow:0 2px 0 #7d2436;margin:3px 0}#scal-game .description{font-size:12px;color:#bea5b1}#scal-game button,#scal-game select{font:inherit;color:#f6dbd8;cursor:pointer}#scal-game .toolbar{display:flex;gap:9px;align-items:end;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;background:#160e19;border-top:1px solid #40242d}#scal-game label{display:flex;flex-direction:column;gap:5px;font-size:10px;color:#caa7b3;font-weight:750;text-transform:uppercase;letter-spacing:.5px}#scal-game select{background:#2b1b29;border:1px solid #70424d;border-radius:7px;padding:8px;min-width:160px;font-weight:700;font-size:12px}#scal-game select:disabled{opacity:.55}#scal-game .btn{border:1px solid #b66a78;border-radius:7px;background:#4d2534;padding:9px 13px;font-size:12px;font-weight:850}#scal-game .btn.primary{background:linear-gradient(#f7ac83,#b5495e);border-color:#ffbf9c;color:#210b18;min-width:125px}#scal-game .btn:hover{filter:brightness(1.13)}#scal-game .btn:focus-visible,#scal-game select:focus-visible{outline:2px solid #ffe1a1;outline-offset:2px}#scal-game .status{padding:8px 13px;background:#1b101b;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:center;border-bottom:1px solid #53333e}#scal-game .barlabel{display:flex;justify-content:space-between;font-weight:800;font-size:10px;margin-bottom:4px;color:#e3c7c7}#scal-game .track{height:11px;background:#3a2731;border:1px solid #76515c;border-radius:5px;overflow:hidden}#scal-game .fill{height:100%;width:100%;transition:width .12s;background:linear-gradient(90deg,#a72e3e,#ff6a75)}#scal-game #manabar{background:linear-gradient(90deg,#2761a2,#6cafff)}#scal-game #hpbar{background:linear-gradient(90deg,#9f2837,#ec7968)}#scal-game .number{font-weight:850;font-size:11px;color:#f9d7c5;white-space:nowrap}#scal-game .screen{position:relative;overflow:hidden;background:#150c18;aspect-ratio:1000/600;cursor:crosshair;touch-action:none}#scal-game canvas{width:100%;height:100%;display:block;image-rendering:auto}#scal-game .overlay{position:absolute;inset:0;background:#09070ad9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px;z-index:3;backdrop-filter:blur(3px)}#scal-game .overlay h2{font-size:clamp(20px,4vw,32px);margin:0;color:#ffd9c8}#scal-game .overlay p{max-width:540px;margin:0;color:#cdb5bd;font-size:13px;line-height:1.5}#scal-game .overlay .subtitle{font-weight:800;color:#e97b8f;letter-spacing:2px;font-size:11px}#scal-game .overlay[hidden]{display:none}#scal-game .overlay button{background:linear-gradient(#f7ab81,#bc5062);color:#240b15;border:1px solid #ffd6b6;border-radius:8px;padding:12px 25px;font-weight:950}#scal-game .quick{padding:10px 14px;background:#130f19;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;border-top:1px solid #603b46;font-size:11px;color:#bfb0c2}#scal-game .quick b{color:#fbd7c4}#scal-game .weapons{display:flex;gap:6px;flex-wrap:wrap}#scal-game .wp{border:1px solid #5c3c4e;background:#2b1e31;border-radius:6px;padding:7px 9px;color:#d8c3d1;font-size:10px;font-weight:800}#scal-game .wp:disabled:not(.on){opacity:.28;cursor:not-allowed}#scal-game .wp:disabled.on{opacity:1}#scal-game .wp.on{background:#784258;color:#ffe9dc;border-color:#e89a9b}#scal-game .below{padding:12px 14px 15px;background:#110d15;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}#scal-game .details{font-size:11px;line-height:1.65;color:#c1acb7}#scal-game .details b{color:#f1c7ad}#scal-game .progress{display:flex;gap:4px;align-items:center;flex-wrap:wrap}#scal-game .chip{font-size:10px;font-weight:800;border:1px solid #553644;background:#2a1825;color:#a797a1;border-radius:5px;padding:4px 6px}#scal-game .chip.done{border-color:#be776b;background:#47272b;color:#ffe0a5}#scal-game .chip.active{border-color:#f5b4a2;color:#fff1d1;box-shadow:0 0 8px #bd354977}#scal-game .touch{display:none;touch-action:none;padding:10px 12px 12px;background:linear-gradient(180deg,#271725,#171321);border-top:1px solid #674052}
 #scal-game.mobile .touch{display:block}
 #scal-game .touch-title{font-size:10px;color:#e9bcc5;font-weight:800;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -128,7 +128,7 @@ body.calamitas-focus-body{overflow:hidden!important;overscroll-behavior:none;tou
  #scal-game.focus-mode.mobile .mobile-actions{top:25px;bottom:auto!important;right:9px;width:clamp(165px,44vw,225px)}
  #scal-game.focus-mode.mobile .mobile-actions button{min-height:clamp(51px,7vh,69px)!important}
 }
-</style><meta name="theme-color" content="#210f1c"><meta name="description" content="Фан-босфайт Supreme Calamitas. ПК і мобільне керування, всі фази, HP та магія."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Calamitas"></head><body><div id="scal-game"><button id="focus-exit" type="button" aria-label="Вийти з ігрового режиму">✕ Вийти</button><div class="shell"><header><div class="eyebrow">CALAMITY-INSPIRED BOSS RUSH · PLAYABLE TRIBUTE</div><div class="title">⚜ SUPREME CALAMITAS</div><div class="description">The Brimstone Trial v15 — COSMIC SCISSORS</div></header><div class="toolbar"><div class="device-controls"><label for="device">Керування<select id="device"><option value="desktop">💻 ПК / клавіатура</option><option value="mobile">📱 Мобільний / сенсор</option></select></label><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button></div><label>Складність<select id="diff"><option value="normal">Expert · навчальна</option><option value="revenge" selected>Revengeance</option><option value="death">Death Mode ☠</option></select></label><label>Початкова зброя<select id="class"><option value="melee">⚔ Melee · Ark of the Cosmos</option><option value="ranger">🔫 Ranger · Photoviscerator</option><option value="mage">✧ Mage · Yharim's Crystal</option><option value="summon">☄ Summoner · Cosmic Immaterializer</option><option value="rogue">✦ Rogue · Celestus</option></select></label><button class="btn primary" id="start">▶ Почати бій</button><button class="btn" id="pause">⏸ Пауза</button><div class="audio-controls" role="group" aria-label="Налаштування звуку"><button class="btn" id="soundtoggle" type="button" aria-pressed="true">🔊 Звуки: УВІМК</button><button class="btn" id="musictoggle" type="button" aria-pressed="false">♫ Музика: ВИМК</button><label class="volume-label" for="volume">Гучність <input id="volume" type="range" min="0" max="100" value="55" step="5" aria-label="Гучність звуку"></label></div></div><div class="status"><div><div class="barlabel"><span>❤ HP гравця</span><span id="hptxt">600 / 600</span></div><div class="track"><div class="fill" id="hpbar"></div></div></div><div><div class="barlabel"><span>✦ Mana</span><span id="manatxt">200 / 200</span></div><div class="track"><div class="fill" id="manabar"></div></div></div><div class="number"><div id="potion">🧪 HP × 7</div><div id="regenstatus" style="margin-top:4px;color:#98df9d">♻ Реген: 3 HP/с</div><div id="regenpotionstatus" style="margin-top:4px;color:#dfb6ff">🌿 Реген-зілля × 3 · B</div></div></div><div class="screen" id="screen"><canvas id="game" width="1200" height="720" aria-label="Двовимірний ігровий бій проти Calamitas"></canvas><div class="overlay" id="overlay"><div class="subtitle" id="overlaytag">ALTAR OF THE ACCURSED</div><h2 id="overlaytitle">SUPREME CALAMITAS</h2><p id="overlaydesc">WASD / стрілки — рух • Мишка — приціл і атака • Space — ривок • H — лікування • B — реген • клас фіксується на весь бій. На телефоні вибери 📱 Мобільний режим: лівий джойстик — рух, автоматичне прицілювання та атака. Ривок захищає лише від контактних атак, НЕ від куль.</p><button id="overlaybtn">ПРИЗВАТИ БОСА</button></div></div><div class="quick"><div>🎯 <b id="phase">Очікування</b> · <span id="timer">00:00</span></div><div>Бос: <b id="bosshp">100%</b> · Влучання: <b id="hits">0</b> · Ривки: <b id="dashes">0</b></div><div>⚡ <b id="statehint">Підготуйся до бою</b></div></div><div class="touch" id="touchcontrols" aria-label="Сенсорне керування">
+</style><meta name="theme-color" content="#210f1c"><meta name="description" content="Фан-босфайт Supreme Calamitas. ПК і мобільне керування, всі фази, HP та магія."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Calamitas"></head><body><div id="scal-game"><button id="focus-exit" type="button" aria-label="Вийти з ігрового режиму">✕ Вийти</button><div class="shell"><header><div class="eyebrow">CALAMITY-INSPIRED BOSS RUSH · PLAYABLE TRIBUTE</div><div class="title">⚜ SUPREME CALAMITAS</div><div class="description">The Brimstone Trial v16 — CLASS REFORGE</div></header><div class="toolbar"><div class="device-controls"><label for="device">Керування<select id="device"><option value="desktop">💻 ПК / клавіатура</option><option value="mobile">📱 Мобільний / сенсор</option></select></label><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button></div><label>Складність<select id="diff"><option value="normal">Expert · навчальна</option><option value="revenge" selected>Revengeance</option><option value="death">Death Mode ☠</option></select></label><label>Початкова зброя<select id="class"><option value="melee">⚔ Melee · Ark of the Cosmos</option><option value="ranger">🔫 Ranger · Photoviscerator</option><option value="mage">✧ Mage · Yharim's Crystal</option><option value="summon">☄ Summoner · Cosmic Immaterializer</option><option value="rogue">✦ Rogue · Celestus</option></select></label><button class="btn primary" id="start">▶ Почати бій</button><button class="btn" id="pause">⏸ Пауза</button><div class="audio-controls" role="group" aria-label="Налаштування звуку"><button class="btn" id="soundtoggle" type="button" aria-pressed="true">🔊 Звуки: УВІМК</button><button class="btn" id="musictoggle" type="button" aria-pressed="false">♫ Музика: ВИМК</button><label class="volume-label" for="volume">Гучність <input id="volume" type="range" min="0" max="100" value="55" step="5" aria-label="Гучність звуку"></label></div></div><div class="status"><div><div class="barlabel"><span>❤ HP гравця</span><span id="hptxt">600 / 600</span></div><div class="track"><div class="fill" id="hpbar"></div></div></div><div><div class="barlabel"><span>✦ Mana</span><span id="manatxt">200 / 200</span></div><div class="track"><div class="fill" id="manabar"></div></div></div><div class="number"><div id="potion">🧪 HP × 7</div><div id="regenstatus" style="margin-top:4px;color:#98df9d">♻ Реген: 3 HP/с</div><div id="regenpotionstatus" style="margin-top:4px;color:#dfb6ff">🌿 Реген-зілля × 3 · B</div></div></div><div class="screen" id="screen"><canvas id="game" width="1200" height="720" aria-label="Двовимірний ігровий бій проти Calamitas"></canvas><div class="overlay" id="overlay"><div class="subtitle" id="overlaytag">ALTAR OF THE ACCURSED</div><h2 id="overlaytitle">SUPREME CALAMITAS</h2><p id="overlaydesc">WASD / стрілки — рух • Мишка — приціл і атака • Space — ривок • H — лікування • B — реген • клас фіксується на весь бій. На телефоні вибери 📱 Мобільний режим: лівий джойстик — рух, автоматичне прицілювання та атака. Ривок захищає лише від контактних атак, НЕ від куль.</p><button id="overlaybtn">ПРИЗВАТИ БОСА</button></div></div><div class="quick"><div>🎯 <b id="phase">Очікування</b> · <span id="timer">00:00</span></div><div>Бос: <b id="bosshp">100%</b> · Влучання: <b id="hits">0</b> · Ривки: <b id="dashes">0</b></div><div>⚡ <b id="statehint">Підготуйся до бою</b></div></div><div class="touch" id="touchcontrols" aria-label="Сенсорне керування">
   <div class="touch-title"><span>📱 МОБІЛЬНЕ КЕРУВАННЯ</span><span>Краще горизонтально ↻</span></div>
   <div class="touch-layout">
     <div class="stick-area"><div class="stick-caption">✥ РУХ</div><div class="joystick" id="move-stick" aria-label="Джойстик руху"><div class="knob"></div></div></div>
@@ -147,7 +147,7 @@ body.calamitas-focus-body{overflow:hidden!important;overscroll-behavior:none;tou
   <div class="touch-status" id="touch-status">💡 АВТО приціл і стрільба · Рухайся лівим стіком, ривок справа · У самонера кнопка АТАКА = ХЛИСТ.</div>
 </div>
   <div class="runtime-status" id="runtime-status">⚠️ Ігровий JavaScript не запущено. Якщо кнопки не реагують, відкрий HTML у повноцінному браузері, не в переглядачі файлів.</div>
-<div class="below"><div class="details"><div><b>ПК:</b> WASD · ПКМ · Space · H · B · P/R <b>│ Мобільний:</b> 2 джойстики й кнопки</div><div><b id="weaponname">Ark of the Cosmos</b> — <span id="weapondesc">Потужні космічні клинки</span></div><div id="tip">V15: ПКМ — атака · Ark: 4 удари → кидок → відпусти ПКМ для SNAP · ЛКМ — парирування / Big Rip · Summoner: ЛКМ — мітка · Space — ривок</div></div><div><div class="progress" id="markers"></div><div class="weapons" id="weapons" style="margin-top:9px"></div></div></div></div></div><script>
+<div class="below"><div class="details"><div><b>ПК:</b> WASD · ПКМ · Space · H · B · P/R <b>│ Мобільний:</b> 2 джойстики й кнопки</div><div><b id="weaponname">Ark of the Cosmos</b> — <span id="weapondesc">Потужні космічні клинки</span></div><div id="tip">V16: ПКМ — атака · ЛКМ — уміння класу · Ranger: нагрів → Exo Shot · Mage: резонанс → Nova + мана · Rogue: кидок → повернення → stealth · Summoner: мітка + залп · Ark: парирування / Big Rip</div></div><div><div class="progress" id="markers"></div><div class="weapons" id="weapons" style="margin-top:9px"></div></div></div></div></div><script>
 (()=>{
 const root=document.querySelector('#scal-game');if(root.dataset.ready)return;root.dataset.ready='yes';
 const $=id=>root.querySelector('#'+id), canvas=$('game'),ctx=canvas.getContext('2d'),W=1200,H=720,TAU=Math.PI*2,VIEW_X=100,VIEW_Y=60;
@@ -200,10 +200,10 @@ const audio={ctx:null,master:null,sfx:true,music:false,volume:.55,last:{},step:-
 
 const weapons=[
 {id:'melee',name:'Ark of the Cosmos',label:'1 ⚔ Melee',desc:'ПКМ: 4 удари + кидок; відпусти для SNAP • ЛКМ: парирування / Big Rip',mana:0,cool:.265,dmg:950,speed:830,rad:8,col:'#91e7ff'},
-{id:'ranger',name:'Photoviscerator',label:'2 🔫 Ranger',desc:'Безперервний світловий промінь • б’є до першої цілі',mana:0,cool:.085,dmg:260,speed:1050,rad:5,col:'#ffbc5c'},
-{id:'mage',name:"Yharim's Crystal",label:'3 ✧ Mage',desc:'6 Dragonfire-променів сходяться під час стрільби • витрачає ману',mana:8,cool:.065,dmg:330,speed:1160,rad:8,col:'#d991ff'},
-{id:'summon',name:'Cosmic Immaterializer',label:'4 ☄ Summon',desc:'4 космічні міньйони + хлист із міткою (+60% шкоди міньйонів)',mana:10,cool:.4,dmg:560,speed:570,rad:7,col:'#c0f6a9'},
-{id:'rogue',name:'Celestus',label:'5 ✦ Rogue',desc:'Кидки зірок • накопичення stealth для криту',mana:0,cool:.28,dmg:760,speed:880,rad:9,col:'#f7b3eb'}
+{id:'ranger',name:'Photoviscerator',label:'2 🔫 Ranger',desc:'ПКМ: промінь з нагрівом • ЛКМ: пробивний Exo Shot, скидання нагріву',mana:0,cool:.085,dmg:470,speed:1050,rad:5,col:'#ffbc5c'},
+{id:'mage',name:"Yharim's Crystal",label:'3 ✧ Mage',desc:'ПКМ: 6 Dragonfire-променів • ЛКМ: Nova за повний резонанс, +75 мани',mana:4.5,cool:.065,dmg:300,speed:1160,rad:8,col:'#d991ff'},
+{id:'summon',name:'Cosmic Immaterializer',label:'4 ☄ Summon',desc:'4 міньйони + хлист (+35%) • ЛКМ: мітка та командний залп кожні 4 с',mana:10,cool:.4,dmg:560,speed:570,rad:7,col:'#c0f6a9'},
+{id:'rogue',name:'Celestus',label:'5 ✦ Rogue',desc:'ПКМ: поворотні Celestus, подвійне влучання • ЛКМ: відкликання • ловіння заряджає stealth',mana:0,cool:.28,dmg:950,speed:880,rad:9,col:'#f7b3eb'}
 ];
 
 const milestones=[{id:'opening',label:'100%'},{id:'h75',label:'75%'},{id:'h50',label:'50%'},{id:'bros',label:'Брати'},{id:'h40',label:'40%'},{id:'h30',label:'🕳 30%'},{id:'seek',label:'20%'},{id:'h10',label:'10%'},{id:'sep2',label:'Sep. II'},{id:'finish',label:'Фініш'}];
@@ -217,13 +217,13 @@ const ui=()=>{if(!game)return;let g=game,p=g.player;let bar=$('hpbar');bar.style
  if(dashButton)dashButton.textContent=p.dashCd>0?'💨 '+p.dashCd.toFixed(1)+'с':'💨 РИВОК';
  if(healButton)healButton.textContent=p.potionCd>0?'❤️ '+Math.ceil(p.potionCd)+'с':'❤️ ×'+p.potions;
  if(regenButton)regenButton.textContent=p.regenPotionT>0?'🌿 '+Math.ceil(p.regenPotionT)+'с':'🌿 ×'+p.regenPotions;
- if(targetButton){targetButton.hidden=p.weapon!==3&&p.weapon!==0;targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):'🎯 ЦІЛЬ';}
+ if(targetButton){targetButton.hidden=false;targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):p.weapon===1?'⚡ EXO SHOT':p.weapon===2?'✧ NOVA':p.weapon===3?'🎯 ЗАЛП':'↩ КЛИНКИ';}
  root.querySelectorAll('[data-weapon]').forEach(e=>{e.classList.toggle('on',Number(e.dataset.weapon)===p.weapon);e.disabled=['playing','paused'].includes(g.mode);e.title=e.disabled?'Клас зафіксовано до кінця бою':'Обрати початковий клас';});(()=>{const labels=milestones.map(m=>`<span class="chip ${g.done.has(m.id)?'done':g.marker===m.id?'active':''}">${m.label}</span>`).join('');if($('markers').innerHTML!==labels)$('markers').innerHTML=labels;})()};
 function makeGame(){const difficulty=$('diff').value,scale=difficulty==='death'?1.22:difficulty==='revenge'?1.09:1;return {mode:'playing',difficulty,scale,t:0,totalTime:0,stage:'hell',stageT:0,phaseN:0,thresholds:new Set(),done:new Set(),marker:'opening',label:'BULLET HELL I',hint:'УХИЛЯЙСЯ — бос невразливий',boss:{x:500,y:150,hp:750000,max:750000,r:30,alpha:0},player:{x:500,y:410,vx:0,vy:0,hp:600,maxHp:600,mana:200,maxMana:200,weapon:weapons.findIndex(x=>x.id===$('class').value),fireCd:0,dashCd:0,dashT:0,contactGuard:0,dashX:0,dashY:0,potions:7,potionCd:0,iframes:1.5,hits:0,dashes:0,stealth:0,lastHit:0,regenRate:3,regenPotions:3,regenPotionT:0,pickupsTaken:0,cosmic:[],cosmicMark:null,whip:null,combo:0,swing:null,comboExpire:0,arkThrow:null,arkCharges:0,arkParryCd:0,arkParry:null,arkRip:null,arkBuffered:false},impacts:[],patternWarnings:[],patternTimer:2.6,patternIndex:0,pickups:[],pickupTimer:11,projectiles:[],shots:[],hearts:[],seekers:[],brothers:[],monsters:[],maelstrom:null,sparks:[],dashGhosts:[],floaters:[],attackIndex:0,attackTimer:0,attackTick:0,lastCause:"",dashCount:0,dashWind:0,dashActive:0,dashVector:{x:0,y:0},dialog:'',dialogT:0,acceptT:0,killCount:0};}
 function start(){audio.init();audio.fx('phase');keys={};resetTouchInput();if(deviceMode==='mobile')mobileAutoAim=true;game=makeGame();configureArena(game.difficulty);enter('hell','opening','BULLET HELL I');$('diff').disabled=true;$('class').disabled=true;$('overlay').hidden=true;$('start').textContent='↻ Новий бій';pointer.fire=false;if(game.player.weapon===3)summonSquad();ui();if(deviceMode==='mobile'){setFocusMode(true)}updateMobileLabels();if(!raf)raf=requestAnimationFrame(loop)}
 function showOverlay(tag,title,desc,button){$('overlaytag').textContent=tag;$('overlaytitle').textContent=title;$('overlaydesc').textContent=desc;$('overlaybtn').textContent=button;$('overlay').hidden=false}
 function finish(win){resetTouchInput();audio.fx(win?'victory':'death');let g=game;g.mode=win?'won':'dead';pointer.fire=false;$('diff').disabled=false;$('class').disabled=false;showOverlay(win?'THE BRIMSTONE WITCH':'YOU WERE SLAIN',win?'CALAMITAS ПЕРЕМОЖЕНА!':'ТИ ЗАГИНУВ',win?`Перемога! Час: ${Math.floor(g.totalTime)} с · Отримано ударів: ${g.player.hits}. Всі п'ять Bullet Hell пройдені.`:`Здоров'я боса: ${(g.boss.hp/g.boss.max*100).toFixed(1)}%. Останній удар: ${g.lastCause||'невідомо'}. Отримано ударів: ${g.player.hits}.`, '↻ ЩЕ ОДНА СПРОБА');ui()}
-function enter(stage,marker,label){if(game&&game.t>.4){audio.fx(marker==='h30'?'maelstrom':'phase')}let g=game;g.stage=stage;g.stageT=0;g.player.beamPulse=null;g.player.swing=null;g.player.arkThrow=null;g.player.arkParry=null;g.player.arkRip=null;g.player.arkBuffered=false;g.player.combo=0;g.patternWarnings=[];g.patternTimer=2.6;g.patternIndex=0;g.attackTimer=0;g.attackTick=0;g.dashActive=0;g.dashWind=0;g.marker=marker;g.label=label||stage.toUpperCase();g.hint='';if(stage==='hell'){g.phaseN++;g.hellTimer=.56;g.hellWave=0;g.hellSegment=-1;g.huntTimer=1.0;g.huntWarning=null;g.projectiles=[];g.boss.x=500;g.boss.y=210;g.hint='BULLET HELL — не атакуй';g.dialog='BULLET HELL '+g.phaseN;g.dialogT=2.8;if(marker!=='opening')g.done.add(marker)}if(stage==='hearts'){g.hearts=[];for(let i=0;i<10;i++){const x=i<5?arena.l+50+i*54:arena.r-50-(i-5)*54;g.hearts.push({x,y:arena.t+49+(i%2)*33,hp:7200,max:7200,r:16})}g.hint='SEPULCHER: 10/10 сердець — Calamitas невразлива';g.dialog='SEPULCHER AWAKENS';g.dialogT=2.3;if(marker==='sep2')g.done.add('h10')}
+function enter(stage,marker,label){if(game&&game.t>.4){audio.fx(marker==='h30'?'maelstrom':'phase')}let g=game;g.stage=stage;g.stageT=0;g.player.beamPulse=null;g.player.swing=null;g.player.arkThrow=null;g.player.arkParry=null;g.player.arkRip=null;g.player.arkBuffered=false;g.player.combo=0;if(g.player.kit){g.player.kit.blades=[];g.player.kit.zones=[];g.player.kit.rail=null;g.player.kit.heat=0;g.player.kit.resonance=0;g.player.kit.overheat=0;}g.patternWarnings=[];g.patternTimer=2.6;g.patternIndex=0;g.attackTimer=0;g.attackTick=0;g.dashActive=0;g.dashWind=0;g.marker=marker;g.label=label||stage.toUpperCase();g.hint='';if(stage==='hell'){g.phaseN++;g.hellTimer=.56;g.hellWave=0;g.hellSegment=-1;g.huntTimer=1.0;g.huntWarning=null;g.projectiles=[];g.boss.x=500;g.boss.y=210;g.hint='BULLET HELL — не атакуй';g.dialog='BULLET HELL '+g.phaseN;g.dialogT=2.8;if(marker!=='opening')g.done.add(marker)}if(stage==='hearts'){g.hearts=[];for(let i=0;i<10;i++){const x=i<5?arena.l+50+i*54:arena.r-50-(i-5)*54;g.hearts.push({x,y:arena.t+49+(i%2)*33,hp:7200,max:7200,r:16})}g.hint='SEPULCHER: 10/10 сердець — Calamitas невразлива';g.dialog='SEPULCHER AWAKENS';g.dialogT=2.3;if(marker==='sep2')g.done.add('h10')}
  if(stage==='brothers'){g.brothers=[{x:320,y:260,hp:65000,max:65000,r:25,kind:0},{x:680,y:260,hp:65000,max:65000,r:25,kind:1}];g.projectiles=[];g.hint='CATACLYSM + CATASTROPHE';g.done.add('h50');g.done.add('bros');g.dialog='THE BROTHERS RETURN';g.dialogT=2.5}
  if(stage==='seekers'){g.seekers=[];for(let i=0;i<10;i++)g.seekers.push({angle:i*TAU/10,hp:4900,max:4900,r:13,x:0,y:0});g.hint='ЗНИЩИ 10 SOUL SEEKERS';g.done.add('seek');g.dialog='SUPREME SOUL SEEKERS';g.dialogT=2.5}
  if(stage==='accept'){g.projectiles=[];g.monsters=[];g.maelstrom=null;g.shots=[];g.boss.x=500;g.boss.y=270;g.acceptT=0;g.hint='ACCEPTANCE';g.done.add('sep2');g.done.add('finish');g.dialog='ACCEPTANCE';g.dialogT=5}
@@ -248,12 +248,100 @@ function lashWhip(){
   const dx=t.x-p.x,dy=t.y-p.y,d=Math.hypot(dx,dy);
   const delta=Math.atan2(Math.sin(Math.atan2(dy,dx)-angle),Math.cos(Math.atan2(dy,dx)-angle));
   if(d<range+t.r&&Math.abs(delta)<.49){
-   hitTarget(t,1480,t.x,t.y,'#ffe49f','summon');t.whipMarkedUntil=g.t+4.8;
+   hitTarget(t,850,t.x,t.y,'#ffe49f','summon');t.whipMarkedUntil=g.t+4.8;
    if(d<nearestD){nearest=t;nearestD=d}
   }
  }
- if(nearest){p.cosmicMark=nearest;g.floaters.push({x:nearest.x,y:nearest.y-26,life:1,text:'WHIP TAG +60%',col:'#ffda93'});}
+ if(nearest){p.cosmicMark=nearest;g.floaters.push({x:nearest.x,y:nearest.y-26,life:1,text:'WHIP TAG +35%',col:'#ffda93'});}
 }
+// v16 class resources use simulation time and are reset with the encounter.
+function kit(){const p=game.player;return p.kit||(p.kit={heat:0,overheat:0,abilityCd:0,resonance:0,lastFire:-99,rail:null,zones:[],blades:[],recallFlash:0});}
+function classAbility(){
+ if(!game||game.mode!=='playing'||game.stage==='accept')return;
+ const g=game,p=g.player,k=kit(),w=weapons[p.weapon],a=weaponAim(g);
+ if(w.id==='melee'){arkAbility();return;}
+ if(w.id==='summon'){markCosmicTarget(pointer.x,pointer.y);return;}
+ if(k.abilityCd>0)return;
+ if(w.id==='ranger'){
+  if(k.heat<.35)return;
+  const damage=1800+2700*k.heat,end=muzzlePoint(p,a,beamWallDistance(p.x,p.y,Math.cos(a),Math.sin(a)));
+  k.rail={x:p.x,y:p.y,ex:end.x,ey:end.y,time:.28,max:.28};
+  for(const t of possibleTargets())if(segmentDistance(t.x,t.y,p.x,p.y,end.x,end.y)<t.r+13)hitTarget(t,damage,t.x,t.y,'#fff0ba','ranger');
+  k.heat=0;k.overheat=0;k.abilityCd=1.4;p.fireCd=Math.max(p.fireCd,.15);audio.fx('big');
+ }else if(w.id==='mage'){
+  if(k.resonance<1)return;
+  const d=norm(pointer.x-p.x,pointer.y-p.y),range=Math.min(550,dist(pointer,p));
+  k.zones.push({x:p.x+d.x*range,y:p.y+d.y*range,time:2,max:2,tick:0,r:105});
+  k.resonance=0;k.abilityCd=4;p.mana=Math.min(p.maxMana,p.mana+75);audio.fx('magic');
+  g.floaters.push({x:p.x,y:p.y-50,life:.8,text:'+75 MANA',col:'#a8d7ff'});
+ }else if(w.id==='rogue'){
+  if(!k.blades.some(s=>!s.returning))return;
+  const struck=new Set();
+  for(const s of k.blades){if(s.returning)continue;s.returning=true;s.returnHits.clear();s.empowered=true;
+   for(const t of possibleTargets())if(!struck.has(t)&&dist(t,s)<t.r+85){hitTarget(t,1500,t.x,t.y,'#ffd2f4','rogue');struck.add(t);}
+  }
+  k.recallFlash=.3;k.abilityCd=2.2;audio.fx('rogue');
+ }
+}
+function throwCelestus(w,a){
+ const p=game.player,k=kit(),charged=p.stealth>=.999;
+ if(k.blades.length>=7)return;
+ if(charged)p.stealth=0;
+ const m=muzzlePoint(p,a,25);
+ k.blades.push({x:m.x,y:m.y,vx:Math.cos(a)*800,vy:Math.sin(a)*800,age:0,returning:false,charged,empowered:false,dmg:w.dmg*(charged?1.65:1),outHits:new Set(),returnHits:new Set(),trail:[]});
+ if(charged){audio.fx('big');game.floaters.push({x:p.x,y:p.y-45,life:.6,text:'STEALTH STRIKE',col:'#e8b8ff'});}
+}
+function updateClassKit(dt){
+ const g=game,p=g.player,k=kit(),id=weapons[p.weapon].id;
+ k.abilityCd=Math.max(0,k.abilityCd-dt);k.overheat=Math.max(0,k.overheat-dt);k.recallFlash=Math.max(0,k.recallFlash-dt);
+ if(k.rail&&(k.rail.time-=dt)<=0)k.rail=null;
+ if(id==='ranger'&&g.t-k.lastFire>.15)k.heat=Math.max(0,k.heat-dt*.28);
+ if(id==='rogue')p.stealth=Math.min(1,p.stealth+dt*(g.t-k.lastFire>.3?.65:.18));
+ for(let i=k.zones.length-1;i>=0;i--){const z=k.zones[i];z.time-=dt;z.tick-=dt;
+  if(z.time<=0){k.zones.splice(i,1);continue;}
+  if(z.tick<=0){z.tick+=.25;for(const t of possibleTargets())if(dist(t,z)<t.r+z.r)hitTarget(t,450,t.x,t.y,'#ffd596','mage');}
+ }
+ for(let i=k.blades.length-1;i>=0;i--){
+  const s=k.blades[i];s.age+=dt;s.trail.push({x:s.x,y:s.y});if(s.trail.length>7)s.trail.shift();
+  if(s.age>.55||s.x<arena.l||s.x>arena.r||s.y<arena.t||s.y>arena.b)s.returning=true;
+  if(s.returning){const d=norm(p.x-s.x,p.y-s.y);s.vx=d.x*1000;s.vy=d.y*1000;}
+  else {const targets=possibleTargets();if(targets.length){const t=targets.reduce((a,b)=>dist(a,s)<dist(b,s)?a:b),d=norm(t.x-s.x,t.y-s.y);s.vx=lerp(s.vx,d.x*800,Math.min(1,dt*5));s.vy=lerp(s.vy,d.y*800,Math.min(1,dt*5));}}
+  const ox=s.x,oy=s.y;s.x+=s.vx*dt;s.y+=s.vy*dt;
+  const hits=s.returning?s.returnHits:s.outHits;
+  for(const t of possibleTargets())if(!hits.has(t)&&segmentDistance(t.x,t.y,ox,oy,s.x,s.y)<t.r+(s.charged?21:14)){
+   hitTarget(t,s.dmg*(s.returning?(s.empowered?1.3:.7):1),t.x,t.y,'#f1b9ff','rogue');hits.add(t);
+   if(s.charged)for(const other of possibleTargets())if(other!==t&&dist(other,t)<115)hitTarget(other,s.dmg*.3,other.x,other.y,'#f1b9ff','rogue');
+  }
+  if(s.returning&&segmentDistance(p.x,p.y,ox,oy,s.x,s.y)<20){p.stealth=Math.min(1,p.stealth+.11);p.fireCd=Math.max(0,p.fireCd-.035);k.blades.splice(i,1);}
+  else if(s.age>2.5)k.blades.splice(i,1);
+ }
+}
+function commandVolley(target){
+ const g=game,p=g.player,k=kit();if(k.abilityCd>0||!p.cosmic.length)return;
+ k.abilityCd=4;target.whipMarkedUntil=Math.max(target.whipMarkedUntil||0,g.t+4);
+ for(const m of p.cosmic){const d=norm(target.x-m.x,target.y-m.y);g.shots.push({x:m.x,y:m.y,vx:d.x*700,vy:d.y*700,r:8,dmg:1200,life:2,col:'#ecffaf',id:'cosmicBolt',pierce:0,hitIds:new Set(),homing:true,wave:0});}
+ g.floaters.push({x:target.x,y:target.y-40,life:.8,text:'FOCUS VOLLEY',col:'#d5ffac'});audio.fx('summon');
+}
+function kitHint(){
+ if(!game)return '';const p=game.player,k=kit();
+ if(k.abilityCd>0)return 'ЛКМ · '+k.abilityCd.toFixed(1)+'с';
+ return p.weapon===1?(k.heat>=.35?'ЛКМ · EXO SHOT':'НАГРІВАЙ ПРОМІНЬ'):p.weapon===2?(k.resonance>=1?'ЛКМ · DRAGON NOVA':'НАКОПИЧУЙ РЕЗОНАНС'):p.weapon===3?'ЛКМ · МІТКА + ЗАЛП':p.weapon===4?'ЛКМ · ПОВЕРНЕННЯ':'';
+}
+function drawClassKit(g){
+ const p=g.player,k=p.kit;if(!k)return;
+ if(k.rail){const s=k.rail,f=s.time/s.max;ctx.save();ctx.globalAlpha=f;line(s.x,s.y,s.ex,s.ey,'#ffaa5544',34);line(s.x,s.y,s.ex,s.ey,'#ffc971',10);line(s.x,s.y,s.ex,s.ey,'#fffbe6',3);ctx.restore();}
+ for(const z of k.zones){const f=z.time/z.max;ctx.save();ctx.globalAlpha=Math.min(1,f*3);round(z.x,z.y,z.r,'#b9383525','#ffbd7755',2);
+  for(let i=0;i<6;i++){const a=g.t*2+i*TAU/6,b=a+.6;line(z.x+Math.cos(a)*z.r,z.y+Math.sin(a)*z.r,z.x+Math.cos(b)*z.r*.55,z.y+Math.sin(b)*z.r*.55,'#ffcb83',3);}
+  ctx.strokeStyle='#ffe8be';ctx.lineWidth=3;ctx.beginPath();ctx.arc(z.x,z.y,z.r*(1-z.tick/.25),0,TAU);ctx.stroke();ctx.restore();}
+ for(const s of k.blades){ctx.save();for(let i=1;i<s.trail.length;i++){const a=s.trail[i-1],b=s.trail[i];ctx.globalAlpha=i/s.trail.length*.4;line(a.x,a.y,b.x,b.y,s.charged?'#ffeeac':'#e7adff',s.charged?7:4);}ctx.globalAlpha=1;
+  if(s.empowered)line(p.x,p.y,s.x,s.y,'#ddb6ff55',1);pixel('weapon-rogue',s.x,s.y,s.charged?1.05:.8,g.t*(s.returning?-19:19));ctx.restore();}
+ if(p.weapon===0)return;
+ const value=p.weapon===1?k.heat:p.weapon===2?k.resonance:p.weapon===4?p.stealth:1-k.abilityCd/4;
+ const color=p.weapon===1?'#ffc470':p.weapon===2?'#d2a6ff':p.weapon===3?'#b8f49a':'#efb6fb';
+ ctx.fillStyle='#160e22';ctx.fillRect(p.x-27,p.y+22,54,5);ctx.fillStyle=color;ctx.fillRect(p.x-27,p.y+22,54*clamp(value,0,1),5);
+ text(p.weapon===1&&k.overheat>0?'ОХОЛОДЖЕННЯ':kitHint().replace('ЛКМ',deviceMode==='mobile'?'УМІННЯ':'ЛКМ'),p.x,p.y+41,9,color);
+}
+
 function beamWallDistance(x,y,dx,dy){
  const tx=dx>1e-8?(arena.r-x)/dx:dx< -1e-8?(arena.l-x)/dx:Infinity;
  const ty=dy>1e-8?(arena.b-y)/dy:dy< -1e-8?(arena.t-y)/dy:Infinity;
@@ -270,15 +358,18 @@ function traceWeaponBeam(x,y,angle,halfWidth){
  return{x,y,ex:x+dx*distance,ey:y+dy*distance,hit,distance};
 }
 function fireChannelWeapon(w,aim){
- const g=game,p=g.player,mage=w.id==='mage',charge=clamp(p.channelCharge||0,0,1);
+ const g=game,p=g.player,k=kit(),mage=w.id==='mage',charge=clamp(p.channelCharge||0,0,1);
+ if(!mage){k.heat=Math.min(1,k.heat+.045);if(k.heat>=1){k.overheat=.8;k.heat=.3;}}
+ let connected=false;
  const origin=muzzlePoint(p,aim,mage?45:59),rays=[];
  origin.x=clamp(origin.x,arena.l+1,arena.r-1);origin.y=clamp(origin.y,arena.t+1,arena.b-1);
- const count=mage?6:1,spread=mage?.13*(1-charge)+.006:0,impacted=new Set();
+ const count=mage?6:1,spread=mage?.065*(1-charge)+.003:0,impacted=new Set();
  for(let i=0;i<count;i++){
   const offset=mage?(i-(count-1)/2)*spread:0,r=traceWeaponBeam(origin.x,origin.y,aim+offset,mage?3:4);
-  if(r.hit){hitTarget(r.hit,mage?w.dmg*1.65/count:w.dmg,r.ex,r.ey,mage?'#ffca73':'#ffe5a5',w.id,!impacted.has(r.hit));impacted.add(r.hit);}
+  if(r.hit){connected=true;hitTarget(r.hit,mage?w.dmg*1.65/count:w.dmg*(1+k.heat*.5),r.ex,r.ey,mage?'#ffca73':'#ffe5a5',w.id,!impacted.has(r.hit));impacted.add(r.hit);}
   rays.push(r);
  }
+ if(mage&&connected)k.resonance=Math.min(1,k.resonance+.04);
  p.beamPulse={kind:w.id,rays,angle:aim,charge,life:mage?.13:.15};p.lastChannelAt=g.t;
 }
 
@@ -290,14 +381,13 @@ function shoot(){
   if(!p.cosmic||!p.cosmic.length){if(p.mana>=w.mana)summonSquad();return;}
   lashWhip();return;
  }
- if(p.mana<w.mana)return;p.weaponKick=.12;
+ if(p.mana<w.mana)return;const k=kit();if(w.id==='ranger'&&k.overheat>0)return;if(w.id==='rogue'&&k.blades.length>=7)return;k.lastFire=g.t;p.weaponKick=.12;
  if(w.id==='melee'){fireArk();return;}
  p.fireCd=w.cool;p.mana-=w.mana;audio.fx(w.id==='ranger'?'shoot':w.id==='mage'?'magic':w.id==='summon'?'summon':'rogue');
- const boost=w.id==='rogue'&&p.stealth>.8?2.5:1;
- if(w.id==='rogue')p.stealth=Math.max(0,p.stealth-.55);
+ 
  const to=norm(pointer.x-p.x,pointer.y-p.y);
  if(w.id==='ranger'||w.id==='mage')fireChannelWeapon(w,Math.atan2(to.y,to.x));
- else if(w.id==='rogue'){const m=muzzlePoint(p,Math.atan2(to.y,to.x),25);addShot(m.x,m.y,to.x,to.y,w,boost);}
+ else if(w.id==='rogue')throwCelestus(w,Math.atan2(to.y,to.x));
 }
 function possibleTargets(){let g=game;return g.stage==='hearts'?g.hearts:g.stage==='brothers'?g.brothers:g.stage==='seekers'?g.seekers:g.stage==='normal'?[g.boss]:[]}
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){
@@ -310,7 +400,7 @@ function markCosmicTarget(x,y){
  const p=game.player,targets=possibleTargets();
  let chosen=null,near=Number.POSITIVE_INFINITY;
  for(const t of targets){const d=Math.hypot(t.x-x,t.y-y);if(d<near){near=d;chosen=t}}
- if(chosen&&near<90){p.cosmicMark=chosen;game.floaters.push({x:chosen.x,y:chosen.y-31,life:.8,text:'TARGET',col:'#b8ffb2'});}
+ if(chosen&&near<90){p.cosmicMark=chosen;if(p.weapon===3)commandVolley(chosen);game.floaters.push({x:chosen.x,y:chosen.y-31,life:.8,text:'TARGET',col:'#b8ffb2'});}
  else p.cosmicMark=null;
 }
 function updateCosmic(dt){
@@ -330,18 +420,18 @@ function updateCosmic(dt){
    m.boltCd+=.82+i*.017;
    for(let j=-1;j<=1;j+=2){
     const aim=Math.atan2(tar.y-m.y,tar.x-m.x)+j*.09,
-     tag=tar.whipMarkedUntil>g.t?1.6:1;
+     tag=tar.whipMarkedUntil>g.t?1.35:1;
     g.shots.push({x:m.x+Math.cos(aim)*17,y:m.y+Math.sin(aim)*17,
-     vx:Math.cos(aim)*555,vy:Math.sin(aim)*555,r:6,dmg:425*tag,
+     vx:Math.cos(aim)*555,vy:Math.sin(aim)*555,r:6,dmg:300*tag,
      life:2.5,col:['#b7f9b0','#b3f2ff','#f4a8ff','#ffe49c'][i],id:'cosmicBolt',pierce:0,hitIds:new Set(),homing:true,wave:0});
    }
    if(i===0)audio.fx('summon');
   }
   if(m.starCd<=0){
    m.starCd+=3.4+(i%2)*.4;
-   const aim=Math.atan2(tar.y-m.y,tar.x-m.x),tag=tar.whipMarkedUntil>g.t?1.6:1;
+   const aim=Math.atan2(tar.y-m.y,tar.x-m.x),tag=tar.whipMarkedUntil>g.t?1.35:1;
    g.shots.push({x:m.x,y:m.y,vx:Math.cos(aim)*390,vy:Math.sin(aim)*390,
-    r:10,dmg:950*tag,life:2.8,col:'#ffdc9f',id:'cosmicStar',pierce:0,
+    r:10,dmg:750*tag,life:2.8,col:'#ffdc9f',id:'cosmicStar',pierce:0,
     hitIds:new Set(),homing:true,wave:0});
   }
  }
@@ -639,7 +729,7 @@ function updateBullets(dt){let g=game,p=g.player;
  if(g.stage==='brothers'){g.brothers=g.brothers.filter(x=>x.hp>0);if(!g.brothers.length){g.projectiles=[];g.done.add('bros');enter('normal','h40','CALAMITAS');g.hint='АТАКУЙ CALAMITAS'}}
  if(g.stage==='seekers'){g.seekers=g.seekers.filter(x=>x.hp>0);if(!g.seekers.length){g.projectiles=[];g.done.add('seek');enter('normal','seek','CALAMITAS');g.hint='АТАКУЙ CALAMITAS'}}
 }
-function update(dt){let g=game,p=g.player;g.t+=dt;g.totalTime+=dt;audio.tick(g);g.stageT+=dt;g.dialogT=Math.max(0,g.dialogT-dt);p.fireCd=Math.max(0,p.fireCd-dt);p.weaponKick=Math.max(0,(p.weaponKick||0)-dt);if(p.beamPulse){p.beamPulse.life=Math.max(0,p.beamPulse.life-dt);if(!p.beamPulse.life)p.beamPulse=null;}p.channelCharge=clamp((p.channelCharge||0)+(g.t-(p.lastChannelAt??-99)<.2?dt*.65:-dt*2),0,1);if(p.whip){p.whip.time=Math.max(0,p.whip.time-dt);if(p.whip.time<=0)p.whip=null;}p.iframes=Math.max(0,p.iframes-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.contactGuard=Math.max(0,p.contactGuard-dt);p.potionCd=Math.max(0,p.potionCd-dt);p.mana=Math.min(p.maxMana,p.mana+55*dt);p.stealth=Math.min(1,p.stealth+dt*.12);
+function update(dt){let g=game,p=g.player;g.t+=dt;g.totalTime+=dt;audio.tick(g);g.stageT+=dt;g.dialogT=Math.max(0,g.dialogT-dt);p.fireCd=Math.max(0,p.fireCd-dt);p.weaponKick=Math.max(0,(p.weaponKick||0)-dt);if(p.beamPulse){p.beamPulse.life=Math.max(0,p.beamPulse.life-dt);if(!p.beamPulse.life)p.beamPulse=null;}p.channelCharge=clamp((p.channelCharge||0)+(g.t-(p.lastChannelAt??-99)<.2?dt*1.25:-dt*2),0,1);if(p.whip){p.whip.time=Math.max(0,p.whip.time-dt);if(p.whip.time<=0)p.whip=null;}p.iframes=Math.max(0,p.iframes-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.contactGuard=Math.max(0,p.contactGuard-dt);p.potionCd=Math.max(0,p.potionCd-dt);p.mana=Math.min(p.maxMana,p.mana+55*dt);updateClassKit(dt);
  p.regenPotionT=Math.max(0,p.regenPotionT-dt);
  // Natural healing builds while not recently hit, with local Terraria-inspired buffs.
  const calmTime=Math.max(0,g.t-p.lastHit),naturalRegen=2.5+Math.min(4.5,calmTime*.45);
@@ -895,7 +985,7 @@ function drawPixelWhip(g){
  }
 }
 
-// v15: more substantial silhouettes, dark separation outlines and emissive cores.
+// v16: more substantial silhouettes, dark separation outlines and emissive cores.
 makePixel('impact-mage',28,28,(r,p)=>{
  p([[14,0],[18,10],[27,5],[21,14],[28,18],[18,19],[14,28],[11,19],[1,24],[7,14],[0,9],[10,10]],'#dd633d');
  p([[14,4],[17,12],[24,10],[19,15],[22,18],[16,18],[14,24],[12,18],[5,20],[10,15],[5,11],[12,12]],'#ffc77a');
@@ -1029,7 +1119,7 @@ function fireArk(){
  audio.fx('sword');
  if(id===4){p.arkThrow={x:p.x,y:p.y,age:0,life:2.33,max:2.33,angle:a,boost,hitIds:new Map(),chainHits:new Map(),returning:false,snapped:false};p.fireCd=.1;return;}
  const duration=wide?.34:.25;
- p.fireCd=duration;p.swing={time:duration,max:duration,angle:a,arc:wide?TAU*.94:2.45,wide,dmg:(wide?3000:2550)*boost,boost,hitIds:new Set(),id};
+ p.fireCd=duration;p.swing={time:duration,max:duration,angle:a,arc:wide?TAU*.94:2.45,wide,dmg:(wide?2300:2000)*boost,boost,hitIds:new Set(),id};
  const d=norm(pointer.x-p.x,pointer.y-p.y);
  addShot(p.x+d.x*35,p.y+d.y*35,d.x,d.y,{...weapons[0],id:'arkBeam',dmg:700*boost,speed:1000,rad:7});
  if(wide)arkBolts(p.x,p.y,a,6,117*boost);
@@ -1240,12 +1330,12 @@ function draw(g){ctx.save();ctx.fillStyle='#0c0710';ctx.fillRect(0,0,W,H);ctx.tr
    const t=p.cosmicMark,r=t.r+18;
    ctx.strokeStyle=t.whipMarkedUntil>g.t?'#ffdd80':'#bdfb9d';ctx.setLineDash([6,4]);ctx.lineWidth=2.5;
    ctx.beginPath();ctx.arc(t.x,t.y,r+Math.sin(g.t*11)*2,0,TAU);ctx.stroke();ctx.setLineDash([]);
-   if(t.whipMarkedUntil>g.t)text('✴ +60%',t.x,t.y-r-10,11,'#ffe3a3');
+   if(t.whipMarkedUntil>g.t)text('✴ +35%',t.x,t.y-r-10,11,'#ffe3a3');
   }
  }
  drawPixelWhip(g);
  for(const ghost of g.dashGhosts){ctx.globalAlpha=.33*clamp(ghost.life/ghost.max,0,1);round(ghost.x,ghost.y,11,'#9af8ed','#ffe4ad',2)}ctx.globalAlpha=1;if(p.contactGuard>0){ctx.save();ctx.strokeStyle=p.dashT>0?'#b7fff6':'#86e4cd9c';ctx.lineWidth=p.dashT>0?3:2;ctx.setLineDash([5,5]);ctx.beginPath();ctx.arc(p.x,p.y,20+Math.sin(g.t*14)*2,0,TAU);ctx.stroke();ctx.setLineDash([]);ctx.restore()}if(p.iframes<=0||Math.floor(g.t*20)%2===0){ctx.save();ctx.translate(p.x,p.y);let a=Math.atan2(pointer.y-p.y,pointer.x-p.x);ctx.rotate(a);ctx.shadowColor=p.dashT>0?'#fff6a1':'#79e9fc';ctx.shadowBlur=12;round(0,0,10,'#78cdd5','#fff3df',2);ctx.fillStyle='#eaf7eb';ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(0,-5);ctx.lineTo(0,5);ctx.fill();round(-2,0,3,'#1e4157');ctx.restore()}
- drawHeldWeapon(g);drawWeaponImpacts(g);
+ drawHeldWeapon(g);drawWeaponImpacts(g);drawClassKit(g);
  for(let s of g.sparks){ctx.globalAlpha=clamp(s.life/s.max,0,1);round(s.x,s.y,3,s.c)}ctx.globalAlpha=1;
  for(let f of g.floaters){ctx.globalAlpha=clamp(f.life,0,1);text(f.text,f.x,f.y,15,f.col)}ctx.globalAlpha=1;
  ctx.restore();
@@ -1261,7 +1351,7 @@ function eventPos(e){let rect=canvas.getBoundingClientRect();pointer.x=clamp((e.
 canvas.addEventListener('pointermove',e=>{if(deviceMode==='mobile')return;eventPos(e);pointer.inside=true});
 canvas.addEventListener('pointerdown',e=>{
  if(deviceMode==='mobile'||e.button!==0&&e.button!==2)return;e.preventDefault();eventPos(e);pointer.inside=true;
- if(e.button===0){if(game?.player.weapon===0)arkAbility();else if(game?.player.weapon===3)markCosmicTarget(pointer.x,pointer.y);return;}
+ if(e.button===0){classAbility();return;}
  pointer.fire=true;if(game?.mode==='playing')shoot();try{canvas.setPointerCapture(e.pointerId)}catch(_){}
 });
 const mouseRelease=e=>{if(e.button!==2)return;pointer.fire=false;releaseArk();};
@@ -1329,7 +1419,7 @@ const takeAction=action=>{
  else if(action==='menu')$('device').scrollIntoView({block:'start',behavior:'smooth'});
  else if(action==='dash')dash();else if(action==='heal')heal();else if(action==='regen')drinkRegeneration();
  else if(action==='auto'){mobileAutoAim=!mobileAutoAim;updateMobileLabels();releaseArk();}
- else if(action==='target'&&game?.player.weapon===0)arkAbility();
+ else if(action==='target'&&game?.player.weapon!==3)classAbility();
  else if(action==='target'&&game){if(!game.player.cosmic||!game.player.cosmic.length)return;const targets=possibleTargets();if(!targets.length)return;const p=game.player;const dir=norm(pointer.x-p.x,pointer.y-p.y);const chosen=targets.slice().sort((a,b)=>Math.hypot(a.x-(p.x+dir.x*220),a.y-(p.y+dir.y*220))-Math.hypot(b.x-(p.x+dir.x*220),b.y-(p.y+dir.y*220)))[0];markCosmicTarget(chosen.x,chosen.y)}
 };
 touchButtons.forEach(b=>{
@@ -1360,7 +1450,7 @@ touchButtons.forEach(b=>{
 });
 function setDeviceMode(mode){
  deviceMode=mode==='mobile'?'mobile':'desktop';root.classList.toggle('mobile',deviceMode==='mobile');$('device').value=deviceMode;resetTouchInput();
- $('overlaydesc').textContent=deviceMode==='mobile'?'📱 Автоприціл і стрільба увімкнені, рух — лівим стіком. Кнопки справа. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 WASD / стрілки — рух, мишка — приціл, ПКМ — атака, Ark: ЛКМ — парирування / Big Rip, Space — ривок, H — лікування, B — реген, 1–5 — зброя, P — пауза. Summoner: 4 міньйони автоматично; ПКМ — хлист, ЛКМ — позначити ціль.';
+ $('overlaydesc').textContent=deviceMode==='mobile'?'📱 Автоприціл і стрільба увімкнені, рух — лівим стіком. Кнопки справа. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 WASD / стрілки — рух, мишка — приціл, ПКМ — атака, ЛКМ — уміння класу, Space — ривок, H — лікування, B — реген, 1–5 — зброя, P — пауза. Summoner: 4 міньйони автоматично; ПКМ — хлист, ЛКМ — позначити ціль.';
  try{localStorage.setItem('calamitas_device_mode',deviceMode)}catch(_){}
 }
 $('device').addEventListener('change',e=>setDeviceMode(e.target.value));
@@ -1388,7 +1478,7 @@ window.addEventListener('keydown',e=>{if(e.code==='Escape'&&root.classList.conta
 
 try{setDeviceMode(localStorage.getItem('calamitas_device_mode')||((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'))}catch(_){setDeviceMode(window.matchMedia('(pointer:coarse)').matches?'mobile':'desktop')}
 $('weapons').querySelector('[data-weapon="0"]').classList.add('on');updateMobileLabels();draw(null);
-$('runtime-status').textContent='✅ v15: ПКМ — атака. Ark: комбо ножиць, кидок і SNAP; ЛКМ — парирування / Big Rip. Телефон: стік + автоатака.';
+$('runtime-status').textContent='✅ v16: CLASS REFORGE · ПКМ — атака · ЛКМ — уміння класу · На телефоні: рух стіком, автоатака й окрема кнопка уміння.';
 $('runtime-status').classList.add('ok');
 })();
 </script>
@@ -1399,11 +1489,11 @@ $('runtime-status').classList.add('ok');
 #site-version-tag{position:fixed;z-index:30;right:6px;bottom:6px;background:#180e1bbe;border:1px solid #704350;border-radius:7px;padding:5px 8px;font:10px system-ui,sans-serif;color:#b89eaa;pointer-events:none}
 </style>
 <div id="site-update-banner" hidden role="status"><span>✨ Вийшло оновлення босфайту! Не загуби поточний бій.</span><button id="site-update-now" type="button">Оновити гру ↻</button></div>
-<div id="site-version-tag">SITE v15 • Cosmic scissors</div>
+<div id="site-version-tag">SITE v16 • Class reforge</div>
 <script>
 (()=>{
   'use strict';
-  const currentVersion='15.0.0';
+  const currentVersion='16.0.0';
   const banner=document.getElementById('site-update-banner');
   const button=document.getElementById('site-update-now');
   const url=new URL(location.href);
