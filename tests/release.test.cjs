@@ -11,7 +11,7 @@ test('release command updates cache versions and remains consistent for the next
   const temporary = fs.mkdtempSync(path.join(parent, 'calamitas-release-'));
   try {
     const root = path.resolve(__dirname, '..');
-    for (const name of ['index.html', 'version.json', 'package.json', 'src', 'config', 'styles', 'scripts']) fs.cpSync(path.join(root, name), path.join(temporary, name), {recursive: true});
+    for (const name of ['index.html', 'version.json', 'package.json', 'src', 'config', 'styles', 'scripts', 'assets']) fs.cpSync(path.join(root, name), path.join(temporary, name), {recursive: true});
     const result = spawnSync(process.execPath, ['scripts/release.cjs', '99.0.1', 'Release test'], {cwd: temporary, encoding: 'utf8'});
     assert.equal(result.status, 0, result.stderr);
     const checked = await checkProject(temporary);

@@ -1,9 +1,10 @@
-import { state } from '../core/state.js?v=17.0.1';
-import { update } from './update.js?v=17.0.1';
-import { draw } from '../render/scene.js?v=17.0.1';
+import { state } from '../core/state.js?v=18.0.0';
+import { update } from './update.js?v=18.0.0';
+import { draw } from '../render/scene.js?v=18.0.0';
 
 
 function loop(now){
+  if(state.screen!=='game'){state.raf=0;return;}
   state.raf=requestAnimationFrame(loop);
   let dt=Math.min(.034,(now-state.last)/1000||.016);
   state.last=now;

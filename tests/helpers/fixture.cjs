@@ -25,7 +25,8 @@ async function loadGame(options = {}) {
   let seed = 12345;
   const math = Object.create(Math);
   math.random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
-  const sandbox = {document, window, navigator: {maxTouchPoints: 0}, localStorage: {getItem: () => null, setItem: noop}, console, requestAnimationFrame: () => 1, performance: {now: () => 1000}, setInterval: noop, URL, location: {href: 'http://localhost:8877/'}, fetch: async () => ({ok: false}), Math: math};
+  const storage = new Map();
+  const sandbox = {document, window, navigator: {maxTouchPoints: 0}, localStorage: {getItem: key => storage.get(key) || null, setItem: (key, value) => storage.set(key, value)}, console, requestAnimationFrame: () => 1, cancelAnimationFrame: noop, performance: {now: () => 1000}, setInterval: noop, URL, location: {href: 'http://localhost:8877/'}, fetch: async () => ({ok: false}), Math: math};
   vm.createContext(sandbox);
   const root = path.resolve(__dirname, '../..');
   const modules = new Map();

@@ -1,4 +1,5 @@
 const state={
+  screen: 'menu',
   game: null,
   last: 0,
   raf: 0,

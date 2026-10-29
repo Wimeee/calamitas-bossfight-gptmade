@@ -1,11 +1,11 @@
-import { beginAttack, kit } from './shared.js?v=17.0.1';
-import { fireChannelWeapon } from '../combat/beams.js?v=17.0.1';
-import { hitTarget } from '../combat/damage.js?v=17.0.1';
-import { possibleTargets } from '../combat/targets.js?v=17.0.1';
-import { audio } from '../core/audio.js?v=17.0.1';
-import { dist, norm } from '../core/math.js?v=17.0.1';
-import { state } from '../core/state.js?v=17.0.1';
-import { weaponAim } from '../render/weapons.js?v=17.0.1';
+import { beginAttack, kit } from './shared.js?v=18.0.0';
+import { fireChannelWeapon } from '../combat/beams.js?v=18.0.0';
+import { hitTarget } from '../combat/damage.js?v=18.0.0';
+import { possibleTargets } from '../combat/targets.js?v=18.0.0';
+import { audio } from '../core/audio.js?v=18.0.0';
+import { dist, norm } from '../core/math.js?v=18.0.0';
+import { state } from '../core/state.js?v=18.0.0';
+import { weaponAim } from '../render/weapons.js?v=18.0.0';
 
 
 function activateMage(){

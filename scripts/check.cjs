@@ -11,6 +11,11 @@ async function checkProject(root = path.resolve(__dirname, '..')) {
   assert.ok(!/<style[\s>]/i.test(html), 'Styles belong in styles/');
   assert.ok(!/<script\b(?![^>]*\bsrc=)[^>]*>/i.test(html), 'Game logic belongs in src/');
   let assets = 0;
+  const stylesDirectory=path.join(root,'styles');
+  for(const name of fs.readdirSync(stylesDirectory).filter(name=>name.endsWith('.css'))){
+    const css=fs.readFileSync(path.join(stylesDirectory,name),'utf8');
+    for(const match of css.matchAll(/url\(['"]?(\.\.?\/[^'"\s)]+)['"]?\)/g))assert.ok(fs.existsSync(path.resolve(stylesDirectory,match[1].split('?')[0])),'Missing CSS asset: '+match[1]);
+  }
   for (const match of html.matchAll(/(?:src|href)="(\.\/[^"?#]+)(?:\?v=([^"]+))?"/g)) {
     assert.ok(fs.existsSync(path.join(root, match[1])), 'Missing HTML asset: ' + match[1]);
     assert.equal(match[2], manifest.version, 'Stale HTML asset version: ' + match[1]);
@@ -18,9 +23,11 @@ async function checkProject(root = path.resolve(__dirname, '..')) {
   }
   const context = vm.createContext({});
   const modules = new Map();
+  const elementIds=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]));
   function load(file) {
     if (modules.has(file)) return modules.get(file);
     const source = fs.readFileSync(file, 'utf8');
+    for(const match of source.matchAll(/\bbyId\('([^']+)'\)/g))assert.ok(elementIds.has(match[1]),'Missing menu element: '+match[1]);
     for (const match of source.matchAll(/\bfrom\s+['"]([^'"]+)['"]/g)) {
       assert.ok(match[1].startsWith('.'), 'Browser modules must use relative imports');
       assert.equal(match[1].split('?v=')[1], manifest.version, 'Stale module version: ' + match[1]);

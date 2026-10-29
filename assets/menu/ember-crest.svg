@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190" fill="none">
+ <defs><linearGradient id="metal" x1="120" y1="12" x2="120" y2="173" gradientUnits="userSpaceOnUse"><stop stop-color="#ffecb8"/><stop offset=".4" stop-color="#b79372"/><stop offset="1" stop-color="#51372d"/></linearGradient><linearGradient id="flame" x1="120" y1="48" x2="120" y2="161" gradientUnits="userSpaceOnUse"><stop stop-color="#ffdf9c"/><stop offset=".43" stop-color="#ee7549"/><stop offset="1" stop-color="#a22b35"/></linearGradient></defs>
+ <path d="M120 10 135 38 145 22 146 55 169 42 159 71 201 59 177 84 222 79 192 103 232 107 194 122 216 135 171 134 186 151 155 143 152 163 133 151 120 181 107 151 88 163 85 143 54 151 69 134 24 135 46 122 8 107 48 103 18 79 63 84 39 59 81 71 71 42 94 55 95 22 105 38Z" fill="#160d12" stroke="url(#metal)" stroke-width="2"/>
+ <path d="m45 88 46 13-12-20 27 25M29 111l62 9-13-10 26 13m-50 12 41-2m100-45-46 13 12-20-27 25m77 5-62 9 13-10-26 13m50 12-41-2" stroke="url(#metal)" stroke-width="3" stroke-linecap="square"/>
+ <path d="M120 43c-2 23-31 35-30 61 0 22 13 38 30 53 17-15 30-31 30-53 1-26-28-38-30-61Z" fill="#35131e" stroke="url(#metal)" stroke-width="2"/>
+ <path d="M121 60c1 23-20 29-19 46 0 14 8 27 18 37-4-16 13-17 13-30 0-10-7-15-9-23 11 7 18 20 16 31 11-23-14-40-19-61Z" fill="url(#flame)"/>
+ <path d="m120 28 4 11-4 10-4-10Z" fill="#ffdfac"/><path d="m114 161 6 12 6-12" stroke="#b98160" stroke-width="2"/>
+</svg>

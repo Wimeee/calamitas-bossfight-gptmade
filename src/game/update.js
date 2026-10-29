@@ -1,17 +1,17 @@
-import { playerConfig } from '../../config/player.js?v=17.0.1';
-import { getEncounter } from '../boss/registry.js?v=17.0.1';
-import { classRegistry, weapons } from '../classes/registry.js?v=17.0.1';
-import { updateClassKit } from '../classes/shared.js?v=17.0.1';
-import { shoot } from '../combat/attacks.js?v=17.0.1';
-import { updateBullets } from '../combat/projectiles.js?v=17.0.1';
-import { possibleTargets } from '../combat/targets.js?v=17.0.1';
-import { arena } from '../core/arena.js?v=17.0.1';
-import { audio } from '../core/audio.js?v=17.0.1';
-import { TAU } from '../core/config.js?v=17.0.1';
-import { clamp, norm, rnd } from '../core/math.js?v=17.0.1';
-import { state } from '../core/state.js?v=17.0.1';
-import { updateSystems } from '../systems/index.js?v=17.0.1';
-import { ui } from '../ui/hud.js?v=17.0.1';
+import { playerConfig } from '../../config/player.js?v=18.0.0';
+import { getEncounter } from '../boss/registry.js?v=18.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=18.0.0';
+import { updateClassKit } from '../classes/shared.js?v=18.0.0';
+import { shoot } from '../combat/attacks.js?v=18.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=18.0.0';
+import { possibleTargets } from '../combat/targets.js?v=18.0.0';
+import { arena } from '../core/arena.js?v=18.0.0';
+import { audio } from '../core/audio.js?v=18.0.0';
+import { TAU } from '../core/config.js?v=18.0.0';
+import { clamp, norm, rnd } from '../core/math.js?v=18.0.0';
+import { state } from '../core/state.js?v=18.0.0';
+import { updateSystems } from '../systems/index.js?v=18.0.0';
+import { ui } from '../ui/hud.js?v=18.0.0';
 
 
 function update(dt){

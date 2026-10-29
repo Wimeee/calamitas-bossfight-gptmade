@@ -1,23 +1,25 @@
-import { getEncounter } from '../boss/registry.js?v=17.0.1';
-import { possibleTargets } from '../combat/targets.js?v=17.0.1';
-import { arena } from '../core/arena.js?v=17.0.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=17.0.1';
-import { ctx } from '../core/dom.js?v=17.0.1';
-import { clamp, norm } from '../core/math.js?v=17.0.1';
-import { state } from '../core/state.js?v=17.0.1';
-import { drawBackdrop } from './background.js?v=17.0.1';
-import { drawClassKit } from './class-effects.js?v=17.0.1';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=17.0.1';
-import { drawSword } from './melee.js?v=17.0.1';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=17.0.1';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=17.0.1';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=18.0.0';
+import { getEncounter } from '../boss/registry.js?v=18.0.0';
+import { possibleTargets } from '../combat/targets.js?v=18.0.0';
+import { arena } from '../core/arena.js?v=18.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=18.0.0';
+import { ctx } from '../core/dom.js?v=18.0.0';
+import { clamp, norm } from '../core/math.js?v=18.0.0';
+import { state } from '../core/state.js?v=18.0.0';
+import { drawBackdrop } from './background.js?v=18.0.0';
+import { drawClassKit } from './class-effects.js?v=18.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=18.0.0';
+import { drawSword } from './melee.js?v=18.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=18.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=18.0.0';
 
 
 function draw(g){
   ctx.save();
   ctx.fillStyle='#0c0710';
   ctx.fillRect(0,0,W,H);
-  ctx.translate(VIEW_X,VIEW_Y);
+  const shake=shakeOffset(g);
+  ctx.translate(VIEW_X+shake.x,VIEW_Y+shake.y);
   drawBackdrop(g);
   if(!g){
     text('ALTAR OF THE ACCURSED',500,300,27,'#a74e60');
@@ -51,7 +53,7 @@ function draw(g){
   for(let q of g.projectiles){
     let color=q.kind==='skull'?'#ffbb7b':q.kind==='giga'?'#ffd0b0':q.kind==='fire'?'#ff895b':q.kind==='hellblast'?'#f84c7c':'#dd536c';
     ctx.shadowColor=color;
-    ctx.shadowBlur=q.kind==='giga'?19:8;
+    ctx.shadowBlur=settings.quality==='low'?0:q.kind==='giga'?19:8;
     line(q.x-q.vx*.030,q.y-q.vy*.030,q.x,q.y,color,q.kind==='giga'?6:2.4);
     round(q.x,q.y,q.r,color,'#6b1a37',1);
     ctx.shadowBlur=0;
@@ -123,7 +125,8 @@ function draw(g){
   drawHeldWeapon(g);
   drawWeaponImpacts(g);
   drawClassKit(g);
-  for(let s of g.sparks){
+  for(let sparkIndex=0;sparkIndex<Math.min(g.sparks.length,settings.quality==='low'?40:Infinity);sparkIndex++){
+    const s=g.sparks[sparkIndex];
     ctx.globalAlpha=clamp(s.life/s.max,0,1);
     round(s.x,s.y,3,s.c)
   }
@@ -155,7 +158,7 @@ function draw(g){
     ctx.fillStyle='#09080bd9';
     ctx.fillRect(0,0,W,H);
     text('⏸ ПАУЗА',W/2,H/2-10,43,'#ffcfbf');
-    text('Натисни P для продовження',W/2,H/2+33,16,'#d0b8bf')
+    text('Натисни '+keyLabel(settings.bindings.pause)+' для продовження',W/2,H/2+33,16,'#d0b8bf')
   }
 }
 

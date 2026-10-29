@@ -1,15 +1,16 @@
-import { releaseArk } from '../classes/melee.js?v=17.0.1';
-import { classAbility } from '../classes/shared.js?v=17.0.1';
-import { markCosmicTarget } from '../classes/summoner.js?v=17.0.1';
-import { shoot } from '../combat/attacks.js?v=17.0.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=17.0.1';
-import { possibleTargets } from '../combat/targets.js?v=17.0.1';
-import { arena } from '../core/arena.js?v=17.0.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=17.0.1';
-import { $, canvas, root } from '../core/dom.js?v=17.0.1';
-import { clamp, norm } from '../core/math.js?v=17.0.1';
-import { state } from '../core/state.js?v=17.0.1';
-import { togglePause } from '../game/session.js?v=17.0.1';
+import { updateSettings,controlHint } from '../core/settings.js?v=18.0.0';
+import { releaseArk } from '../classes/melee.js?v=18.0.0';
+import { classAbility } from '../classes/shared.js?v=18.0.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=18.0.0';
+import { shoot } from '../combat/attacks.js?v=18.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=18.0.0';
+import { possibleTargets } from '../combat/targets.js?v=18.0.0';
+import { arena } from '../core/arena.js?v=18.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=18.0.0';
+import { $, canvas, root } from '../core/dom.js?v=18.0.0';
+import { clamp, norm } from '../core/math.js?v=18.0.0';
+import { state } from '../core/state.js?v=18.0.0';
+import { togglePause } from '../game/session.js?v=18.0.0';
 
 let mobileAimTouch=null;
 
@@ -169,7 +170,7 @@ const takeAction=action=>{
   if(action==='regen')drinkRegeneration();
   else
   if(action==='auto'){
-    state.mobileAutoAim=!state.mobileAutoAim;
+    state.mobileAutoAim=!state.mobileAutoAim;updateSettings({autoAim:state.mobileAutoAim});
     updateMobileLabels();
     releaseArk();
   }
@@ -193,7 +194,7 @@ function setDeviceMode(mode){
   root.classList.toggle('mobile',state.deviceMode==='mobile');
   $('device').value=state.deviceMode;
   resetTouchInput();
-  $('overlaydesc').textContent=state.deviceMode==='mobile'?'📱 Автоприціл і стрільба увімкнені, рух — лівим стіком. Кнопки справа. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 WASD / стрілки — рух, мишка — приціл, ПКМ — атака, ЛКМ — уміння класу, Space — ривок, H — лікування, B — реген, 1–5 — зброя, P — пауза. Summoner: 4 міньйони автоматично; ПКМ — хлист, ЛКМ — позначити ціль.';
+  $('overlaydesc').textContent=state.deviceMode==='mobile'?'📱 Автоприціл і стрільба увімкнені, рух — лівим стіком. Кнопки справа. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 '+controlHint();
   try{
     localStorage.setItem('calamitas_device_mode',state.deviceMode)
   }catch(_){

@@ -2,6 +2,8 @@
 
 Робочий конспект Master Development Plan, наданого автором 29.10.2026. Назва гри затверджена: **Untitled Terraria Bossfight Game**. Поточний ігровий епізод — Supreme Calamitas: Brimstone Trial.
 
+Стан розробки: технічний фундамент v17 виконаний; окремо погоджено та реалізовано **v18 Main Menu** — власний фон, емблема, обов’язкові іскри знизу, Play/Settings/Credits, вибір Calamitas та параметрів бою. Решта етапів нижче залишаються планом.
+
 ## Напрямок і межі
 
 Фанатська 2D-гра з босами Terraria та Calamity: бойові механіки Terraria/Calamity й інтенсивні bullet-hell патерни в дусі Touhou. Технології — HTML, CSS, JavaScript і Canvas. Змінювати рушій поки не планується.

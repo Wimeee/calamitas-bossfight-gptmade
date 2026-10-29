@@ -1,11 +1,13 @@
-import { $ } from './dom.js?v=17.0.1';
+import { settings,updateSettings } from './settings.js?v=18.0.0';
+import { $ } from './dom.js?v=18.0.0';
 
 const audio={
   ctx:null,
   master:null,
-  sfx:true,
-  music:false,
-  volume:.55,
+  sfx:settings.sfxEnabled,
+  music:settings.musicEnabled,
+  volume:1,
+  musicVoice:false,
   last:{},
   step:-1,
   notes:[50,50,53,48,50,55,53,48,46,46,50,43,46,53,50,48],
@@ -33,8 +35,8 @@ const audio={
     return true
   },
   vol(v){
-    this.volume=v;
-    if(this.master&&this.ctx)this.master.gain.setTargetAtTime(.25*v,this.ctx.currentTime,.025)
+    updateSettings({sfxVolume:v});
+    if(this.master&&this.ctx)this.master.gain.setTargetAtTime(.25*this.volume,this.ctx.currentTime,.025)
   },
   gate(tag,interval=.04){
     if(!this.ctx||!this.sfx||this.volume<=0)return false;
@@ -46,6 +48,8 @@ const audio={
   tone(f,d=.13,shape='triangle',gain=.1,slide=1,delay=0){
     if(!this.ctx||!this.master||this.volume<=0)return;
     try{
+      gain*=this.musicVoice?settings.musicVolume:settings.sfxVolume;
+      if(gain<=0)return;
       const t=this.ctx.currentTime+delay,osc=this.ctx.createOscillator(),env=this.ctx.createGain();
       osc.type=shape;
       osc.frequency.setValueAtTime(Math.max(40,f),t);
@@ -63,6 +67,8 @@ const audio={
   hiss(d=.13,gain=.10,delay=0){
     if(!this.ctx||!this.noise||this.volume<=0)return;
     try{
+      gain*=this.musicVoice?settings.musicVolume:settings.sfxVolume;
+      if(gain<=0)return;
       let t=this.ctx.currentTime+delay,src=this.ctx.createBufferSource(),fil=this.ctx.createBiquadFilter(),env=this.ctx.createGain();
       src.buffer=this.noise;
       fil.type='highpass';
@@ -169,20 +175,23 @@ const audio={
     if(step===this.step)return;
     this.step=step;
     let idx=step%16;
+    this.musicVoice=true;
+    try{
     const hz=m=>440*Math.pow(2,(m-69)/12),base=this.notes[idx];
     if(idx%2===0)this.tone(hz(base-12),.28,'triangle',.065,.87);
     if(idx%4===0)this.tone(hz(base+12),.34,'sine',.040,1.01);
     if(idx%2===1)this.hiss(.025,.028);
     if((g.stage==='hell'||g.thresholds.has('40'))&&idx%4===2)this.tone(hz(base+19),.12,'sawtooth',.026,.8);
+    }finally{this.musicVoice=false;}
   },
   setSound(flag){
-    this.sfx=flag;
+    this.sfx=flag;updateSettings({sfxEnabled:flag});
     $('soundtoggle').textContent=flag?'🔊 Звуки: УВІМК':'🔇 Звуки: ВИМК';
     $('soundtoggle').setAttribute('aria-pressed',String(flag));
     $('soundtoggle').classList.toggle('sound-muted',!flag)
   },
   setMusic(flag){
-    this.music=flag;
+    this.music=flag;updateSettings({musicEnabled:flag});
     this.step=-1;
     $('musictoggle').textContent=flag?'♫ Музика: УВІМК':'♫ Музика: ВИМК';
     $('musictoggle').setAttribute('aria-pressed',String(flag));
