@@ -12,10 +12,14 @@ test('ground, variable jump, one-way platforms and drop-through',async()=>{
   Object.assign(p,{x:500,y:platform.y+35,vy:-500,grounded:false,jumpGrace:0});
   advance(t,g,.35);assert.ok(p.y+18<platform.y,'ascending player passes through underside');
   advance(t,g,.3);assert.equal(p.support,'lower');assert.equal(p.y,platform.y-18);
-  t.setKeys({s:true,jump:true});t.queueJump();advance(t,g,.1);
+  t.setKeys({s:true});advance(t,g,.1);
   assert.ok(p.y+18>platform.y+4);assert.ok(p.vy>0);assert.notEqual(p.support,'lower');
   const upper=terrain.platforms.at(-1);Object.assign(p,{x:500,y:upper.y-18,vy:0,grounded:true,support:upper.id,jumpWasHeld:false});
-  t.queueJump();advance(t,g,.65);assert.equal(p.support,'ground','held down+jump passes all platform rows');
+  advance(t,g,.65);assert.equal(p.support,'ground','held S alone passes all platform rows but never the floor');
+  t.spawnNearAltar(g,500);t.setKeys({s:true});advance(t,g,.05);t.setKeys({});advance(t,g,.5);
+  assert.equal(p.support,'lower','releasing S restores landing on the next platform');
+  t.spawnNearAltar(g,500);t.setDeviceMode('mobile');t.setAxis({x:0,y:1});advance(t,g,.1);
+  assert.equal(p.grounded,false);assert.ok(p.vy>0,'mobile downward stick drops without the jump button');
 });
 
 test('wings are finite, refill only on landing, fast fall is faster and pause freezes movement',async()=>{

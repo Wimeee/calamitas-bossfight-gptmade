@@ -1,8 +1,8 @@
-import { paintAltar } from './altar.js?v=21.1.0';
-import { arena } from '../core/arena.js?v=21.1.0';
-import { ctx } from '../core/dom.js?v=21.1.0';
-import { W,H,VIEW_X,VIEW_Y } from '../core/config.js?v=21.1.0';
-import { getTerrain } from '../world/terrain.js?v=21.1.0';
+import { paintAltar } from './altar.js?v=21.1.1';
+import { arena } from '../core/arena.js?v=21.1.1';
+import { ctx } from '../core/dom.js?v=21.1.1';
+import { W,H,VIEW_X,VIEW_Y } from '../core/config.js?v=21.1.1';
+import { getTerrain } from '../world/terrain.js?v=21.1.1';
 
 let cached=null,key='';
 export function drawTerrain(){

@@ -1,9 +1,9 @@
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=21.1.0';
-import { enemyBullet } from '../combat/projectiles.js?v=21.1.0';
-import { arena } from '../core/arena.js?v=21.1.0';
-import { clamp, norm, rnd } from '../core/math.js?v=21.1.0';
-import { state } from '../core/state.js?v=21.1.0';
-import { enter } from '../game/phases.js?v=21.1.0';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=21.1.1';
+import { enemyBullet } from '../combat/projectiles.js?v=21.1.1';
+import { arena } from '../core/arena.js?v=21.1.1';
+import { clamp, norm, rnd } from '../core/math.js?v=21.1.1';
+import { state } from '../core/state.js?v=21.1.1';
+import { enter } from '../game/phases.js?v=21.1.1';
 
 const hellDirections=[
   [['down','right','left'],['right','left'],['down','right','left']],

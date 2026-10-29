@@ -119,7 +119,7 @@ Focused checks: registered landmarks, frame timing, facing, dash progression, pa
 
 ## v21 — Terraria Movement
 
-The arena now has solid ground and three platform levels. A/D or left/right run with fast acceleration and braking. Space (also W/up) jumps; hold Space in the air to use 2.4 seconds of wings. Landing on ground or a platform refills flight. S accelerates falling; hold S+Space to pass downward through all platforms. No fall damage. Bosses and projectiles pass through platforms.
+The arena now has solid ground and three platform levels. A/D or left/right run with fast acceleration and braking. Space (also W/up) jumps; hold Space in the air to use 2.4 seconds of wings. Landing on ground or a platform refills flight. S accelerates falling; hold S alone to pass downward through all platforms. No fall damage. Bosses and projectiles pass through platforms.
 
 Desktop controls: **left mouse attacks, right mouse activates the class ability**. Releasing left mouse performs the existing Ark SNAP. Dash with double-tap A/D or left/right, or Left Shift. Settings can disable double-tap and bind dash to another key, middle mouse or mouse side buttons. Existing saved Space-dash settings migrate off Space.
 

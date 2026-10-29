@@ -1,5 +1,5 @@
-import { movementConfig } from '../../config/movement.js?v=21.1.0';
-import { ctx } from '../core/dom.js?v=21.1.0';
+import { movementConfig } from '../../config/movement.js?v=21.1.1';
+import { ctx } from '../core/dom.js?v=21.1.1';
 
 export function drawFlightWings(g){
   const p=g.player;if(!p.physics||!p.flying)return;

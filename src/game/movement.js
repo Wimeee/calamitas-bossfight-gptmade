@@ -1,9 +1,9 @@
-import { movementConfig as config } from '../../config/movement.js?v=21.1.0';
-import { playerConfig } from '../../config/player.js?v=21.1.0';
-import { arena } from '../core/arena.js?v=21.1.0';
-import { state } from '../core/state.js?v=21.1.0';
-import { clamp } from '../core/math.js?v=21.1.0';
-import { getTerrain } from '../world/terrain.js?v=21.1.0';
+import { movementConfig as config } from '../../config/movement.js?v=21.1.1';
+import { playerConfig } from '../../config/player.js?v=21.1.1';
+import { arena } from '../core/arena.js?v=21.1.1';
+import { state } from '../core/state.js?v=21.1.1';
+import { clamp } from '../core/math.js?v=21.1.1';
+import { getTerrain } from '../world/terrain.js?v=21.1.1';
 
 const approach=(value,target,amount)=>value<target?Math.min(target,value+amount):Math.max(target,value-amount);
 export function resetMovement(g,x=380){
@@ -51,7 +51,7 @@ export function updatePlayerMovement(g,dt){
   const down=!!(k.s||k.ArrowDown||state.moveAxis.y>.5);
   const held=!!(k.jump||k.w||k.ArrowUp||state.mobileJump||state.mobileFlight);
   const flightHeld=!!(k.jump||k.w||k.ArrowUp||state.mobileFlight);
-  p.dropHeld=down&&held;
+  p.dropHeld=down;
   if(held&&!p.jumpWasHeld)p.jumpBuffer=config.jumpBuffer;
   if(!held&&p.jumpWasHeld&&p.jumpSustain>0&&p.vy<0){p.vy*=config.jumpCut;p.jumpSustain=0;}
   p.jumpWasHeld=held;
@@ -62,6 +62,10 @@ export function updatePlayerMovement(g,dt){
     p.jumpGrace=p.grounded?config.jumpGrace:Math.max(0,p.jumpGrace-step);
     p.jumpSustain=Math.max(0,p.jumpSustain-step);
     if(g.ritual)p.dashCd=Math.max(0,p.dashCd-step);
+    if(down&&p.grounded&&p.support&&p.support!=='ground'){
+      p.dropTimer=config.dropTime;p.y+=2;p.vy=80;p.jumpSustain=0;
+      p.jumpBuffer=0;p.jumpGrace=0;p.grounded=false;p.support=null;
+    }
     if(p.jumpBuffer>0&&p.jumpGrace>0){
       p.jumpBuffer=0;p.jumpGrace=0;
       if(down&&p.support&&p.support!=='ground'){

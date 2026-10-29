@@ -1,10 +1,10 @@
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=21.1.0';
-import { arena } from '../core/arena.js?v=21.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.0';
-import { ctx } from '../core/dom.js?v=21.1.0';
-import { clamp, norm } from '../core/math.js?v=21.1.0';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=21.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.0';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=21.1.1';
+import { arena } from '../core/arena.js?v=21.1.1';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.1';
+import { ctx } from '../core/dom.js?v=21.1.1';
+import { clamp, norm } from '../core/math.js?v=21.1.1';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=21.1.1';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.1';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   if(g.stage==='hell'&&g.huntWarning){

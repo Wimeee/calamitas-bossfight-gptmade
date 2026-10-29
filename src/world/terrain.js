@@ -1,5 +1,5 @@
-import { arena } from '../core/arena.js?v=21.1.0';
-import { movementConfig as config } from '../../config/movement.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.1';
+import { movementConfig as config } from '../../config/movement.js?v=21.1.1';
 
 let cached=null,key='';
 export function getTerrain(){

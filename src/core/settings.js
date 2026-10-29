@@ -48,7 +48,7 @@ function resolveGameKey(code, legacy) {
   return Object.values(actions).includes(key)?null:key;
 }
 function keyLabel(code) { return ({Space:'Space',MouseMiddle:'Коліщатко',MouseBack:'Бічна 4',MouseForward:'Бічна 5'})[code]||code.replace(/^Key/,'').replace('ShiftLeft','Left Shift').replace('ShiftRight','Right Shift'); }
-function controlHint(){const b=settings.bindings;return `A/D — біг · Space — стрибок / крила · S — зниження · S+Space — крізь платформу · ЛКМ — атака · ПКМ — уміння · ${settings.doubleTapDash?'A/A, D/D або ':''}${keyLabel(b.dash)} — ривок · ${keyLabel(b.heal)} — лікування · ${keyLabel(b.regen)} — реген · ${keyLabel(b.pause)} — пауза · ${keyLabel(b.restart)} — новий бій`;}
+function controlHint(){const b=settings.bindings;return `A/D — біг · Space — стрибок / крила · S — спуск крізь платформи / швидке падіння · ЛКМ — атака · ПКМ — уміння · ${settings.doubleTapDash?'A/A, D/D або ':''}${keyLabel(b.dash)} — ривок · ${keyLabel(b.heal)} — лікування · ${keyLabel(b.regen)} — реген · ${keyLabel(b.pause)} — пауза · ${keyLabel(b.restart)} — новий бій`;}
 function bindKey(action,code) {
   if(!Object.hasOwn(defaultBindings,action))return false;
   if(!/^(Key[A-Z]|ShiftLeft|ShiftRight)$/.test(code)&&!(action==='dash'&&/^Mouse(Middle|Back|Forward)$/.test(code)))return false;

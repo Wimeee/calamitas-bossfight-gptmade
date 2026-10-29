@@ -1,6 +1,6 @@
-import { playerConfig } from '../../config/player.js?v=21.1.0';
-import { audio } from '../core/audio.js?v=21.1.0';
-import { state } from '../core/state.js?v=21.1.0';
+import { playerConfig } from '../../config/player.js?v=21.1.1';
+import { audio } from '../core/audio.js?v=21.1.1';
+import { state } from '../core/state.js?v=21.1.1';
 
 
 function heal(){
