@@ -1,8 +1,8 @@
-import { enemyBullet, fan } from '../combat/projectiles.js?v=19.1.0';
-import { arena } from '../core/arena.js?v=19.1.0';
-import { TAU } from '../core/config.js?v=19.1.0';
-import { clamp, lerp, norm } from '../core/math.js?v=19.1.0';
-import { state } from '../core/state.js?v=19.1.0';
+import { enemyBullet, fan } from '../combat/projectiles.js?v=19.1.1';
+import { arena } from '../core/arena.js?v=19.1.1';
+import { TAU } from '../core/config.js?v=19.1.1';
+import { clamp, lerp, norm } from '../core/math.js?v=19.1.1';
+import { state } from '../core/state.js?v=19.1.1';
 
 
 function updateMinions(dt){

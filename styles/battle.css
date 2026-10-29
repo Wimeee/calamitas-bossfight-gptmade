@@ -1,5 +1,8 @@
 /* Battle presentation only. Canvas proportions and input coordinates stay aligned. */
-body:has(#scal-game:not([hidden])){background:linear-gradient(#0a060ae8,#11080cd9 55%,#090609ed),#0c080c url('../assets/menu/brimstone-sanctuary.webp') center/cover fixed no-repeat}
+body:not(.menu-open){background:#0c080c}
+#scal-game{isolation:isolate}
+#scal-game::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#0a060ae8,#11080cd9 55%,#090609ed),#0c080c url('../assets/menu/brimstone-sanctuary.webp') center/cover no-repeat;transform:translateZ(0)}
+#scal-game[data-quality="low"]::before{background:#0c080c}
 #scal-game{max-width:1600px;padding:12px 24px;margin:0 auto;min-height:100svh;color:#deceba}
 #scal-game .shell{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
 #scal-game .battle-header{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 92px 9px 0;background:none;border-bottom:1px solid #bd8d5940}
@@ -31,7 +34,7 @@ body:has(#scal-game:not([hidden])){background:linear-gradient(#0a060ae8,#11080cd
 #scal-game #manabar{background:linear-gradient(90deg,#345d7c,#93b8c2)}
 #scal-game .status .number{display:flex;gap:18px;justify-content:flex-end;align-items:center;flex-wrap:wrap;font:10px system-ui;color:#c9b29c}
 #scal-game .status .number div{margin:0!important;color:#c9b29c!important}
-#scal-game .screen{width:min(100%,calc((100svh - 218px)*5/3));aspect-ratio:5/3;margin:0 auto;background:#100a11;border:1px solid #b77a5e45;box-shadow:0 0 0 5px #09070b66,0 0 60px #9d28300a;isolation:isolate}
+#scal-game .screen{width:min(100%,calc((100svh - 218px)*5/3));aspect-ratio:5/3;margin:0 auto;background:#100a11;border:1px solid #b77a5e45;box-shadow:none;isolation:isolate;contain:layout paint}
 #scal-game .quick{min-height:33px;padding:10px 0 6px;background:none;border:0;gap:8px 20px;color:#a58c80;font:9px system-ui;letter-spacing:.2px;justify-content:space-between}
 #scal-game .quick b{color:#d9b393;font-weight:500}
 #scal-game .quick>div:last-child{max-width:48%;text-align:right}
@@ -50,8 +53,8 @@ body:has(#scal-game:not([hidden])){background:linear-gradient(#0a060ae8,#11080cd
 #scal-game .wp{border-radius:0;background:#291a20;font:10px system-ui;border-color:#7d59474d}
 #scal-game .wp.on{background:#593128;border-color:#c28a61;color:#ffe0b5}
 #scal-game .runtime-status.ok{display:none}#scal-game .runtime-status:not(.ok){margin:12px 0}
-body:has(#scal-game:not([hidden])) #site-version-tag{display:none}
-#scal-game .overlay{background:radial-gradient(ellipse at 50% 40%,#351220dc,#08060bf5 75%);backdrop-filter:blur(5px);gap:18px}
+body:not(.menu-open) #site-version-tag{display:none}
+#scal-game .overlay{background:radial-gradient(ellipse at 50% 40%,#351220dc,#08060bf5 75%);backdrop-filter:none;gap:18px}
 #scal-game .overlay h2{font:400 clamp(26px,4vw,48px) Georgia,serif;color:#f2d4ad;text-shadow:0 0 30px #c4513d30}
 #scal-game .overlay .subtitle{font:9px system-ui;letter-spacing:4px;color:#bf8b70}
 #scal-game .overlay p{font:12px/1.8 system-ui;color:#b8a293;max-width:470px}
@@ -85,3 +88,8 @@ body:has(#scal-game:not([hidden])) #site-version-tag{display:none}
  #scal-game .touch{background:#160e15;border-color:#a7775140}#scal-game .ritual-controls{bottom:8%}#scal-game .ritual-controls button{min-height:34px;font-size:9px;padding:6px 10px}
 }
 @media(orientation:portrait){#scal-game.focus-mode.mobile .touch{background:radial-gradient(ellipse at 50% 100%,#3b251e88,#100a11);border-top-color:#a5785040}}
+
+/* Keep each canvas frame off the static page paint path. */
+#scal-game #game{transform:translateZ(0)}
+#scal-game .fill{transition:none}
+#scal-game .battle-heading img{filter:none}

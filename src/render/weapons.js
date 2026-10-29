@@ -1,10 +1,10 @@
-import { weapons } from '../classes/registry.js?v=19.1.0';
-import { TAU } from '../core/config.js?v=19.1.0';
-import { ctx } from '../core/dom.js?v=19.1.0';
-import { clamp } from '../core/math.js?v=19.1.0';
-import { state } from '../core/state.js?v=19.1.0';
-import { drawArkPair } from './melee.js?v=19.1.0';
-import { line, pixel, round } from './primitives.js?v=19.1.0';
+import { weapons } from '../classes/registry.js?v=19.1.1';
+import { TAU } from '../core/config.js?v=19.1.1';
+import { ctx } from '../core/dom.js?v=19.1.1';
+import { clamp } from '../core/math.js?v=19.1.1';
+import { state } from '../core/state.js?v=19.1.1';
+import { drawArkPair } from './melee.js?v=19.1.1';
+import { line, pixel, round } from './primitives.js?v=19.1.1';
 
 
 function drawPixelWhip(g){

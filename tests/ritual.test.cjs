@@ -2,6 +2,23 @@ const test=require('node:test');
 const assert=require('node:assert/strict');
 const {loadGame}=require('./helpers/fixture.cjs');
 
+test('idle preparation does not rewrite DOM attributes each frame',async()=>{
+  const {t,el}=await loadGame();t.start({ritual:true});
+  let writes=0;
+  for(const id of ['ritual-controls','ritual-summon','ritual-skip']){
+    const element=el(id);
+    for(const property of ['hidden','disabled','textContent']){
+      let value=element[property];
+      Object.defineProperty(element,property,{get:()=>value,set:next=>{writes++;value=next;}});
+    }
+  }
+  for(let i=0;i<120;i++)t.update(.016);
+  assert.equal(writes,0,'unchanged controls must not trigger style invalidation');
+  t.getGame().player.y=340;t.syncRitualControls();
+  assert.equal(el('ritual-summon').disabled,false);
+  assert.ok(writes>0,'real control changes must still reach the DOM');
+});
+
 test('ritual gates combat, freezes resources and enters original opening once for every class/difficulty',async()=>{
   const {t,el}=await loadGame();
   for(const difficulty of ['normal','revenge','death'])for(const weapon of t.weapons){

@@ -1,6 +1,6 @@
-import { TAU } from '../core/config.js?v=19.1.0';
-import { ctx } from '../core/dom.js?v=19.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=19.1.0';
+import { TAU } from '../core/config.js?v=19.1.1';
+import { ctx } from '../core/dom.js?v=19.1.1';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=19.1.1';
 
 
 function drawBrother(br,g){

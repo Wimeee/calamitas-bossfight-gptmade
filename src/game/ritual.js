@@ -1,13 +1,13 @@
-import { playerConfig } from '../../config/player.js?v=19.1.0';
-import { getEncounter } from '../boss/registry.js?v=19.1.0';
-import { arena } from '../core/arena.js?v=19.1.0';
-import { audio } from '../core/audio.js?v=19.1.0';
-import { $ } from '../core/dom.js?v=19.1.0';
-import { clamp, norm } from '../core/math.js?v=19.1.0';
-import { state } from '../core/state.js?v=19.1.0';
-import { resetTouchInput } from '../input/mobile.js?v=19.1.0';
-import { ui } from '../ui/hud.js?v=19.1.0';
-import { enter } from './phases.js?v=19.1.0';
+import { playerConfig } from '../../config/player.js?v=19.1.1';
+import { getEncounter } from '../boss/registry.js?v=19.1.1';
+import { arena } from '../core/arena.js?v=19.1.1';
+import { audio } from '../core/audio.js?v=19.1.1';
+import { $ } from '../core/dom.js?v=19.1.1';
+import { clamp, norm } from '../core/math.js?v=19.1.1';
+import { state } from '../core/state.js?v=19.1.1';
+import { resetTouchInput } from '../input/mobile.js?v=19.1.1';
+import { ui } from '../ui/hud.js?v=19.1.1';
+import { enter } from './phases.js?v=19.1.1';
 
 export const ritualConfig=Object.freeze({x:500,y:300,range:86,duration:6.4,skipAfter:.8});
 
@@ -21,15 +21,20 @@ export function nearAltar(g=state.game){
   return !!g&&Math.hypot(g.player.x-ritualConfig.x,g.player.y-ritualConfig.y)<ritualConfig.range;
 }
 
+function setControl(id,property,value){
+  const element=$(id);
+  if(element[property]!==value)element[property]=value;
+}
+
 export function syncRitualControls(){
   const g=state.game,r=g?.ritual,active=!!r&&g.mode==='playing';
-  $('ritual-controls').hidden=!r;
-  $('ritual-summon').hidden=!r||r.phase!=='preparation';
-  $('ritual-summon').disabled=!active||!nearAltar(g);
+  setControl('ritual-controls','hidden',!r);
+  setControl('ritual-summon','hidden',!r||r.phase!=='preparation');
+  setControl('ritual-summon','disabled',!active||!nearAltar(g));
   const label=nearAltar(g)?'Викликати · E / Enter':'Підійди до урни';
   if($('ritual-summon').textContent!==label)$('ritual-summon').textContent=label;
-  $('ritual-skip').hidden=!r||r.phase!=='summoning';
-  $('ritual-skip').disabled=!active||r.elapsed<ritualConfig.skipAfter;
+  setControl('ritual-skip','hidden',!r||r.phase!=='summoning');
+  setControl('ritual-skip','disabled',!active||r.elapsed<ritualConfig.skipAfter);
 }
 
 export function prepareRitual(g){

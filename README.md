@@ -85,3 +85,7 @@ New approved flaming title logo. Enter the arena, move close to the urn, then pr
 ## v19.1 — Battle UI
 
 The battle screen now shares the menu atmosphere: dim illustrated backdrop, compact gold-and-brimstone HUD, viewport-sized arena, dropdown battle options, collapsible controls/phase guide, refreshed result overlay and mobile controls. Gameplay and canvas coordinates are unchanged. Validation was limited to structural/module checks and desktop/mobile visual inspection as requested; no repeated combat suite. Restore point: `backup/v19-before-battle-ui`.
+
+## v19.1.1 — FPS hotfix
+
+Remove battle-wide `:has` selectors and the fixed body background; keep the illustrated backdrop on a separate static layer. Isolate canvas painting, remove the large arena shadow/backdrop blur, and disable animated HUD bar widths. Ritual controls now write DOM properties only when values change. Low quality omits the decorative battle background. Targeted ritual tests include zero unchanged control writes over 120 preparation frames; no claim of device-specific FPS. Previous recovery commit: ae072efd9635a42060441ed2fc9ec2291a8ae320.
