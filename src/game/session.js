@@ -1,18 +1,19 @@
-import { settings } from '../core/settings.js?v=18.0.0';
-import { playerConfig } from '../../config/player.js?v=18.0.0';
-import { getDifficulty } from '../../config/difficulty.js?v=18.0.0';
-import { getEncounter } from '../boss/registry.js?v=18.0.0';
-import { weapons } from '../classes/registry.js?v=18.0.0';
-import { summonSquad } from '../classes/summoner.js?v=18.0.0';
-import { configureArena } from '../core/arena.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { $ } from '../core/dom.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { loop } from './loop.js?v=18.0.0';
-import { enter } from './phases.js?v=18.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=18.0.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=18.0.0';
-import { showOverlay, ui } from '../ui/hud.js?v=18.0.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=19.0.0';
+import { settings } from '../core/settings.js?v=19.0.0';
+import { playerConfig } from '../../config/player.js?v=19.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=19.0.0';
+import { getEncounter } from '../boss/registry.js?v=19.0.0';
+import { weapons } from '../classes/registry.js?v=19.0.0';
+import { summonSquad } from '../classes/summoner.js?v=19.0.0';
+import { configureArena } from '../core/arena.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { $ } from '../core/dom.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { loop } from './loop.js?v=19.0.0';
+import { enter } from './phases.js?v=19.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=19.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=19.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=19.0.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -106,7 +107,7 @@ function makeGame(encounterId='supreme-calamitas'){
 }
 
 
-function start(){
+function start(options={}){
   state.screen='game';
   audio.init();
   audio.fx('phase');
@@ -116,7 +117,9 @@ function start(){
   state.game=makeGame();
   configureArena(state.game.difficulty);
   const opening=getEncounter().config.opening;
-  enter(opening.stage,opening.marker,opening.label);
+  if(options.ritual)prepareRitual(state.game);
+  else enter(opening.stage,opening.marker,opening.label);
+  syncRitualControls();
   $('diff').disabled=true;
   $('class').disabled=true;
   $('overlay').hidden=true;
@@ -159,6 +162,7 @@ function changeWeapon(n){
 function togglePause(){
   if(!state.game||state.game.mode==='dead'||state.game.mode==='won')return;
   state.game.mode=state.game.mode==='paused'?'playing':'paused';
+  syncRitualControls();
   $('pause').textContent=state.game.mode==='paused'?'▶ Продовжити':'⏸ Пауза'
 }
 

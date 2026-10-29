@@ -1,21 +1,23 @@
-import { playerConfig } from '../../config/player.js?v=18.0.0';
-import { getEncounter } from '../boss/registry.js?v=18.0.0';
-import { classRegistry, weapons } from '../classes/registry.js?v=18.0.0';
-import { updateClassKit } from '../classes/shared.js?v=18.0.0';
-import { shoot } from '../combat/attacks.js?v=18.0.0';
-import { updateBullets } from '../combat/projectiles.js?v=18.0.0';
-import { possibleTargets } from '../combat/targets.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { TAU } from '../core/config.js?v=18.0.0';
-import { clamp, norm, rnd } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { updateSystems } from '../systems/index.js?v=18.0.0';
-import { ui } from '../ui/hud.js?v=18.0.0';
+import { updateRitual } from './ritual.js?v=19.0.0';
+import { playerConfig } from '../../config/player.js?v=19.0.0';
+import { getEncounter } from '../boss/registry.js?v=19.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=19.0.0';
+import { updateClassKit } from '../classes/shared.js?v=19.0.0';
+import { shoot } from '../combat/attacks.js?v=19.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=19.0.0';
+import { possibleTargets } from '../combat/targets.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { TAU } from '../core/config.js?v=19.0.0';
+import { clamp, norm, rnd } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { updateSystems } from '../systems/index.js?v=19.0.0';
+import { ui } from '../ui/hud.js?v=19.0.0';
 
 
 function update(dt){
   let g=state.game,p=g.player;
+  if(g.ritual){updateRitual(dt);return;}
   g.t+=dt;
   g.totalTime+=dt;
   updateSystems(dt,g);

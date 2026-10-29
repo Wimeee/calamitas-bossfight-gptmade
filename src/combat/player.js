@@ -1,11 +1,11 @@
-import { playerConfig } from '../../config/player.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { norm } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
+import { playerConfig } from '../../config/player.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { norm } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
 
 
 function heal(){
-  if(!state.game||state.game.mode!=='playing')return;
+  if(!state.game||state.game.ritual||state.game.mode!=='playing')return;
   let p=state.game.player;
   if(p.potions>0&&p.potionCd<=0&&p.hp<p.maxHp){
     p.potions--;
@@ -18,7 +18,7 @@ function heal(){
 
 
 function drinkRegeneration(){
-  if(!state.game||state.game.mode!=='playing')return;
+  if(!state.game||state.game.ritual||state.game.mode!=='playing')return;
   let p=state.game.player;
   if(p.regenPotions>0&&p.regenPotionT<=0){
     p.regenPotions--;
@@ -30,7 +30,7 @@ function drinkRegeneration(){
 
 
 function dash(){
-  if(!state.game||state.game.mode!=='playing')return;
+  if(!state.game||state.game.ritual||state.game.mode!=='playing')return;
   let p=state.game.player;
   if(p.dashCd>0)return;
   let dx=(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x,dy=(state.keys.s||state.keys.ArrowDown?1:0)-(state.keys.w||state.keys.ArrowUp?1:0)+state.moveAxis.y;

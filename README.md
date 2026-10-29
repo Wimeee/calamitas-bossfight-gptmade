@@ -77,3 +77,7 @@ npm test
 
 Проєкт — неофіційна фанатська робота за мотивами Calamity Mod. Намальовані всередині гри спрайти та процедурні звуки не є офіційними ресурсами мода.
 
+
+## v19 — Summoning Ritual
+
+New approved flaming title logo. Enter the arena, move close to the urn, then press **E / Enter** or tap **Викликати**. The ritual gathers embers into rotating sigils, darkens the arena, reveals the title letter by letter and summons Calamitas. **Enter / Space** or **Пропустити інтро** skips the animation after its first moment. Pause/menu/resume work during preparation and the intro. Combat time and resources stay frozen until the original first Bullet Hell begins. No class balance or enemy sprite overhaul in this release. Restore point: `backup/v18-before-summoning-ritual`.

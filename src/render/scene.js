@@ -1,17 +1,18 @@
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=18.0.0';
-import { getEncounter } from '../boss/registry.js?v=18.0.0';
-import { possibleTargets } from '../combat/targets.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=18.0.0';
-import { ctx } from '../core/dom.js?v=18.0.0';
-import { clamp, norm } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { drawBackdrop } from './background.js?v=18.0.0';
-import { drawClassKit } from './class-effects.js?v=18.0.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=18.0.0';
-import { drawSword } from './melee.js?v=18.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=18.0.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=18.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=19.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=19.0.0';
+import { getEncounter } from '../boss/registry.js?v=19.0.0';
+import { possibleTargets } from '../combat/targets.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=19.0.0';
+import { ctx } from '../core/dom.js?v=19.0.0';
+import { clamp, norm } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { drawBackdrop } from './background.js?v=19.0.0';
+import { drawClassKit } from './class-effects.js?v=19.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=19.0.0';
+import { drawSword } from './melee.js?v=19.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=19.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=19.0.0';
 
 
 function draw(g){
@@ -25,6 +26,9 @@ function draw(g){
     text('ALTAR OF THE ACCURSED',500,300,27,'#a74e60');
     ctx.restore();
     return
+  }
+  if(g.ritual){
+    drawRitualWorld(g);ctx.restore();drawRitualOverlay(g);return;
   }
   let b=g.boss,p=g.player;
   drawPatternWarnings(g);

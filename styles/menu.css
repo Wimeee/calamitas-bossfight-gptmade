@@ -24,3 +24,12 @@ html,body{min-height:100%;background:#0c080b}body.menu-open{overflow:hidden}butt
 
 .setup-note{white-space:pre-line}
 @media(max-width:650px){.menu-art{background-position:80% center}}
+
+/* v19 approved title artwork; reserve its aspect ratio before decoding. */
+.menu-logo{display:block;width:min(1120px,95vw);height:auto;max-height:40svh;object-fit:contain;filter:drop-shadow(0 0 24px #d43d3228)}
+.menu-brand .logo-title{line-height:0}.menu-brand .brand-rule{margin-top:5px}
+.ritual-controls{position:absolute;z-index:6;left:50%;bottom:5%;transform:translateX(-50%);max-width:90%;text-align:center}
+.ritual-controls[hidden],.ritual-controls [hidden]{display:none!important}
+.ritual-controls button{white-space:nowrap;touch-action:manipulation;min-height:44px;padding:10px 20px;border:1px solid #d58a6766;border-radius:3px;background:#160b14e8;color:#ffdfb4;font:600 13px system-ui;box-shadow:0 0 24px #a12e3130;cursor:pointer}
+.ritual-controls button:disabled{color:#c39385;cursor:default}.ritual-controls button:focus-visible{outline:2px solid #ffc784;outline-offset:3px}
+@media(max-width:600px){.menu-logo{width:96vw}.ritual-controls{bottom:19%}.ritual-controls button{font-size:11px;padding:9px 12px}}

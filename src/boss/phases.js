@@ -1,8 +1,8 @@
-import { calamitasConfig as config } from '../../config/calamitas.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { TAU } from '../core/config.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { TAU } from '../core/config.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
 
 
 function enterCalamitas(stage,marker,label){

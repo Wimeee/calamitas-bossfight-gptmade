@@ -1,13 +1,13 @@
-import { weapons } from './registry.js?v=18.0.0';
-import { beginAttack } from './shared.js?v=18.0.0';
-import { addShot } from '../combat/attacks.js?v=18.0.0';
-import { hitTarget } from '../combat/damage.js?v=18.0.0';
-import { possibleTargets } from '../combat/targets.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { TAU } from '../core/config.js?v=18.0.0';
-import { clamp, dist, lerp, norm, segmentDistance } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { muzzlePoint, weaponAim } from '../render/weapons.js?v=18.0.0';
+import { weapons } from './registry.js?v=19.0.0';
+import { beginAttack } from './shared.js?v=19.0.0';
+import { addShot } from '../combat/attacks.js?v=19.0.0';
+import { hitTarget } from '../combat/damage.js?v=19.0.0';
+import { possibleTargets } from '../combat/targets.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { TAU } from '../core/config.js?v=19.0.0';
+import { clamp, dist, lerp, norm, segmentDistance } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { muzzlePoint, weaponAim } from '../render/weapons.js?v=19.0.0';
 
 
 function arkHeld(){

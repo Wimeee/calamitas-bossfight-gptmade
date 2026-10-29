@@ -1,15 +1,15 @@
-import { weapons } from '../classes/registry.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { VERSION } from '../core/config.js?v=18.0.0';
-import { $, root } from '../core/dom.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=18.0.0';
-import { start,togglePause } from '../game/session.js?v=18.0.0';
-import { loop } from '../game/loop.js?v=18.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=18.0.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=18.0.0';
-import { createMenuBackground } from '../render/menu-background.js?v=18.0.0';
-import { pixelArt } from '../render/sprites.js?v=18.0.0';
+import { weapons } from '../classes/registry.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { VERSION } from '../core/config.js?v=19.0.0';
+import { $, root } from '../core/dom.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=19.0.0';
+import { start,togglePause } from '../game/session.js?v=19.0.0';
+import { loop } from '../game/loop.js?v=19.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=19.0.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=19.0.0';
+import { createMenuBackground } from '../render/menu-background.js?v=19.0.0';
+import { pixelArt } from '../render/sprites.js?v=19.0.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -50,7 +50,7 @@ function effectiveDevice(){return settings.device==='auto'?((window.matchMedia('
 async function launchBattle(){
   if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
   $('class').value=model.selectedClass;$('diff').value=model.difficulty;
-  setDeviceMode(effectiveDevice());revealGame();start();
+  setDeviceMode(effectiveDevice());revealGame();start({ritual:true});
 }
 async function resumeBattle(){
   if(!state.game||state.game.mode!=='paused')return;

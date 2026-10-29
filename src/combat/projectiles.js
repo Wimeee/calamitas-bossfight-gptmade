@@ -1,12 +1,12 @@
-import { cosmicStarBurst } from '../classes/summoner.js?v=18.0.0';
-import { hitTarget, hurt } from './damage.js?v=18.0.0';
-import { nearestForHoming, possibleTargets } from './targets.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { TAU } from '../core/config.js?v=18.0.0';
-import { lerp, norm, rnd } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { enter } from '../game/phases.js?v=18.0.0';
+import { cosmicStarBurst } from '../classes/summoner.js?v=19.0.0';
+import { hitTarget, hurt } from './damage.js?v=19.0.0';
+import { nearestForHoming, possibleTargets } from './targets.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { TAU } from '../core/config.js?v=19.0.0';
+import { lerp, norm, rnd } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { enter } from '../game/phases.js?v=19.0.0';
 
 
 function enemyBullet(x,y,dx,dy,speed,r,kind='dart',damage=42){

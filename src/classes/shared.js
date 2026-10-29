@@ -1,5 +1,5 @@
-import { classRegistry, weapons } from './registry.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
+import { classRegistry, weapons } from './registry.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
 
 
 function kit(){
@@ -9,7 +9,7 @@ function kit(){
 
 
 function classAbility(){
-  if(!state.game||state.game.mode!=='playing'||state.game.stage==='accept')return;
+  if(!state.game||state.game.ritual||state.game.mode!=='playing'||state.game.stage==='accept')return;
   const handler=classRegistry[weapons[state.game.player.weapon].id];
   if(kit().abilityCd>0&&state.game.player.weapon!==0&&state.game.player.weapon!==3)return;
   handler.activate();

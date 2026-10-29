@@ -1,10 +1,10 @@
-import { hurt } from '../combat/damage.js?v=18.0.0';
-import { enemyBullet, fan } from '../combat/projectiles.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { seq } from '../core/config.js?v=18.0.0';
-import { clamp, dist, lerp, norm } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
+import { hurt } from '../combat/damage.js?v=19.0.0';
+import { enemyBullet, fan } from '../combat/projectiles.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { seq } from '../core/config.js?v=19.0.0';
+import { clamp, dist, lerp, norm } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
 
 
 function bossAttack(dt){

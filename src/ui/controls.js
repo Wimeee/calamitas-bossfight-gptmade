@@ -1,11 +1,13 @@
-import { weapons } from '../classes/registry.js?v=18.0.0';
-import { audio } from '../core/audio.js?v=18.0.0';
-import { $, root } from '../core/dom.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=18.0.0';
+import { initializeRitual } from '../game/ritual.js?v=19.0.0';
+import { weapons } from '../classes/registry.js?v=19.0.0';
+import { audio } from '../core/audio.js?v=19.0.0';
+import { $, root } from '../core/dom.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=19.0.0';
 
 
 function initializeControls(){
+  initializeRitual();
   $('soundtoggle').addEventListener('click',()=>{
       audio.init();
       audio.setSound(!audio.sfx);
@@ -26,10 +28,10 @@ function initializeControls(){
     $('volume').disabled=true;
     $('soundtoggle').textContent='🔇 Браузер без Web Audio'
   }
-  $('start').addEventListener('click',start);
+  $('start').addEventListener('click',()=>start({ritual:true}));
   $('overlaybtn').addEventListener('click',()=>{
       if(state.game&&state.game.mode==='paused')togglePause();else
-      start()
+      start({ritual:true})
   });
   $('pause').addEventListener('click',togglePause);
   $('weapons').innerHTML=weapons.map((w,i)=>`<button type="button" class="wp" data-weapon="${i}">${w.label}</button>`).join('');

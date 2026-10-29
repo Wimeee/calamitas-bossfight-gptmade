@@ -1,15 +1,16 @@
-import { resolveGameKey } from '../core/settings.js?v=18.0.0';
-import { releaseArk } from '../classes/melee.js?v=18.0.0';
-import { classAbility } from '../classes/shared.js?v=18.0.0';
-import { shoot } from '../combat/attacks.js?v=18.0.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=18.0.0';
-import { arena } from '../core/arena.js?v=18.0.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=18.0.0';
-import { canvas, root } from '../core/dom.js?v=18.0.0';
-import { clamp } from '../core/math.js?v=18.0.0';
-import { state } from '../core/state.js?v=18.0.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=18.0.0';
-import { resetTouchInput } from './mobile.js?v=18.0.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=19.0.0';
+import { resolveGameKey } from '../core/settings.js?v=19.0.0';
+import { releaseArk } from '../classes/melee.js?v=19.0.0';
+import { classAbility } from '../classes/shared.js?v=19.0.0';
+import { shoot } from '../combat/attacks.js?v=19.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=19.0.0';
+import { arena } from '../core/arena.js?v=19.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=19.0.0';
+import { canvas, root } from '../core/dom.js?v=19.0.0';
+import { clamp } from '../core/math.js?v=19.0.0';
+import { state } from '../core/state.js?v=19.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=19.0.0';
+import { resetTouchInput } from './mobile.js?v=19.0.0';
 
 
 function eventPos(e){
@@ -55,6 +56,11 @@ const kd=e=>{
   if(state.screen!=='game')return;
   let tag=(e.target&&e.target.tagName)||'';
   if(['INPUT','TEXTAREA','SELECT'].includes(tag))return;
+  if(state.game?.ritual&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&['KeyE','Enter','Space'].includes(e.code)){
+    e.preventDefault();
+    if(!e.repeat){if(state.game.ritual.phase==='preparation'&&e.code!=='Space')beginRitual();else skipRitual();}
+    return;
+  }
   let k=gameKey(e);
   if(!k||e.ctrlKey||e.metaKey||e.altKey)return;
   if(root.isConnected&&state.game)e.preventDefault();else
@@ -66,7 +72,7 @@ const kd=e=>{
   if(k==='h')heal();
   if(k==='b')drinkRegeneration();
   if(k==='p')togglePause();
-  if(k==='r')start();
+  if(k==='r')start({ritual:true});
   if('12345'.includes(k))changeWeapon(Number(k)-1)
 };
 
