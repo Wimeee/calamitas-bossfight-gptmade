@@ -1,0 +1,1120 @@
+* {
+  box-sizing:border-box
+}
+html,body {
+  margin:0;
+  background:#09090e;
+  color:#eedfde;
+  font-family:system-ui,Segoe UI,sans-serif
+}
+#scal-game {
+  max-width:1050px;
+  margin:0 auto;
+  padding:12px
+}
+#scal-game .shell {
+  background:linear-gradient(#190c16,#0c101b);
+  border:1px solid #754044;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 35px #0009
+}
+#scal-game header {
+  padding:15px 19px 10px;
+  background:linear-gradient(90deg,#321320,#171423)
+}
+#scal-game .eyebrow {
+  font-size:10px;
+  letter-spacing:3px;
+  color:#ed959d;
+  font-weight:800
+}
+#scal-game .title {
+  font-size:clamp(22px,3.8vw,33px);
+  font-weight:1000;
+  line-height:1.2;
+  color:#ffe2d8;
+  text-shadow:0 2px 0 #7d2436;
+  margin:3px 0
+}
+#scal-game .description {
+  font-size:12px;
+  color:#bea5b1
+}
+#scal-game button,#scal-game select {
+  font:inherit;
+  color:#f6dbd8;
+  cursor:pointer
+}
+#scal-game .toolbar {
+  display:flex;
+  gap:9px;
+  align-items:end;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  padding:12px 14px;
+  background:#160e19;
+  border-top:1px solid #40242d
+}
+#scal-game label {
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  font-size:10px;
+  color:#caa7b3;
+  font-weight:750;
+  text-transform:uppercase;
+  letter-spacing:.5px
+}
+#scal-game select {
+  background:#2b1b29;
+  border:1px solid #70424d;
+  border-radius:7px;
+  padding:8px;
+  min-width:160px;
+  font-weight:700;
+  font-size:12px
+}
+#scal-game select:disabled {
+  opacity:.55
+}
+#scal-game .btn {
+  border:1px solid #b66a78;
+  border-radius:7px;
+  background:#4d2534;
+  padding:9px 13px;
+  font-size:12px;
+  font-weight:850
+}
+#scal-game .btn.primary {
+  background:linear-gradient(#f7ac83,#b5495e);
+  border-color:#ffbf9c;
+  color:#210b18;
+  min-width:125px
+}
+#scal-game .btn:hover {
+  filter:brightness(1.13)
+}
+#scal-game .btn:focus-visible,#scal-game select:focus-visible {
+  outline:2px solid #ffe1a1;
+  outline-offset:2px
+}
+#scal-game .status {
+  padding:8px 13px;
+  background:#1b101b;
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:12px;
+  align-items:center;
+  border-bottom:1px solid #53333e
+}
+#scal-game .barlabel {
+  display:flex;
+  justify-content:space-between;
+  font-weight:800;
+  font-size:10px;
+  margin-bottom:4px;
+  color:#e3c7c7
+}
+#scal-game .track {
+  height:11px;
+  background:#3a2731;
+  border:1px solid #76515c;
+  border-radius:5px;
+  overflow:hidden
+}
+#scal-game .fill {
+  height:100%;
+  width:100%;
+  transition:width .12s;
+  background:linear-gradient(90deg,#a72e3e,#ff6a75)
+}
+#scal-game #manabar {
+  background:linear-gradient(90deg,#2761a2,#6cafff)
+}
+#scal-game #hpbar {
+  background:linear-gradient(90deg,#9f2837,#ec7968)
+}
+#scal-game .number {
+  font-weight:850;
+  font-size:11px;
+  color:#f9d7c5;
+  white-space:nowrap
+}
+#scal-game .screen {
+  position:relative;
+  overflow:hidden;
+  background:#150c18;
+  aspect-ratio:1000/600;
+  cursor:crosshair;
+  touch-action:none
+}
+#scal-game canvas {
+  width:100%;
+  height:100%;
+  display:block;
+  image-rendering:auto
+}
+#scal-game .overlay {
+  position:absolute;
+  inset:0;
+  background:#09070ad9;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-align:center;
+  padding:20px;
+  z-index:3;
+  backdrop-filter:blur(3px)
+}
+#scal-game .overlay h2 {
+  font-size:clamp(20px,4vw,32px);
+  margin:0;
+  color:#ffd9c8
+}
+#scal-game .overlay p {
+  max-width:540px;
+  margin:0;
+  color:#cdb5bd;
+  font-size:13px;
+  line-height:1.5
+}
+#scal-game .overlay .subtitle {
+  font-weight:800;
+  color:#e97b8f;
+  letter-spacing:2px;
+  font-size:11px
+}
+#scal-game .overlay[hidden] {
+  display:none
+}
+#scal-game .overlay button {
+  background:linear-gradient(#f7ab81,#bc5062);
+  color:#240b15;
+  border:1px solid #ffd6b6;
+  border-radius:8px;
+  padding:12px 25px;
+  font-weight:950
+}
+#scal-game .quick {
+  padding:10px 14px;
+  background:#130f19;
+  display:flex;
+  gap:8px;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  border-top:1px solid #603b46;
+  font-size:11px;
+  color:#bfb0c2
+}
+#scal-game .quick b {
+  color:#fbd7c4
+}
+#scal-game .weapons {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap
+}
+#scal-game .wp {
+  border:1px solid #5c3c4e;
+  background:#2b1e31;
+  border-radius:6px;
+  padding:7px 9px;
+  color:#d8c3d1;
+  font-size:10px;
+  font-weight:800
+}
+#scal-game .wp:disabled:not(.on) {
+  opacity:.28;
+  cursor:not-allowed
+}
+#scal-game .wp:disabled.on {
+  opacity:1
+}
+#scal-game .wp.on {
+  background:#784258;
+  color:#ffe9dc;
+  border-color:#e89a9b
+}
+#scal-game .below {
+  padding:12px 14px 15px;
+  background:#110d15;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap
+}
+#scal-game .details {
+  font-size:11px;
+  line-height:1.65;
+  color:#c1acb7
+}
+#scal-game .details b {
+  color:#f1c7ad
+}
+#scal-game .progress {
+  display:flex;
+  gap:4px;
+  align-items:center;
+  flex-wrap:wrap
+}
+#scal-game .chip {
+  font-size:10px;
+  font-weight:800;
+  border:1px solid #553644;
+  background:#2a1825;
+  color:#a797a1;
+  border-radius:5px;
+  padding:4px 6px
+}
+#scal-game .chip.done {
+  border-color:#be776b;
+  background:#47272b;
+  color:#ffe0a5
+}
+#scal-game .chip.active {
+  border-color:#f5b4a2;
+  color:#fff1d1;
+  box-shadow:0 0 8px #bd354977
+}
+#scal-game .touch {
+  display:none;
+  touch-action:none;
+  padding:10px 12px 12px;
+  background:linear-gradient(180deg,#271725,#171321);
+  border-top:1px solid #674052
+}
+
+#scal-game.mobile .touch {
+  display:block
+}
+
+#scal-game .touch-title {
+  font-size:10px;
+  color:#e9bcc5;
+  font-weight:800;
+  margin-bottom:9px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px
+}
+
+#scal-game .touch-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;
+  gap:12px
+}
+
+#scal-game .stick-area {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  min-width:0
+}
+
+#scal-game .stick-caption {
+  font-size:10px;
+  letter-spacing:.4px;
+  font-weight:750;
+  color:#d2bbc8
+}
+
+#scal-game .joystick {
+  width:min(130px,100%);
+  aspect-ratio:1;
+  max-height:132px;
+  border:2px solid #8a5774;
+  background:radial-gradient(circle,#543047 0%,#322438 48%,#1a1728 100%);
+  border-radius:50%;
+  position:relative;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  box-shadow:inset 0 0 22px #0c0711,0 1px 10px #0005
+}
+
+#scal-game .joystick:after {
+  content:'';
+  position:absolute;
+  inset:16%;
+  border:1px dashed #8e647d;
+  border-radius:50%;
+  pointer-events:none
+}
+
+#scal-game .joystick .knob {
+  width:46%;
+  height:46%;
+  border-radius:50%;
+  position:absolute;
+  left:27%;
+  top:27%;
+  border:2px solid #e7a6b4;
+  background:radial-gradient(circle at 30% 22%,#b66783,#7e415d 60%,#42283a);
+  box-shadow:0 3px 10px #000b;
+  pointer-events:none;
+  will-change:transform
+}
+
+#scal-game .joystick.active {
+  border-color:#ffb5a0;
+  box-shadow:0 0 14px #ef719d55,inset 0 0 20px #140f19
+}
+
+#scal-game .mobile-actions {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  margin-top:11px
+}
+
+#scal-game .mobile-actions button {
+  min-height:48px;
+  border:1px solid #a66c7b;
+  border-radius:10px;
+  background:linear-gradient(#603c56,#39253b);
+  font-size:11px;
+  font-weight:900;
+  color:#ffe6e4;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none
+}
+
+#scal-game .mobile-actions button.primary {
+  background:linear-gradient(#dd9177,#9d4564);
+  border-color:#ffc19d;
+  color:#1d1118
+}
+
+#scal-game .mobile-actions button.held {
+  filter:brightness(1.3);
+  transform:scale(.96)
+}
+
+#scal-game .touch-status {
+  font-size:10px;
+  color:#c9afc0;
+  margin-top:8px;
+  text-align:center
+}
+
+#scal-game .device-controls {
+  border:1px solid #754b62;
+  padding:7px 9px;
+  border-radius:8px;
+  background:#251622;
+  display:flex;
+  gap:8px;
+  align-items:center
+}
+
+#scal-game .device-controls select {
+  min-width:unset;
+  font-size:12px;
+  padding:7px
+}
+
+#scal-game .device-controls label {
+  font-size:10px
+}
+
+#scal-game.mobile .screen {
+  cursor:default
+}
+
+#scal-game.mobile .touch {
+  display:block
+}
+
+#scal-game.mobile #overlaydesc {
+  max-width:450px
+}
+
+#scal-game.mobile .touch-status {
+  color:#e2b9bf
+}
+
+@media(max-width:650px) {
+  #scal-game {
+  padding:0
+}
+#scal-game .shell {
+  border-radius:0
+}
+#scal-game .toolbar {
+  gap:7px;
+  padding:9px
+}
+#scal-game select {
+  min-width:125px
+}
+#scal-game .status {
+  grid-template-columns:1fr 1fr;
+  gap:7px
+}
+#scal-game .status .number {
+  grid-column:1/-1;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap
+}
+#scal-game .quick {
+  font-size:10px;
+  padding:8px
+}
+#scal-game .below {
+  display:block
+}
+#scal-game .progress {
+  margin-top:10px
+}
+#scal-game.mobile .touch-layout {
+  gap:7px
+}
+#scal-game.mobile .joystick {
+  width:min(122px,100%)
+}
+#scal-game .overlay {
+  padding:10px;
+  gap:7px
+}
+#scal-game .overlay p {
+  font-size:11px;
+  line-height:1.35
+}
+#scal-game .overlay button {
+  padding:10px 16px
+}
+
+}
+
+@media(max-width:370px) {
+  #scal-game .mobile-actions button {
+  font-size:10px;
+  min-height:46px
+}
+#scal-game .touch-layout {
+  gap:4px
+}
+#scal-game .device-controls {
+  width:100%
+}
+
+}
+
+#scal-game:fullscreen {
+  overflow-y:auto;
+  background:#130d19;
+  max-width:none;
+  width:100%;
+  height:100%;
+  padding:0
+}
+
+#scal-game:fullscreen .shell {
+  border-radius:0;
+  min-height:100%
+}
+
+#scal-game:fullscreen.mobile .screen {
+  max-height:55vh;
+  aspect-ratio:1000/600;
+  margin:0 auto
+}
+
+#scal-game:fullscreen.mobile .joystick {
+  width:min(120px,18vh,100%)
+}
+
+#scal-game .audio-controls {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+  border:1px solid #5e394e;
+  background:#201625;
+  border-radius:8px;
+  padding:6px
+}
+#scal-game .audio-controls .btn {
+  padding:7px 9px;
+  font-size:10px
+}
+#scal-game .volume-label {
+  font-size:9px;
+  min-width:85px;
+  letter-spacing:0
+}
+#scal-game .volume-label input {
+  accent-color:#ef99a6;
+  width:91px;
+  cursor:pointer
+}
+#scal-game .btn.sound-muted {
+  opacity:.65
+}
+
+#scal-game .runtime-status {
+  margin-top:8px;
+  font-weight:700;
+  color:#ffcb85;
+  background:#3c2027;
+  border:1px solid #885550;
+  border-radius:7px;
+  padding:7px 10px;
+  font-size:11px;
+  line-height:1.45;
+  text-align:center
+}
+
+#scal-game .runtime-status.ok {
+  color:#b8f7c0;
+  background:#193a2d;
+  border-color:#4b9468
+}
+
+#scal-game.mobile .mobile-actions button:active {
+  filter:brightness(1.3)
+}
+
+
+/* v9: immersive mobile arena without relying on iOS Safari Fullscreen API. */
+body.calamitas-focus-body {
+  overflow:hidden!important;
+  overscroll-behavior:none;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none
+}
+
+#scal-game #focus-exit {
+  display:none
+}
+
+#scal-game.focus-mode {
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  width:100%;
+  max-width:none;
+  height:100vh;
+  height:100dvh;
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);
+  background:#0b0710;
+  overflow-y:auto;
+  overscroll-behavior:contain
+}
+
+#scal-game.focus-mode .shell {
+  border-radius:0;
+  min-height:100%;
+  box-shadow:none
+}
+
+#scal-game.focus-mode header,#scal-game.focus-mode .toolbar,#scal-game.focus-mode .below,#scal-game.focus-mode .runtime-status {
+  display:none
+}
+
+#scal-game.focus-mode #focus-exit {
+  display:block;
+  position:fixed;
+  right:calc(8px + env(safe-area-inset-right,0px));
+  top:calc(6px + env(safe-area-inset-top,0px));
+  z-index:20;
+  border:1px solid #f0ae9c;
+  background:#48242e;
+  color:#ffe5da;
+  border-radius:8px;
+  padding:5px 9px;
+  font:800 12px system-ui;
+  box-shadow:0 2px 12px #000a;
+  cursor:pointer
+}
+
+#scal-game.focus-mode .status {
+  padding:5px 55px 5px 10px;
+  gap:7px;
+  min-height:43px
+}
+
+#scal-game.focus-mode .status .number {
+  font-size:10px
+}
+
+#scal-game.focus-mode .touch {
+  padding:6px 8px 8px
+}
+
+#scal-game.focus-mode .touch-title {
+  margin-bottom:4px
+}
+
+#scal-game.focus-mode .touch-status {
+  display:none
+}
+
+#scal-game.focus-mode .quick {
+  padding:5px 9px
+}
+
+#scal-game.focus-mode.mobile .screen {
+  width:100%;
+  max-height:none
+}
+
+#scal-game.focus-mode.mobile .joystick {
+  width:min(106px,100%)
+}
+
+#scal-game.focus-mode.mobile .mobile-actions {
+  margin-top:5px;
+  gap:4px
+}
+
+#scal-game.focus-mode.mobile .mobile-actions button {
+  min-height:37px;
+  font-size:10px;
+  border-radius:6px
+}
+
+@media(orientation:landscape) and (max-height:600px) {
+ #scal-game.focus-mode.mobile {
+  overflow:hidden
+}
+
+ #scal-game.focus-mode.mobile .shell {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(200px,29vw);
+  grid-template-rows:auto minmax(0,1fr) auto;
+  height:100%;
+  min-height:0
+}
+
+ #scal-game.focus-mode.mobile .status {
+  grid-column:1/-1;
+  grid-row:1;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;
+  min-height:37px;
+  padding:4px 75px 4px 8px
+}
+
+ #scal-game.focus-mode.mobile .status .number {
+  grid-column:auto;
+  display:block;
+  font-size:9px
+}
+
+ #scal-game.focus-mode.mobile .status .number div:not(:first-child) {
+  display:none
+}
+
+ #scal-game.focus-mode.mobile .screen {
+  grid-column:1;
+  grid-row:2;
+  align-self:center;
+  aspect-ratio:1000/600;
+  max-height:100%;
+  width:auto;
+  max-width:100%;
+  height:auto;
+  justify-self:center
+}
+
+ #scal-game.focus-mode.mobile .touch {
+  grid-column:2;
+  grid-row:2;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:4px 5px
+}
+
+ #scal-game.focus-mode.mobile .touch-title {
+  font-size:8px;
+  margin-bottom:2px
+}
+
+ #scal-game.focus-mode.mobile .touch-title span:last-child {
+  display:none
+}
+
+ #scal-game.focus-mode.mobile .touch-layout {
+  gap:3px
+}
+
+ #scal-game.focus-mode.mobile .stick-area {
+  gap:2px
+}
+
+ #scal-game.focus-mode.mobile .stick-caption {
+  font-size:8px
+}
+
+ #scal-game.focus-mode.mobile .joystick {
+  width:min(100%,clamp(54px,22vh,100px))
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions {
+  gap:3px
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions button {
+  min-height:31px;
+  font-size:9px;
+  padding:2px
+}
+
+ #scal-game.focus-mode.mobile .quick {
+  grid-column:1/-1;
+  grid-row:3;
+  padding:3px 7px;
+  font-size:9px;
+  min-height:21px
+}
+
+
+}
+
+
+/* v10: mobile first. The game uses almost all the viewport;
+   thumb controls are over
+   the unused side letterbox area instead of shrinking the battlefield into a postage stamp. */
+#scal-game .mobile-actions button[hidden] {
+  display:none!important
+}
+
+#scal-game.mobile [data-mobile-action="auto"][aria-pressed="true"] {
+  background:linear-gradient(#2d8165,#214a42);
+  border-color:#79dcb6
+}
+
+#scal-game.mobile .touch-title span:last-child {
+  font-size:10px
+}
+
+#scal-game.mobile .mobile-actions [data-mobile-action="fire"] {
+  background:linear-gradient(155deg,#9e456b,#5a2a62)
+}
+
+#scal-game.mobile .mobile-actions [data-mobile-action="dash"] {
+  background:linear-gradient(155deg,#398995,#1e445a)
+}
+
+#scal-game.mobile .mobile-actions button {
+  font-size:clamp(10px,1.8vw,13px);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none
+}
+
+#scal-game.mobile .joystick {
+  -webkit-tap-highlight-color:transparent
+}
+
+#scal-game.focus-mode.mobile {
+  overflow:hidden!important;
+  touch-action:none
+}
+
+#scal-game.focus-mode.mobile .shell {
+  height:100%;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden
+}
+
+#scal-game.focus-mode.mobile .status {
+  flex:none;
+  min-height:39px;
+  padding:5px 56px 5px 8px;
+  z-index:5
+}
+
+#scal-game.focus-mode.mobile .status .number {
+  display:none
+}
+
+#scal-game.focus-mode.mobile .screen {
+  flex:1 1 auto;
+  min-height:0;
+  width:100%;
+  max-width:none;
+  max-height:none;
+  height:auto;
+  aspect-ratio:auto;
+  align-self:stretch;
+  overflow:hidden
+}
+
+#scal-game.focus-mode.mobile canvas {
+  height:100%;
+  width:100%;
+  object-fit:contain
+}
+
+#scal-game.focus-mode.mobile .quick {
+  min-height:24px;
+  max-height:29px;
+  flex:none;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:3px 8px;
+  display:flex;
+  z-index:6
+}
+
+#scal-game.focus-mode.mobile .quick>div:last-child {
+  display:none
+}
+
+#scal-game.focus-mode.mobile .touch {
+  position:absolute;
+  inset:40px 0 24px;
+  display:block;
+  pointer-events:none;
+  z-index:5;
+  background:none;
+  border:none;
+  padding:0!important;
+  overflow:visible!important
+}
+
+#scal-game.focus-mode.mobile .touch-title,#scal-game.focus-mode.mobile .touch-status {
+  display:none!important
+}
+
+#scal-game.focus-mode.mobile .touch-layout {
+  display:block;
+  position:absolute;
+  inset:0;
+  pointer-events:none
+}
+
+#scal-game.focus-mode.mobile .stick-area:first-child {
+  display:flex;
+  position:absolute;
+  left:calc(6px + env(safe-area-inset-left,0px));
+  bottom:12px;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  pointer-events:none;
+  width:clamp(85px,17vw,126px)
+}
+
+#scal-game.focus-mode.mobile .stick-area:first-child .joystick {
+  pointer-events:auto;
+  width:min(100%,31vh,126px);
+  height:auto;
+  max-height:none;
+  opacity:.83;
+  background:radial-gradient(circle,#76406199,#282b4899 60%,#111a2caa)
+}
+
+#scal-game.focus-mode.mobile .stick-area:nth-child(2) {
+  display:none
+}
+
+#scal-game.focus-mode.mobile .stick-caption {
+  font-size:9px;
+  letter-spacing:1px;
+  color:#ffcaba
+}
+
+#scal-game.focus-mode.mobile .mobile-actions {
+  display:grid;
+  position:absolute;
+  right:calc(5px + env(safe-area-inset-right,0px));
+  bottom:9px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  width:clamp(123px,24vw,178px);
+  gap:6px;
+  pointer-events:auto;
+  margin:0
+}
+
+#scal-game.focus-mode.mobile .mobile-actions button {
+  min-height:clamp(36px,10vh,54px);
+  font-size:clamp(10px,1.5vw,12px);
+  border-radius:12px;
+  border-width:1.5px;
+  padding:4px 2px;
+  box-shadow:0 4px 10px #08060b99;
+  white-space:nowrap
+}
+
+#scal-game.focus-mode.mobile .mobile-actions [data-mobile-action="fullscreen"] {
+  display:none
+}
+
+#scal-game.focus-mode.mobile #focus-exit {
+  font-size:11px;
+  padding:6px 8px;
+  z-index:30
+}
+
+#scal-game.focus-mode.mobile .status .barlabel {
+  font-size:9px
+}
+
+#scal-game.focus-mode.mobile .status .track {
+  height:8px
+}
+
+#scal-game.focus-mode.mobile .screen .overlay {
+  padding:8px clamp(120px,19vw,190px);
+  overflow-y:auto
+}
+
+#scal-game.focus-mode.mobile .screen .overlay p {
+  font-size:11px;
+  max-height:100px;
+  overflow-y:auto
+}
+
+@media(orientation:landscape) and (max-height:600px) {
+ #scal-game.focus-mode.mobile .shell {
+  display:flex!important;
+  flex-direction:column!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important
+}
+
+ #scal-game.focus-mode.mobile .status,#scal-game.focus-mode.mobile .quick {
+  grid-column:auto!important;
+  grid-row:auto!important
+}
+
+ #scal-game.focus-mode.mobile .screen {
+  grid-column:auto!important;
+  grid-row:auto!important;
+  max-width:none!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  align-self:stretch!important;
+  justify-self:stretch!important
+}
+
+ #scal-game.focus-mode.mobile .touch {
+  grid-column:auto!important;
+  grid-row:auto!important;
+  display:block!important;
+  justify-content:unset!important
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions {
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  margin:0!important
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions button {
+  font-size:clamp(10px,1.5vw,12px)!important;
+  min-height:clamp(36px,10vh,54px)!important
+}
+
+ #scal-game.focus-mode.mobile .joystick {
+  width:min(100%,31vh,126px)!important
+}
+
+
+}
+
+@media(orientation:portrait) {
+ #scal-game.focus-mode.mobile .touch {
+  inset:40px 0 24px
+}
+
+ #scal-game.focus-mode.mobile .stick-area:first-child {
+  bottom:15px;
+  left:10px;
+  width:clamp(98px,29vw,140px)
+}
+
+ #scal-game.focus-mode.mobile .stick-area:first-child .joystick {
+  width:100%!important
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions {
+  bottom:12px;
+  right:9px;
+  width:clamp(165px,44vw,225px);
+  gap:7px
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions button {
+  min-height:clamp(46px,8vh,66px)!important;
+  font-size:12px!important
+}
+
+ #scal-game.focus-mode.mobile .screen .overlay {
+  padding:15px
+}
+
+ #scal-game.focus-mode.mobile .screen .overlay p {
+  max-height:140px
+}
+
+
+}
+
+
+/* Portrait: the arena is pinned at the top and the controls occupy their own area underneath. */
+@media (orientation:portrait) {
+ #scal-game.focus-mode.mobile .screen {
+  flex:0 0 auto!important;
+  height:min(64vw,280px)!important;
+  min-height:0!important;
+  aspect-ratio:auto!important
+}
+
+ #scal-game.focus-mode.mobile .touch {
+  position:relative!important;
+  inset:auto!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  display:block!important;
+  background:radial-gradient(ellipse at 50% 100%,#2a1831aa,#120d19);
+  border-top:1px solid #513446;
+  overflow:hidden!important
+}
+
+ #scal-game.focus-mode.mobile .touch-layout {
+  position:absolute;
+  inset:0;
+  display:block
+}
+
+ #scal-game.focus-mode.mobile .stick-area:first-child {
+  top:36%;
+  bottom:auto!important;
+  left:12px;
+  width:clamp(104px,30vw,140px)
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions {
+  top:25px;
+  bottom:auto!important;
+  right:9px;
+  width:clamp(165px,44vw,225px)
+}
+
+ #scal-game.focus-mode.mobile .mobile-actions button {
+  min-height:clamp(51px,7vh,69px)!important
+}
+
+
+}

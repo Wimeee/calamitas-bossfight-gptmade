@@ -1,0 +1,48 @@
+#site-update-banner {
+  position:fixed;
+  z-index:1000;
+  left:50%;
+  top:10px;
+  transform:translateX(-50%);
+  width:min(96vw,550px);
+  background:#271828;
+  border:1px solid #f7b38a;
+  box-shadow:0 8px 30px #000c;
+  border-radius:12px;
+  padding:12px 14px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  color:#ffded4;
+  font:600 12px/1.4 system-ui,sans-serif
+}
+
+#site-update-banner[hidden] {
+  display:none!important
+}
+
+#site-update-banner button {
+  background:#e9a27b;
+  border:1px solid #ffcea9;
+  color:#24101a;
+  border-radius:8px;
+  font:bold 13px system-ui,sans-serif;
+  padding:9px 13px;
+  cursor:pointer
+}
+
+#site-version-tag {
+  position:fixed;
+  z-index:30;
+  right:6px;
+  bottom:6px;
+  background:#180e1bbe;
+  border:1px solid #704350;
+  border-radius:7px;
+  padding:5px 8px;
+  font:10px system-ui,sans-serif;
+  color:#b89eaa;
+  pointer-events:none
+}

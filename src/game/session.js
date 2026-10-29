@@ -1,0 +1,158 @@
+import { weapons } from '../classes/registry.js?v=17.0.0';
+import { summonSquad } from '../classes/summoner.js?v=17.0.0';
+import { configureArena } from '../core/arena.js?v=17.0.0';
+import { audio } from '../core/audio.js?v=17.0.0';
+import { $ } from '../core/dom.js?v=17.0.0';
+import { state } from '../core/state.js?v=17.0.0';
+import { loop } from './loop.js?v=17.0.0';
+import { enter } from './phases.js?v=17.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=17.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=17.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=17.0.0';
+
+
+function makeGame(){
+  const difficulty=$('diff').value,scale=difficulty==='death'?1.22:difficulty==='revenge'?1.09:1;
+  return {
+    mode:'playing',
+    difficulty,
+    scale,
+    t:0,
+    totalTime:0,
+    stage:'hell',
+    stageT:0,
+    phaseN:0,
+    thresholds:new Set(),
+    done:new Set(),
+    marker:'opening',
+    label:'BULLET HELL I',
+    hint:'УХИЛЯЙСЯ — бос невразливий',
+    boss:{x:500,y:150,hp:750000,max:750000,r:30,alpha:0},
+    player:{
+      x:500,
+      y:410,
+      vx:0,
+      vy:0,
+      hp:600,
+      maxHp:600,
+      mana:200,
+      maxMana:200,
+      weapon:weapons.findIndex(x=>x.id===$('class').value),
+      fireCd:0,
+      dashCd:0,
+      dashT:0,
+      contactGuard:0,
+      dashX:0,
+      dashY:0,
+      potions:7,
+      potionCd:0,
+      iframes:1.5,
+      hits:0,
+      dashes:0,
+      stealth:0,
+      lastHit:0,
+      regenRate:3,
+      regenPotions:3,
+      regenPotionT:0,
+      pickupsTaken:0,
+      cosmic:[],
+      cosmicMark:null,
+      whip:null,
+      combo:0,
+      swing:null,
+      comboExpire:0,
+      arkThrow:null,
+      arkCharges:0,
+      arkParryCd:0,
+      arkParry:null,
+      arkRip:null,
+      arkBuffered:false
+    },
+    impacts:[],
+    patternWarnings:[],
+    patternTimer:2.6,
+    patternIndex:0,
+    pickups:[],
+    pickupTimer:11,
+    projectiles:[],
+    shots:[],
+    hearts:[],
+    seekers:[],
+    brothers:[],
+    monsters:[],
+    maelstrom:null,
+    sparks:[],
+    dashGhosts:[],
+    floaters:[],
+    attackIndex:0,
+    attackTimer:0,
+    attackTick:0,
+    lastCause:"",
+    dashCount:0,
+    dashWind:0,
+    dashActive:0,
+    dashVector:{x:0,y:0},
+    dialog:'',
+    dialogT:0,
+    acceptT:0,
+    killCount:0
+  };
+}
+
+
+function start(){
+  audio.init();
+  audio.fx('phase');
+  state.keys={};
+  resetTouchInput();
+  if(state.deviceMode==='mobile')state.mobileAutoAim=true;
+  state.game=makeGame();
+  configureArena(state.game.difficulty);
+  enter('hell','opening','BULLET HELL I');
+  $('diff').disabled=true;
+  $('class').disabled=true;
+  $('overlay').hidden=true;
+  $('start').textContent='↻ Новий бій';
+  state.pointer.fire=false;
+  if(state.game.player.weapon===3)summonSquad();
+  ui();
+  if(state.deviceMode==='mobile'){
+    setFocusMode(true)
+  }
+  updateMobileLabels();
+  if(!state.raf)state.raf=requestAnimationFrame(loop)
+}
+
+
+function finish(win){
+  resetTouchInput();
+  audio.fx(win?'victory':'death');
+  let g=state.game;
+  g.mode=win?'won':'dead';
+  state.pointer.fire=false;
+  $('diff').disabled=false;
+  $('class').disabled=false;
+  showOverlay(win?'THE BRIMSTONE WITCH':'YOU WERE SLAIN',win?'CALAMITAS ПЕРЕМОЖЕНА!':'ТИ ЗАГИНУВ',win?`Перемога! Час: ${Math.floor(g.totalTime)} с · Отримано ударів: ${g.player.hits}. Всі п'ять Bullet Hell пройдені.`:`Здоров'я боса: ${(g.boss.hp/g.boss.max*100).toFixed(1)}%. Останній удар: ${g.lastCause||'невідомо'}. Отримано ударів: ${g.player.hits}.`, '↻ ЩЕ ОДНА СПРОБА');
+  ui()
+}
+
+
+function changeWeapon(n){
+  if(n<0||n>=5||!state.game)return;
+  if(state.game.mode==='playing'||state.game.mode==='paused'){
+    state.game.floaters.push({x:state.game.player.x,y:state.game.player.y-38,life:.7,text:'КЛАС ЗАФІКСОВАНО',col:'#ffc7a5'});
+    return;
+  }
+  state.game.player.weapon=n;
+  ui()
+}
+
+
+function togglePause(){
+  if(!state.game||state.game.mode==='dead'||state.game.mode==='won')return;
+  state.game.mode=state.game.mode==='paused'?'playing':'paused';
+  $('pause').textContent=state.game.mode==='paused'?'▶ Продовжити':'⏸ Пауза'
+}
+
+
+export { makeGame, start, finish, changeWeapon, togglePause };
