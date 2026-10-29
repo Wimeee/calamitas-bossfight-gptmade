@@ -1,5 +1,5 @@
-import { getDifficulty } from '../../config/difficulty.js?v=20.0.0';
-import { ARENA_SCALE, VIEW_X, VIEW_Y } from './config.js?v=20.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=20.0.1';
+import { ARENA_SCALE, VIEW_X, VIEW_Y } from './config.js?v=20.0.1';
 
 const arena={l:57,r:943,t:35,b:565};
 

@@ -70,3 +70,7 @@
 ## Sprite Era I — Melee (v20)
 
 `config/melee-sprites.js` stores rectangles and anchors for the two user-supplied sheets in `assets/melee/`. `render/melee-atlas.js` loads and prepares transparent frame caches once; `render/warrior.js` selects armor poses and draws the Ark effects. It reads combat state without changing damage, cooldowns, positions or hitboxes. Player, ritual, weapon, projectile and impact renderers delegate only Melee visuals and retain their procedural fallback. Rise/fall poses follow current vertical movement; this does not introduce jumping or gravity.
+
+## Render caches v20.0.1
+
+`render/glow-cache.js` stores bounded reusable glow stamps; `render/projectiles.js` draws enemy bullets without live per-bullet blur. `render/arena-cache.js` stores the static gradient and arena grid/border, keyed by bounds and quality. Keep dynamic seals, moving sparks, bullet positions and warning animations outside static caches. These modules must never mutate combat state.

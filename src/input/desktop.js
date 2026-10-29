@@ -1,16 +1,16 @@
-import { beginRitual, skipRitual } from '../game/ritual.js?v=20.0.0';
-import { resolveGameKey } from '../core/settings.js?v=20.0.0';
-import { releaseArk } from '../classes/melee.js?v=20.0.0';
-import { classAbility } from '../classes/shared.js?v=20.0.0';
-import { shoot } from '../combat/attacks.js?v=20.0.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=20.0.0';
-import { arena } from '../core/arena.js?v=20.0.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.0';
-import { canvas, root } from '../core/dom.js?v=20.0.0';
-import { clamp } from '../core/math.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=20.0.0';
-import { resetTouchInput } from './mobile.js?v=20.0.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=20.0.1';
+import { resolveGameKey } from '../core/settings.js?v=20.0.1';
+import { releaseArk } from '../classes/melee.js?v=20.0.1';
+import { classAbility } from '../classes/shared.js?v=20.0.1';
+import { shoot } from '../combat/attacks.js?v=20.0.1';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=20.0.1';
+import { arena } from '../core/arena.js?v=20.0.1';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.1';
+import { canvas, root } from '../core/dom.js?v=20.0.1';
+import { clamp } from '../core/math.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=20.0.1';
+import { resetTouchInput } from './mobile.js?v=20.0.1';
 
 
 function eventPos(e){

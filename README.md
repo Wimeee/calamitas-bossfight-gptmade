@@ -95,3 +95,7 @@ Remove battle-wide `:has` selectors and the fixed body background; keep the illu
 Only the warrior receives the supplied armor and Ark artwork. Animated armor covers idle, horizontal/vertical movement, dash, hurt and death; Ark uses sprite frames for held scissors, slashes, spinning throws, SNAP, parry, Big Rip, bolts and hits. Other classes and all combat values remain unchanged. Source black backgrounds/labels are removed once on load and frames are cached, with procedural fallback if assets cannot load.
 
 Focused validation: existing 52 Ark checks plus sprite matte/pose/fallback tests and browser inspection. Recovery branch: `backup/v19.1.1-before-melee-sprites`.
+
+## v20.0.1 — measured rendering fix
+
+Enemy bullet glows, static arena layers and ritual spark halos are rasterized once and reused. This removes per-frame shadow filtering while preserving projectile bodies and mechanics. In the local 240-bullet browser comparison, median frame interval fell from 33.3 to 5.6 ms; actual device FPS varies. Terraria physics remains a separate next update.

@@ -1,10 +1,10 @@
-import { kit } from '../classes/shared.js?v=20.0.0';
-import { hitTarget } from './damage.js?v=20.0.0';
-import { possibleTargets } from './targets.js?v=20.0.0';
-import { arena } from '../core/arena.js?v=20.0.0';
-import { clamp } from '../core/math.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
-import { muzzlePoint } from '../render/weapons.js?v=20.0.0';
+import { kit } from '../classes/shared.js?v=20.0.1';
+import { hitTarget } from './damage.js?v=20.0.1';
+import { possibleTargets } from './targets.js?v=20.0.1';
+import { arena } from '../core/arena.js?v=20.0.1';
+import { clamp } from '../core/math.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
+import { muzzlePoint } from '../render/weapons.js?v=20.0.1';
 
 
 function beamWallDistance(x,y,dx,dy){

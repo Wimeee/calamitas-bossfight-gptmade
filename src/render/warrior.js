@@ -1,11 +1,11 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.0.0';
-import { arkAngle } from '../classes/melee.js?v=20.0.0';
-import { ctx } from '../core/dom.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
-import { settings } from '../core/settings.js?v=20.0.0';
-import { clamp } from '../core/math.js?v=20.0.0';
-import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=20.0.0';
-import { line,round,text } from './primitives.js?v=20.0.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.0.1';
+import { arkAngle } from '../classes/melee.js?v=20.0.1';
+import { ctx } from '../core/dom.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
+import { settings } from '../core/settings.js?v=20.0.1';
+import { clamp } from '../core/math.js?v=20.0.1';
+import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=20.0.1';
+import { line,round,text } from './primitives.js?v=20.0.1';
 
 const deathClocks=new WeakMap();
 const aim=g=>Math.atan2(state.pointer.y-g.player.y,state.pointer.x-g.player.x);

@@ -1,19 +1,20 @@
-import { drawWarriorBody } from './warrior.js?v=20.0.0';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.0.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.0.0';
-import { getEncounter } from '../boss/registry.js?v=20.0.0';
-import { possibleTargets } from '../combat/targets.js?v=20.0.0';
-import { arena } from '../core/arena.js?v=20.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.0';
-import { ctx } from '../core/dom.js?v=20.0.0';
-import { clamp, norm } from '../core/math.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
-import { drawBackdrop } from './background.js?v=20.0.0';
-import { drawClassKit } from './class-effects.js?v=20.0.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.0.0';
-import { drawSword } from './melee.js?v=20.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=20.0.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.0.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=20.0.1';
+import { drawWarriorBody } from './warrior.js?v=20.0.1';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.0.1';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.0.1';
+import { getEncounter } from '../boss/registry.js?v=20.0.1';
+import { possibleTargets } from '../combat/targets.js?v=20.0.1';
+import { arena } from '../core/arena.js?v=20.0.1';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.1';
+import { ctx } from '../core/dom.js?v=20.0.1';
+import { clamp, norm } from '../core/math.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
+import { drawBackdrop } from './background.js?v=20.0.1';
+import { drawClassKit } from './class-effects.js?v=20.0.1';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.0.1';
+import { drawSword } from './melee.js?v=20.0.1';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=20.0.1';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.0.1';
 
 
 function draw(g){
@@ -55,26 +56,7 @@ function draw(g){
     text(drop.kind==='heart'?'❤':'✦',drop.x,drop.y+bob+6,20,drop.kind==='heart'?'#ffb1be':'#bedcff')
   }
   getEncounter(g).draw(g);
-  for(let q of g.projectiles){
-    let color=q.kind==='skull'?'#ffbb7b':q.kind==='giga'?'#ffd0b0':q.kind==='fire'?'#ff895b':q.kind==='hellblast'?'#f84c7c':'#dd536c';
-    ctx.shadowColor=color;
-    ctx.shadowBlur=settings.quality==='low'?0:q.kind==='giga'?19:8;
-    line(q.x-q.vx*.030,q.y-q.vy*.030,q.x,q.y,color,q.kind==='giga'?6:2.4);
-    round(q.x,q.y,q.r,color,'#6b1a37',1);
-    ctx.shadowBlur=0;
-    if(q.kind==='giga'){
-      ctx.strokeStyle='#ffd0a8a6';
-      ctx.lineWidth=2;
-      ctx.beginPath();
-      ctx.arc(q.x,q.y,q.r+5+Math.sin(g.t*9)*1.5,0,TAU);
-      ctx.stroke()
-    }
-    if(['skull','hellblast','fire','giga'].includes(q.kind))pixel('skull',q.x,q.y,q.kind==='giga'?1.65:q.kind==='fire'?1.25:q.kind==='skull'?1.05:.83,Math.atan2(q.vy,q.vx)+Math.PI/2);
-    if(q.kind==='dart'){
-      line(q.x-7,q.y,q.x+7,q.y,'#ffc3b4',1);
-      line(q.x,q.y-7,q.x,q.y+7,'#ffc3b4',1)
-    }
-  }
+  drawEnemyProjectiles(g);
   drawChannelBeam(g);
   for(const s of g.shots)drawPlayerShot(s,g);
   drawSword(g);

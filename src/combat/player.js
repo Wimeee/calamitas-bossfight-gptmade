@@ -1,7 +1,7 @@
-import { playerConfig } from '../../config/player.js?v=20.0.0';
-import { audio } from '../core/audio.js?v=20.0.0';
-import { norm } from '../core/math.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
+import { playerConfig } from '../../config/player.js?v=20.0.1';
+import { audio } from '../core/audio.js?v=20.0.1';
+import { norm } from '../core/math.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
 
 
 function heal(){

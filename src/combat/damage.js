@@ -1,8 +1,8 @@
-import { audio } from '../core/audio.js?v=20.0.0';
-import { rnd } from '../core/math.js?v=20.0.0';
-import { state } from '../core/state.js?v=20.0.0';
-import { finish } from '../game/session.js?v=20.0.0';
-import { weaponImpact } from '../render/effects.js?v=20.0.0';
+import { audio } from '../core/audio.js?v=20.0.1';
+import { rnd } from '../core/math.js?v=20.0.1';
+import { state } from '../core/state.js?v=20.0.1';
+import { finish } from '../game/session.js?v=20.0.1';
+import { weaponImpact } from '../render/effects.js?v=20.0.1';
 
 
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){

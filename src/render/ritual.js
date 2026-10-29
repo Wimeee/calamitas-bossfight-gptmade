@@ -1,10 +1,11 @@
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=20.0.0';
-import { settings } from '../core/settings.js?v=20.0.0';
-import { ctx } from '../core/dom.js?v=20.0.0';
-import { W,H,TAU } from '../core/config.js?v=20.0.0';
-import { clamp } from '../core/math.js?v=20.0.0';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=20.0.0';
-import { line,pixel,round,text } from './primitives.js?v=20.0.0';
+import { drawGlowCircle } from './glow-cache.js?v=20.0.1';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=20.0.1';
+import { settings } from '../core/settings.js?v=20.0.1';
+import { ctx } from '../core/dom.js?v=20.0.1';
+import { W,H,TAU } from '../core/config.js?v=20.0.1';
+import { clamp } from '../core/math.js?v=20.0.1';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=20.0.1';
+import { line,pixel,round,text } from './primitives.js?v=20.0.1';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -40,6 +41,7 @@ export function drawRitualWorld(g){
   for(const side of [-1,1]){line(side*25,-17,side*35,-28,'#b16c54',3);line(side*35,-28,side*30,-36,'#b16c54',2);}
   ctx.shadowColor='#ff4b5c';ctx.shadowBlur=settings.quality==='low'?0:18;
   line(0,-18,-7,-3,'#ff9c75',2);line(-7,-3,5,2,'#ff5c61',2);line(5,2,0,11,'#ff9c75',2);
+  ctx.shadowBlur=0;
   const count=settings.quality==='low'?24:72;
   for(let i=0;i<count;i++){
     // Deterministic decorative motion never consumes combat randomness.
@@ -47,7 +49,7 @@ export function drawRitualWorld(g){
     const radius=charging?(1-f)*(125+power*65):12+f*24;
     const x=Math.cos(a)*radius,y=charging?Math.sin(a)*radius:-30-f*65;
     ctx.globalAlpha=Math.sin(f*Math.PI)*(.4+power*.6);
-    round(x,y,1+(i%3)*.55,i%3?'#ff6b51':'#ffe5a5');
+    drawGlowCircle(x,y,1+(i%3)*.55,i%3?'#ff6b51':'#ffe5a5',settings.quality==='low'?0:18,'',1,'#ff4b5c');
   }
   ctx.globalAlpha=1;ctx.shadowBlur=0;
   if(!charging){text('ALTAR OF THE ACCURSED',0,-107,14,'#d49c90');text(nearAltar(g)?'E / ENTER · ВИКЛИКАТИ':'ПІДІЙДИ БЛИЖЧЕ',0,64,11,'#ffcca2');}

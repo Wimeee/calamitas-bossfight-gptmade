@@ -1,5 +1,5 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.0.0';
-import { ctx } from '../core/dom.js?v=20.0.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.0.1';
+import { ctx } from '../core/dom.js?v=20.0.1';
 
 const cache={body:null,ark:null};
 let loading;
@@ -49,7 +49,7 @@ export function initializeMeleeAtlas(){
       }catch{resolve(false);}
     };
     image.onerror=()=>resolve(false);
-    image.src=new URL('../../assets/melee/'+name+'?v=20.0.0',import.meta.url).href;
+    image.src=new URL('../../assets/melee/'+name+'?v=20.0.1',import.meta.url).href;
   });
   loading=Promise.all([load('body','armor-source.png'),load('ark','ark-source.png')]).then(results=>results.every(Boolean));
   return loading;
