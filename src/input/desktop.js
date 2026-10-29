@@ -1,24 +1,23 @@
-import { beginRitual, skipRitual } from '../game/ritual.js?v=21.0.0';
-import { queueJump } from '../game/movement.js?v=21.0.0';
-import { directionTap } from './dash-gesture.js?v=21.0.0';
-import { resolveGameKey } from '../core/settings.js?v=21.0.0';
-import { releaseArk } from '../classes/melee.js?v=21.0.0';
-import { classAbility } from '../classes/shared.js?v=21.0.0';
-import { shoot } from '../combat/attacks.js?v=21.0.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
-import { canvas, root } from '../core/dom.js?v=21.0.0';
-import { clamp } from '../core/math.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=21.0.0';
-import { resetTouchInput } from './mobile.js?v=21.0.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=21.1.0';
+import { queueJump } from '../game/movement.js?v=21.1.0';
+import { directionTap } from './dash-gesture.js?v=21.1.0';
+import { resolveGameKey } from '../core/settings.js?v=21.1.0';
+import { releaseArk } from '../classes/melee.js?v=21.1.0';
+import { classAbility } from '../classes/shared.js?v=21.1.0';
+import { shoot } from '../combat/attacks.js?v=21.1.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=21.1.0';
+import { arena, canvasPointToWorld } from '../core/arena.js?v=21.1.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.0';
+import { canvas, root } from '../core/dom.js?v=21.1.0';
+import { clamp } from '../core/math.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=21.1.0';
+import { resetTouchInput } from './mobile.js?v=21.1.0';
 
 
 function eventPos(e){
-  let rect=canvas.getBoundingClientRect();
-  state.pointer.x=clamp((e.clientX-rect.left)/rect.width*W-VIEW_X,arena.l,arena.r);
-  state.pointer.y=clamp((e.clientY-rect.top)/rect.height*H-VIEW_Y,arena.t,arena.b)
+  const point=canvasPointToWorld(e.clientX,e.clientY,canvas.getBoundingClientRect(),root.classList.contains('focus-mode'));
+  state.pointer.x=clamp(point.x,arena.l,arena.r);state.pointer.y=clamp(point.y,arena.t,arena.b);
 }
 
 const mouseRelease=e=>{

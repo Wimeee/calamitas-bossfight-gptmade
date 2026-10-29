@@ -1,10 +1,10 @@
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
-import { ctx } from '../core/dom.js?v=21.0.0';
-import { clamp, norm } from '../core/math.js?v=21.0.0';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=21.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=21.0.0';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.0';
+import { ctx } from '../core/dom.js?v=21.1.0';
+import { clamp, norm } from '../core/math.js?v=21.1.0';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=21.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.0';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   if(g.stage==='hell'&&g.huntWarning){
@@ -53,12 +53,13 @@ export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   }
   if(g.stage==='brothers')g.brothers.forEach(br=>drawBrother(br,g));
   if(g.stage==='seekers')g.seekers.forEach(s=>{
+      if(g.seekerWarning){ctx.strokeStyle='#ffdf9e';ctx.lineWidth=2;ctx.beginPath();ctx.arc(s.x,s.y,21,0,TAU);ctx.stroke();}
       pixel('seeker',s.x,s.y,1.25);
       hpMini(s.x,s.y-27,s.hp,s.max,27,'#db77a4')
   });
   drawMaelstrom(g);
   if(g.dashWind>0){
-    const aim=norm(p.x-b.x,p.y-b.y);
+    const aim=g.dashVector||norm(p.x-b.x,p.y-b.y);
     ctx.setLineDash([11,9]);
     line(b.x,b.y,b.x+aim.x*560,b.y+aim.y*560,'#ffb05e9e',4);
     ctx.setLineDash([]);

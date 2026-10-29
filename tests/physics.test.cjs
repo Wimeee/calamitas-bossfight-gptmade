@@ -33,7 +33,7 @@ test('horizontal movement is consistent at 30, 60 and 120 FPS and platforms exis
   const {t,el}=await loadGame();const results=[];
   for(const rate of [30,60,120]){t.start();const g=t.getGame();t.setKeys({d:true});advance(t,g,1,rate);results.push(g.player.x);}
   assert.ok(Math.max(...results)-Math.min(...results)<1.5);
-  for(const difficulty of ['normal','revenge','death']){el('diff').value=difficulty;t.start();const terrain=t.getTerrain();assert.equal(terrain.platforms.length,4);for(const p of terrain.platforms){assert.ok(p.l<p.r&&p.y>t.arena.t&&p.y<terrain.floorY);}}
+  for(const difficulty of ['normal','revenge','death']){el('diff').value=difficulty;t.start();const terrain=t.getTerrain();assert.equal(terrain.platforms.length,3);for(const p of terrain.platforms){assert.ok(p.l<p.r&&p.y>t.arena.t&&p.y<terrain.floorY);}}
 });
 
 test('double-tap, mouse dash, Space migration and mobile jump keep their separate actions',async()=>{
@@ -55,7 +55,7 @@ test('Maelstrom displacement respects the floor and the ritual uses the same phy
   const {t}=await loadGame();t.start({ritual:true});const g=t.getGame(),p=g.player;
   const total=g.totalTime;t.setKeys({d:true});for(let i=0;i<20;i++)t.update(1/60);
   assert.ok(p.x>430);assert.equal(p.grounded,true);assert.equal(g.totalTime,total);assert.equal(t.nearAltar(),true);
-  t.movePlayerWithTerrain(g,0,1000);assert.equal(p.y,t.getTerrain().floorY-18);
+  t.resetMovement(g);t.movePlayerWithTerrain(g,0,1000);assert.equal(p.y,t.getTerrain().floorY-18);t.spawnNearAltar(g,500);
   assert.equal(t.beginRitual(),true);const position=[p.x,p.y];t.update(1);assert.deepEqual([p.x,p.y],position);
   t.skipRitual();assert.equal(p.grounded,true);assert.equal(p.flightRemaining,2.4);assert.equal(g.stage,'hell');
 });

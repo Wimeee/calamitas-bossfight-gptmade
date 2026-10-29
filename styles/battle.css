@@ -3,9 +3,9 @@ body:not(.menu-open){background:#0c080c}
 #scal-game{isolation:isolate}
 #scal-game::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#0a060ae8,#11080cd9 55%,#090609ed),#0c080c url('../assets/menu/brimstone-sanctuary.webp') center/cover no-repeat;transform:translateZ(0)}
 #scal-game[data-quality="low"]::before{background:#0c080c}
-#scal-game{max-width:1600px;padding:12px 24px;margin:0 auto;min-height:100svh;color:#deceba}
+#scal-game{max-width:2000px;padding:6px 12px;margin:0 auto;min-height:100svh;color:#deceba}
 #scal-game .shell{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
-#scal-game .battle-header{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 92px 9px 0;background:none;border-bottom:1px solid #bd8d5940}
+#scal-game .battle-header{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 92px 9px 0;background:none;border-bottom:1px solid #bd8d5940}
 #scal-game .battle-heading{display:flex;align-items:center;gap:12px;min-width:0}
 #scal-game .battle-heading img{flex:none;opacity:.85;filter:drop-shadow(0 0 12px #ef663a24)}
 #scal-game .eyebrow{font:8px system-ui;letter-spacing:3px;color:#b88965}
@@ -26,7 +26,7 @@ body:not(.menu-open){background:#0c080c}
 #scal-game .toolbar .volume-label{width:100%;padding-top:5px}
 #scal-game .toolbar .volume-label input{width:100%;accent-color:#bc8063}
 #scal-game .btn.primary{background:#502625;border-color:#be856076;color:#ffe0b6;min-width:0}
-#scal-game .status{display:grid;grid-template-columns:minmax(120px,260px) minmax(120px,220px) 1fr;align-items:center;gap:24px;background:none;border:0;padding:12px 0;min-height:60px}
+#scal-game .status{display:grid;grid-template-columns:minmax(120px,260px) minmax(120px,220px) 1fr;align-items:center;gap:24px;background:none;border:0;padding:8px 0;min-height:44px}
 #scal-game .barlabel{font:9px system-ui;letter-spacing:1.6px;color:#b5a193;margin-bottom:7px}
 #scal-game .barlabel span:last-child{font-variant-numeric:tabular-nums;letter-spacing:.5px;color:#efd2b1}
 #scal-game .track{height:5px;background:#1b1119;border:0;border-radius:0;outline:1px solid #bc8c5f26;outline-offset:2px}
@@ -34,11 +34,11 @@ body:not(.menu-open){background:#0c080c}
 #scal-game #manabar{background:linear-gradient(90deg,#345d7c,#93b8c2)}
 #scal-game .status .number{display:flex;gap:18px;justify-content:flex-end;align-items:center;flex-wrap:wrap;font:10px system-ui;color:#c9b29c}
 #scal-game .status .number div{margin:0!important;color:#c9b29c!important}
-#scal-game .screen{width:min(100%,calc((100svh - 218px)*5/3));aspect-ratio:5/3;margin:0 auto;background:#100a11;border:1px solid #b77a5e45;box-shadow:none;isolation:isolate;contain:layout paint}
+#scal-game .screen{width:min(100%,calc((100svh - 160px)*5/3));aspect-ratio:5/3;margin:0 auto;background:#100a11;border:1px solid #b77a5e45;box-shadow:none;isolation:isolate;contain:layout paint}
 #scal-game .quick{min-height:33px;padding:10px 0 6px;background:none;border:0;gap:8px 20px;color:#a58c80;font:9px system-ui;letter-spacing:.2px;justify-content:space-between}
 #scal-game .quick b{color:#d9b393;font-weight:500}
 #scal-game .quick>div:last-child{max-width:48%;text-align:right}
-#scal-game .battle-footer{min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #bb895a30;padding:9px 0 0;position:relative}
+#scal-game .battle-footer{min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #bb895a30;padding:9px 0 0;position:relative}
 #scal-game .loadout{display:flex;align-items:center;gap:14px;min-width:0;font:10px system-ui;color:#b39c8d}
 #scal-game .loadout-caption{font-size:7px;letter-spacing:2px;color:#926f59;white-space:nowrap}
 #scal-game .loadout b{font:15px Georgia,serif;color:#e4c59f}
@@ -96,3 +96,12 @@ body:not(.menu-open) #site-version-tag{display:none}
 
 /* v21: keep summon/skip controls above the ground-level altar. */
 #scal-game .ritual-controls{top:8%;bottom:auto}
+
+/* Game-only view: the arena fills the available viewport without the page artwork. */
+#scal-game.focus-mode::before{display:none}
+#scal-game.focus-mode{background:#050408;padding:0;max-width:none}
+#scal-game.focus-mode:not(.mobile) .shell{height:100dvh;min-height:0;display:flex;flex-direction:column}
+#scal-game.focus-mode:not(.mobile) .status{flex:none;min-height:40px;padding:7px 80px;gap:24px}
+#scal-game.focus-mode:not(.mobile) .screen{flex:1;min-height:0;width:100%;height:auto;aspect-ratio:auto;border:0;margin:0;background:#050408}
+#scal-game.focus-mode:not(.mobile) canvas{width:100%;height:100%;object-fit:contain}
+#scal-game.focus-mode:not(.mobile) .quick{flex:none;min-height:24px;padding:5px 12px}

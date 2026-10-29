@@ -86,3 +86,9 @@ Armor anchors are registered to stable visor/chest landmarks. `warrior.js` owns 
 Platforms are one-way: ascending players pass through, descending feet land, and down+jump ignores platforms until released. The floor always catches the player. Damage hitboxes are unchanged. `render/terrain.js` caches floor/platform art; `render/mobility.js` draws lightweight wings and a flight gauge. Warrior poses read grounded state and velocity.
 
 `input/dash-gesture.js` handles non-repeated directional taps. Settings migrate old Space-dash to an available Shift/key, reserve Space for jump/flight, expose double-tap enable/disable and optional middle/side-mouse dash binding. Desktop primary is left mouse, secondary right; release logic and all class labels must match. Mobile Jump and Wings are separate held inputs, reset with the other touch state. Class-only tests isolate movement alongside boss AI; integration/physics tests exercise real movement.
+
+### v21.1 encounter fairness
+- `config/encounter-balance.js` owns arena-adapted timing, warning intervals, radial counts and primary-source links. Weapon damage remains in class configs.
+- Standard Calamitas no longer calls the historical extra-pattern module. Edge previews are pure and do not consume combat RNG; projectile spawn delays cannot deal damage.
+- `world/terrain.js` owns the middle platform and shared altar position; `render/altar.js` paints it into the static terrain cache.
+- Desktop focus-mode canvas uses contain letterboxing and `canvasPointToWorld` for matching aim coordinates.

@@ -1,7 +1,8 @@
-import { arena } from '../core/arena.js?v=21.0.0';
-import { ctx } from '../core/dom.js?v=21.0.0';
-import { W,H,VIEW_X,VIEW_Y } from '../core/config.js?v=21.0.0';
-import { getTerrain } from '../world/terrain.js?v=21.0.0';
+import { paintAltar } from './altar.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { ctx } from '../core/dom.js?v=21.1.0';
+import { W,H,VIEW_X,VIEW_Y } from '../core/config.js?v=21.1.0';
+import { getTerrain } from '../world/terrain.js?v=21.1.0';
 
 let cached=null,key='';
 export function drawTerrain(){
@@ -19,6 +20,7 @@ export function drawTerrain(){
       for(let x=p.l+8;x<p.r;x+=26){c.fillStyle='#d4ae8470';c.fillRect(x,p.y+2,2,3);}
       c.fillStyle='#6a414a';c.fillRect(p.l+5,p.y+8,5,7);c.fillRect(p.r-10,p.y+8,5,7);
     }
+    paintAltar(c,terrain.altar.x,terrain.altar.y);
   }
   ctx.drawImage(cached,-VIEW_X,-VIEW_Y);
 }

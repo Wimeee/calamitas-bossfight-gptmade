@@ -1,15 +1,15 @@
-import { updatePlayerMovement,resetMovement } from './movement.js?v=21.0.0';
-import { getTerrain } from '../world/terrain.js?v=21.0.0';
-import { playerConfig } from '../../config/player.js?v=21.0.0';
-import { getEncounter } from '../boss/registry.js?v=21.0.0';
-import { audio } from '../core/audio.js?v=21.0.0';
-import { $ } from '../core/dom.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
-import { resetTouchInput } from '../input/mobile.js?v=21.0.0';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=21.0.0';
-import { enter } from './phases.js?v=21.0.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=21.1.0';
+import { getTerrain } from '../world/terrain.js?v=21.1.0';
+import { playerConfig } from '../../config/player.js?v=21.1.0';
+import { getEncounter } from '../boss/registry.js?v=21.1.0';
+import { audio } from '../core/audio.js?v=21.1.0';
+import { $ } from '../core/dom.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
+import { resetTouchInput } from '../input/mobile.js?v=21.1.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=21.1.0';
+import { enter } from './phases.js?v=21.1.0';
 
-export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().floorY-35;},range:86,duration:6.4,skipAfter:.8});
+export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y;},range:86,duration:6.4,skipAfter:.8});
 
 function clearRitualInput(){
   state.keys={};
@@ -66,7 +66,7 @@ export function completeRitual(){
   delete g.ritual;
   clearRitualInput();
   // Every attempt enters the encounter from the same original spawn and resources.
-  resetMovement(g,500);
+  spawnNearAltar(g,500);
   g.player.iframes=playerConfig.spawnInvulnerability;
   const opening=getEncounter(g).config.opening;
   enter(opening.stage,opening.marker,opening.label);

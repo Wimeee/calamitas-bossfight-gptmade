@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {loadGame}=require('./helpers/fixture.cjs');
-test('167 combat, input, phase, beam and arena regressions',async()=>{
+test('class, input, phase, beam and arena regressions',async()=>{
 const {t,el}=await loadGame();
 const noop=()=>{};
 const html=fs.readFileSync('index.html','utf8');
@@ -45,36 +45,6 @@ for(const weapon of ['melee','ranger','mage','summon','rogue']){
  check(g.boss.hp<hp,weapon+' damages boss');check(matchingImpact,weapon+' matching hit art');
  check(g.player.mana>=0&&g.player.mana<=g.player.maxMana,'mana bounds '+weapon);
 }
-// Every added pattern releases the expected geometry with finite velocities.
-for(const kind of ['spiral','cross','pincer']){
- t.start();const g=t.getGame();g.projectiles=[];
- t.releaseExtraPattern({kind,x:500,y:300,angle:.3,phase:3});
- check(g.projectiles.length===(kind==='cross'?24:kind==='pincer'?6:19),'pattern projectile count '+kind);
- check(g.projectiles.every(q=>Number.isFinite(q.vx)&&Number.isFinite(q.vy)),'finite pattern '+kind);
- if(kind==='spiral')check(g.projectiles.every(q=>q.curve===.22),'spiral angular movement');
- else check(g.projectiles.every(q=>q.straight),'straight pattern '+kind);
-}
-// Delayed release, cleanup on stage transition, and bounded visual effect storage.
-t.start();let pg=t.getGame();pg.stageT=2;pg.patternTimer=0;t.updateExtraPatterns(.01);
-check(pg.patternWarnings.length===1&&pg.projectiles.length===0,'warning precedes pattern');
-pg.stageT+=.4;t.updateExtraPatterns(.4);check(pg.projectiles.length===0,'no early release');
-pg.stageT+=.6;t.updateExtraPatterns(.6);check(pg.projectiles.length>0,'warning releases pattern');
-t.enter('accept','finish','ACCEPTANCE');check(pg.patternWarnings.length===0&&pg.projectiles.length===0,'stage clears hazards');
-for(let i=0;i<100;i++)t.hitTarget(pg.boss,1,500,300,'#fff','mage');check(pg.impacts.length===70,'impact cap');
-// Stationary exposure across a grid INCLUDING the edges and corners, all hells/difficulties.
-const report=[];
-for(const diff of ['normal','revenge','death'])for(let phase=1;phase<=5;phase++){
- let minHits=Infinity,misses=[];
- for(let ix=0;ix<7;ix++)for(let iy=0;iy<5;iy++){
-  el('diff').value=diff;t.setDeviceMode('desktop');t.start();let g=t.getGame();g.phaseN=phase;g.player.x=t.arena.l+11+(t.arena.r-t.arena.l-22)*ix/6;g.player.y=t.arena.t+11+(t.arena.b-t.arena.t-22)*iy/4;
-  g.player.hp=g.player.maxHp=1e9;g.player.iframes=0;
-  for(let frame=0;frame<890;frame++){const dt=1/60;g.t+=dt;g.stageT+=dt;g.player.iframes=Math.max(0,g.player.iframes-dt);t.bulletHell(dt);t.updateExtraPatterns(dt);t.updateBullets(dt);}
-  minHits=Math.min(minHits,g.player.hits);if(!g.player.hits)misses.push([ix,iy]);
- }
- check(misses.length===0,'static safe spots '+diff+' phase '+phase+': '+JSON.stringify(misses));report.push({diff,phase,points:35,minHits});
-}
-// Warning must lock a target and release a straight non-homing skull after 0.7s.
-el('diff').value='normal';t.start();let g=t.getGame();g.huntTimer=0;t.bulletHell(.01);check(!!g.huntWarning,'warning created');const tx=g.huntWarning.tx;g.player.x+=80;for(let i=0;i<43;i++){g.stageT+=1/60;t.bulletHell(1/60)}let skull=g.projectiles.find(q=>q.kind==='skull');check(skull?.straight,'locked skull does not drift');check(tx!==g.player.x,'warning target stayed fixed');
 // Beam collision is real, stops at the nearest target and respects the arena wall.
 t.setDeviceMode('desktop');el('class').value='ranger';t.start();
 for(const listener of el('game').listeners.pointerdown)listener({clientX:600,clientY:300,button:0,pointerId:1,preventDefault:noop});

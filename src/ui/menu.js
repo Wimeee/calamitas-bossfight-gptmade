@@ -1,15 +1,15 @@
-import { weapons } from '../classes/registry.js?v=21.0.0';
-import { audio } from '../core/audio.js?v=21.0.0';
-import { VERSION } from '../core/config.js?v=21.0.0';
-import { $, root } from '../core/dom.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
-import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=21.0.0';
-import { start,togglePause } from '../game/session.js?v=21.0.0';
-import { loop } from '../game/loop.js?v=21.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=21.0.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=21.0.0';
-import { createMenuBackground } from '../render/menu-background.js?v=21.0.0';
-import { pixelArt } from '../render/sprites.js?v=21.0.0';
+import { weapons } from '../classes/registry.js?v=21.1.0';
+import { audio } from '../core/audio.js?v=21.1.0';
+import { VERSION } from '../core/config.js?v=21.1.0';
+import { $, root } from '../core/dom.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
+import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=21.1.0';
+import { start,togglePause } from '../game/session.js?v=21.1.0';
+import { loop } from '../game/loop.js?v=21.1.0';
+import { setFocusMode } from '../input/fullscreen.js?v=21.1.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=21.1.0';
+import { createMenuBackground } from '../render/menu-background.js?v=21.1.0';
+import { pixelArt } from '../render/sprites.js?v=21.1.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};

@@ -1,9 +1,9 @@
-import { movementConfig as config } from '../../config/movement.js?v=21.0.0';
-import { playerConfig } from '../../config/player.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
-import { clamp } from '../core/math.js?v=21.0.0';
-import { getTerrain } from '../world/terrain.js?v=21.0.0';
+import { movementConfig as config } from '../../config/movement.js?v=21.1.0';
+import { playerConfig } from '../../config/player.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
+import { clamp } from '../core/math.js?v=21.1.0';
+import { getTerrain } from '../world/terrain.js?v=21.1.0';
 
 const approach=(value,target,amount)=>value<target?Math.min(target,value+amount):Math.max(target,value-amount);
 export function resetMovement(g,x=380){
@@ -12,6 +12,12 @@ export function resetMovement(g,x=380){
     vx:0,vy:0,grounded:true,support:'ground',flying:false,flightRemaining:config.flightTime,
     jumpBuffer:0,jumpGrace:config.jumpGrace,jumpSustain:0,dropTimer:0,dropHeld:false,jumpWasHeld:false,
     dashT:0,dashCd:0,contactGuard:0,dashTapDirection:0,dashTapAt:-Infinity,physics:true});
+}
+
+export function spawnNearAltar(g,x=380){
+  resetMovement(g,x);
+  const platform=getTerrain().platforms.find(p=>p.id==='middle');
+  g.player.y=platform.y-config.halfHeight;g.player.support=platform.id;
 }
 
 export function queueJump(g=state.game){

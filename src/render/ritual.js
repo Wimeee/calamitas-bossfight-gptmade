@@ -1,12 +1,12 @@
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.0.0';
-import { drawGlowCircle } from './glow-cache.js?v=21.0.0';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=21.0.0';
-import { settings } from '../core/settings.js?v=21.0.0';
-import { ctx } from '../core/dom.js?v=21.0.0';
-import { W,H,TAU } from '../core/config.js?v=21.0.0';
-import { clamp } from '../core/math.js?v=21.0.0';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=21.0.0';
-import { line,pixel,round,text } from './primitives.js?v=21.0.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.1.0';
+import { drawGlowCircle } from './glow-cache.js?v=21.1.0';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=21.1.0';
+import { settings } from '../core/settings.js?v=21.1.0';
+import { ctx } from '../core/dom.js?v=21.1.0';
+import { W,H,TAU } from '../core/config.js?v=21.1.0';
+import { clamp } from '../core/math.js?v=21.1.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=21.1.0';
+import { line,pixel,round,text } from './primitives.js?v=21.1.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -33,13 +33,6 @@ export function drawRitualWorld(g){
   ctx.fillStyle=glow;ctx.fillRect(-250,-250,500,500);
   sigil(72+power*54,t*.13,.25+power*.65);
   if(charging)sigil(152,s*-.3,power*.7);
-  // Stone plinth, flared bronze urn, lid and luminous brimstone seams.
-  ctx.fillStyle='#241723';ctx.fillRect(-45,25,90,10);ctx.fillRect(-35,16,70,10);
-  line(-44,25,44,25,'#8c5260',2);
-  ctx.beginPath();ctx.moveTo(-23,-24);ctx.lineTo(23,-24);ctx.lineTo(28,-12);ctx.lineTo(18,15);ctx.lineTo(-18,15);ctx.lineTo(-28,-12);ctx.closePath();
-  ctx.fillStyle='#3e1c29';ctx.fill();ctx.strokeStyle='#bd745e';ctx.lineWidth=2;ctx.stroke();
-  line(-29,-26,29,-26,'#d39c72',4);line(-18,-31,18,-31,'#8c4a45',4);
-  for(const side of [-1,1]){line(side*25,-17,side*35,-28,'#b16c54',3);line(side*35,-28,side*30,-36,'#b16c54',2);}
   ctx.shadowColor='#ff4b5c';ctx.shadowBlur=settings.quality==='low'?0:18;
   line(0,-18,-7,-3,'#ff9c75',2);line(-7,-3,5,2,'#ff5c61',2);line(5,2,0,11,'#ff9c75',2);
   ctx.shadowBlur=0;

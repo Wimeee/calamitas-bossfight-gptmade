@@ -1,12 +1,13 @@
-import { cosmicStarBurst } from '../classes/summoner.js?v=21.0.0';
-import { hitTarget, hurt } from './damage.js?v=21.0.0';
-import { nearestForHoming, possibleTargets } from './targets.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { audio } from '../core/audio.js?v=21.0.0';
-import { TAU } from '../core/config.js?v=21.0.0';
-import { lerp, norm, rnd } from '../core/math.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
-import { enter } from '../game/phases.js?v=21.0.0';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=21.1.0';
+import { cosmicStarBurst } from '../classes/summoner.js?v=21.1.0';
+import { hitTarget, hurt } from './damage.js?v=21.1.0';
+import { nearestForHoming, possibleTargets } from './targets.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { audio } from '../core/audio.js?v=21.1.0';
+import { TAU } from '../core/config.js?v=21.1.0';
+import { lerp, norm, rnd } from '../core/math.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
+import { enter } from '../game/phases.js?v=21.1.0';
 
 
 function enemyBullet(x,y,dx,dy,speed,r,kind='dart',damage=42){
@@ -29,10 +30,11 @@ function fan(x,y,tx,ty,num,spread,speed,kind='dart'){
 
 function explosion(b){
   audio.fx('big');
-  let g=state.game,num=b.kind==='giga'?(g.difficulty==='death'?28:g.difficulty==='revenge'?22:17):(g.difficulty==='death'?16:12),sp=b.kind==='giga'?245:205;
+  let g=state.game,num=(b.kind==='giga'?c.gigaDarts:c.fireDarts)[g.difficulty],sp=b.kind==='giga'?175:160;
   for(let i=0;i<num;i++){
-    let a=TAU*i/num+Math.sin(i)*.08;
-    enemyBullet(b.x,b.y,Math.cos(a),Math.sin(a),sp,5,'dart',b.kind==='giga'?31:27)
+    let a=TAU*i/num;
+    const q=enemyBullet(b.x,b.y,Math.cos(a),Math.sin(a),sp,5,'dart',b.kind==='giga'?31:27);
+    if(q){q.acceleration=22;q.maxSpeed=235;}
   }
   for(let i=0;i<18;i++)g.sparks.push({x:b.x,y:b.y,vx:rnd(-180,180),vy:rnd(-180,180),life:rnd(.22,.7),max:.7,c:'#ff755f'})
 }
@@ -42,8 +44,24 @@ function updateBullets(dt){
   let g=state.game,p=g.player;
   for(let i=g.projectiles.length-1;i>=0;i--){
     const q=g.projectiles[i];
+    if(q.spawnDelay>0){q.spawnDelay=Math.max(0,q.spawnDelay-dt);continue;}
     q.life-=dt;
     q.t+=dt;
+    if(q.acceleration){
+      const v=Math.hypot(q.vx,q.vy),next=Math.min(q.maxSpeed||300,v+q.acceleration*dt);
+      if(v>0){q.vx*=next/v;q.vy*=next/v;}
+    }
+    if(q.kind==='fire'||q.kind==='giga'){
+      if(q.detonating){
+        if(q.t>=q.burstAt){g.projectiles.splice(i,1);explosion(q);continue;}
+      }else{
+        const distance=Math.hypot(p.x-q.x,p.y-q.y),d=norm(p.x-q.x,p.y-q.y);
+        q.vx=lerp(q.vx,d.x*q.v0,dt*.55);q.vy=lerp(q.vy,d.y*q.v0,dt*.55);
+        if(distance<(q.kind==='giga'?115:95)||q.t>=(q.kind==='giga'?c.gigaFuse:c.fireFuse)){
+          q.detonating=true;q.burstAt=q.t+c.blastPause;q.vx=0;q.vy=0;
+        }
+      }
+    }
     if(q.curve){
       const a=q.curve*dt,c=Math.cos(a),sn=Math.sin(a),vx=q.vx;
       q.vx=vx*c-q.vy*sn;
@@ -55,15 +73,11 @@ function updateBullets(dt){
       q.vy=(vx*si+vy*c)*(1+dt*.025)
     }
     if(q.kind==='skull'&&!q.straight){
-      q.y+=Math.sin(q.t*8+q.wave)*85*dt
+      if(q.baseY===undefined)q.baseY=q.y;
+      q.y=q.baseY+Math.sin(q.t*4+q.wave)*28
     }
     q.x+=q.vx*dt;
     q.y+=q.vy*dt;
-    if(q.kind==='fire'&&q.t>2.3||q.kind==='giga'&&q.t>2.4){
-      g.projectiles.splice(i,1);
-      explosion(q);
-      continue
-    }
     if(q.life<=0||q.x<arena.l-70||q.x>arena.r+70||q.y<arena.t-70||q.y>arena.b+70){
       g.projectiles.splice(i,1);
       continue
@@ -124,6 +138,7 @@ function updateBullets(dt){
     if(!g.brothers.length){
       g.projectiles=[];
       g.done.add('bros');
+      g.thresholds.add('40');g.done.add('h40');g.phase2Intro=3;
       enter('normal','h40','CALAMITAS');
       g.hint='АТАКУЙ CALAMITAS'
     }

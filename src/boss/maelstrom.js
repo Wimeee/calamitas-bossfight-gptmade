@@ -1,19 +1,20 @@
-import { movePlayerWithTerrain } from '../game/movement.js?v=21.0.0';
-import { hurt } from '../combat/damage.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { clamp, lerp, norm } from '../core/math.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
+import { movePlayerWithTerrain } from '../game/movement.js?v=21.1.0';
+import { hurt } from '../combat/damage.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { clamp, lerp, norm } from '../core/math.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
 
 
 function updateMaelstrom(dt){
   const g=state.game,p=g.player,m=g.maelstrom;
   if(!m||g.stage==='accept')return;
-  // Stronger, visible gravity; never cancel the player's intentional dash.
+  m.age=(m.age||0)+dt;
+  if(m.age<1.6){m.pulse+=dt;return;}
   const speedMult=(g.stage==='seekers'||g.stage==='hearts')?.80:1;
   const target=norm(p.x-m.x,p.y-m.y);
-  const chase=142*speedMult;
-  m.vx=lerp(m.vx,target.x*chase,clamp(dt*1.45,0,1));
-  m.vy=lerp(m.vy,target.y*chase,clamp(dt*1.45,0,1));
+  const chase=(g.difficulty==='death'?112:g.difficulty==='revenge'?102:92)*speedMult;
+  m.vx=lerp(m.vx,target.x*chase,clamp(dt*.7,0,1));
+  m.vy=lerp(m.vy,target.y*chase,clamp(dt*.7,0,1));
   m.x=clamp(m.x+m.vx*dt,arena.l+m.r+9,arena.r-m.r-9);
   m.y=clamp(m.y+m.vy*dt,arena.t+m.r+9,arena.b-m.r-9);
   m.pulse+=dt;
@@ -21,7 +22,7 @@ function updateMaelstrom(dt){
   if(d<range&&d>4){
     const strength=1-d/range;
     // noticeable at the outer radius, then strongly accelerating near the center
-    const gravity=(72+380*strength*strength)*dt;
+    const gravity=(25+140*strength*strength)*dt;
     if(p.dashT<=0){
       movePlayerWithTerrain(g,dx/d*gravity,dy/d*gravity);
     }

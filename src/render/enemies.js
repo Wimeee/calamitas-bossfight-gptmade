@@ -1,6 +1,6 @@
-import { TAU } from '../core/config.js?v=21.0.0';
-import { ctx } from '../core/dom.js?v=21.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=21.0.0';
+import { TAU } from '../core/config.js?v=21.1.0';
+import { ctx } from '../core/dom.js?v=21.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.0';
 
 
 function drawBrother(br,g){
@@ -33,6 +33,7 @@ function drawCalamitas(g){
 function drawSepulcher(g){
   // A continuous long chain of skeletal ribs and a horned skull, behind the hearts.
   const point=i=>{
+    if(g.sepulcher)return i===0?g.sepulcher:g.sepulcher.nodes[Math.min(i-1,g.sepulcher.nodes.length-1)]||g.sepulcher;
     const a=g.t*1.15-i*.115;
     return {x:500+Math.sin(a)*245,y:315+Math.sin(a*1.9)*125+i*1.2}
   };
@@ -55,6 +56,7 @@ function drawMaelstrom(g){
   const distance=Math.hypot(p.x-m.x,p.y-m.y);
   ctx.save();
   ctx.translate(m.x,m.y);
+  if((m.age||0)<1.6){ctx.globalAlpha=.25+(m.age||0)/1.6*.6;ctx.strokeStyle='#e898d5';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,m.r+35*(1-(m.age||0)/1.6),0,TAU);ctx.stroke();ctx.restore();text('MAELSTROM · ВІДІЙДИ',m.x,m.y-m.r-25,12,'#f6c3ef');return;}
   // Gravity field is visible before the actual contact radius.
   const range=255;
   ctx.strokeStyle='#9d57bb35';

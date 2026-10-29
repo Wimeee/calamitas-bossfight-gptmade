@@ -1,6 +1,6 @@
-import { classRegistry, weapons } from '../classes/registry.js?v=21.0.0';
-import { rnd } from '../core/math.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=21.1.0';
+import { rnd } from '../core/math.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
 
 
 function addShot(x,y,dx,dy,w,boost=1){

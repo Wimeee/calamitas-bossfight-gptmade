@@ -38,7 +38,7 @@ test('ritual gates combat, freezes resources and enters original opening once fo
     t.draw(g);
     assert.equal(t.skipRitual(),true);assert.equal(t.skipRitual(),false);
     assert.equal(g.phaseN,1);assert.equal(g.stage,'hell');assert.equal(g.marker,'opening');
-    assert.equal(p.x,500);assert.equal(p.y,t.getTerrain().floorY-18);assert.equal(g.totalTime,0);
+    assert.equal(p.x,500);assert.equal(p.y,t.getTerrain().platforms[1].y-18);assert.equal(g.totalTime,0);
     assert.equal(el('ritual-controls').hidden,true);
   }
 });

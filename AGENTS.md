@@ -1,7 +1,7 @@
 # Development notes
 
 - The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v21 adds Terraria-style movement and the approved left-primary/right-secondary controls. Other class sprite overhauls, new bosses and a full soundtrack remain separate future updates.
-- Create a recovery point before major changes. Latest baseline backup branch: `backup/v20.1-before-terraria-physics` (the earlier v17 backup is also retained).
+- Create a recovery point before major changes. Latest baseline backup branch: `backup/v21-before-canonical-fairness` (the earlier v17 backup is also retained).
 
 - Read `ARCHITECTURE.md` before structural edits. Keep `index.html` for markup and `styles/` for CSS.
 - Preserve desktop and mobile controls, the five existing classes, and all encounter phases unless the user asks to change them.

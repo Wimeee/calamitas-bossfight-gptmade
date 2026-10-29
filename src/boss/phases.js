@@ -1,8 +1,9 @@
-import { calamitasConfig as config } from '../../config/calamitas.js?v=21.0.0';
-import { arena } from '../core/arena.js?v=21.0.0';
-import { audio } from '../core/audio.js?v=21.0.0';
-import { TAU } from '../core/config.js?v=21.0.0';
-import { state } from '../core/state.js?v=21.0.0';
+import { getTerrain } from '../world/terrain.js?v=21.1.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=21.1.0';
+import { arena } from '../core/arena.js?v=21.1.0';
+import { audio } from '../core/audio.js?v=21.1.0';
+import { TAU } from '../core/config.js?v=21.1.0';
+import { state } from '../core/state.js?v=21.1.0';
 
 
 function enterCalamitas(stage,marker,label){
@@ -30,10 +31,11 @@ function enterCalamitas(stage,marker,label){
   g.patternWarnings=[];
   g.patternTimer=2.6;
   g.patternIndex=0;
-  g.attackTimer=0;
+  g.attackTimer=.8;
   g.attackTick=0;
   g.dashActive=0;
   g.dashWind=0;
+  g.dashCount=0;
   g.marker=marker;
   g.label=label||stage.toUpperCase();
   g.hint='';
@@ -64,7 +66,7 @@ function enterCalamitas(stage,marker,label){
     if(marker==='sep2')g.done.add('h10')
   }
   if(stage==='brothers'){
-    g.brothers=[{x:320,y:260,hp:config.brotherHP,max:config.brotherHP,r:25,kind:0},{x:680,y:260,hp:config.brotherHP,max:config.brotherHP,r:25,kind:1}];
+    g.brothers=[{x:680,y:260,hp:config.brotherHP,max:config.brotherHP,r:25,kind:0},{x:320,y:260,hp:config.brotherHP,max:config.brotherHP,r:25,kind:1}];
     g.projectiles=[];
     g.hint='CATACLYSM + CATASTROPHE';
     g.done.add('h50');
@@ -74,7 +76,7 @@ function enterCalamitas(stage,marker,label){
   }
   if(stage==='seekers'){
     g.seekers=[];
-    for(let i=0;i<10;i++)g.seekers.push({angle:i*TAU/10,hp:config.seekerHP,max:config.seekerHP,r:13,x:0,y:0});
+    for(let i=0;i<10;i++)g.seekers.push({angle:i*TAU/10,hp:config.seekerHP,max:config.seekerHP,r:13,x:g.boss.x+Math.cos(i*TAU/10)*126,y:g.boss.y+Math.sin(i*TAU/10)*126});
     g.hint='ЗНИЩИ 10 SOUL SEEKERS';
     g.done.add('seek');
     g.dialog='SUPREME SOUL SEEKERS';
@@ -86,7 +88,7 @@ function enterCalamitas(stage,marker,label){
     g.maelstrom=null;
     g.shots=[];
     g.boss.x=500;
-    g.boss.y=270;
+    g.boss.y=getTerrain().altar.y-45;
     g.acceptT=0;
     g.hint='ACCEPTANCE';
     g.done.add('sep2');
@@ -123,7 +125,7 @@ function transitionCalamitas(){
   }
   if(pct<=config.thresholds.maelstrom&&!g.thresholds.has('30')){
     g.thresholds.add('30');
-    g.maelstrom={x:500,y:320,vx:0,vy:0,r:88,pulse:0};
+    g.maelstrom={x:getTerrain().altar.x,y:getTerrain().altar.y,vx:0,vy:0,r:70,pulse:0,age:0};
     enterCalamitas('hell','h30','BULLET HELL IV · MAELSTROM');
     g.hint='WHISPERING MAELSTROM ПРОБУДЖЕНО';
     return
