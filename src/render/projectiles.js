@@ -1,8 +1,8 @@
-import { settings } from '../core/settings.js?v=20.0.1';
-import { ctx } from '../core/dom.js?v=20.0.1';
-import { TAU } from '../core/config.js?v=20.0.1';
-import { line,pixel } from './primitives.js?v=20.0.1';
-import { drawGlowCircle } from './glow-cache.js?v=20.0.1';
+import { settings } from '../core/settings.js?v=20.1.0';
+import { ctx } from '../core/dom.js?v=20.1.0';
+import { TAU } from '../core/config.js?v=20.1.0';
+import { line,pixel } from './primitives.js?v=20.1.0';
+import { drawGlowCircle } from './glow-cache.js?v=20.1.0';
 
 export function drawEnemyProjectiles(g){
   const low=settings.quality==='low';

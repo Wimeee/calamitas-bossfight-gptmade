@@ -1,20 +1,20 @@
-import { drawEnemyProjectiles } from './projectiles.js?v=20.0.1';
-import { drawWarriorBody } from './warrior.js?v=20.0.1';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.0.1';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.0.1';
-import { getEncounter } from '../boss/registry.js?v=20.0.1';
-import { possibleTargets } from '../combat/targets.js?v=20.0.1';
-import { arena } from '../core/arena.js?v=20.0.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.1';
-import { ctx } from '../core/dom.js?v=20.0.1';
-import { clamp, norm } from '../core/math.js?v=20.0.1';
-import { state } from '../core/state.js?v=20.0.1';
-import { drawBackdrop } from './background.js?v=20.0.1';
-import { drawClassKit } from './class-effects.js?v=20.0.1';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.0.1';
-import { drawSword } from './melee.js?v=20.0.1';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=20.0.1';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.0.1';
+import { drawEnemyProjectiles } from './projectiles.js?v=20.1.0';
+import { drawWarriorBody } from './warrior.js?v=20.1.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.1.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.1.0';
+import { getEncounter } from '../boss/registry.js?v=20.1.0';
+import { possibleTargets } from '../combat/targets.js?v=20.1.0';
+import { arena } from '../core/arena.js?v=20.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
+import { ctx } from '../core/dom.js?v=20.1.0';
+import { clamp, norm } from '../core/math.js?v=20.1.0';
+import { state } from '../core/state.js?v=20.1.0';
+import { drawBackdrop } from './background.js?v=20.1.0';
+import { drawClassKit } from './class-effects.js?v=20.1.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.1.0';
+import { drawSword } from './melee.js?v=20.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=20.1.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.1.0';
 
 
 function draw(g){

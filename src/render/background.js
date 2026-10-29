@@ -1,8 +1,8 @@
-import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=20.0.1';
-import { arena } from '../core/arena.js?v=20.0.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.1';
-import { ctx } from '../core/dom.js?v=20.0.1';
-import { line } from './primitives.js?v=20.0.1';
+import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=20.1.0';
+import { arena } from '../core/arena.js?v=20.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
+import { ctx } from '../core/dom.js?v=20.1.0';
+import { line } from './primitives.js?v=20.1.0';
 
 
 function drawBackdrop(g){

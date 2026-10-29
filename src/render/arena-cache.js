@@ -1,7 +1,7 @@
-import { arena } from '../core/arena.js?v=20.0.1';
-import { settings } from '../core/settings.js?v=20.0.1';
-import { H,VIEW_X,VIEW_Y,W } from '../core/config.js?v=20.0.1';
-import { ctx } from '../core/dom.js?v=20.0.1';
+import { arena } from '../core/arena.js?v=20.1.0';
+import { settings } from '../core/settings.js?v=20.1.0';
+import { H,VIEW_X,VIEW_Y,W } from '../core/config.js?v=20.1.0';
+import { ctx } from '../core/dom.js?v=20.1.0';
 
 let base=null,arenaLayer=null,arenaKey='';
 function surface(){const c=document.createElement('canvas');c.width=W;c.height=H;return c;}

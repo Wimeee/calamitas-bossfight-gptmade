@@ -99,3 +99,11 @@ Focused validation: existing 52 Ark checks plus sprite matte/pose/fallback tests
 ## v20.0.1 — measured rendering fix
 
 Enemy bullet glows, static arena layers and ritual spark halos are rasterized once and reused. This removes per-frame shadow filtering while preserving projectile bodies and mechanics. In the local 240-bullet browser comparison, median frame interval fell from 33.3 to 5.6 ms; actual device FPS varies. Terraria physics remains a separate next update.
+
+## v20.1 — Warrior Animation Polish
+
+Register armor frames to chest/visor landmarks; run clips at explicit FPS from pose entry (5 idle, 10 run, 7 rise/fall) and drive dash frames from its existing duration. Keep facing stable near vertical aim and freeze the pose on pause. Remove whole-pixel position snapping.
+
+Ark now has continuous blade motion, smooth wind-up/recovery and a tapered, cached cosmic ribbon instead of rotating the six whole slash pictures. Add 36 cached in-between effect frames across open scissors, spin, SNAP, Big Rip and impacts. Source sheets are unchanged; intermediate effects are composited from them during loading. No live blur or per-frame pixel processing.
+
+Focused checks: registered landmarks, frame timing, facing, dash progression, pause, sprite fallback and the existing 52 Ark mechanics/input checks. Terraria physics is reserved for v21. Recovery branch: `backup/v20.0.1-before-animation-polish`.

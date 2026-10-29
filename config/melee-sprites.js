@@ -9,6 +9,18 @@ const body={
   hurt:frames([[210,109],[367,97],[522,99]],645,100,w=>[w/2,53]),
   death:frames([[220,85],[378,119],[553,148],[727,158],[909,158],[1089,215]],749,88,w=>[w/2,67])
 };
+// Registered to the chest, using the visor as a stable landmark in every pose.
+// Sheet-cell centers drift as legs, helmets and dash flames change silhouette.
+const chestAnchors={
+  idle:[[54,75],[52,74],[54,74],[56,76]],
+  run:[[96,69],[96,69],[89,67],[92,68],[87,66],[95,64]],
+  rise:[[67,64],[79,63],[77,65],[93,61]],
+  fall:[[78,68],[82,69],[86,73],[86,74]],
+  dash:[[114,65],[172,63],[236,63],[195,65],[160,64],[177,60]],
+  hurt:[[54,50],[51,55],[58,53]],
+  death:[[43,36],[53,36],[60,36],[100,36],[100,36],[130,36]]
+};
+for(const [name,anchors]of Object.entries(chestAnchors))body[name].forEach((frame,i)=>{[frame.ax,frame.ay]=anchors[i];});
 const ark={
   closed:frames([[58,118],[218,111],[364,118],[511,134],[659,148]],45,184,w=>[w*.5,164]),
   open:frames([[846,181],[1038,187],[1227,196],[1425,210]],39,196,()=>[36,153]),

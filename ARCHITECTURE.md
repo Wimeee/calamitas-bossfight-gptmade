@@ -74,3 +74,7 @@
 ## Render caches v20.0.1
 
 `render/glow-cache.js` stores bounded reusable glow stamps; `render/projectiles.js` draws enemy bullets without live per-bullet blur. `render/arena-cache.js` stores the static gradient and arena grid/border, keyed by bounds and quality. Keep dynamic seals, moving sparks, bullet positions and warning animations outside static caches. These modules must never mutate combat state.
+
+## Warrior animation clocks (v20.1)
+
+Armor anchors are registered to stable visor/chest landmarks. `warrior.js` owns visual-only WeakMap clocks keyed by game, so clip playback starts on pose entry and uses FPS rather than cycles/second. Dash animation reads the existing dash duration. Facing uses a small dead zone around vertical aim. Weapon angle/scale transitions affect rendering only. `warrior-trails.js` prepares two tapered trail stamps and rotates them at display rate. `melee-atlas.js` bakes aligned in-between effect frames once and releases intermediate ImageBitmaps. Never move player coordinates, alter hitboxes or retime attacks in these render modules.

@@ -1,5 +1,6 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.0.1';
-import { ctx } from '../core/dom.js?v=20.0.1';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.1.0';
+import { ctx } from '../core/dom.js?v=20.1.0';
+import { prepareWarriorTrails } from './warrior-trails.js?v=20.1.0';
 
 const cache={body:null,ark:null};
 let loading;
@@ -36,6 +37,26 @@ async function prepareFrame(image,rect,kind){
   return{image:bitmap,...rect};
 }
 
+export function transitionSamples(count,steps=3,loop=false){
+  const samples=[];
+  for(let i=0;i<(loop?count:count-1);i++)for(let step=0;step<steps;step++)samples.push({a:i,b:(i+1)%count,mix:step/steps});
+  if(!loop)samples.push({a:count-1,b:count-1,mix:0});
+  return samples;
+}
+
+async function prepareTransitions(frames,loop){
+  const left=Math.ceil(Math.max(...frames.map(f=>f.ax))),top=Math.ceil(Math.max(...frames.map(f=>f.ay)));
+  const w=left+Math.ceil(Math.max(...frames.map(f=>f.w-f.ax))),h=top+Math.ceil(Math.max(...frames.map(f=>f.h-f.ay)));
+  return Promise.all(transitionSamples(frames.length,3,loop).map(async sample=>{
+    const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+    const c=canvas.getContext('2d');c.imageSmoothingEnabled=false;c.globalCompositeOperation='lighter';
+    const a=frames[sample.a],b=frames[sample.b];
+    c.globalAlpha=1-sample.mix;c.drawImage(a.image,left-a.ax,top-a.ay);
+    if(sample.mix){c.globalAlpha=sample.mix;c.drawImage(b.image,left-b.ax,top-b.ay);}
+    return{image:typeof createImageBitmap==='function'?await createImageBitmap(canvas):canvas,w,h,ax:left,ay:top};
+  }));
+}
+
 export function initializeMeleeAtlas(){
   if(loading)return loading;
   if(typeof Image==='undefined')return Promise.resolve(false);
@@ -44,14 +65,20 @@ export function initializeMeleeAtlas(){
     image.onload=async()=>{
       try{
         const groups={};
-        for(const [animation,rects]of Object.entries(meleeSpriteConfig[kind]))groups[animation]=await Promise.all(rects.map(rect=>prepareFrame(image,rect,kind)));
+        for(const [animation,rects]of Object.entries(meleeSpriteConfig[kind])){
+          const frames=await Promise.all(rects.map(rect=>prepareFrame(image,rect,kind)));
+          groups[animation]=kind==='ark'&&['open','spin','snap','rip','impact'].includes(animation)?await prepareTransitions(frames,animation==='spin'):frames;
+          if(groups[animation]!==frames)for(const frame of frames)frame.image.close?.();
+        }
         cache[kind]=groups;resolve(true);
       }catch{resolve(false);}
     };
     image.onerror=()=>resolve(false);
-    image.src=new URL('../../assets/melee/'+name+'?v=20.0.1',import.meta.url).href;
+    image.src=new URL('../../assets/melee/'+name+'?v=20.1.0',import.meta.url).href;
   });
-  loading=Promise.all([load('body','armor-source.png'),load('ark','ark-source.png')]).then(results=>results.every(Boolean));
+  loading=Promise.all([load('body','armor-source.png'),load('ark','ark-source.png')]).then(results=>{
+    const ready=results.every(Boolean);if(ready)prepareWarriorTrails();return ready;
+  });
   return loading;
 }
 
@@ -61,7 +88,7 @@ export function drawMeleeFrame(kind,name,index,x,y,scale,angle=0,flip=false,alph
   const group=cache[kind]?.[name];if(!group)return false;
   const frame=group[Math.max(0,Math.min(group.length-1,index|0))];
   ctx.save();ctx.imageSmoothingEnabled=false;ctx.globalAlpha*=alpha;ctx.shadowBlur=0;
-  ctx.translate(Math.round(x),Math.round(y));ctx.rotate(angle);ctx.scale(flip?-scale:scale,scale);
+  ctx.translate(x,y);ctx.rotate(angle);ctx.scale(flip?-scale:scale,scale);
   ctx.drawImage(frame.image,-frame.ax,-frame.ay);ctx.restore();return true;
 }
 
