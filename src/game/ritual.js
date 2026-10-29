@@ -1,13 +1,13 @@
-import { playerConfig } from '../../config/player.js?v=19.1.1';
-import { getEncounter } from '../boss/registry.js?v=19.1.1';
-import { arena } from '../core/arena.js?v=19.1.1';
-import { audio } from '../core/audio.js?v=19.1.1';
-import { $ } from '../core/dom.js?v=19.1.1';
-import { clamp, norm } from '../core/math.js?v=19.1.1';
-import { state } from '../core/state.js?v=19.1.1';
-import { resetTouchInput } from '../input/mobile.js?v=19.1.1';
-import { ui } from '../ui/hud.js?v=19.1.1';
-import { enter } from './phases.js?v=19.1.1';
+import { playerConfig } from '../../config/player.js?v=20.0.0';
+import { getEncounter } from '../boss/registry.js?v=20.0.0';
+import { arena } from '../core/arena.js?v=20.0.0';
+import { audio } from '../core/audio.js?v=20.0.0';
+import { $ } from '../core/dom.js?v=20.0.0';
+import { clamp, norm } from '../core/math.js?v=20.0.0';
+import { state } from '../core/state.js?v=20.0.0';
+import { resetTouchInput } from '../input/mobile.js?v=20.0.0';
+import { ui } from '../ui/hud.js?v=20.0.0';
+import { enter } from './phases.js?v=20.0.0';
 
 export const ritualConfig=Object.freeze({x:500,y:300,range:86,duration:6.4,skipAfter:.8});
 

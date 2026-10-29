@@ -89,3 +89,9 @@ The battle screen now shares the menu atmosphere: dim illustrated backdrop, comp
 ## v19.1.1 — FPS hotfix
 
 Remove battle-wide `:has` selectors and the fixed body background; keep the illustrated backdrop on a separate static layer. Isolate canvas painting, remove the large arena shadow/backdrop blur, and disable animated HUD bar widths. Ritual controls now write DOM properties only when values change. Low quality omits the decorative battle background. Targeted ritual tests include zero unchanged control writes over 120 preparation frames; no claim of device-specific FPS. Previous recovery commit: ae072efd9635a42060441ed2fc9ec2291a8ae320.
+
+## v20 — Sprite Era I: Melee
+
+Only the warrior receives the supplied armor and Ark artwork. Animated armor covers idle, horizontal/vertical movement, dash, hurt and death; Ark uses sprite frames for held scissors, slashes, spinning throws, SNAP, parry, Big Rip, bolts and hits. Other classes and all combat values remain unchanged. Source black backgrounds/labels are removed once on load and frames are cached, with procedural fallback if assets cannot load.
+
+Focused validation: existing 52 Ark checks plus sprite matte/pose/fallback tests and browser inspection. Recovery branch: `backup/v19.1.1-before-melee-sprites`.

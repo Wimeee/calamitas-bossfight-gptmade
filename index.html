@@ -4,78 +4,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Untitled Terraria Bossfight Game</title>
-<link rel="stylesheet" href="./styles/game.css?v=19.1.1">
+<link rel="stylesheet" href="./styles/game.css?v=20.0.0">
 <meta name="theme-color" content="#210f1c">
 <meta name="description" content="Фан-босфайт Supreme Calamitas. ПК і мобільне керування, всі фази, HP та магія.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Calamitas">
 <!-- module-preloads:start -->
-<link rel="modulepreload" href="./config/calamitas.js?v=19.1.1">
-<link rel="modulepreload" href="./config/classes.js?v=19.1.1">
-<link rel="modulepreload" href="./config/difficulty.js?v=19.1.1">
-<link rel="modulepreload" href="./config/player.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/calamitas.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/maelstrom.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/minions.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/patterns.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/phases.js?v=19.1.1">
-<link rel="modulepreload" href="./src/boss/registry.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/mage.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/melee.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/ranger.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/registry.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/rogue.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/shared.js?v=19.1.1">
-<link rel="modulepreload" href="./src/classes/summoner.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/attacks.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/beams.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/damage.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/player.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/projectiles.js?v=19.1.1">
-<link rel="modulepreload" href="./src/combat/targets.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/arena.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/audio.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/config.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/dom.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/math.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/settings.js?v=19.1.1">
-<link rel="modulepreload" href="./src/core/state.js?v=19.1.1">
-<link rel="modulepreload" href="./src/game/loop.js?v=19.1.1">
-<link rel="modulepreload" href="./src/game/phases.js?v=19.1.1">
-<link rel="modulepreload" href="./src/game/ritual.js?v=19.1.1">
-<link rel="modulepreload" href="./src/game/session.js?v=19.1.1">
-<link rel="modulepreload" href="./src/game/update.js?v=19.1.1">
-<link rel="modulepreload" href="./src/input/desktop.js?v=19.1.1">
-<link rel="modulepreload" href="./src/input/fullscreen.js?v=19.1.1">
-<link rel="modulepreload" href="./src/input/mobile.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/background.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/class-effects.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/effects.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/encounter.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/enemies.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/melee.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/menu-background.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/primitives.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/ritual.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/scene.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/sprites.js?v=19.1.1">
-<link rel="modulepreload" href="./src/render/weapons.js?v=19.1.1">
-<link rel="modulepreload" href="./src/systems/index.js?v=19.1.1">
-<link rel="modulepreload" href="./src/ui/controls.js?v=19.1.1">
-<link rel="modulepreload" href="./src/ui/hud.js?v=19.1.1">
-<link rel="modulepreload" href="./src/ui/menu.js?v=19.1.1">
-<link rel="modulepreload" href="./src/ui/updates.js?v=19.1.1">
+<link rel="modulepreload" href="./config/calamitas.js?v=20.0.0">
+<link rel="modulepreload" href="./config/classes.js?v=20.0.0">
+<link rel="modulepreload" href="./config/difficulty.js?v=20.0.0">
+<link rel="modulepreload" href="./config/melee-sprites.js?v=20.0.0">
+<link rel="modulepreload" href="./config/player.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/calamitas.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/maelstrom.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/minions.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/patterns.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/phases.js?v=20.0.0">
+<link rel="modulepreload" href="./src/boss/registry.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/mage.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/melee.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/ranger.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/registry.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/rogue.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/shared.js?v=20.0.0">
+<link rel="modulepreload" href="./src/classes/summoner.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/attacks.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/beams.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/damage.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/player.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/projectiles.js?v=20.0.0">
+<link rel="modulepreload" href="./src/combat/targets.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/arena.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/audio.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/config.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/dom.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/math.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/settings.js?v=20.0.0">
+<link rel="modulepreload" href="./src/core/state.js?v=20.0.0">
+<link rel="modulepreload" href="./src/game/loop.js?v=20.0.0">
+<link rel="modulepreload" href="./src/game/phases.js?v=20.0.0">
+<link rel="modulepreload" href="./src/game/ritual.js?v=20.0.0">
+<link rel="modulepreload" href="./src/game/session.js?v=20.0.0">
+<link rel="modulepreload" href="./src/game/update.js?v=20.0.0">
+<link rel="modulepreload" href="./src/input/desktop.js?v=20.0.0">
+<link rel="modulepreload" href="./src/input/fullscreen.js?v=20.0.0">
+<link rel="modulepreload" href="./src/input/mobile.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/background.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/class-effects.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/effects.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/encounter.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/enemies.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/melee-atlas.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/melee.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/menu-background.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/primitives.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/ritual.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/scene.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/sprites.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/warrior.js?v=20.0.0">
+<link rel="modulepreload" href="./src/render/weapons.js?v=20.0.0">
+<link rel="modulepreload" href="./src/systems/index.js?v=20.0.0">
+<link rel="modulepreload" href="./src/ui/controls.js?v=20.0.0">
+<link rel="modulepreload" href="./src/ui/hud.js?v=20.0.0">
+<link rel="modulepreload" href="./src/ui/menu.js?v=20.0.0">
+<link rel="modulepreload" href="./src/ui/updates.js?v=20.0.0">
 <!-- module-preloads:end -->
-<link rel="stylesheet" href="./styles/menu.css?v=19.1.1">
-<link rel="stylesheet" href="./styles/battle.css?v=19.1.1">
+<link rel="stylesheet" href="./styles/menu.css?v=20.0.0">
+<link rel="stylesheet" href="./styles/battle.css?v=20.0.0">
 </head>
 <body class="menu-open">
 <main id="title-menu" class="title-menu" aria-label="Untitled Terraria Bossfight Game">
   <div class="menu-art" aria-hidden="true"></div><div class="menu-shade" aria-hidden="true"></div><div class="menu-fog" aria-hidden="true"></div>
   <canvas id="menu-embers" aria-hidden="true"></canvas><div class="menu-vignette" aria-hidden="true"></div>
   <section class="menu-home" data-menu-panel="home" aria-label="Головне меню">
-    <div class="menu-brand"><h1 class="logo-title"><img class="menu-logo" src="./assets/menu/title-logo-v19.webp?v=19.1.1" width="2172" height="724" alt="Untitled Terraria Bossfight Game"></h1>
+    <div class="menu-brand"><h1 class="logo-title"><img class="menu-logo" src="./assets/menu/title-logo-v19.webp?v=20.0.0" width="2172" height="724" alt="Untitled Terraria Bossfight Game"></h1>
       <div class="brand-rule" aria-hidden="true"><i></i>✦<i></i></div>
     </div>
     <nav class="menu-actions" aria-label="Основні дії">
@@ -119,7 +122,7 @@
 <button id="return-menu" type="button">☰ Меню</button>
 <button id="focus-exit" type="button" aria-label="Вийти з ігрового режиму">✕ Вийти</button>
 <div class="shell">
-<header class="battle-header"><div class="battle-heading"><img src="./assets/menu/ember-crest.svg?v=19.1.1" alt="" width="42" height="38"><div><div class="eyebrow">THE BRIMSTONE TRIAL</div><div class="title">Supreme Calamitas</div></div></div><div class="battle-utilities"><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button><button class="btn" id="pause">⏸ Пауза</button><details class="battle-options"><summary aria-label="Налаштування бою">Налаштування</summary><div class="toolbar">
+<header class="battle-header"><div class="battle-heading"><img src="./assets/menu/ember-crest.svg?v=20.0.0" alt="" width="42" height="38"><div><div class="eyebrow">THE BRIMSTONE TRIAL</div><div class="title">Supreme Calamitas</div></div></div><div class="battle-utilities"><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button><button class="btn" id="pause">⏸ Пауза</button><details class="battle-options"><summary aria-label="Налаштування бою">Налаштування</summary><div class="toolbar">
 <div class="device-controls">
 <label for="device">Керування<select id="device">
 <option value="desktop">💻 ПК / клавіатура</option>
@@ -252,14 +255,14 @@
 </div>
 </div>
 </div>
-<script type="module" src="./src/main.js?v=19.1.1">
+<script type="module" src="./src/main.js?v=20.0.0">
 </script>
-<link rel="stylesheet" href="./styles/updates.css?v=19.1.1">
+<link rel="stylesheet" href="./styles/updates.css?v=20.0.0">
 <div id="site-update-banner" hidden role="status">
 <span>✨ Вийшло оновлення босфайту! Не загуби поточний бій.</span>
 <button id="site-update-now" type="button">Оновити гру ↻</button>
 </div>
-<div id="site-version-tag">SITE v19.1.1 • Battle UI</div>
+<div id="site-version-tag">SITE v20.0.0 • Sprite Era I · Melee</div>
 
 </body>
 </html>

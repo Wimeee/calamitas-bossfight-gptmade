@@ -1,9 +1,10 @@
-import { arena } from '../core/arena.js?v=19.1.1';
-import { TAU } from '../core/config.js?v=19.1.1';
-import { ctx } from '../core/dom.js?v=19.1.1';
-import { clamp, rnd } from '../core/math.js?v=19.1.1';
-import { state } from '../core/state.js?v=19.1.1';
-import { line, pixel, text } from './primitives.js?v=19.1.1';
+import { drawWarriorImpact } from './warrior.js?v=20.0.0';
+import { arena } from '../core/arena.js?v=20.0.0';
+import { TAU } from '../core/config.js?v=20.0.0';
+import { ctx } from '../core/dom.js?v=20.0.0';
+import { clamp, rnd } from '../core/math.js?v=20.0.0';
+import { state } from '../core/state.js?v=20.0.0';
+import { line, pixel, text } from './primitives.js?v=20.0.0';
 
 
 function drawPatternWarnings(g){
@@ -54,6 +55,7 @@ function weaponImpact(x,y,id){
 
 function drawWeaponImpacts(g){
   for(const f of g.impacts){
+    if(drawWarriorImpact(f))continue;
     const k=clamp(f.life/f.max,0,1);
     ctx.save();
     ctx.globalAlpha=k;

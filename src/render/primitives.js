@@ -1,7 +1,7 @@
-import { TAU } from '../core/config.js?v=19.1.1';
-import { ctx } from '../core/dom.js?v=19.1.1';
-import { clamp } from '../core/math.js?v=19.1.1';
-import { pixelArt } from './sprites.js?v=19.1.1';
+import { TAU } from '../core/config.js?v=20.0.0';
+import { ctx } from '../core/dom.js?v=20.0.0';
+import { clamp } from '../core/math.js?v=20.0.0';
+import { pixelArt } from './sprites.js?v=20.0.0';
 
 
 function round(x,y,r,col,stroke,thick=1){

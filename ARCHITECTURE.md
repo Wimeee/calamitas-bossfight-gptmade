@@ -66,3 +66,7 @@
 ## Ритуал v19
 
 `game/ritual.js` керує підготовкою, відстанню до урни, таймлайном і пропуском; `render/ritual.js` лише малює. Реальні кнопки запуску викликають `start({ritual:true})`. `start()` без параметра залишається прямим входом у бій для регресій і бенчмарків. До завершення ритуалу загальне бойове оновлення не запускається, а атаки, вміння, ривки та зілля заблоковані. Пауза та повернення в меню заморожують той самий стан. Завершення й пропуск використовують єдиний перехід у чинний opening encounter з початкової позиції; таймер бою починається з нуля. Декоративна анімація не витрачає бойовий RNG.
+
+## Sprite Era I — Melee (v20)
+
+`config/melee-sprites.js` stores rectangles and anchors for the two user-supplied sheets in `assets/melee/`. `render/melee-atlas.js` loads and prepares transparent frame caches once; `render/warrior.js` selects armor poses and draws the Ark effects. It reads combat state without changing damage, cooldowns, positions or hitboxes. Player, ritual, weapon, projectile and impact renderers delegate only Melee visuals and retain their procedural fallback. Rise/fall poses follow current vertical movement; this does not introduce jumping or gravity.

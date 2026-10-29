@@ -1,18 +1,19 @@
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=19.1.1';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=19.1.1';
-import { getEncounter } from '../boss/registry.js?v=19.1.1';
-import { possibleTargets } from '../combat/targets.js?v=19.1.1';
-import { arena } from '../core/arena.js?v=19.1.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=19.1.1';
-import { ctx } from '../core/dom.js?v=19.1.1';
-import { clamp, norm } from '../core/math.js?v=19.1.1';
-import { state } from '../core/state.js?v=19.1.1';
-import { drawBackdrop } from './background.js?v=19.1.1';
-import { drawClassKit } from './class-effects.js?v=19.1.1';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=19.1.1';
-import { drawSword } from './melee.js?v=19.1.1';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=19.1.1';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=19.1.1';
+import { drawWarriorBody } from './warrior.js?v=20.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.0.0';
+import { getEncounter } from '../boss/registry.js?v=20.0.0';
+import { possibleTargets } from '../combat/targets.js?v=20.0.0';
+import { arena } from '../core/arena.js?v=20.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.0.0';
+import { ctx } from '../core/dom.js?v=20.0.0';
+import { clamp, norm } from '../core/math.js?v=20.0.0';
+import { state } from '../core/state.js?v=20.0.0';
+import { drawBackdrop } from './background.js?v=20.0.0';
+import { drawClassKit } from './class-effects.js?v=20.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.0.0';
+import { drawSword } from './melee.js?v=20.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=20.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.0.0';
 
 
 function draw(g){
@@ -94,6 +95,7 @@ function draw(g){
   }
   drawPixelWhip(g);
   for(const ghost of g.dashGhosts){
+    if(drawWarriorBody(g,ghost.x,ghost.y,true,clamp(ghost.life/ghost.max,0,1)))continue;
     ctx.globalAlpha=.33*clamp(ghost.life/ghost.max,0,1);
     round(ghost.x,ghost.y,11,'#9af8ed','#ffe4ad',2)
   }
@@ -109,22 +111,24 @@ function draw(g){
     ctx.setLineDash([]);
     ctx.restore()
   }
-  if(p.iframes<=0||Math.floor(g.t*20)%2===0){
-    ctx.save();
-    ctx.translate(p.x,p.y);
-    let a=Math.atan2(state.pointer.y-p.y,state.pointer.x-p.x);
-    ctx.rotate(a);
-    ctx.shadowColor=p.dashT>0?'#fff6a1':'#79e9fc';
-    ctx.shadowBlur=12;
-    round(0,0,10,'#78cdd5','#fff3df',2);
-    ctx.fillStyle='#eaf7eb';
-    ctx.beginPath();
-    ctx.moveTo(12,0);
-    ctx.lineTo(0,-5);
-    ctx.lineTo(0,5);
-    ctx.fill();
-    round(-2,0,3,'#1e4157');
-    ctx.restore()
+  if((p.weapon===0&&g.mode==='dead')||p.iframes<=0||Math.floor(g.t*20)%2===0){
+    if(!drawWarriorBody(g)){
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      let a=Math.atan2(state.pointer.y-p.y,state.pointer.x-p.x);
+      ctx.rotate(a);
+      ctx.shadowColor=p.dashT>0?'#fff6a1':'#79e9fc';
+      ctx.shadowBlur=12;
+      round(0,0,10,'#78cdd5','#fff3df',2);
+      ctx.fillStyle='#eaf7eb';
+      ctx.beginPath();
+      ctx.moveTo(12,0);
+      ctx.lineTo(0,-5);
+      ctx.lineTo(0,5);
+      ctx.fill();
+      round(-2,0,3,'#1e4157');
+      ctx.restore()
+    }
   }
   drawHeldWeapon(g);
   drawWeaponImpacts(g);

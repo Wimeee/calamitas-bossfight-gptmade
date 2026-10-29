@@ -1,9 +1,10 @@
-import { settings } from '../core/settings.js?v=19.1.1';
-import { ctx } from '../core/dom.js?v=19.1.1';
-import { W,H,TAU } from '../core/config.js?v=19.1.1';
-import { clamp } from '../core/math.js?v=19.1.1';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=19.1.1';
-import { line,pixel,round,text } from './primitives.js?v=19.1.1';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=20.0.0';
+import { settings } from '../core/settings.js?v=20.0.0';
+import { ctx } from '../core/dom.js?v=20.0.0';
+import { W,H,TAU } from '../core/config.js?v=20.0.0';
+import { clamp } from '../core/math.js?v=20.0.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=20.0.0';
+import { line,pixel,round,text } from './primitives.js?v=20.0.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -51,7 +52,10 @@ export function drawRitualWorld(g){
   ctx.globalAlpha=1;ctx.shadowBlur=0;
   if(!charging){text('ALTAR OF THE ACCURSED',0,-107,14,'#d49c90');text(nearAltar(g)?'E / ENTER · ВИКЛИКАТИ':'ПІДІЙДИ БЛИЖЧЕ',0,64,11,'#ffcca2');}
   ctx.restore();
-  if(!charging||s<2.7){round(g.player.x,g.player.y,10,'#78cdd5','#fff3df',2);round(g.player.x+3,g.player.y,3,'#1e4157');}
+  if(!charging||s<2.7){
+    if(drawWarriorBody(g))drawWarriorIdleWeapon(g);
+    else{round(g.player.x,g.player.y,10,'#78cdd5','#fff3df',2);round(g.player.x+3,g.player.y,3,'#1e4157');}
+  }
   if(charging&&s>4.5){
     ctx.save();ctx.globalAlpha=ease(s,4.5,5.2);ctx.translate(500,210);
     const halo=ctx.createRadialGradient(0,0,8,0,0,120);

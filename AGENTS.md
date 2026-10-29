@@ -1,7 +1,7 @@
 # Development notes
 
-- The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v19 adds the approved title logo and summoning ritual. Sprite overhaul, physics, new bosses and a full soundtrack remain separate future updates.
-- Create a recovery point before major changes. Latest baseline backup branch: `backup/v19-before-battle-ui` (the earlier v17 backup is also retained).
+- The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v20 adds the approved sprite update for Melee only. Other class sprites, physics, new bosses and a full soundtrack remain separate future updates.
+- Create a recovery point before major changes. Latest baseline backup branch: `backup/v19.1.1-before-melee-sprites` (the earlier v17 backup is also retained).
 
 - Read `ARCHITECTURE.md` before structural edits. Keep `index.html` for markup and `styles/` for CSS.
 - Preserve desktop and mobile controls, the five existing classes, and all encounter phases unless the user asks to change them.

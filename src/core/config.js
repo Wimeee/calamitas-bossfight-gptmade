@@ -1,4 +1,4 @@
-import { calamitasConfig } from '../../config/calamitas.js?v=19.1.1';
+import { calamitasConfig } from '../../config/calamitas.js?v=20.0.0';
 const W=1200;
 
 const H=720;
@@ -26,7 +26,7 @@ const milestones=[
 
 const seq=calamitasConfig.attackSequence;
 
-const VERSION='19.1.1';
+const VERSION='20.0.0';
 
 
 export { W, H, TAU, VIEW_X, VIEW_Y, ARENA_SCALE, milestones, seq, VERSION };

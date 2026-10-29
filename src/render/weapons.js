@@ -1,10 +1,11 @@
-import { weapons } from '../classes/registry.js?v=19.1.1';
-import { TAU } from '../core/config.js?v=19.1.1';
-import { ctx } from '../core/dom.js?v=19.1.1';
-import { clamp } from '../core/math.js?v=19.1.1';
-import { state } from '../core/state.js?v=19.1.1';
-import { drawArkPair } from './melee.js?v=19.1.1';
-import { line, pixel, round } from './primitives.js?v=19.1.1';
+import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=20.0.0';
+import { weapons } from '../classes/registry.js?v=20.0.0';
+import { TAU } from '../core/config.js?v=20.0.0';
+import { ctx } from '../core/dom.js?v=20.0.0';
+import { clamp } from '../core/math.js?v=20.0.0';
+import { state } from '../core/state.js?v=20.0.0';
+import { drawArkPair } from './melee.js?v=20.0.0';
+import { line, pixel, round } from './primitives.js?v=20.0.0';
 
 
 function drawPixelWhip(g){
@@ -35,6 +36,7 @@ function muzzlePoint(p,a,reach){
 function drawHeldWeapon(g){
   const p=g.player,w=weapons[p.weapon],a=weaponAim(g),kick=p.weaponKick||0;
   if(w.id==='melee'){
+    if(drawWarriorIdleWeapon(g))return;
     if(!p.swing&&!p.arkThrow&&!p.arkParry&&!p.arkRip)drawArkPair(p.x,p.y,a,72,.12);
     return;
   }
@@ -66,6 +68,7 @@ function drawHeldWeapon(g){
 
 
 function drawPlayerShot(s,g){
+  if(drawWarriorProjectile(s,g))return;
   const a=Math.atan2(s.vy,s.vx),speed=Math.hypot(s.vx,s.vy)||1,dx=s.vx/speed,dy=s.vy/speed;
   if(s.id==='rogue'){
     ctx.save();
