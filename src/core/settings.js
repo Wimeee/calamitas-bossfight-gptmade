@@ -1,11 +1,20 @@
 const STORAGE_KEY = 'utbg_settings_v1';
-const defaultBindings = Object.freeze({dash:'Space',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ'});
-const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:false,quality:'high',screenShake:false,device:'auto',autoAim:true,touchScale:1});
+const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ'});
+const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:false,quality:'high',screenShake:false,device:'auto',autoAim:true,touchScale:1,doubleTapDash:true});
 const listeners = new Set();
 function cleanSettings(value = {}) {
   const number = (name, fallback) => typeof value[name] === 'number' && Number.isFinite(value[name]) ? Math.max(0,Math.min(1,value[name])) : fallback;
   const bindings = {...defaultBindings};
-  for (const name of Object.keys(bindings)) if (typeof value.bindings?.[name] === 'string' && /^(Key[A-Z]|Space|ShiftLeft|ShiftRight)$/.test(value.bindings[name])) bindings[name]=value.bindings[name];
+  for (const name of Object.keys(bindings)){
+    const code=value.bindings?.[name];
+    if(typeof code==='string'&&/^(Key[A-Z]|ShiftLeft|ShiftRight)$/.test(code)&&!['KeyW','KeyA','KeyS','KeyD'].includes(code))bindings[name]=code;
+    if(name==='dash'&&/^Mouse(Middle|Back|Forward)$/.test(code||''))bindings[name]=code;
+  }
+  // Space is reserved for jump/flight; old saved Space-dash bindings migrate safely.
+  if(value.bindings?.dash==='Space'){
+    const used=Object.entries(bindings).filter(([name])=>name!=='dash').map(([,code])=>code);
+    bindings.dash=['ShiftLeft','ShiftRight','KeyG','KeyV','KeyC','KeyX','KeyZ'].find(code=>!used.includes(code));
+  }
   return {
     sfxVolume:number('sfxVolume',defaults.sfxVolume),musicVolume:number('musicVolume',defaults.musicVolume),
     sfxEnabled:typeof value.sfxEnabled==='boolean'?value.sfxEnabled:defaults.sfxEnabled,
@@ -14,6 +23,7 @@ function cleanSettings(value = {}) {
     screenShake:typeof value.screenShake==='boolean'?value.screenShake:defaults.screenShake,
     device:['auto','desktop','mobile'].includes(value.device)?value.device:defaults.device,
     autoAim:typeof value.autoAim==='boolean'?value.autoAim:defaults.autoAim,
+    doubleTapDash:typeof value.doubleTapDash==='boolean'?value.doubleTapDash:defaults.doubleTapDash,
     touchScale:[.9,1,1.12].includes(value.touchScale)?value.touchScale:defaults.touchScale,
     bindings
   };
@@ -37,11 +47,12 @@ function resolveGameKey(code, legacy) {
   const key=legacy[code]||null;
   return Object.values(actions).includes(key)?null:key;
 }
-function keyLabel(code) { return code==='Space'?'Space':code.replace(/^Key/,'').replace('ShiftLeft','Left Shift').replace('ShiftRight','Right Shift'); }
-function controlHint(){const b=settings.bindings;return `WASD / стрілки — рух · ПКМ — атака · ЛКМ — уміння · ${keyLabel(b.dash)} — ривок · ${keyLabel(b.heal)} — лікування · ${keyLabel(b.regen)} — реген · ${keyLabel(b.pause)} — пауза · ${keyLabel(b.restart)} — новий бій`;}
+function keyLabel(code) { return ({Space:'Space',MouseMiddle:'Коліщатко',MouseBack:'Бічна 4',MouseForward:'Бічна 5'})[code]||code.replace(/^Key/,'').replace('ShiftLeft','Left Shift').replace('ShiftRight','Right Shift'); }
+function controlHint(){const b=settings.bindings;return `A/D — біг · Space — стрибок / крила · S — зниження · S+Space — крізь платформу · ЛКМ — атака · ПКМ — уміння · ${settings.doubleTapDash?'A/A, D/D або ':''}${keyLabel(b.dash)} — ривок · ${keyLabel(b.heal)} — лікування · ${keyLabel(b.regen)} — реген · ${keyLabel(b.pause)} — пауза · ${keyLabel(b.restart)} — новий бій`;}
 function bindKey(action,code) {
   if(!Object.hasOwn(defaultBindings,action))return false;
-  if(!/^(Key[A-Z]|Space|ShiftLeft|ShiftRight)$/.test(code)||['KeyW','KeyA','KeyS','KeyD'].includes(code))return false;
+  if(!/^(Key[A-Z]|ShiftLeft|ShiftRight)$/.test(code)&&!(action==='dash'&&/^Mouse(Middle|Back|Forward)$/.test(code)))return false;
+  if(['KeyW','KeyA','KeyS','KeyD','Space'].includes(code))return false;
   if(Object.entries(settings.bindings).some(([name,value])=>name!==action&&value===code))return false;
   updateSettings({bindings:{[action]:code}});return true;
 }

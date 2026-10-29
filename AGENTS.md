@@ -1,7 +1,7 @@
 # Development notes
 
-- The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v20 adds the approved sprite update for Melee only. Other class sprites, physics, new bosses and a full soundtrack remain separate future updates.
-- Create a recovery point before major changes. Latest baseline backup branch: `backup/v20.0.1-before-animation-polish` (the earlier v17 backup is also retained).
+- The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v21 adds Terraria-style movement and the approved left-primary/right-secondary controls. Other class sprite overhauls, new bosses and a full soundtrack remain separate future updates.
+- Create a recovery point before major changes. Latest baseline backup branch: `backup/v20.1-before-terraria-physics` (the earlier v17 backup is also retained).
 
 - Read `ARCHITECTURE.md` before structural edits. Keep `index.html` for markup and `styles/` for CSS.
 - Preserve desktop and mobile controls, the five existing classes, and all encounter phases unless the user asks to change them.
@@ -14,3 +14,5 @@
 - Binary menu assets belong in `assets/menu/` with provenance in `ASSETS.md`; never commit local `test-artifacts/` previews.
 
 - User preference: minimize quota spent on verification. For presentation-only changes, run the structural check and a focused visual inspection; do not repeat the full combat suite without a concrete gameplay risk. The explicit user request overrides the generic full-suite release guideline above. Battle presentation overrides live in `styles/battle.css`; preserve the mobile focus layout and canvas/input coordinate agreement.
+
+- Player movement is now platformer physics in `game/movement.js` and `world/terrain.js`. Never reintroduce direct free-flight position updates. Space is reserved for jump/flight; attack is LMB and ability RMB. Platform terrain art remains cached to preserve the measured FPS fix.

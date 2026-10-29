@@ -1,20 +1,22 @@
-import { drawEnemyProjectiles } from './projectiles.js?v=20.1.0';
-import { drawWarriorBody } from './warrior.js?v=20.1.0';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=20.1.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=20.1.0';
-import { getEncounter } from '../boss/registry.js?v=20.1.0';
-import { possibleTargets } from '../combat/targets.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { clamp, norm } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { drawBackdrop } from './background.js?v=20.1.0';
-import { drawClassKit } from './class-effects.js?v=20.1.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=20.1.0';
-import { drawSword } from './melee.js?v=20.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=20.1.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=20.1.0';
+import { getTerrain } from '../world/terrain.js?v=21.0.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.0.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=21.0.0';
+import { drawWarriorBody } from './warrior.js?v=21.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=21.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=21.0.0';
+import { getEncounter } from '../boss/registry.js?v=21.0.0';
+import { possibleTargets } from '../combat/targets.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { clamp, norm } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { drawBackdrop } from './background.js?v=21.0.0';
+import { drawClassKit } from './class-effects.js?v=21.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=21.0.0';
+import { drawSword } from './melee.js?v=21.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=21.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=21.0.0';
 
 
 function draw(g){
@@ -36,11 +38,12 @@ function draw(g){
   drawPatternWarnings(g);
   // Terraria-inspired permanent arena fixtures: move near them for regeneration buffs.
   ctx.shadowBlur=12;
+  const campfireY=getTerrain().platforms[0].y-17;
   ctx.shadowColor='#ffa847';
-  round(230,505,17,'#51301d','#ffab50',2);
+  round(230,campfireY,17,'#51301d','#ffab50',2);
   ctx.shadowBlur=0;
-  text('🔥',230,512,23);
-  text('CAMPFIRE',230,536,9,'#e6ac6f');
+  text('🔥',230,campfireY+7,23);
+  text('CAMPFIRE',230,campfireY+31,9,'#e6ac6f');
   ctx.shadowColor='#ff7777';
   ctx.shadowBlur=12;
   line(750,arena.t+3,750,96,'#b79b95',2);
@@ -59,6 +62,7 @@ function draw(g){
   drawEnemyProjectiles(g);
   drawChannelBeam(g);
   for(const s of g.shots)drawPlayerShot(s,g);
+  drawFlightWings(g);
   drawSword(g);
   if(Array.isArray(p.cosmic)&&p.cosmic.length){
     p.cosmic.forEach((m,i)=>pixel('spirit'+i,m.x,m.y,1.05,Math.sin(g.t*3+i)*.12));
@@ -115,6 +119,7 @@ function draw(g){
   drawHeldWeapon(g);
   drawWeaponImpacts(g);
   drawClassKit(g);
+  drawFlightGauge(g);
   for(let sparkIndex=0;sparkIndex<Math.min(g.sparks.length,settings.quality==='low'?40:Infinity);sparkIndex++){
     const s=g.sparks[sparkIndex];
     ctx.globalAlpha=clamp(s.life/s.max,0,1);

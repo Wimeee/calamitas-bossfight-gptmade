@@ -14,7 +14,7 @@ test('idle preparation does not rewrite DOM attributes each frame',async()=>{
   }
   for(let i=0;i<120;i++)t.update(.016);
   assert.equal(writes,0,'unchanged controls must not trigger style invalidation');
-  t.getGame().player.y=340;t.syncRitualControls();
+  t.getGame().player.x=500;t.syncRitualControls();
   assert.equal(el('ritual-summon').disabled,false);
   assert.ok(writes>0,'real control changes must still reach the DOM');
 });
@@ -27,7 +27,7 @@ test('ritual gates combat, freezes resources and enters original opening once fo
     const mana=p.mana,potions=p.potions,regen=p.regenPotions;
     assert.equal(g.phaseN,0);assert.equal(g.stage,'preparation');
     assert.equal(t.beginRitual(),false,'must approach altar');
-    t.setKeys({w:true});t.update(.15);t.setKeys({});
+    t.setKeys({d:true});t.update(.2);t.setKeys({});
     assert.equal(t.nearAltar(),true);assert.equal(t.beginRitual(),true);
     assert.equal(t.skipRitual(),false,'brief skip guard');
     t.shoot();t.classAbility();t.dash();t.heal();t.drinkRegeneration();
@@ -38,7 +38,7 @@ test('ritual gates combat, freezes resources and enters original opening once fo
     t.draw(g);
     assert.equal(t.skipRitual(),true);assert.equal(t.skipRitual(),false);
     assert.equal(g.phaseN,1);assert.equal(g.stage,'hell');assert.equal(g.marker,'opening');
-    assert.equal(p.x,500);assert.equal(p.y,410);assert.equal(g.totalTime,0);
+    assert.equal(p.x,500);assert.equal(p.y,t.getTerrain().floorY-18);assert.equal(g.totalTime,0);
     assert.equal(el('ritual-controls').hidden,true);
   }
 });
@@ -47,7 +47,7 @@ test('ritual natural completion, pause/menu lifecycle and touch controls',async(
   const {t,el}=await loadGame();
   t.state.deviceMode='mobile';
   t.start({ritual:true});const g=t.getGame();
-  t.setAxis({x:0,y:-1});t.update(.15);t.setAxis({x:0,y:0});
+  t.setAxis({x:1,y:0});t.update(.2);t.setAxis({x:0,y:0});
   el('ritual-summon').listeners.click[0]();
   assert.equal(g.ritual.phase,'summoning');
   t.update(3.4);t.draw(g);
@@ -58,14 +58,14 @@ test('ritual natural completion, pause/menu lifecycle and touch controls',async(
   t.update(1.9);t.draw(g);assert.equal(g.stage,'ritual');
   t.update(1.2);assert.equal(g.stage,'hell');assert.equal(g.phaseN,1);assert.equal(g.t,0);
   t.update(.02);assert.equal(g.totalTime,.02);
-  t.start({ritual:true});t.getGame().player.y=340;
+  t.start({ritual:true});t.getGame().player.x=500;
   el('ritual-summon').listeners.click[0]();t.update(1);
   el('ritual-skip').listeners.click[0]();assert.equal(t.getGame().phaseN,1);
 });
 
 test('keyboard interaction works with physical keys and UI starts use ritual',async()=>{
   const {t,el}=await loadGame();
-  el('start').listeners.click[0]();const g=t.getGame();g.player.y=340;
+  el('start').listeners.click[0]();const g=t.getGame();g.player.x=500;
   const event=code=>({code,target:{tagName:'CANVAS'},preventDefault(){}});
   t.kd(event('KeyE'));assert.equal(g.ritual.phase,'summoning');
   t.update(1);t.kd(event('Space'));assert.equal(g.stage,'hell');

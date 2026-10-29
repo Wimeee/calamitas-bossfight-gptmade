@@ -107,3 +107,13 @@ Register armor frames to chest/visor landmarks; run clips at explicit FPS from p
 Ark now has continuous blade motion, smooth wind-up/recovery and a tapered, cached cosmic ribbon instead of rotating the six whole slash pictures. Add 36 cached in-between effect frames across open scissors, spin, SNAP, Big Rip and impacts. Source sheets are unchanged; intermediate effects are composited from them during loading. No live blur or per-frame pixel processing.
 
 Focused checks: registered landmarks, frame timing, facing, dash progression, pause, sprite fallback and the existing 52 Ark mechanics/input checks. Terraria physics is reserved for v21. Recovery branch: `backup/v20.0.1-before-animation-polish`.
+
+## v21 — Terraria Movement
+
+The arena now has solid ground and three platform levels. A/D or left/right run with fast acceleration and braking. Space (also W/up) jumps; hold Space in the air to use 2.4 seconds of wings. Landing on ground or a platform refills flight. S accelerates falling; hold S+Space to pass downward through all platforms. No fall damage. Bosses and projectiles pass through platforms.
+
+Desktop controls: **left mouse attacks, right mouse activates the class ability**. Releasing left mouse performs the existing Ark SNAP. Dash with double-tap A/D or left/right, or Left Shift. Settings can disable double-tap and bind dash to another key, middle mouse or mouse side buttons. Existing saved Space-dash settings migrate off Space.
+
+Mobile controls have distinct Jump, Wings and Dash buttons; the stick handles running/downward input. Wing time is shown on the HUD and beside airborne players. Ritual preparation uses the same physics; the urn and campfire are placed on terrain. Maelstrom pull respects terrain collisions.
+
+Validation: full 30-group suite passed after integrating physics and updated input expectations, plus focused checks for later drop-through/mobile refinements. Ground/platform collision, finite wings, refill, frame-rate consistency (30/60/120), input migration, all five classes and existing encounter phases covered. Desktop and 390px mobile layouts inspected; no full physical-phone playthrough. Class damage and encounter schedules are unchanged; further encounter tuning can follow gameplay feedback. Restore point: `backup/v20.1-before-terraria-physics`.

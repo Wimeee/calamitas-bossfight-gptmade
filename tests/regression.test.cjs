@@ -77,8 +77,8 @@ for(const diff of ['normal','revenge','death'])for(let phase=1;phase<=5;phase++)
 el('diff').value='normal';t.start();let g=t.getGame();g.huntTimer=0;t.bulletHell(.01);check(!!g.huntWarning,'warning created');const tx=g.huntWarning.tx;g.player.x+=80;for(let i=0;i<43;i++){g.stageT+=1/60;t.bulletHell(1/60)}let skull=g.projectiles.find(q=>q.kind==='skull');check(skull?.straight,'locked skull does not drift');check(tx!==g.player.x,'warning target stayed fixed');
 // Beam collision is real, stops at the nearest target and respects the arena wall.
 t.setDeviceMode('desktop');el('class').value='ranger';t.start();
-for(const listener of el('game').listeners.pointerdown)listener({clientX:600,clientY:300,button:2,pointerId:1,preventDefault:noop});
-for(const listener of el('game').listeners.pointerup)listener({pointerId:1,button:2});
+for(const listener of el('game').listeners.pointerdown)listener({clientX:600,clientY:300,button:0,pointerId:1,preventDefault:noop});
+for(const listener of el('game').listeners.pointerup)listener({pointerId:1,button:0});
 check(!!t.getGame().player.beamPulse,'quick desktop click fires before next frame');
 t.setDeviceMode('desktop');t.start();t.enter('hearts','opening','BEAM TEST');let bg=t.getGame();
 const near={x:620,y:300,r:16,hp:1000,max:1000},far={x:780,y:300,r:16,hp:1000,max:1000};bg.hearts=[far,near];

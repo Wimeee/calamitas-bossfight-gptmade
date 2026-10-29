@@ -1,7 +1,14 @@
-import { weapons } from '../classes/registry.js?v=20.1.0';
-import { milestones } from '../core/config.js?v=20.1.0';
-import { $, root } from '../core/dom.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
+import { movementConfig } from '../../config/movement.js?v=21.0.0';
+import { weapons } from '../classes/registry.js?v=21.0.0';
+import { milestones } from '../core/config.js?v=21.0.0';
+import { $, root } from '../core/dom.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+
+function syncFlightHUD(g=state.game){
+  if(!g)return;
+  const label='✦ Крила '+(g.player.flightRemaining??movementConfig.flightTime).toFixed(1)+' с';
+  if($('wingstatus').textContent!==label)$('wingstatus').textContent=label;
+}
 
 const ui=()=>{
   if(!state.game)return;
@@ -20,6 +27,7 @@ const ui=()=>{
   $('hits').textContent=p.hits;
   $('dashes').textContent=p.dashes;
   $('statehint').textContent=g.hint;
+  syncFlightHUD(g);
   $('weaponname').textContent=weapons[p.weapon].name;
   $('weapondesc').textContent=weapons[p.weapon].desc;
   const dashButton=root.querySelector('[data-mobile-action="dash"]'),healButton=root.querySelector('[data-mobile-action="heal"]'),regenButton=root.querySelector('[data-mobile-action="regen"]'),targetButton=root.querySelector('[data-mobile-action="target"]');
@@ -51,4 +59,4 @@ function showOverlay(tag,title,desc,button){
 }
 
 
-export { ui, showOverlay };
+export { ui, showOverlay, syncFlightHUD };

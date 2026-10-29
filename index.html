@@ -4,85 +4,91 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Untitled Terraria Bossfight Game</title>
-<link rel="stylesheet" href="./styles/game.css?v=20.1.0">
+<link rel="stylesheet" href="./styles/game.css?v=21.0.0">
 <meta name="theme-color" content="#210f1c">
 <meta name="description" content="Фан-босфайт Supreme Calamitas. ПК і мобільне керування, всі фази, HP та магія.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Calamitas">
 <!-- module-preloads:start -->
-<link rel="modulepreload" href="./config/calamitas.js?v=20.1.0">
-<link rel="modulepreload" href="./config/classes.js?v=20.1.0">
-<link rel="modulepreload" href="./config/difficulty.js?v=20.1.0">
-<link rel="modulepreload" href="./config/melee-sprites.js?v=20.1.0">
-<link rel="modulepreload" href="./config/player.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/calamitas.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/maelstrom.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/minions.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/patterns.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/phases.js?v=20.1.0">
-<link rel="modulepreload" href="./src/boss/registry.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/mage.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/melee.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/ranger.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/registry.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/rogue.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/shared.js?v=20.1.0">
-<link rel="modulepreload" href="./src/classes/summoner.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/attacks.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/beams.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/damage.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/player.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/projectiles.js?v=20.1.0">
-<link rel="modulepreload" href="./src/combat/targets.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/arena.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/audio.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/config.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/dom.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/math.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/settings.js?v=20.1.0">
-<link rel="modulepreload" href="./src/core/state.js?v=20.1.0">
-<link rel="modulepreload" href="./src/game/loop.js?v=20.1.0">
-<link rel="modulepreload" href="./src/game/phases.js?v=20.1.0">
-<link rel="modulepreload" href="./src/game/ritual.js?v=20.1.0">
-<link rel="modulepreload" href="./src/game/session.js?v=20.1.0">
-<link rel="modulepreload" href="./src/game/update.js?v=20.1.0">
-<link rel="modulepreload" href="./src/input/desktop.js?v=20.1.0">
-<link rel="modulepreload" href="./src/input/fullscreen.js?v=20.1.0">
-<link rel="modulepreload" href="./src/input/mobile.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/arena-cache.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/background.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/class-effects.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/effects.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/encounter.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/enemies.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/glow-cache.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/melee-atlas.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/melee.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/menu-background.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/primitives.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/projectiles.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/ritual.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/scene.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/sprites.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/warrior-trails.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/warrior.js?v=20.1.0">
-<link rel="modulepreload" href="./src/render/weapons.js?v=20.1.0">
-<link rel="modulepreload" href="./src/systems/index.js?v=20.1.0">
-<link rel="modulepreload" href="./src/ui/controls.js?v=20.1.0">
-<link rel="modulepreload" href="./src/ui/hud.js?v=20.1.0">
-<link rel="modulepreload" href="./src/ui/menu.js?v=20.1.0">
-<link rel="modulepreload" href="./src/ui/updates.js?v=20.1.0">
+<link rel="modulepreload" href="./config/calamitas.js?v=21.0.0">
+<link rel="modulepreload" href="./config/classes.js?v=21.0.0">
+<link rel="modulepreload" href="./config/difficulty.js?v=21.0.0">
+<link rel="modulepreload" href="./config/melee-sprites.js?v=21.0.0">
+<link rel="modulepreload" href="./config/movement.js?v=21.0.0">
+<link rel="modulepreload" href="./config/player.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/calamitas.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/maelstrom.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/minions.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/patterns.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/phases.js?v=21.0.0">
+<link rel="modulepreload" href="./src/boss/registry.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/mage.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/melee.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/ranger.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/registry.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/rogue.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/shared.js?v=21.0.0">
+<link rel="modulepreload" href="./src/classes/summoner.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/attacks.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/beams.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/damage.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/player.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/projectiles.js?v=21.0.0">
+<link rel="modulepreload" href="./src/combat/targets.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/arena.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/audio.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/config.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/dom.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/math.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/settings.js?v=21.0.0">
+<link rel="modulepreload" href="./src/core/state.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/loop.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/movement.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/phases.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/ritual.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/session.js?v=21.0.0">
+<link rel="modulepreload" href="./src/game/update.js?v=21.0.0">
+<link rel="modulepreload" href="./src/input/dash-gesture.js?v=21.0.0">
+<link rel="modulepreload" href="./src/input/desktop.js?v=21.0.0">
+<link rel="modulepreload" href="./src/input/fullscreen.js?v=21.0.0">
+<link rel="modulepreload" href="./src/input/mobile.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/arena-cache.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/background.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/class-effects.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/effects.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/encounter.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/enemies.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/glow-cache.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/melee-atlas.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/melee.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/menu-background.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/mobility.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/primitives.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/projectiles.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/ritual.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/scene.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/sprites.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/terrain.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/warrior-trails.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/warrior.js?v=21.0.0">
+<link rel="modulepreload" href="./src/render/weapons.js?v=21.0.0">
+<link rel="modulepreload" href="./src/systems/index.js?v=21.0.0">
+<link rel="modulepreload" href="./src/ui/controls.js?v=21.0.0">
+<link rel="modulepreload" href="./src/ui/hud.js?v=21.0.0">
+<link rel="modulepreload" href="./src/ui/menu.js?v=21.0.0">
+<link rel="modulepreload" href="./src/ui/updates.js?v=21.0.0">
+<link rel="modulepreload" href="./src/world/terrain.js?v=21.0.0">
 <!-- module-preloads:end -->
-<link rel="stylesheet" href="./styles/menu.css?v=20.1.0">
-<link rel="stylesheet" href="./styles/battle.css?v=20.1.0">
+<link rel="stylesheet" href="./styles/menu.css?v=21.0.0">
+<link rel="stylesheet" href="./styles/battle.css?v=21.0.0">
 </head>
 <body class="menu-open">
 <main id="title-menu" class="title-menu" aria-label="Untitled Terraria Bossfight Game">
   <div class="menu-art" aria-hidden="true"></div><div class="menu-shade" aria-hidden="true"></div><div class="menu-fog" aria-hidden="true"></div>
   <canvas id="menu-embers" aria-hidden="true"></canvas><div class="menu-vignette" aria-hidden="true"></div>
   <section class="menu-home" data-menu-panel="home" aria-label="Головне меню">
-    <div class="menu-brand"><h1 class="logo-title"><img class="menu-logo" src="./assets/menu/title-logo-v19.webp?v=20.1.0" width="2172" height="724" alt="Untitled Terraria Bossfight Game"></h1>
+    <div class="menu-brand"><h1 class="logo-title"><img class="menu-logo" src="./assets/menu/title-logo-v19.webp?v=21.0.0" width="2172" height="724" alt="Untitled Terraria Bossfight Game"></h1>
       <div class="brand-rule" aria-hidden="true"><i></i>✦<i></i></div>
     </div>
     <nav class="menu-actions" aria-label="Основні дії">
@@ -104,14 +110,14 @@
     <header class="page-heading"><p class="menu-kicker">SUPREME CALAMITAS</p><h2 id="setup-title">Перед випробуванням</h2><p>Оберіть зброю. Клас фіксується до завершення бою.</p></header>
     <h3 class="section-label">Клас</h3><div id="menu-class-choices" class="class-choices"></div><p id="menu-class-description" class="selection-description"></p>
     <h3 class="section-label">Складність</h3><div class="difficulty-choices"><button data-difficulty="normal"><strong>Expert</strong><small>Знайомство з випробуванням</small></button><button data-difficulty="revenge"><strong>Revengeance</strong><small>Рекомендоване випробування</small></button><button data-difficulty="death"><strong>Death</strong><small>Менша арена. Вища ціна помилки.</small></button></div>
-    <button id="menu-launch" class="menu-confirm">ENTER THE TRIAL <span>→</span></button><p id="setup-controls-hint" class="setup-note">ПКМ — атака · ЛКМ — уміння · Space — ривок<br>На телефоні: рух стіком, автоатака та окремі кнопки дій.</p>
+    <button id="menu-launch" class="menu-confirm">ENTER THE TRIAL <span>→</span></button><p id="setup-controls-hint" class="setup-note">ЛКМ — атака · ПКМ — уміння · Space — стрибок / крила · Shift або A/A, D/D — ривок<br>На телефоні: рух стіком, автоатака та окремі кнопки дій.</p>
   </section>
   <section class="menu-page settings-page" data-menu-panel="settings" hidden aria-labelledby="settings-title">
     <button class="menu-back" data-menu-target="home">← Головне меню</button><header class="page-heading"><p class="menu-kicker">MAKE IT YOURS</p><h2 id="settings-title">Settings</h2><p>Налаштування зберігаються на цьому пристрої.</p></header>
     <div class="settings-grid">
       <fieldset><legend>Звук</legend><label class="setting-check"><span>Звукові ефекти</span><input id="setting-sfx-enabled" type="checkbox"></label><label class="setting-range"><span>Гучність ефектів <output id="setting-sfx-value"></output></span><input id="setting-sfx" type="range" min="0" max="100" step="5" aria-label="Гучність ефектів"></label><label class="setting-check"><span>Музика в бою</span><input id="setting-music-enabled" type="checkbox"></label><label class="setting-range"><span>Гучність музики <output id="setting-music-value"></output></span><input id="setting-music" type="range" min="0" max="100" step="5" aria-label="Гучність музики"></label><p class="setting-help">Поки що — проста синтезована мелодія. Повний саундтрек попереду.</p></fieldset>
       <fieldset><legend>Зображення</legend><label class="setting-select"><span>Якість ефектів</span><select id="setting-quality"><option value="low">Low</option><option value="high">High</option><option value="ultra">Ultra</option></select></label><label class="setting-check"><span>Тряска при влучанні</span><input id="setting-shake" type="checkbox"></label><button id="menu-fullscreen" class="secondary-action">⛶ На весь екран</button><p class="setting-help">Якість змінює іскри та світіння. Ворожі снаряди й хітбокси однакові в усіх режимах.</p></fieldset>
-      <fieldset><legend>Керування ПК</legend><p class="setting-help">WASD / стрілки — рух · ПКМ — атака · ЛКМ — уміння. Натисни клавішу нижче, щоб змінити її.</p><div id="menu-keybindings" class="keybindings"></div><p id="keybinding-status" class="setting-help" role="status"></p></fieldset>
+      <fieldset><legend>Керування ПК</legend><p class="setting-help">A/D — біг · S — спуск · Space — стрибок / крила · ЛКМ — атака · ПКМ — уміння. Натисни клавішу нижче, щоб змінити її.</p><label class="setting-check"><span>Ривок подвійним A/D або стрілками</span><input id="setting-doubletap" type="checkbox"></label><div id="menu-keybindings" class="keybindings"></div><p id="keybinding-status" class="setting-help" role="status"></p></fieldset>
       <fieldset><legend>Телефон і сенсор</legend><label class="setting-select"><span>Режим керування</span><select id="setting-device"><option value="auto">Автоматично</option><option value="desktop">ПК</option><option value="mobile">Телефон / сенсор</option></select></label><label class="setting-check"><span>Автоприціл і автоатака</span><input id="setting-autoaim" type="checkbox"></label><label class="setting-select"><span>Розмір джойстиків</span><select id="setting-touch-scale"><option value="0.9">Компактний</option><option value="1">Звичайний</option><option value="1.12">Великий</option></select></label><p class="setting-help">Для ручного прицілу торкнися арени. Автоматичний режим можна повернути кнопкою АВТО.</p></fieldset>
     </div><button id="menu-reset-settings" class="text-action">Відновити стандартні налаштування</button>
   </section>
@@ -126,7 +132,7 @@
 <button id="return-menu" type="button">☰ Меню</button>
 <button id="focus-exit" type="button" aria-label="Вийти з ігрового режиму">✕ Вийти</button>
 <div class="shell">
-<header class="battle-header"><div class="battle-heading"><img src="./assets/menu/ember-crest.svg?v=20.1.0" alt="" width="42" height="38"><div><div class="eyebrow">THE BRIMSTONE TRIAL</div><div class="title">Supreme Calamitas</div></div></div><div class="battle-utilities"><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button><button class="btn" id="pause">⏸ Пауза</button><details class="battle-options"><summary aria-label="Налаштування бою">Налаштування</summary><div class="toolbar">
+<header class="battle-header"><div class="battle-heading"><img src="./assets/menu/ember-crest.svg?v=21.0.0" alt="" width="42" height="38"><div><div class="eyebrow">THE BRIMSTONE TRIAL</div><div class="title">Supreme Calamitas</div></div></div><div class="battle-utilities"><button id="fullscreen" type="button" class="btn" title="На телефоні краще грати горизонтально">⛶ Екран</button><button class="btn" id="pause">⏸ Пауза</button><details class="battle-options"><summary aria-label="Налаштування бою">Налаштування</summary><div class="toolbar">
 <div class="device-controls">
 <label for="device">Керування<select id="device">
 <option value="desktop">💻 ПК / клавіатура</option>
@@ -181,6 +187,7 @@
 </div>
 </div>
 <div class="number">
+<div id="wingstatus">✦ Крила 2.4 с</div>
 <div id="potion">🧪 HP × 7</div>
 <div id="regenstatus" style="margin-top:4px;color:#98df9d">♻ Реген: 3 HP/с</div>
 <div id="regenpotionstatus" style="margin-top:4px;color:#dfb6ff">🌿 Реген-зілля × 3 · B</div>
@@ -193,7 +200,7 @@
 <div class="overlay" id="overlay">
 <div class="subtitle" id="overlaytag">ALTAR OF THE ACCURSED</div>
 <h2 id="overlaytitle">SUPREME CALAMITAS</h2>
-<p id="overlaydesc">WASD / стрілки — рух • Мишка — приціл і атака • Space — ривок • H — лікування • B — реген • клас фіксується на весь бій. На телефоні вибери 📱 Мобільний режим: лівий джойстик — рух, автоматичне прицілювання та атака. Ривок захищає лише від контактних атак, НЕ від куль.</p>
+<p id="overlaydesc">A/D — біг • S — спуск • ЛКМ — атака • ПКМ — уміння • Space — стрибок / крила · Shift або подвійний A/D — ривок • H — лікування • B — реген • клас фіксується на весь бій. На телефоні вибери 📱 Мобільний режим: лівий джойстик — рух, автоматичне прицілювання та атака. Ривок захищає лише від контактних атак, НЕ від куль.</p>
 <button id="overlaybtn">ПРИЗВАТИ БОСА</button>
 </div>
 </div>
@@ -228,6 +235,8 @@
   </div>
   <div class="mobile-actions">
    <button class="primary" data-mobile-action="fire">⚔ АТАКА</button>
+   <button class="primary" data-mobile-action="jump">↥ СТРИБОК</button>
+   <button data-mobile-action="flight">✦ КРИЛА</button>
    <button class="primary" data-mobile-action="dash">💨 РИВОК</button>
    <button data-mobile-action="heal">❤️ HP</button>
    <button data-mobile-action="regen">🌿 РЕГЕН</button>
@@ -236,7 +245,7 @@
    <button data-mobile-action="pause">⏸ ПАУЗА</button>
    <button data-mobile-action="fullscreen">⛶ ЕКРАН</button>
   </div>
-  <div class="touch-status" id="touch-status">💡 АВТО приціл і стрільба · Рухайся лівим стіком, ривок справа · У самонера кнопка АТАКА = ХЛИСТ.</div>
+  <div class="touch-status" id="touch-status">💡 АВТО приціл і стрільба · Стік — біг / спуск; стрибок, крила й ривок — кнопками · У самонера кнопка АТАКА = ХЛИСТ.</div>
 </div>
   <div class="runtime-status" id="runtime-status">⚠️ Ігровий JavaScript не запущено. Якщо кнопки не реагують, відкрий HTML у повноцінному браузері, не в переглядачі файлів.</div>
 <div class="battle-footer"><div class="loadout"><span class="loadout-caption">ОБРАНА ЗБРОЯ</span><div>
@@ -244,9 +253,9 @@
 </div></div><details class="battle-guide"><summary>Керування та фази <span aria-hidden="true">⌄</span></summary><div class="below">
 <div class="details">
 <div id="desktop-control-summary">
-<b>ПК:</b> WASD · ПКМ · Space · H · B · P/R <b>│ Мобільний:</b> 2 джойстики й кнопки</div>
+<b>ПК:</b> WASD · ЛКМ · Space · H · B · P/R <b>│ Мобільний:</b> 2 джойстики й кнопки</div>
 
-<div id="tip">V16: ПКМ — атака · ЛКМ — уміння класу · Ranger: нагрів → Exo Shot · Mage: резонанс → Nova + мана · Rogue: кидок → повернення → stealth · Summoner: мітка + залп · Ark: парирування / Big Rip</div>
+<div id="tip">V16: ЛКМ — атака · ПКМ — уміння класу · Ranger: нагрів → Exo Shot · Mage: резонанс → Nova + мана · Rogue: кидок → повернення → stealth · Summoner: мітка + залп · Ark: парирування / Big Rip</div>
 </div>
 <div>
 <div class="progress" id="markers">
@@ -259,14 +268,14 @@
 </div>
 </div>
 </div>
-<script type="module" src="./src/main.js?v=20.1.0">
+<script type="module" src="./src/main.js?v=21.0.0">
 </script>
-<link rel="stylesheet" href="./styles/updates.css?v=20.1.0">
+<link rel="stylesheet" href="./styles/updates.css?v=21.0.0">
 <div id="site-update-banner" hidden role="status">
 <span>✨ Вийшло оновлення босфайту! Не загуби поточний бій.</span>
 <button id="site-update-now" type="button">Оновити гру ↻</button>
 </div>
-<div id="site-version-tag">SITE v20.1.0 • Animation Polish</div>
+<div id="site-version-tag">SITE v21.0.0 • Terraria Movement</div>
 
 </body>
 </html>

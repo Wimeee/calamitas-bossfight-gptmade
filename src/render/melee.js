@@ -1,10 +1,10 @@
-import { drawWarriorWeapon } from './warrior.js?v=20.1.0';
-import { arkAngle } from '../classes/melee.js?v=20.1.0';
-import { TAU } from '../core/config.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { clamp, lerp } from '../core/math.js?v=20.1.0';
-import { line, round, text } from './primitives.js?v=20.1.0';
-import { weaponAim } from './weapons.js?v=20.1.0';
+import { drawWarriorWeapon } from './warrior.js?v=21.0.0';
+import { arkAngle } from '../classes/melee.js?v=21.0.0';
+import { TAU } from '../core/config.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { clamp, lerp } from '../core/math.js?v=21.0.0';
+import { line, round, text } from './primitives.js?v=21.0.0';
+import { weaponAim } from './weapons.js?v=21.0.0';
 
 
 function drawArkBlade(x,y,a,length,side=1,alpha=1){
@@ -132,7 +132,7 @@ function drawSword(g){
   }
   if(p.weapon===0){
     const charges=p.arkCharges||0;
-    text(charges?'✦ '+charges+' · ЛКМ: BIG RIP':p.arkParryCd>0?'PARRY '+p.arkParryCd.toFixed(1)+'с':'ЛКМ: PARRY',p.x,p.y+37,10,charges?'#ffe3a4':'#b4d7e9');
+    text(charges?'✦ '+charges+' · ПКМ: BIG RIP':p.arkParryCd>0?'PARRY '+p.arkParryCd.toFixed(1)+'с':'ПКМ: PARRY',p.x,p.y+37,10,charges?'#ffe3a4':'#b4d7e9');
   }
 }
 

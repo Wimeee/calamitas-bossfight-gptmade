@@ -4,11 +4,11 @@ const {loadGame}=require('./helpers/fixture.cjs');
 
 test('body clips start on entry and use frames per second rather than cycles per second',async()=>{
   const {t}=await loadGame();t.start();const g=t.getGame();g.t=100;
-  t.setKeys({d:true});assert.equal(t.warriorPose(g).index,0);
+  g.player.vx=330;t.setKeys({d:true});assert.equal(t.warriorPose(g).index,0);
   g.t=100.09;assert.equal(t.warriorPose(g).index,0);
   g.t=100.11;assert.equal(t.warriorPose(g).index,1);
   g.t=100.21;assert.equal(t.warriorPose(g).index,2);
-  t.setKeys({});assert.equal(t.warriorPose(g).index,0);
+  g.player.vx=0;t.setKeys({});assert.equal(t.warriorPose(g).index,0);
   g.t=100.42;const pose=t.warriorPose(g);assert.equal(pose.index,1);
   g.mode='paused';g.t+=1;assert.deepEqual(t.warriorPose(g),pose);
 });

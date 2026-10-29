@@ -1,7 +1,8 @@
-import { hurt } from '../combat/damage.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { clamp, lerp, norm } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
+import { movePlayerWithTerrain } from '../game/movement.js?v=21.0.0';
+import { hurt } from '../combat/damage.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { clamp, lerp, norm } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
 
 
 function updateMaelstrom(dt){
@@ -22,8 +23,7 @@ function updateMaelstrom(dt){
     // noticeable at the outer radius, then strongly accelerating near the center
     const gravity=(72+380*strength*strength)*dt;
     if(p.dashT<=0){
-      p.x=clamp(p.x+dx/d*gravity,arena.l+11,arena.r-11);
-      p.y=clamp(p.y+dy/d*gravity,arena.t+11,arena.b-11);
+      movePlayerWithTerrain(g,dx/d*gravity,dy/d*gravity);
     }
   }
   if(d<m.r+8)hurt(d<m.r*.57?99:56,'contact','Whispering Maelstrom');

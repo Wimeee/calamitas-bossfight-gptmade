@@ -1,15 +1,15 @@
-import { playerConfig } from '../../config/player.js?v=20.1.0';
-import { getEncounter } from '../boss/registry.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { audio } from '../core/audio.js?v=20.1.0';
-import { $ } from '../core/dom.js?v=20.1.0';
-import { clamp, norm } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { resetTouchInput } from '../input/mobile.js?v=20.1.0';
-import { ui } from '../ui/hud.js?v=20.1.0';
-import { enter } from './phases.js?v=20.1.0';
+import { updatePlayerMovement,resetMovement } from './movement.js?v=21.0.0';
+import { getTerrain } from '../world/terrain.js?v=21.0.0';
+import { playerConfig } from '../../config/player.js?v=21.0.0';
+import { getEncounter } from '../boss/registry.js?v=21.0.0';
+import { audio } from '../core/audio.js?v=21.0.0';
+import { $ } from '../core/dom.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { resetTouchInput } from '../input/mobile.js?v=21.0.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=21.0.0';
+import { enter } from './phases.js?v=21.0.0';
 
-export const ritualConfig=Object.freeze({x:500,y:300,range:86,duration:6.4,skipAfter:.8});
+export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().floorY-35;},range:86,duration:6.4,skipAfter:.8});
 
 function clearRitualInput(){
   state.keys={};
@@ -66,7 +66,7 @@ export function completeRitual(){
   delete g.ritual;
   clearRitualInput();
   // Every attempt enters the encounter from the same original spawn and resources.
-  g.player.x=500;g.player.y=410;
+  resetMovement(g,500);
   g.player.iframes=playerConfig.spawnInvulnerability;
   const opening=getEncounter(g).config.opening;
   enter(opening.stage,opening.marker,opening.label);
@@ -85,14 +85,8 @@ export function updateRitual(dt){
   if(!r||g.mode!=='playing')return;
   r.ambient+=dt;
   if(r.phase==='preparation'){
-    const k=state.keys;
-    const dx=(k.d||k.ArrowRight?1:0)-(k.a||k.ArrowLeft?1:0)+state.moveAxis.x;
-    const dy=(k.s||k.ArrowDown?1:0)-(k.w||k.ArrowUp?1:0)+state.moveAxis.y;
-    if(dx||dy){
-      const m=norm(dx,dy),p=g.player;
-      p.x=clamp(p.x+m.x*playerConfig.movementSpeed*dt,arena.l+11,arena.r-11);
-      p.y=clamp(p.y+m.y*playerConfig.movementSpeed*dt,arena.t+11,arena.b-11);
-    }
+    updatePlayerMovement(g,dt);
+    syncFlightHUD(g);
   }else{
     r.elapsed+=dt;
     if(r.elapsed>=ritualConfig.duration){completeRitual();return;}

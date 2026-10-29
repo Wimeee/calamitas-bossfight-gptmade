@@ -1,18 +1,20 @@
-import { updateRitual } from './ritual.js?v=20.1.0';
-import { playerConfig } from '../../config/player.js?v=20.1.0';
-import { getEncounter } from '../boss/registry.js?v=20.1.0';
-import { classRegistry, weapons } from '../classes/registry.js?v=20.1.0';
-import { updateClassKit } from '../classes/shared.js?v=20.1.0';
-import { shoot } from '../combat/attacks.js?v=20.1.0';
-import { updateBullets } from '../combat/projectiles.js?v=20.1.0';
-import { possibleTargets } from '../combat/targets.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { audio } from '../core/audio.js?v=20.1.0';
-import { TAU } from '../core/config.js?v=20.1.0';
-import { clamp, norm, rnd } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { updateSystems } from '../systems/index.js?v=20.1.0';
-import { ui } from '../ui/hud.js?v=20.1.0';
+import { getTerrain } from '../world/terrain.js?v=21.0.0';
+import { updatePlayerMovement } from './movement.js?v=21.0.0';
+import { updateRitual } from './ritual.js?v=21.0.0';
+import { playerConfig } from '../../config/player.js?v=21.0.0';
+import { getEncounter } from '../boss/registry.js?v=21.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=21.0.0';
+import { updateClassKit } from '../classes/shared.js?v=21.0.0';
+import { shoot } from '../combat/attacks.js?v=21.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=21.0.0';
+import { possibleTargets } from '../combat/targets.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { audio } from '../core/audio.js?v=21.0.0';
+import { TAU } from '../core/config.js?v=21.0.0';
+import { clamp, rnd } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { updateSystems } from '../systems/index.js?v=21.0.0';
+import { ui } from '../ui/hud.js?v=21.0.0';
 
 
 function update(dt){
@@ -44,7 +46,7 @@ function update(dt){
   p.regenPotionT=Math.max(0,p.regenPotionT-dt);
   // Natural healing builds while not recently hit, with local Terraria-inspired buffs.
   const calmTime=Math.max(0,g.t-p.lastHit),naturalRegen=2.5+Math.min(4.5,calmTime*.45);
-  const campfireBonus=Math.hypot(p.x-230,p.y-505)<195?2:0;
+  const campfireBonus=Math.hypot(p.x-230,p.y-(getTerrain().platforms[0].y-17))<195?2:0;
   const lanternBonus=Math.hypot(p.x-750,p.y-105)<205?2:0;
   p.regenRate=naturalRegen+campfireBonus+lanternBonus+(p.regenPotionT>0?4:0);
   p.hp=Math.min(p.maxHp,p.hp+p.regenRate*dt);
@@ -74,19 +76,7 @@ function update(dt){
     if(drop.life<=0)g.pickups.splice(i,1);
   }
   
-  const dx=(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x,dy=(state.keys.s||state.keys.ArrowDown?1:0)-(state.keys.w||state.keys.ArrowUp?1:0)+state.moveAxis.y,m=norm(dx,dy),moving=!!(dx||dy);
-  if(p.dashT>0){
-    p.dashT=Math.max(0,p.dashT-dt);
-    p.x+=p.dashX*playerConfig.dashSpeed*dt;
-    p.y+=p.dashY*playerConfig.dashSpeed*dt;
-    if(Math.floor(g.t*42)!==Math.floor((g.t-dt)*42))g.dashGhosts.push({x:p.x,y:p.y,life:.32,max:.32})
-  }else
-  if(moving){
-    p.x+=m.x*playerConfig.movementSpeed*dt;
-    p.y+=m.y*playerConfig.movementSpeed*dt
-  }
-  p.x=clamp(p.x,arena.l+11,arena.r-11);
-  p.y=clamp(p.y,arena.t+11,arena.b-11);
+  updatePlayerMovement(g,dt);
   if(state.deviceMode==='mobile'&&state.aimHeld){
     state.pointer.x=clamp(p.x+state.aimAxis.x*300,arena.l,arena.r);
     state.pointer.y=clamp(p.y+state.aimAxis.y*300,arena.t,arena.b)

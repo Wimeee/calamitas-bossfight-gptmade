@@ -1,5 +1,5 @@
-import { classRegistry, weapons } from './registry.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
+import { classRegistry, weapons } from './registry.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
 
 
 function kit(){
@@ -29,8 +29,8 @@ function updateClassKit(dt){
 function kitHint(){
   if(!state.game)return '';
   const p=state.game.player,k=kit();
-  if(k.abilityCd>0)return 'ЛКМ · '+k.abilityCd.toFixed(1)+'с';
-  return p.weapon===1?(k.heat>=.35?'ЛКМ · EXO SHOT':'НАГРІВАЙ ПРОМІНЬ'):p.weapon===2?(k.resonance>=1?'ЛКМ · DRAGON NOVA':'НАКОПИЧУЙ РЕЗОНАНС'):p.weapon===3?'ЛКМ · МІТКА + ЗАЛП':p.weapon===4?'ЛКМ · ПОВЕРНЕННЯ':'';
+  if(k.abilityCd>0)return 'ПКМ · '+k.abilityCd.toFixed(1)+'с';
+  return p.weapon===1?(k.heat>=.35?'ПКМ · EXO SHOT':'НАГРІВАЙ ПРОМІНЬ'):p.weapon===2?(k.resonance>=1?'ПКМ · DRAGON NOVA':'НАКОПИЧУЙ РЕЗОНАНС'):p.weapon===3?'ПКМ · МІТКА + ЗАЛП':p.weapon===4?'ПКМ · ПОВЕРНЕННЯ':'';
 }
 
 

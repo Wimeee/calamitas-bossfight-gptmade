@@ -1,13 +1,13 @@
-import { calamitasConfig } from '../../config/calamitas.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { finish } from '../game/session.js?v=20.1.0';
-import { bulletHell } from './bullet-hell.js?v=20.1.0';
-import { bossAttack } from './calamitas.js?v=20.1.0';
-import { updateMaelstrom } from './maelstrom.js?v=20.1.0';
-import { updateMinions } from './minions.js?v=20.1.0';
-import { updateExtraPatterns } from './patterns.js?v=20.1.0';
-import { enterCalamitas, transitionCalamitas } from './phases.js?v=20.1.0';
-import { drawCalamitasEncounter } from '../render/encounter.js?v=20.1.0';
+import { calamitasConfig } from '../../config/calamitas.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { finish } from '../game/session.js?v=21.0.0';
+import { bulletHell } from './bullet-hell.js?v=21.0.0';
+import { bossAttack } from './calamitas.js?v=21.0.0';
+import { updateMaelstrom } from './maelstrom.js?v=21.0.0';
+import { updateMinions } from './minions.js?v=21.0.0';
+import { updateExtraPatterns } from './patterns.js?v=21.0.0';
+import { enterCalamitas, transitionCalamitas } from './phases.js?v=21.0.0';
+import { drawCalamitasEncounter } from '../render/encounter.js?v=21.0.0';
 
 export const encounterRegistry = {
   'supreme-calamitas': {

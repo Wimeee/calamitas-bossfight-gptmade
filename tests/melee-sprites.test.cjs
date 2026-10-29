@@ -22,9 +22,9 @@ test('melee sprite cells stay inside both supplied sheets and poses follow exist
   }
   t.start();const g=t.getGame(),p=g.player;p.iframes=0;t.setPointer({x:800,y:410});
   assert.equal(t.warriorPose(g).name,'idle');
-  t.setKeys({d:true});assert.equal(t.warriorPose(g).name,'run');
-  t.setKeys({w:true});assert.equal(t.warriorPose(g).name,'rise');
-  t.setKeys({s:true});assert.equal(t.warriorPose(g).name,'fall');
+  p.vx=330;t.setKeys({d:true});assert.equal(t.warriorPose(g).name,'run');
+  p.grounded=false;p.vy=-100;t.setKeys({w:true});assert.equal(t.warriorPose(g).name,'rise');
+  p.vy=100;t.setKeys({s:true});assert.equal(t.warriorPose(g).name,'fall');
   p.dashT=.1;p.dashX=-1;assert.equal(t.warriorPose(g).name,'dash');assert.equal(t.warriorPose(g).flip,true);
   p.dashT=0;p.hits=1;p.lastHit=g.t;assert.equal(t.warriorPose(g).name,'hurt');
   g.mode='dead';assert.equal(t.warriorPose(g).name,'death');

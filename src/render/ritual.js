@@ -1,11 +1,12 @@
-import { drawGlowCircle } from './glow-cache.js?v=20.1.0';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=20.1.0';
-import { settings } from '../core/settings.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { W,H,TAU } from '../core/config.js?v=20.1.0';
-import { clamp } from '../core/math.js?v=20.1.0';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=20.1.0';
-import { line,pixel,round,text } from './primitives.js?v=20.1.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.0.0';
+import { drawGlowCircle } from './glow-cache.js?v=21.0.0';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=21.0.0';
+import { settings } from '../core/settings.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { W,H,TAU } from '../core/config.js?v=21.0.0';
+import { clamp } from '../core/math.js?v=21.0.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=21.0.0';
+import { line,pixel,round,text } from './primitives.js?v=21.0.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -52,9 +53,10 @@ export function drawRitualWorld(g){
     drawGlowCircle(x,y,1+(i%3)*.55,i%3?'#ff6b51':'#ffe5a5',settings.quality==='low'?0:18,'',1,'#ff4b5c');
   }
   ctx.globalAlpha=1;ctx.shadowBlur=0;
-  if(!charging){text('ALTAR OF THE ACCURSED',0,-107,14,'#d49c90');text(nearAltar(g)?'E / ENTER · ВИКЛИКАТИ':'ПІДІЙДИ БЛИЖЧЕ',0,64,11,'#ffcca2');}
+  if(!charging){text('ALTAR OF THE ACCURSED',0,-107,14,'#d49c90');text(nearAltar(g)?'E / ENTER · ВИКЛИКАТИ':'ПІДІЙДИ БЛИЖЧЕ',0,-54,11,'#ffcca2');}
   ctx.restore();
   if(!charging||s<2.7){
+    drawFlightWings(g);drawFlightGauge(g);
     if(drawWarriorBody(g))drawWarriorIdleWeapon(g);
     else{round(g.player.x,g.player.y,10,'#78cdd5','#fff3df',2);round(g.player.x+3,g.player.y,3,'#1e4157');}
   }

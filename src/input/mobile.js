@@ -1,16 +1,17 @@
-import { updateSettings,controlHint } from '../core/settings.js?v=20.1.0';
-import { releaseArk } from '../classes/melee.js?v=20.1.0';
-import { classAbility } from '../classes/shared.js?v=20.1.0';
-import { markCosmicTarget } from '../classes/summoner.js?v=20.1.0';
-import { shoot } from '../combat/attacks.js?v=20.1.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=20.1.0';
-import { possibleTargets } from '../combat/targets.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
-import { $, canvas, root } from '../core/dom.js?v=20.1.0';
-import { clamp, norm } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { togglePause } from '../game/session.js?v=20.1.0';
+import { updateSettings,controlHint } from '../core/settings.js?v=21.0.0';
+import { queueJump } from '../game/movement.js?v=21.0.0';
+import { releaseArk } from '../classes/melee.js?v=21.0.0';
+import { classAbility } from '../classes/shared.js?v=21.0.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=21.0.0';
+import { shoot } from '../combat/attacks.js?v=21.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=21.0.0';
+import { possibleTargets } from '../combat/targets.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
+import { $, canvas, root } from '../core/dom.js?v=21.0.0';
+import { clamp, norm } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { togglePause } from '../game/session.js?v=21.0.0';
 
 let mobileAimTouch=null;
 
@@ -44,6 +45,8 @@ function resetTouchInput(){
   state.aimAxis={x:0,y:0};
   state.aimHeld=false;
   state.mobileFire=false;
+  state.mobileJump=false;state.mobileFlight=false;
+  if(state.game?.player){state.game.player.dashTapDirection=0;state.game.player.dashTapAt=-Infinity;}
   state.pointer.fire=false;
   for(const obj of sticks){
     obj.id=null;
@@ -155,7 +158,7 @@ function updateMobileLabels(){
 
 const feedback=label=>{
   const el=$('touch-status');
-  el.textContent='✅ Натиснуто: '+label+' · Лівий стік — рух, правий — приціл';
+  el.textContent='✅ Натиснуто: '+label+' · Стік — біг / спуск; стрибок і крила — окремими кнопками';
 };
 
 const takeAction=action=>{
@@ -165,6 +168,8 @@ const takeAction=action=>{
   else
   if(action==='menu')$('device').scrollIntoView({block:'start',behavior:'smooth'});
   else
+  if(action==='jump'){state.mobileJump=true;queueJump();}else
+  if(action==='flight'){state.mobileFlight=true;queueJump();}else
   if(action==='dash')dash();else
   if(action==='heal')heal();else
   if(action==='regen')drinkRegeneration();
@@ -194,7 +199,7 @@ function setDeviceMode(mode){
   root.classList.toggle('mobile',state.deviceMode==='mobile');
   $('device').value=state.deviceMode;
   resetTouchInput();
-  $('overlaydesc').textContent=state.deviceMode==='mobile'?'📱 Автоприціл і стрільба увімкнені, рух — лівим стіком. Кнопки справа. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 '+controlHint();
+  $('overlaydesc').textContent=state.deviceMode==='mobile'?'📱 Стік — біг / спуск. Окремі кнопки стрибка, крил і ривка. Автоприціл і стрільба увімкнені. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 '+controlHint();
   try{
     localStorage.setItem('calamitas_device_mode',state.deviceMode)
   }catch(_){
@@ -244,6 +249,8 @@ function initializeMobile(){
       };
       const release=()=>{
         b.classList.remove('held');
+        if(action==='jump')state.mobileJump=false;
+        if(action==='flight')state.mobileFlight=false;
         if(action==='fire'){
           state.mobileFire=false;
           releaseArk();
@@ -293,7 +300,7 @@ function initializeMobile(){
           const now=performance.now();
           if(now-lastTrigger<110)return;
           begin('click',null);
-          if(action==='fire')requestAnimationFrame(release);else
+          if(['fire','jump','flight'].includes(action))requestAnimationFrame(release);else
           release()
       });
   });

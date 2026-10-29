@@ -1,9 +1,9 @@
-import { kitHint } from '../classes/shared.js?v=20.1.0';
-import { TAU } from '../core/config.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { clamp } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { line, pixel, round, text } from './primitives.js?v=20.1.0';
+import { kitHint } from '../classes/shared.js?v=21.0.0';
+import { TAU } from '../core/config.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { clamp } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { line, pixel, round, text } from './primitives.js?v=21.0.0';
 
 
 function drawClassKit(g){
@@ -53,7 +53,7 @@ function drawClassKit(g){
   ctx.fillRect(p.x-27,p.y+22,54,5);
   ctx.fillStyle=color;
   ctx.fillRect(p.x-27,p.y+22,54*clamp(value,0,1),5);
-  text(p.weapon===1&&k.overheat>0?'ОХОЛОДЖЕННЯ':kitHint().replace('ЛКМ',state.deviceMode==='mobile'?'УМІННЯ':'ЛКМ'),p.x,p.y+41,9,color);
+  text(p.weapon===1&&k.overheat>0?'ОХОЛОДЖЕННЯ':kitHint().replace('ПКМ',state.deviceMode==='mobile'?'УМІННЯ':'ПКМ'),p.x,p.y+41,9,color);
 }
 
 

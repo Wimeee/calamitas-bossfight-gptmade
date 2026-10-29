@@ -34,7 +34,7 @@ async function loadGame(options = {}) {
     if (modules.has(file)) return modules.get(file);
     let source = fs.readFileSync(file, 'utf8');
     if (options.isolatedCombat) {
-      for (const name of ['bossAttack', 'updateMinions', 'updateExtraPatterns', 'updateMaelstrom', 'transitionHealth']) {
+      for (const name of ['updatePlayerMovement', 'bossAttack', 'updateMinions', 'updateExtraPatterns', 'updateMaelstrom', 'transitionHealth']) {
         if (source.includes('function ' + name + '(')) source += '\n' + name + '=()=>{};\n';
       }
     }

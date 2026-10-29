@@ -78,3 +78,11 @@
 ## Warrior animation clocks (v20.1)
 
 Armor anchors are registered to stable visor/chest landmarks. `warrior.js` owns visual-only WeakMap clocks keyed by game, so clip playback starts on pose entry and uses FPS rather than cycles/second. Dash animation reads the existing dash duration. Facing uses a small dead zone around vertical aim. Weapon angle/scale transitions affect rendering only. `warrior-trails.js` prepares two tapered trail stamps and rotates them at display rate. `melee-atlas.js` bakes aligned in-between effect frames once and releases intermediate ImageBitmaps. Never move player coordinates, alter hitboxes or retime attacks in these render modules.
+
+## Terraria movement v21
+
+`config/movement.js` configures gravity, acceleration, jump, flight, drop-through and double-tap timing. Horizontal top speed still comes from `config/player.js`. `world/terrain.js` caches geometry by arena bounds; `game/movement.js` handles substepped player-only collisions, grounded/support state, jump buffer/coyote time, finite flight and horizontal dashes. Combat and ritual preparation call the same movement function. Maelstrom displacement goes through the same collision resolver.
+
+Platforms are one-way: ascending players pass through, descending feet land, and down+jump ignores platforms until released. The floor always catches the player. Damage hitboxes are unchanged. `render/terrain.js` caches floor/platform art; `render/mobility.js` draws lightweight wings and a flight gauge. Warrior poses read grounded state and velocity.
+
+`input/dash-gesture.js` handles non-repeated directional taps. Settings migrate old Space-dash to an available Shift/key, reserve Space for jump/flight, expose double-tap enable/disable and optional middle/side-mouse dash binding. Desktop primary is left mouse, secondary right; release logic and all class labels must match. Mobile Jump and Wings are separate held inputs, reset with the other touch state. Class-only tests isolate movement alongside boss AI; integration/physics tests exercise real movement.

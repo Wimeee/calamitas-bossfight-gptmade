@@ -1,19 +1,19 @@
-import { weapons } from '../classes/registry.js?v=20.1.0';
-import { audio } from '../core/audio.js?v=20.1.0';
-import { VERSION } from '../core/config.js?v=20.1.0';
-import { $, root } from '../core/dom.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=20.1.0';
-import { start,togglePause } from '../game/session.js?v=20.1.0';
-import { loop } from '../game/loop.js?v=20.1.0';
-import { setFocusMode } from '../input/fullscreen.js?v=20.1.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=20.1.0';
-import { createMenuBackground } from '../render/menu-background.js?v=20.1.0';
-import { pixelArt } from '../render/sprites.js?v=20.1.0';
+import { weapons } from '../classes/registry.js?v=21.0.0';
+import { audio } from '../core/audio.js?v=21.0.0';
+import { VERSION } from '../core/config.js?v=21.0.0';
+import { $, root } from '../core/dom.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=21.0.0';
+import { start,togglePause } from '../game/session.js?v=21.0.0';
+import { loop } from '../game/loop.js?v=21.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=21.0.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=21.0.0';
+import { createMenuBackground } from '../render/menu-background.js?v=21.0.0';
+import { pixelArt } from '../render/sprites.js?v=21.0.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
-const bindingLabels={dash:'Ривок',heal:'Лікування',regen:'Регенерація',pause:'Пауза',restart:'Новий бій',attack:'Атака з клавіатури'};
+const bindingLabels={dash:'Ривок · клавіша / миша',heal:'Лікування',regen:'Регенерація',pause:'Пауза',restart:'Новий бій',attack:'Атака з клавіатури'};
 const classNames={melee:'Melee',ranger:'Ranger',mage:'Mage',summon:'Summoner',rogue:'Rogue'};
 const classSymbols={melee:'⚔',ranger:'⌖',mage:'✧',summon:'☄',rogue:'✦'};
 
@@ -61,7 +61,7 @@ async function resumeBattle(){
 }
 function syncSettings(){
   for(const [id,value] of Object.entries({'setting-sfx':settings.sfxVolume*100,'setting-music':settings.musicVolume*100,'setting-quality':settings.quality,'setting-device':settings.device,'setting-touch-scale':settings.touchScale}))byId(id).value=String(value);
-  for(const [id,value]of Object.entries({'setting-sfx-enabled':settings.sfxEnabled,'setting-music-enabled':settings.musicEnabled,'setting-shake':settings.screenShake,'setting-autoaim':settings.autoAim}))byId(id).checked=value;
+  for(const [id,value]of Object.entries({'setting-sfx-enabled':settings.sfxEnabled,'setting-music-enabled':settings.musicEnabled,'setting-shake':settings.screenShake,'setting-doubletap':settings.doubleTapDash,'setting-autoaim':settings.autoAim}))byId(id).checked=value;
   byId('setting-sfx-value').textContent=Math.round(settings.sfxVolume*100)+'%';
   byId('setting-music-value').textContent=Math.round(settings.musicVolume*100)+'%';
   byId('menu-keybindings').innerHTML=Object.entries(bindingLabels).map(([name,label])=>`<div class="binding-row"><span>${label}</span><button class="binding-key ${model.listening===name?'listening':''}" data-binding="${name}">${model.listening===name?'…':keyLabel(settings.bindings[name])}</button></div>`).join('');
@@ -92,11 +92,11 @@ function initializeMenu(){
   byId('return-menu').addEventListener('click',()=>showMenu());
   const values={'setting-sfx':['sfxVolume',v=>Number(v)/100],'setting-music':['musicVolume',v=>Number(v)/100],'setting-quality':['quality',String],'setting-device':['device',String],'setting-touch-scale':['touchScale',Number]};
   for(const [id,[name,convert]]of Object.entries(values))byId(id).addEventListener(id.includes('sfx')||id==='setting-music'?'input':'change',e=>{audio.init();updateSettings({[name]:convert(e.target.value)});});
-  for(const [id,name]of Object.entries({'setting-sfx-enabled':'sfxEnabled','setting-music-enabled':'musicEnabled','setting-shake':'screenShake','setting-autoaim':'autoAim'}))byId(id).addEventListener('change',e=>{audio.init();updateSettings({[name]:e.target.checked});});
+  for(const [id,name]of Object.entries({'setting-sfx-enabled':'sfxEnabled','setting-music-enabled':'musicEnabled','setting-shake':'screenShake','setting-doubletap':'doubleTapDash','setting-autoaim':'autoAim'}))byId(id).addEventListener('change',e=>{audio.init();updateSettings({[name]:e.target.checked});});
   byId('menu-reset-settings').addEventListener('click',()=>{model.listening=null;resetSettings();audio.fx('menu');});
   byId('menu-keybindings').addEventListener('click',e=>{
     const button=e.target.closest?.('[data-binding]');if(!button)return;model.listening=button.dataset.binding;syncSettings();
-    byId('keybinding-status').textContent='Натисни нову клавішу. Escape — скасувати. WASD зарезервовано для руху.';
+    byId('keybinding-status').textContent='Натисни нову клавішу. Escape — скасувати. Space — стрибок; WASD — рух. Для ривка можна натиснути коліщатко або бічну кнопку миші.';
   });
   window.addEventListener('keydown',e=>{
     if(state.screen!=='menu'){if(e.code==='Escape'){e.preventDefault();showMenu();}return;}
@@ -109,6 +109,14 @@ function initializeMenu(){
     }
     if(e.code==='Escape'&&model.panel!=='home'){e.preventDefault();showPanel(model.panel==='setup'?'bosses':'home');}
   },true);
+  window.addEventListener('pointerdown',e=>{
+    if(state.screen!=='menu'||!model.listening)return;
+    const code=({1:'MouseMiddle',3:'MouseBack',4:'MouseForward'})[e.button];if(!code)return;
+    e.preventDefault();
+    if(bindKey(model.listening,code)){model.listening=null;model.mouseBoundAt=performance.now();syncSettings();byId('keybinding-status').textContent='Кнопку миші збережено.';}
+    else byId('keybinding-status').textContent='Кнопки миші доступні для ривка; для інших дій обери клавішу.';
+  },true);
+  window.addEventListener('auxclick',e=>{if(state.screen==='menu'&&performance.now()-(model.mouseBoundAt??-9999)<500)e.preventDefault();},true);
   byId('menu-fullscreen').addEventListener('click',async()=>{
     try{if(document.fullscreenElement)await document.exitFullscreen();else if(menu.requestFullscreen)await menu.requestFullscreen();else byId('keybinding-status').textContent='Меню вже займає весь доступний екран браузера.';}catch{}
   });

@@ -1,8 +1,9 @@
-import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { line } from './primitives.js?v=20.1.0';
+import { drawTerrain } from './terrain.js?v=21.0.0';
+import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { line } from './primitives.js?v=21.0.0';
 
 
 function drawBackdrop(g){
@@ -14,6 +15,7 @@ function drawBackdrop(g){
     ctx.fillRect(x,(y+now*(i%3+1)*4)%H,2,2)
   }
   drawArenaLayer();
+  drawTerrain();
   // Decorative ritual seals, pulsing embers and faint central cracks (visual only).
   ctx.save();
   ctx.globalAlpha=.25;

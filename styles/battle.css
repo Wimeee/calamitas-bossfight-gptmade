@@ -93,3 +93,6 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game #game{transform:translateZ(0)}
 #scal-game .fill{transition:none}
 #scal-game .battle-heading img{filter:none}
+
+/* v21: keep summon/skip controls above the ground-level altar. */
+#scal-game .ritual-controls{top:8%;bottom:auto}

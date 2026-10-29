@@ -1,13 +1,13 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=20.1.0';
-import { playerConfig } from '../../config/player.js?v=20.1.0';
-import { arkAngle } from '../classes/melee.js?v=20.1.0';
-import { ctx } from '../core/dom.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { settings } from '../core/settings.js?v=20.1.0';
-import { clamp } from '../core/math.js?v=20.1.0';
-import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=20.1.0';
-import { line,round,text } from './primitives.js?v=20.1.0';
-import { drawWarriorTrail } from './warrior-trails.js?v=20.1.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=21.0.0';
+import { playerConfig } from '../../config/player.js?v=21.0.0';
+import { arkAngle } from '../classes/melee.js?v=21.0.0';
+import { ctx } from '../core/dom.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { settings } from '../core/settings.js?v=21.0.0';
+import { clamp } from '../core/math.js?v=21.0.0';
+import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=21.0.0';
+import { line,round,text } from './primitives.js?v=21.0.0';
+import { drawWarriorTrail } from './warrior-trails.js?v=21.0.0';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();
@@ -32,9 +32,12 @@ export function warriorPose(g){
   }else if(p.hits>0&&g.t-p.lastHit<.22){name='hurt';progress=(g.t-p.lastHit)/.22;}
   else if(p.dashT>0){name='dash';progress=1-p.dashT/playerConfig.dashDuration;}
   else if(g.mode==='playing'&&(!g.ritual||g.ritual.phase==='preparation')){
-    if(dy<-.15)name='rise';
-    else if(dy>.15)name='fall';
-    else if(Math.abs(dx)>.15)name='run';
+    if(p.physics){
+      if(!p.grounded)name=p.vy< -20||p.flying?'rise':'fall';
+      else if(Math.abs(p.vx)>20)name='run';
+    }else{
+      if(dy<-.15)name='rise';else if(dy>.15)name='fall';else if(Math.abs(dx)>.15)name='run';
+    }
   }
   if(clock.name!==name||t<clock.time){clock.name=name;clock.since=t;}
   clock.time=t;
@@ -119,7 +122,7 @@ export function drawWarriorWeapon(g){
   }
   if(g.mode!=='dead'){
     const charges=p.arkCharges||0;
-    text(charges?'✦ '+charges+' · ЛКМ: BIG RIP':p.arkParryCd>0?'PARRY '+p.arkParryCd.toFixed(1)+'с':'ЛКМ: PARRY',p.x,p.y+38,10,charges?'#ffe3a4':'#b4d7e9');
+    text(charges?'✦ '+charges+' · ПКМ: BIG RIP':p.arkParryCd>0?'PARRY '+p.arkParryCd.toFixed(1)+'с':'ПКМ: PARRY',p.x,p.y+38,10,charges?'#ffe3a4':'#b4d7e9');
   }
   return true;
 }

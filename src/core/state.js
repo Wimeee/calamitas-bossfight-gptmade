@@ -7,6 +7,8 @@ const state={
   pointer: {x:500,y:300,fire:false,inside:false},
   deviceMode: "desktop",
   mobileFire: false,
+  mobileJump: false,
+  mobileFlight: false,
   mobileAutoAim: true,
   moveAxis: {x:0,y:0},
   aimAxis: {x:0,y:0},

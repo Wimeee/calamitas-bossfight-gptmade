@@ -1,7 +1,6 @@
-import { playerConfig } from '../../config/player.js?v=20.1.0';
-import { audio } from '../core/audio.js?v=20.1.0';
-import { norm } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
+import { playerConfig } from '../../config/player.js?v=21.0.0';
+import { audio } from '../core/audio.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
 
 
 function heal(){
@@ -29,19 +28,17 @@ function drinkRegeneration(){
 }
 
 
-function dash(){
-  if(!state.game||state.game.ritual||state.game.mode!=='playing')return;
+function dash(direction=0){
+  if(!state.game||state.game.ritual?.phase==='summoning'||state.game.mode!=='playing')return;
   let p=state.game.player;
   if(p.dashCd>0)return;
-  let dx=(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x,dy=(state.keys.s||state.keys.ArrowDown?1:0)-(state.keys.w||state.keys.ArrowUp?1:0)+state.moveAxis.y;
-  let d=norm(dx,dy);
-  if(!Math.hypot(dx,dy))d=norm(state.pointer.x-p.x,state.pointer.y-p.y);
-  p.dashX=d.x;
-  p.dashY=d.y;
+  const dx=direction||(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x;
+  p.dashX=Math.abs(dx)>.1?Math.sign(dx):state.pointer.x<p.x?-1:1;
+  p.dashY=0;
   p.dashCd=playerConfig.dashCooldown;
   p.dashT=playerConfig.dashDuration;
   p.contactGuard=playerConfig.contactGuardDuration;
-  p.dashes++;
+  if(!state.game.ritual)p.dashes++;
   audio.fx('dash')
 }
 

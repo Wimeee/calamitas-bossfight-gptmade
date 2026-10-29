@@ -1,16 +1,18 @@
-import { beginRitual, skipRitual } from '../game/ritual.js?v=20.1.0';
-import { resolveGameKey } from '../core/settings.js?v=20.1.0';
-import { releaseArk } from '../classes/melee.js?v=20.1.0';
-import { classAbility } from '../classes/shared.js?v=20.1.0';
-import { shoot } from '../combat/attacks.js?v=20.1.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=20.1.0';
-import { arena } from '../core/arena.js?v=20.1.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=20.1.0';
-import { canvas, root } from '../core/dom.js?v=20.1.0';
-import { clamp } from '../core/math.js?v=20.1.0';
-import { state } from '../core/state.js?v=20.1.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=20.1.0';
-import { resetTouchInput } from './mobile.js?v=20.1.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=21.0.0';
+import { queueJump } from '../game/movement.js?v=21.0.0';
+import { directionTap } from './dash-gesture.js?v=21.0.0';
+import { resolveGameKey } from '../core/settings.js?v=21.0.0';
+import { releaseArk } from '../classes/melee.js?v=21.0.0';
+import { classAbility } from '../classes/shared.js?v=21.0.0';
+import { shoot } from '../combat/attacks.js?v=21.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=21.0.0';
+import { arena } from '../core/arena.js?v=21.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.0.0';
+import { canvas, root } from '../core/dom.js?v=21.0.0';
+import { clamp } from '../core/math.js?v=21.0.0';
+import { state } from '../core/state.js?v=21.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=21.0.0';
+import { resetTouchInput } from './mobile.js?v=21.0.0';
 
 
 function eventPos(e){
@@ -20,7 +22,7 @@ function eventPos(e){
 }
 
 const mouseRelease=e=>{
-  if(e.button!==2)return;
+  if(e.button!==0)return;
   state.pointer.fire=false;
   releaseArk();
 };
@@ -34,7 +36,7 @@ const codes={
   ArrowDown:'ArrowDown',
   ArrowLeft:'ArrowLeft',
   ArrowRight:'ArrowRight',
-  Space:' ',
+  Space:'jump',
   KeyH:'h',
   KeyB:'b',
   KeyJ:'j',
@@ -56,7 +58,7 @@ const kd=e=>{
   if(state.screen!=='game')return;
   let tag=(e.target&&e.target.tagName)||'';
   if(['INPUT','TEXTAREA','SELECT'].includes(tag))return;
-  if(state.game?.ritual&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&['KeyE','Enter','Space'].includes(e.code)){
+  if(state.game?.ritual&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&(['KeyE','Enter'].includes(e.code)||state.game.ritual.phase==='summoning'&&e.code==='Space')){
     e.preventDefault();
     if(!e.repeat){if(state.game.ritual.phase==='preparation'&&e.code!=='Space')beginRitual();else skipRitual();}
     return;
@@ -65,8 +67,10 @@ const kd=e=>{
   if(!k||e.ctrlKey||e.metaKey||e.altKey)return;
   if(root.isConnected&&state.game)e.preventDefault();else
   return;
-  state.keys[k]=true;
-  if(e.repeat)return;
+  const wasHeld=state.keys[k];state.keys[k]=true;
+  if(e.repeat||wasHeld)return;
+  directionTap(k);
+  if(k==='jump'||k==='w'||k==='ArrowUp')queueJump();
   if(k==='j')shoot();
   if(k===' ')dash();
   if(k==='h')heal();
@@ -84,11 +88,14 @@ function initializeDesktop(){
       state.pointer.inside=true
   });
   canvas.addEventListener('pointerdown',e=>{
-      if(state.deviceMode==='mobile'||e.button!==0&&e.button!==2)return;
+      if(state.deviceMode==='mobile'||state.screen!=='game')return;
+      const mouseCode=({1:'MouseMiddle',3:'MouseBack',4:'MouseForward'})[e.button];
+      if(mouseCode){if(gameKey({code:mouseCode})===' '){e.preventDefault();dash();}return;}
+      if(e.button!==0&&e.button!==2)return;
       e.preventDefault();
       eventPos(e);
       state.pointer.inside=true;
-      if(e.button===0){
+      if(e.button===2){
         classAbility();
         return;
       }
@@ -109,6 +116,10 @@ function initializeDesktop(){
       state.pointer.fire=false;
   });
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
+  canvas.addEventListener('auxclick',e=>{
+    const code=({1:'MouseMiddle',3:'MouseBack',4:'MouseForward'})[e.button];
+    if(code&&gameKey({code})===' ')e.preventDefault();
+  });
   window.addEventListener('keydown',kd);
   window.addEventListener('keyup',e=>{
       let k=gameKey(e);
