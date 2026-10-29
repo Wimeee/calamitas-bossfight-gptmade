@@ -1,9 +1,9 @@
-import { settings } from '../core/settings.js?v=19.0.0';
-import { ctx } from '../core/dom.js?v=19.0.0';
-import { W,H,TAU } from '../core/config.js?v=19.0.0';
-import { clamp } from '../core/math.js?v=19.0.0';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=19.0.0';
-import { line,pixel,round,text } from './primitives.js?v=19.0.0';
+import { settings } from '../core/settings.js?v=19.1.0';
+import { ctx } from '../core/dom.js?v=19.1.0';
+import { W,H,TAU } from '../core/config.js?v=19.1.0';
+import { clamp } from '../core/math.js?v=19.1.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=19.1.0';
+import { line,pixel,round,text } from './primitives.js?v=19.1.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 

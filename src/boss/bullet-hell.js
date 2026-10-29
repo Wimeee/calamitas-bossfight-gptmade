@@ -1,8 +1,8 @@
-import { enemyBullet } from '../combat/projectiles.js?v=19.0.0';
-import { arena } from '../core/arena.js?v=19.0.0';
-import { clamp, norm, rnd } from '../core/math.js?v=19.0.0';
-import { state } from '../core/state.js?v=19.0.0';
-import { enter } from '../game/phases.js?v=19.0.0';
+import { enemyBullet } from '../combat/projectiles.js?v=19.1.0';
+import { arena } from '../core/arena.js?v=19.1.0';
+import { clamp, norm, rnd } from '../core/math.js?v=19.1.0';
+import { state } from '../core/state.js?v=19.1.0';
+import { enter } from '../game/phases.js?v=19.1.0';
 
 const hellDirections=[
   [['down','right','left'],['right','left'],['down','right','left']],

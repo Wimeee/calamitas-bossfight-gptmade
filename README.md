@@ -81,3 +81,7 @@ npm test
 ## v19 — Summoning Ritual
 
 New approved flaming title logo. Enter the arena, move close to the urn, then press **E / Enter** or tap **Викликати**. The ritual gathers embers into rotating sigils, darkens the arena, reveals the title letter by letter and summons Calamitas. **Enter / Space** or **Пропустити інтро** skips the animation after its first moment. Pause/menu/resume work during preparation and the intro. Combat time and resources stay frozen until the original first Bullet Hell begins. No class balance or enemy sprite overhaul in this release. Restore point: `backup/v18-before-summoning-ritual`.
+
+## v19.1 — Battle UI
+
+The battle screen now shares the menu atmosphere: dim illustrated backdrop, compact gold-and-brimstone HUD, viewport-sized arena, dropdown battle options, collapsible controls/phase guide, refreshed result overlay and mobile controls. Gameplay and canvas coordinates are unchanged. Validation was limited to structural/module checks and desktop/mobile visual inspection as requested; no repeated combat suite. Restore point: `backup/v19-before-battle-ui`.

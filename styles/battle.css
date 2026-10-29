@@ -1,0 +1,87 @@
+/* Battle presentation only. Canvas proportions and input coordinates stay aligned. */
+body:has(#scal-game:not([hidden])){background:linear-gradient(#0a060ae8,#11080cd9 55%,#090609ed),#0c080c url('../assets/menu/brimstone-sanctuary.webp') center/cover fixed no-repeat}
+#scal-game{max-width:1600px;padding:12px 24px;margin:0 auto;min-height:100svh;color:#deceba}
+#scal-game .shell{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+#scal-game .battle-header{min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 92px 9px 0;background:none;border-bottom:1px solid #bd8d5940}
+#scal-game .battle-heading{display:flex;align-items:center;gap:12px;min-width:0}
+#scal-game .battle-heading img{flex:none;opacity:.85;filter:drop-shadow(0 0 12px #ef663a24)}
+#scal-game .eyebrow{font:8px system-ui;letter-spacing:3px;color:#b88965}
+#scal-game .title{font:400 clamp(20px,2.2vw,28px)/1.2 Georgia,serif;color:#f0d6b3;text-shadow:0 2px 4px #000;margin:3px 0 0}
+#scal-game .battle-utilities{display:flex;align-items:center;gap:8px}
+#scal-game .btn,#scal-game .battle-options>summary,#scal-game .battle-guide>summary,#scal-game:not(.focus-mode) #return-menu{border:1px solid #b4865e45;border-radius:2px;background:#1c1114b8;color:#d7bda1;font:11px system-ui;font-weight:400;min-height:34px;padding:8px 13px;cursor:pointer;white-space:nowrap;box-shadow:none}
+#scal-game:not(.focus-mode) #return-menu{top:18px;right:24px;z-index:12}
+#scal-game .btn:hover,#scal-game summary:hover,#scal-game #return-menu:hover{color:#ffe4b9;border-color:#d6ab72a6;background:#48251e70}
+#scal-game summary{list-style:none}#scal-game summary::-webkit-details-marker{display:none}
+#scal-game .battle-options{position:relative;z-index:15}
+#scal-game .battle-options[open]>summary{border-color:#c39169;color:#ffe0b3}
+#scal-game .battle-options .toolbar{position:absolute;right:0;top:43px;width:340px;display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:22px;background:#160d13fa;border:1px solid #ac7b525e;box-shadow:0 18px 60px #000b;z-index:15}
+#scal-game .device-controls{grid-column:1/-1;background:none;border:0;padding:0}
+#scal-game .toolbar label{color:#b69883;font-size:9px;gap:7px;font-weight:400}
+#scal-game .toolbar select{width:100%;min-width:0;background:#291921;border:1px solid #a3765659;border-radius:2px;color:#e6cdb3;font-size:11px;padding:9px}
+#scal-game .toolbar>label{min-width:0}
+#scal-game .toolbar .audio-controls{grid-column:1/-1;background:none;border:0;border-radius:0;border-top:1px solid #a5785338;padding:14px 0 0;gap:9px}
+#scal-game .toolbar .volume-label{width:100%;padding-top:5px}
+#scal-game .toolbar .volume-label input{width:100%;accent-color:#bc8063}
+#scal-game .btn.primary{background:#502625;border-color:#be856076;color:#ffe0b6;min-width:0}
+#scal-game .status{display:grid;grid-template-columns:minmax(120px,260px) minmax(120px,220px) 1fr;align-items:center;gap:24px;background:none;border:0;padding:12px 0;min-height:60px}
+#scal-game .barlabel{font:9px system-ui;letter-spacing:1.6px;color:#b5a193;margin-bottom:7px}
+#scal-game .barlabel span:last-child{font-variant-numeric:tabular-nums;letter-spacing:.5px;color:#efd2b1}
+#scal-game .track{height:5px;background:#1b1119;border:0;border-radius:0;outline:1px solid #bc8c5f26;outline-offset:2px}
+#scal-game #hpbar{background:linear-gradient(90deg,#84313f,#db7a68)}
+#scal-game #manabar{background:linear-gradient(90deg,#345d7c,#93b8c2)}
+#scal-game .status .number{display:flex;gap:18px;justify-content:flex-end;align-items:center;flex-wrap:wrap;font:10px system-ui;color:#c9b29c}
+#scal-game .status .number div{margin:0!important;color:#c9b29c!important}
+#scal-game .screen{width:min(100%,calc((100svh - 218px)*5/3));aspect-ratio:5/3;margin:0 auto;background:#100a11;border:1px solid #b77a5e45;box-shadow:0 0 0 5px #09070b66,0 0 60px #9d28300a;isolation:isolate}
+#scal-game .quick{min-height:33px;padding:10px 0 6px;background:none;border:0;gap:8px 20px;color:#a58c80;font:9px system-ui;letter-spacing:.2px;justify-content:space-between}
+#scal-game .quick b{color:#d9b393;font-weight:500}
+#scal-game .quick>div:last-child{max-width:48%;text-align:right}
+#scal-game .battle-footer{min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #bb895a30;padding:9px 0 0;position:relative}
+#scal-game .loadout{display:flex;align-items:center;gap:14px;min-width:0;font:10px system-ui;color:#b39c8d}
+#scal-game .loadout-caption{font-size:7px;letter-spacing:2px;color:#926f59;white-space:nowrap}
+#scal-game .loadout b{font:15px Georgia,serif;color:#e4c59f}
+#scal-game #weapondesc{font:10px system-ui;color:#a78f80}
+#scal-game .battle-guide>summary{font-size:10px;border:0;background:none;padding:7px 0;color:#b49376}
+#scal-game .battle-guide>summary span{padding-left:10px}
+#scal-game .below{position:absolute;bottom:43px;right:0;width:min(620px,calc(100vw - 48px));z-index:15;background:#150d14fa;border:1px solid #ae7c5259;padding:22px;box-shadow:0 -12px 50px #0009;gap:14px}
+#scal-game .details{font-size:11px;color:#b8a295;line-height:1.8}#scal-game #tip{display:none}
+#scal-game .chip{border-color:#92704a40;border-radius:0;background:#28191d;color:#9e8879;font-size:9px;font-weight:400}
+#scal-game .chip.active{border-color:#d0a16f;color:#ffe0b2;box-shadow:none;background:#59312455}
+#scal-game .chip.done{background:#3b2923;color:#d4b38b;border-color:#a97a5355}
+#scal-game .wp{border-radius:0;background:#291a20;font:10px system-ui;border-color:#7d59474d}
+#scal-game .wp.on{background:#593128;border-color:#c28a61;color:#ffe0b5}
+#scal-game .runtime-status.ok{display:none}#scal-game .runtime-status:not(.ok){margin:12px 0}
+body:has(#scal-game:not([hidden])) #site-version-tag{display:none}
+#scal-game .overlay{background:radial-gradient(ellipse at 50% 40%,#351220dc,#08060bf5 75%);backdrop-filter:blur(5px);gap:18px}
+#scal-game .overlay h2{font:400 clamp(26px,4vw,48px) Georgia,serif;color:#f2d4ad;text-shadow:0 0 30px #c4513d30}
+#scal-game .overlay .subtitle{font:9px system-ui;letter-spacing:4px;color:#bf8b70}
+#scal-game .overlay p{font:12px/1.8 system-ui;color:#b8a293;max-width:470px}
+#scal-game .overlay button{border-radius:0;background:#42231f;border-color:#c190626e;color:#f4d3a8;font:12px Georgia,serif;letter-spacing:1px;padding:13px 28px}
+#scal-game .ritual-controls button{border-radius:0;background:#190e14ed;border-color:#b77d5566;color:#e7c295;font-weight:400;font-size:11px;box-shadow:0 0 25px #0005}
+#scal-game:fullscreen{padding:12px 24px;background:#0e080d}
+#scal-game:fullscreen .shell{min-height:0}
+#scal-game.focus-mode .battle-footer{display:none}
+#scal-game.focus-mode .battle-header{display:none}
+#scal-game.focus-mode.mobile .status{padding:8px 65px 8px 76px;min-height:44px;gap:18px;grid-template-columns:1fr 1fr;background:#120b10}
+#scal-game.focus-mode.mobile .screen{border:0;box-shadow:none;margin:0;width:100%;aspect-ratio:auto}
+#scal-game.focus-mode.mobile .quick{background:#120b10;padding:5px 12px;min-height:25px}
+#scal-game.focus-mode.mobile .quick>div:last-child{max-width:none;text-align:left}
+#scal-game.focus-mode.mobile .joystick{border-color:#c18b6480;background:radial-gradient(circle,#79503d88,#25171e99 65%,#140d18aa)}
+#scal-game.focus-mode.mobile .joystick .knob{border-color:#d5a47a;background:radial-gradient(circle at 30% 22%,#bb886b,#654536 65%,#38222a)}
+#scal-game.focus-mode.mobile .mobile-actions button{background:#24151de6;border-color:#bb865e77;color:#e4c7a9;border-radius:4px;box-shadow:0 2px 8px #0005;font-weight:500}
+#scal-game.focus-mode.mobile .mobile-actions button.primary{background:#693b2cd9;border-color:#d9a57699;color:#ffdfb7}
+#scal-game.focus-mode.mobile #focus-exit,#scal-game.focus-mode #return-menu{background:#21131ce8;border:1px solid #bd8b6466;border-radius:2px;color:#ddbc9a;font:10px system-ui}
+@media(max-width:900px){
+ #scal-game .status{gap:18px;grid-template-columns:1fr 1fr auto}#scal-game .status .number{gap:6px;font-size:9px;flex-direction:column;align-items:flex-end}
+ #scal-game .loadout-caption,#scal-game #weapondesc{display:none}#scal-game .battle-utilities{gap:5px}#scal-game .battle-options>summary{font-size:0}#scal-game .battle-options>summary:after{content:'⚙';font-size:15px}
+}
+@media(max-width:600px){
+ #scal-game{padding:10px 12px}#scal-game .battle-header{padding-right:70px;min-height:54px;gap:6px}#scal-game .battle-heading{gap:7px}#scal-game .battle-heading img{width:26px;height:30px}#scal-game .eyebrow{font-size:6px;letter-spacing:1.5px}#scal-game .title{font-size:18px}
+ #scal-game .battle-utilities{gap:4px}#scal-game .battle-utilities>.btn{font-size:0;padding:7px;width:31px}#scal-game #pause:before{content:'Ⅱ';font-size:14px}#scal-game #fullscreen:before{content:'⛶';font-size:15px}
+ #scal-game:not(.focus-mode) #return-menu{right:12px;top:19px;font-size:10px;padding:8px;min-height:32px}
+ #scal-game .battle-options .toolbar{right:-62px;width:min(340px,calc(100vw - 24px))}
+ #scal-game .status{gap:10px;grid-template-columns:1fr 1fr;padding:13px 0 9px}#scal-game .status .number{grid-column:1/-1;flex-direction:row;justify-content:space-between;font-size:9px;gap:8px;padding-top:5px}
+ #scal-game .barlabel{font-size:8px}#scal-game .screen{width:100%;min-height:0}#scal-game .quick{font-size:8px;align-items:flex-start;line-height:1.5}#scal-game .quick>div:last-child{max-width:100%;text-align:left;width:100%}
+ #scal-game .below{width:calc(100vw - 24px);padding:16px}#scal-game .loadout b{font-size:13px}#scal-game .battle-footer{gap:8px}#scal-game .battle-guide>summary{font-size:9px}
+ #scal-game .touch{background:#160e15;border-color:#a7775140}#scal-game .ritual-controls{bottom:8%}#scal-game .ritual-controls button{min-height:34px;font-size:9px;padding:6px 10px}
+}
+@media(orientation:portrait){#scal-game.focus-mode.mobile .touch{background:radial-gradient(ellipse at 50% 100%,#3b251e88,#100a11);border-top-color:#a5785040}}

@@ -1,18 +1,18 @@
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=19.0.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=19.0.0';
-import { getEncounter } from '../boss/registry.js?v=19.0.0';
-import { possibleTargets } from '../combat/targets.js?v=19.0.0';
-import { arena } from '../core/arena.js?v=19.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=19.0.0';
-import { ctx } from '../core/dom.js?v=19.0.0';
-import { clamp, norm } from '../core/math.js?v=19.0.0';
-import { state } from '../core/state.js?v=19.0.0';
-import { drawBackdrop } from './background.js?v=19.0.0';
-import { drawClassKit } from './class-effects.js?v=19.0.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=19.0.0';
-import { drawSword } from './melee.js?v=19.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=19.0.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=19.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=19.1.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=19.1.0';
+import { getEncounter } from '../boss/registry.js?v=19.1.0';
+import { possibleTargets } from '../combat/targets.js?v=19.1.0';
+import { arena } from '../core/arena.js?v=19.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=19.1.0';
+import { ctx } from '../core/dom.js?v=19.1.0';
+import { clamp, norm } from '../core/math.js?v=19.1.0';
+import { state } from '../core/state.js?v=19.1.0';
+import { drawBackdrop } from './background.js?v=19.1.0';
+import { drawClassKit } from './class-effects.js?v=19.1.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=19.1.0';
+import { drawSword } from './melee.js?v=19.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=19.1.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=19.1.0';
 
 
 function draw(g){
