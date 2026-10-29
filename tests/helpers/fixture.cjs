@@ -52,7 +52,7 @@ async function loadGame(options = {}) {
     const html = fs.readFileSync(options.baseline, 'utf8');
     let code = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)][0][1];
     const at = code.lastIndexOf('})();');
-    code = code.slice(0, at) + `globalThis.api={start,enter,update,draw,shoot,classAbility,releaseArk,arkAbility,fireArk,updateSword,updateBullets,updateCosmic,updateClassKit,togglePause,takeAction,setDeviceMode,configureArena,eventPos,aimCanvas,traceWeaponBeam,beamWallDistance,fireChannelWeapon,muzzlePoint,weapons,pixelArt,arena,screenToWorld,hitTarget,bulletHell,releaseExtraPattern,updateExtraPatterns,dash,heal,makeGame,getGame:()=>game,getPointer:()=>pointer,setPointer:p=>pointer={...pointer,...p},setKeys:k=>keys=k,setGame:g=>game=g,setAxis:a=>moveAxis=a};` + code.slice(at);
+    code = code.slice(0, at) + `globalThis.api={nearestForHoming,start,enter,update,draw,shoot,classAbility,releaseArk,arkAbility,fireArk,updateSword,updateBullets,updateCosmic,updateClassKit,togglePause,takeAction,setDeviceMode,configureArena,eventPos,aimCanvas,traceWeaponBeam,beamWallDistance,fireChannelWeapon,muzzlePoint,weapons,pixelArt,arena,screenToWorld,hitTarget,bulletHell,releaseExtraPattern,updateExtraPatterns,dash,heal,makeGame,getGame:()=>game,getPointer:()=>pointer,setPointer:p=>pointer={...pointer,...p},setKeys:k=>keys=k,setGame:g=>game=g,setAxis:a=>moveAxis=a};` + code.slice(at);
     vm.runInContext(code, sandbox);
     t = sandbox.api;
   } else {

@@ -3,57 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Supreme Calamitas — Brimstone Trial v17</title>
-<link rel="stylesheet" href="./styles/game.css?v=17.0.0">
+<title>Supreme Calamitas — Brimstone Trial v17.0.1</title>
+<link rel="stylesheet" href="./styles/game.css?v=17.0.1">
 <meta name="theme-color" content="#210f1c">
 <meta name="description" content="Фан-босфайт Supreme Calamitas. ПК і мобільне керування, всі фази, HP та магія.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Calamitas">
 <!-- module-preloads:start -->
-<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=17.0.0">
-<link rel="modulepreload" href="./src/boss/calamitas.js?v=17.0.0">
-<link rel="modulepreload" href="./src/boss/maelstrom.js?v=17.0.0">
-<link rel="modulepreload" href="./src/boss/minions.js?v=17.0.0">
-<link rel="modulepreload" href="./src/boss/patterns.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/mage.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/melee.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/ranger.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/registry.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/rogue.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/shared.js?v=17.0.0">
-<link rel="modulepreload" href="./src/classes/summoner.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/attacks.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/beams.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/damage.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/player.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/projectiles.js?v=17.0.0">
-<link rel="modulepreload" href="./src/combat/targets.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/arena.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/audio.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/config.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/dom.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/math.js?v=17.0.0">
-<link rel="modulepreload" href="./src/core/state.js?v=17.0.0">
-<link rel="modulepreload" href="./src/game/loop.js?v=17.0.0">
-<link rel="modulepreload" href="./src/game/phases.js?v=17.0.0">
-<link rel="modulepreload" href="./src/game/session.js?v=17.0.0">
-<link rel="modulepreload" href="./src/game/update.js?v=17.0.0">
-<link rel="modulepreload" href="./src/input/desktop.js?v=17.0.0">
-<link rel="modulepreload" href="./src/input/fullscreen.js?v=17.0.0">
-<link rel="modulepreload" href="./src/input/mobile.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/background.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/class-effects.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/effects.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/enemies.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/melee.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/primitives.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/scene.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/sprites.js?v=17.0.0">
-<link rel="modulepreload" href="./src/render/weapons.js?v=17.0.0">
-<link rel="modulepreload" href="./src/systems/index.js?v=17.0.0">
-<link rel="modulepreload" href="./src/ui/controls.js?v=17.0.0">
-<link rel="modulepreload" href="./src/ui/hud.js?v=17.0.0">
-<link rel="modulepreload" href="./src/ui/updates.js?v=17.0.0">
+<link rel="modulepreload" href="./config/calamitas.js?v=17.0.1">
+<link rel="modulepreload" href="./config/classes.js?v=17.0.1">
+<link rel="modulepreload" href="./config/difficulty.js?v=17.0.1">
+<link rel="modulepreload" href="./config/player.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/bullet-hell.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/calamitas.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/maelstrom.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/minions.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/patterns.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/phases.js?v=17.0.1">
+<link rel="modulepreload" href="./src/boss/registry.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/mage.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/melee.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/ranger.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/registry.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/rogue.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/shared.js?v=17.0.1">
+<link rel="modulepreload" href="./src/classes/summoner.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/attacks.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/beams.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/damage.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/player.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/projectiles.js?v=17.0.1">
+<link rel="modulepreload" href="./src/combat/targets.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/arena.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/audio.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/config.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/dom.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/math.js?v=17.0.1">
+<link rel="modulepreload" href="./src/core/state.js?v=17.0.1">
+<link rel="modulepreload" href="./src/game/loop.js?v=17.0.1">
+<link rel="modulepreload" href="./src/game/phases.js?v=17.0.1">
+<link rel="modulepreload" href="./src/game/session.js?v=17.0.1">
+<link rel="modulepreload" href="./src/game/update.js?v=17.0.1">
+<link rel="modulepreload" href="./src/input/desktop.js?v=17.0.1">
+<link rel="modulepreload" href="./src/input/fullscreen.js?v=17.0.1">
+<link rel="modulepreload" href="./src/input/mobile.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/background.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/class-effects.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/effects.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/encounter.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/enemies.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/melee.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/primitives.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/scene.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/sprites.js?v=17.0.1">
+<link rel="modulepreload" href="./src/render/weapons.js?v=17.0.1">
+<link rel="modulepreload" href="./src/systems/index.js?v=17.0.1">
+<link rel="modulepreload" href="./src/ui/controls.js?v=17.0.1">
+<link rel="modulepreload" href="./src/ui/hud.js?v=17.0.1">
+<link rel="modulepreload" href="./src/ui/updates.js?v=17.0.1">
 <!-- module-preloads:end -->
 </head>
 <body>
@@ -63,7 +70,7 @@
 <header>
 <div class="eyebrow">CALAMITY-INSPIRED BOSS RUSH · PLAYABLE TRIBUTE</div>
 <div class="title">⚜ SUPREME CALAMITAS</div>
-<div class="description">The Brimstone Trial v17 — MODULAR CORE</div>
+<div class="description">The Brimstone Trial v17.0.1 — MODULAR CORE</div>
 </header>
 <div class="toolbar">
 <div class="device-controls">
@@ -194,14 +201,14 @@
 </div>
 </div>
 </div>
-<script type="module" src="./src/main.js?v=17.0.0">
+<script type="module" src="./src/main.js?v=17.0.1">
 </script>
-<link rel="stylesheet" href="./styles/updates.css?v=17.0.0">
+<link rel="stylesheet" href="./styles/updates.css?v=17.0.1">
 <div id="site-update-banner" hidden role="status">
 <span>✨ Вийшло оновлення босфайту! Не загуби поточний бій.</span>
 <button id="site-update-now" type="button">Оновити гру ↻</button>
 </div>
-<div id="site-version-tag">SITE v17 • Modular core</div>
+<div id="site-version-tag">SITE v17.0.1 • Modular core</div>
 
 </body>
 </html>

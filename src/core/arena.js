@@ -1,10 +1,12 @@
-import { ARENA_SCALE, VIEW_X, VIEW_Y } from './config.js?v=17.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=17.0.1';
+import { ARENA_SCALE, VIEW_X, VIEW_Y } from './config.js?v=17.0.1';
 
 const arena={l:57,r:943,t:35,b:565};
 
 
 function configureArena(difficulty){
-  const halfW=(difficulty==='death'?355:443)*ARENA_SCALE,halfH=(difficulty==='death'?212:265)*ARENA_SCALE;
+  const settings=getDifficulty(difficulty);
+  const halfW=settings.arenaHalfWidth*ARENA_SCALE,halfH=settings.arenaHalfHeight*ARENA_SCALE;
   arena.l=500-halfW;
   arena.r=500+halfW;
   arena.t=300-halfH;

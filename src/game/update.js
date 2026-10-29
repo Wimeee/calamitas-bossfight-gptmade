@@ -1,22 +1,17 @@
-import { bulletHell } from '../boss/bullet-hell.js?v=17.0.0';
-import { bossAttack } from '../boss/calamitas.js?v=17.0.0';
-import { updateMaelstrom } from '../boss/maelstrom.js?v=17.0.0';
-import { updateMinions } from '../boss/minions.js?v=17.0.0';
-import { updateExtraPatterns } from '../boss/patterns.js?v=17.0.0';
-import { classRegistry, weapons } from '../classes/registry.js?v=17.0.0';
-import { updateClassKit } from '../classes/shared.js?v=17.0.0';
-import { shoot } from '../combat/attacks.js?v=17.0.0';
-import { updateBullets } from '../combat/projectiles.js?v=17.0.0';
-import { possibleTargets } from '../combat/targets.js?v=17.0.0';
-import { arena } from '../core/arena.js?v=17.0.0';
-import { audio } from '../core/audio.js?v=17.0.0';
-import { TAU } from '../core/config.js?v=17.0.0';
-import { clamp, norm, rnd } from '../core/math.js?v=17.0.0';
-import { state } from '../core/state.js?v=17.0.0';
-import { transitionHealth } from './phases.js?v=17.0.0';
-import { finish } from './session.js?v=17.0.0';
-import { updateSystems } from '../systems/index.js?v=17.0.0';
-import { ui } from '../ui/hud.js?v=17.0.0';
+import { playerConfig } from '../../config/player.js?v=17.0.1';
+import { getEncounter } from '../boss/registry.js?v=17.0.1';
+import { classRegistry, weapons } from '../classes/registry.js?v=17.0.1';
+import { updateClassKit } from '../classes/shared.js?v=17.0.1';
+import { shoot } from '../combat/attacks.js?v=17.0.1';
+import { updateBullets } from '../combat/projectiles.js?v=17.0.1';
+import { possibleTargets } from '../combat/targets.js?v=17.0.1';
+import { arena } from '../core/arena.js?v=17.0.1';
+import { audio } from '../core/audio.js?v=17.0.1';
+import { TAU } from '../core/config.js?v=17.0.1';
+import { clamp, norm, rnd } from '../core/math.js?v=17.0.1';
+import { state } from '../core/state.js?v=17.0.1';
+import { updateSystems } from '../systems/index.js?v=17.0.1';
+import { ui } from '../ui/hud.js?v=17.0.1';
 
 
 function update(dt){
@@ -42,7 +37,7 @@ function update(dt){
   p.dashCd=Math.max(0,p.dashCd-dt);
   p.contactGuard=Math.max(0,p.contactGuard-dt);
   p.potionCd=Math.max(0,p.potionCd-dt);
-  p.mana=Math.min(p.maxMana,p.mana+55*dt);
+  p.mana=Math.min(p.maxMana,p.mana+playerConfig.manaRegeneration*dt);
   updateClassKit(dt);
   p.regenPotionT=Math.max(0,p.regenPotionT-dt);
   // Natural healing builds while not recently hit, with local Terraria-inspired buffs.
@@ -80,13 +75,13 @@ function update(dt){
   const dx=(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x,dy=(state.keys.s||state.keys.ArrowDown?1:0)-(state.keys.w||state.keys.ArrowUp?1:0)+state.moveAxis.y,m=norm(dx,dy),moving=!!(dx||dy);
   if(p.dashT>0){
     p.dashT=Math.max(0,p.dashT-dt);
-    p.x+=p.dashX*900*dt;
-    p.y+=p.dashY*900*dt;
+    p.x+=p.dashX*playerConfig.dashSpeed*dt;
+    p.y+=p.dashY*playerConfig.dashSpeed*dt;
     if(Math.floor(g.t*42)!==Math.floor((g.t-dt)*42))g.dashGhosts.push({x:p.x,y:p.y,life:.32,max:.32})
   }else
   if(moving){
-    p.x+=m.x*330*dt;
-    p.y+=m.y*330*dt
+    p.x+=m.x*playerConfig.movementSpeed*dt;
+    p.y+=m.y*playerConfig.movementSpeed*dt
   }
   p.x=clamp(p.x,arena.l+11,arena.r-11);
   p.y=clamp(p.y,arena.t+11,arena.b-11);
@@ -106,21 +101,11 @@ function update(dt){
   const autoShoot=state.deviceMode==='mobile'&&state.mobileAutoAim&&p.weapon!==3&&possibleTargets().length>0;
   if(state.pointer.fire||state.mobileFire||state.aimHeld||state.keys.j||autoShoot)shoot();
   classRegistry[weapons[p.weapon].id].updateCombat?.(dt);
-  if(g.stage==='hell')bulletHell(dt);
-  else
-  if(g.stage==='accept'){
-    g.acceptT+=dt;
-    if(g.acceptT>9.4)finish(true)
-  }
-  else
-  {
-    if(g.stage==='normal'||g.stage==='hearts')bossAttack(dt);
-    updateMinions(dt)
-  }
-  updateExtraPatterns(dt);
-  updateMaelstrom(dt);
+  const encounter=getEncounter(g);
+  encounter.update(dt);
+  encounter.updateHazards(dt);
   updateBullets(dt);
-  if(g.stage==='normal')transitionHealth();
+  encounter.afterProjectiles();
   g.impacts=g.impacts.filter(f=>(f.life-=dt)>0);
   g.dashGhosts=g.dashGhosts.filter(v=>(v.life-=dt)>0);
   g.sparks=g.sparks.filter(s=>(s.life-=dt)>0);

@@ -1,8 +1,8 @@
-import { weapons } from '../classes/registry.js?v=17.0.0';
-import { audio } from '../core/audio.js?v=17.0.0';
-import { $, root } from '../core/dom.js?v=17.0.0';
-import { state } from '../core/state.js?v=17.0.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=17.0.0';
+import { weapons } from '../classes/registry.js?v=17.0.1';
+import { audio } from '../core/audio.js?v=17.0.1';
+import { $, root } from '../core/dom.js?v=17.0.1';
+import { state } from '../core/state.js?v=17.0.1';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=17.0.1';
 
 
 function initializeControls(){

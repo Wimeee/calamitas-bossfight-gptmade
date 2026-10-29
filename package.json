@@ -1,13 +1,16 @@
 {
   "name": "calamitas-bossfight",
-  "version": "17.0.0",
+  "version": "17.0.1",
   "private": true,
   "description": "Supreme Calamitas fan bossfight with native browser modules",
   "scripts": {
     "dev": "node scripts/server.cjs",
     "test": "node --experimental-vm-modules --test tests/*.test.cjs",
     "check": "node --experimental-vm-modules scripts/check.cjs",
-    "release": "node scripts/release.cjs"
+    "release": "node scripts/release.cjs",
+    "benchmark": "node --experimental-vm-modules scripts/benchmark.cjs"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  }
 }

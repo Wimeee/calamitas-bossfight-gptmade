@@ -1,7 +1,7 @@
-import { hurt } from '../combat/damage.js?v=17.0.0';
-import { arena } from '../core/arena.js?v=17.0.0';
-import { clamp, lerp, norm } from '../core/math.js?v=17.0.0';
-import { state } from '../core/state.js?v=17.0.0';
+import { hurt } from '../combat/damage.js?v=17.0.1';
+import { arena } from '../core/arena.js?v=17.0.1';
+import { clamp, lerp, norm } from '../core/math.js?v=17.0.1';
+import { state } from '../core/state.js?v=17.0.1';
 
 
 function updateMaelstrom(dt){

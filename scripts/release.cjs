@@ -22,6 +22,7 @@ function visit(directory) {
   }
 }
 visit(path.join(root, 'src'));
+if (fs.existsSync(path.join(root, 'config'))) visit(path.join(root, 'config'));
 let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 html = html.replace(/\?v=\d+\.\d+\.\d+/g, '?v=' + version).replace(/Trial v[\d.]+/g, 'Trial v' + version).replace(/SITE v[\d.]+/g, 'SITE v' + version);
 fs.writeFileSync(path.join(root, 'index.html'), html);

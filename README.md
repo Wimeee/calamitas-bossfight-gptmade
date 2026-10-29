@@ -1,4 +1,6 @@
-# Supreme Calamitas — Brimstone Trial
+# Untitled Terraria Bossfight Game
+
+Поточний епізод: **Supreme Calamitas — Brimstone Trial**. Повний план наступних оновлень — у [ROADMAP.md](ROADMAP.md).
 
 Фанатський HTML/Canvas-босфайт. П’ять класів, усі наявні фази Calamitas, керування на ПК і телефоні. Версія 17 розділяє код на модулі зі збереженням механік і балансу v16.
 
@@ -27,13 +29,15 @@ npm test
 
 | Завдання | Файли |
 |---|---|
-| Баланс і реєстрація класів | `src/classes/registry.js` |
+| Баланс класів / реєстрація поведінки | `config/classes.js` / `src/classes/registry.js` |
 | Ark, комбо, SNAP, парирування | `src/classes/melee.js` |
 | Нагрів і Exo Shot | `src/classes/ranger.js` |
 | Резонанс і Nova | `src/classes/mage.js` |
 | Міньйони, хлист, командний залп | `src/classes/summoner.js` |
 | Celestus, повернення й stealth | `src/classes/rogue.js` |
-| Фази та пороги HP | `src/game/phases.js` |
+| Фази та пороги HP | `src/boss/phases.js` / `config/calamitas.js` |
+| Гравець і складності | `config/player.js`, `config/difficulty.js` |
+| Підключення босів | `src/boss/registry.js` |
 | Атаки боса та Bullet Hell | `src/boss/` |
 | Влучання, кулі, промені | `src/combat/` |
 | Малювання та спрайти | `src/render/` |

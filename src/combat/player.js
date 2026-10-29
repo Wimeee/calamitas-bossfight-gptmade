@@ -1,6 +1,7 @@
-import { audio } from '../core/audio.js?v=17.0.0';
-import { norm } from '../core/math.js?v=17.0.0';
-import { state } from '../core/state.js?v=17.0.0';
+import { playerConfig } from '../../config/player.js?v=17.0.1';
+import { audio } from '../core/audio.js?v=17.0.1';
+import { norm } from '../core/math.js?v=17.0.1';
+import { state } from '../core/state.js?v=17.0.1';
 
 
 function heal(){
@@ -9,9 +10,9 @@ function heal(){
   if(p.potions>0&&p.potionCd<=0&&p.hp<p.maxHp){
     p.potions--;
     audio.fx('heal');
-    p.potionCd=60;
-    p.hp=Math.min(p.maxHp,p.hp+300);
-    state.game.floaters.push({x:p.x,y:p.y-20,life:1.3,text:'+300',col:'#94f8b0'})
+    p.potionCd=playerConfig.healingCooldown;
+    p.hp=Math.min(p.maxHp,p.hp+playerConfig.healingAmount);
+    state.game.floaters.push({x:p.x,y:p.y-20,life:1.3,text:'+'+playerConfig.healingAmount,col:'#94f8b0'})
   }
 }
 
@@ -22,7 +23,7 @@ function drinkRegeneration(){
   if(p.regenPotions>0&&p.regenPotionT<=0){
     p.regenPotions--;
     audio.fx('regen');
-    p.regenPotionT=28;
+    p.regenPotionT=playerConfig.regenerationDuration;
     state.game.floaters.push({x:p.x,y:p.y-25,life:1.3,text:'REGENERATION +',col:'#a3ffc5'});
   }
 }
@@ -37,9 +38,9 @@ function dash(){
   if(!Math.hypot(dx,dy))d=norm(state.pointer.x-p.x,state.pointer.y-p.y);
   p.dashX=d.x;
   p.dashY=d.y;
-  p.dashCd=2.15;
-  p.dashT=.19;
-  p.contactGuard=.43;
+  p.dashCd=playerConfig.dashCooldown;
+  p.dashT=playerConfig.dashDuration;
+  p.contactGuard=playerConfig.contactGuardDuration;
   p.dashes++;
   audio.fx('dash')
 }

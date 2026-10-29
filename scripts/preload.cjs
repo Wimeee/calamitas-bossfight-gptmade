@@ -11,6 +11,7 @@ function updatePreloads(root, version) {
     }
   }
   visit(path.join(root, 'src'));
+  if (fs.existsSync(path.join(root, 'config'))) visit(path.join(root, 'config'));
   const block = '<!-- module-preloads:start -->\n' + files.sort().map(file => `<link rel="modulepreload" href="./${file}?v=${version}">`).join('\n') + '\n<!-- module-preloads:end -->';
   const file = path.join(root, 'index.html');
   let html = fs.readFileSync(file, 'utf8');

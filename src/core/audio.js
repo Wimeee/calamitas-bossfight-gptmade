@@ -1,4 +1,4 @@
-import { $ } from './dom.js?v=17.0.0';
+import { $ } from './dom.js?v=17.0.1';
 
 const audio={
   ctx:null,

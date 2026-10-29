@@ -1,3 +1,4 @@
+import { calamitasConfig } from '../../config/calamitas.js?v=17.0.1';
 const W=1200;
 
 const H=720;
@@ -23,9 +24,9 @@ const milestones=[
   {id:'finish',label:'Фініш'}
 ];
 
-const seq=['darts','hellblast','giga2','dash4','giga2','hellblast','darts','dash2','darts','hellblast','giga4','hellblast','dash2','darts','giga4','dash4','darts','dash2','darts','dash2'];
+const seq=calamitasConfig.attackSequence;
 
-const VERSION='17.0.0';
+const VERSION='17.0.1';
 
 
 export { W, H, TAU, VIEW_X, VIEW_Y, ARENA_SCALE, milestones, seq, VERSION };

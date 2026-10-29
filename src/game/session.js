@@ -1,20 +1,25 @@
-import { weapons } from '../classes/registry.js?v=17.0.0';
-import { summonSquad } from '../classes/summoner.js?v=17.0.0';
-import { configureArena } from '../core/arena.js?v=17.0.0';
-import { audio } from '../core/audio.js?v=17.0.0';
-import { $ } from '../core/dom.js?v=17.0.0';
-import { state } from '../core/state.js?v=17.0.0';
-import { loop } from './loop.js?v=17.0.0';
-import { enter } from './phases.js?v=17.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=17.0.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=17.0.0';
-import { showOverlay, ui } from '../ui/hud.js?v=17.0.0';
+import { playerConfig } from '../../config/player.js?v=17.0.1';
+import { getDifficulty } from '../../config/difficulty.js?v=17.0.1';
+import { getEncounter } from '../boss/registry.js?v=17.0.1';
+import { weapons } from '../classes/registry.js?v=17.0.1';
+import { summonSquad } from '../classes/summoner.js?v=17.0.1';
+import { configureArena } from '../core/arena.js?v=17.0.1';
+import { audio } from '../core/audio.js?v=17.0.1';
+import { $ } from '../core/dom.js?v=17.0.1';
+import { state } from '../core/state.js?v=17.0.1';
+import { loop } from './loop.js?v=17.0.1';
+import { enter } from './phases.js?v=17.0.1';
+import { setFocusMode } from '../input/fullscreen.js?v=17.0.1';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=17.0.1';
+import { showOverlay, ui } from '../ui/hud.js?v=17.0.1';
 
 
-function makeGame(){
-  const difficulty=$('diff').value,scale=difficulty==='death'?1.22:difficulty==='revenge'?1.09:1;
+function makeGame(encounterId='supreme-calamitas'){
+  const encounter=getEncounter({encounterId});
+  const difficulty=$('diff').value,scale=getDifficulty(difficulty).incomingDamage;
   return {
     mode:'playing',
+    encounterId:encounter.config.id,
     difficulty,
     scale,
     t:0,
@@ -27,16 +32,16 @@ function makeGame(){
     marker:'opening',
     label:'BULLET HELL I',
     hint:'УХИЛЯЙСЯ — бос невразливий',
-    boss:{x:500,y:150,hp:750000,max:750000,r:30,alpha:0},
+    boss:encounter.createBoss(),
     player:{
       x:500,
       y:410,
       vx:0,
       vy:0,
-      hp:600,
-      maxHp:600,
-      mana:200,
-      maxMana:200,
+      hp:playerConfig.hp,
+      maxHp:playerConfig.hp,
+      mana:playerConfig.mana,
+      maxMana:playerConfig.mana,
       weapon:weapons.findIndex(x=>x.id===$('class').value),
       fireCd:0,
       dashCd:0,
@@ -44,15 +49,15 @@ function makeGame(){
       contactGuard:0,
       dashX:0,
       dashY:0,
-      potions:7,
+      potions:playerConfig.potions,
       potionCd:0,
-      iframes:1.5,
+      iframes:playerConfig.spawnInvulnerability,
       hits:0,
       dashes:0,
       stealth:0,
       lastHit:0,
       regenRate:3,
-      regenPotions:3,
+      regenPotions:playerConfig.regenerationPotions,
       regenPotionT:0,
       pickupsTaken:0,
       cosmic:[],
@@ -108,7 +113,8 @@ function start(){
   if(state.deviceMode==='mobile')state.mobileAutoAim=true;
   state.game=makeGame();
   configureArena(state.game.difficulty);
-  enter('hell','opening','BULLET HELL I');
+  const opening=getEncounter().config.opening;
+  enter(opening.stage,opening.marker,opening.label);
   $('diff').disabled=true;
   $('class').disabled=true;
   $('overlay').hidden=true;
