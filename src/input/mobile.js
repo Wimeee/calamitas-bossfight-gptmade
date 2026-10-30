@@ -1,36 +1,24 @@
-import { updateSettings,controlHint } from '../core/settings.js?v=21.1.1';
-import { queueJump } from '../game/movement.js?v=21.1.1';
-import { releaseArk } from '../classes/melee.js?v=21.1.1';
-import { classAbility } from '../classes/shared.js?v=21.1.1';
-import { markCosmicTarget } from '../classes/summoner.js?v=21.1.1';
-import { shoot } from '../combat/attacks.js?v=21.1.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=21.1.1';
-import { possibleTargets } from '../combat/targets.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.1';
-import { $, canvas, root } from '../core/dom.js?v=21.1.1';
-import { clamp, norm } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { togglePause } from '../game/session.js?v=21.1.1';
+import { activateRipper } from '../systems/rippers.js?v=22.0.0';
+import { updateSettings,controlHint } from '../core/settings.js?v=22.0.0';
+import { queueJump } from '../game/movement.js?v=22.0.0';
+import { releaseArk } from '../classes/melee.js?v=22.0.0';
+import { classAbility } from '../classes/shared.js?v=22.0.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=22.0.0';
+import { shoot } from '../combat/attacks.js?v=22.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=22.0.0';
+import { possibleTargets } from '../combat/targets.js?v=22.0.0';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=22.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
+import { $, canvas, root } from '../core/dom.js?v=22.0.0';
+import { clamp, norm } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { togglePause } from '../game/session.js?v=22.0.0';
 
 let mobileAimTouch=null;
 
 const aimCanvas=e=>{
-  const r=canvas.getBoundingClientRect();
-  const originalRatio=W/H, displayRatio=r.width/r.height;
-  let ox=0,oy=0,sw=r.width,sh=r.height;
-  if(root.classList.contains('focus-mode')){
-    if(displayRatio>originalRatio){
-      sw=r.height*originalRatio;
-      ox=(r.width-sw)/2;
-    }else
-    {
-      sh=r.width/originalRatio;
-      oy=(r.height-sh)/2;
-    }
-  }
-  state.pointer.x=clamp((e.clientX-r.left-ox)/sw*W-VIEW_X,arena.l,arena.r);
-  state.pointer.y=clamp((e.clientY-r.top-oy)/sh*H-VIEW_Y,arena.t,arena.b);
+  const point=canvasPointToWorld(e.clientX,e.clientY,canvas.getBoundingClientRect(),root.classList.contains('focus-mode'));
+  state.pointer.x=clamp(point.x,arena.l,arena.r);state.pointer.y=clamp(point.y,arena.t,arena.b);
 };
 
 const endAim=e=>{
@@ -162,7 +150,8 @@ const feedback=label=>{
 };
 
 const takeAction=action=>{
-  if(action==='pause')togglePause();
+  if(action==='rage'||action==='adrenaline')activateRipper(action);
+  else if(action==='pause')togglePause();
   else
   if(action==='fullscreen')$('fullscreen').click();
   else

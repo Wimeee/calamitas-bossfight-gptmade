@@ -1,5 +1,5 @@
-import { classRegistry, weapons } from './registry.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
+import { classRegistry, weapons } from './registry.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
 
 
 function kit(){

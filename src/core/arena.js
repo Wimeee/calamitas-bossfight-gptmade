@@ -1,21 +1,19 @@
-import { getDifficulty } from '../../config/difficulty.js?v=21.1.1';
-import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H } from './config.js?v=21.1.1';
+import { worldConfig } from '../../config/world.js?v=22.0.0';
+import { state } from './state.js?v=22.0.0';
+import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H } from './config.js?v=22.0.0';
 
 const arena={l:57,r:943,t:35,b:565};
 
 
 function configureArena(difficulty){
-  const settings=getDifficulty(difficulty);
-  const halfW=settings.arenaHalfWidth*ARENA_SCALE,halfH=settings.arenaHalfHeight*ARENA_SCALE;
-  arena.l=500-halfW;
-  arena.r=500+halfW;
-  arena.t=300-halfH;
-  arena.b=300+halfH;
+  const half=(difficulty==='death'?worldConfig.deathBlocks:worldConfig.normalBlocks)*worldConfig.tile/2;
+  arena.l=500-half;arena.r=500+half;arena.t=300-half;arena.b=300+half;
 }
 
 
 function screenToWorld(x,y){
-  return{x:x-VIEW_X,y:y-VIEW_Y}
+  const camera=state.game?.camera||{x:500,y:300};
+  return{x:x-W/2+camera.x,y:y-H/2+camera.y}
 }
 
 

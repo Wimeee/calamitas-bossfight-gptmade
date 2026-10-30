@@ -1,5 +1,5 @@
-import { settings,updateSettings } from './settings.js?v=21.1.1';
-import { $ } from './dom.js?v=21.1.1';
+import { settings,updateSettings } from './settings.js?v=22.0.0';
+import { $ } from './dom.js?v=22.0.0';
 
 const audio={
   ctx:null,

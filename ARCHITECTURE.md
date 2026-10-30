@@ -92,3 +92,9 @@ Platforms are one-way: ascending players pass through, descending feet land, and
 - Standard Calamitas no longer calls the historical extra-pattern module. Edge previews are pure and do not consume combat RNG; projectile spawn delays cannot deal damage.
 - `world/terrain.js` owns the middle platform and shared altar position; `render/altar.js` paints it into the static terrain cache.
 - Desktop focus-mode canvas uses contain letterboxing and `canvasPointToWorld` for matching aim coordinates.
+
+## v22 world and rippers
+- `config/world.js` defines tile scale and traversable square dimensions. `world/camera.js` owns simulation-side camera tracking; render modules only read `cameraView`. Mouse coordinates retain a viewport anchor so aim stays correct while scrolling. HUD, threat indicators and minimap use screen coordinates.
+- `render/arena-cache.js` crops the large static raster to the viewport. Terrain caches narrow strips and a small altar, instead of another full-world canvas.
+- `systems/rippers.js` owns normalized meters, timers, activation, source proximity curve and hit loss; `config/rippers.js` owns constants and sources. Damage multipliers are applied once in `combat/damage.js`, not in each class or renderer. Expert, pause, ritual, restart, death and Acceptance rules are explicit.
+- C/V bindings and mobile buttons call the same activation function. No automatic use of a full meter.

@@ -1,12 +1,14 @@
-import { audio } from '../core/audio.js?v=21.1.1';
-import { rnd } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { finish } from '../game/session.js?v=21.1.1';
-import { weaponImpact } from '../render/effects.js?v=21.1.1';
+import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.0.0';
+import { rnd } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { finish } from '../game/session.js?v=22.0.0';
+import { weaponImpact } from '../render/effects.js?v=22.0.0';
 
 
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){
-  const g=state.game,actual=amount*(t===g.boss?.72:1);
+  const g=state.game,actual=amount*(t===g.boss?.72:1)*ripperDamage(g);
+  ripperCombat(g);
   if(visual)weaponImpact(x,y,attack);
   t.hp=Math.max(t===g.boss?1:0,t.hp-actual);
   t.hitFlash=g.t+.115;
@@ -20,13 +22,14 @@ function hurt(dmg,source='projectile',cause='Brimstone projectile'){
   let g=state.game,p=g.player;
   if(source==='contact'&&(p.dashT>0||p.contactGuard>0))return;
   if(p.iframes>0||g.mode!=='playing')return;
-  p.hp=Math.max(0,p.hp-Math.round(dmg*g.scale));
+  const actual=ripperHit(g,Math.round(dmg*g.scale));
+  p.hp=Math.max(0,p.hp-actual);
   g.lastCause=cause;
   p.hits++;
   audio.fx('damage');
   p.iframes=.8;
   p.lastHit=g.t;
-  g.floaters.push({x:p.x,y:p.y-15,life:1.1,text:'-'+Math.round(dmg*g.scale),col:'#ffb1a1'});
+  g.floaters.push({x:p.x,y:p.y-15,life:1.1,text:'-'+actual,col:'#ffb1a1'});
   if(p.hp<=0)finish(false)
 }
 

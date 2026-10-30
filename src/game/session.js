@@ -1,20 +1,22 @@
-import { spawnNearAltar } from './movement.js?v=21.1.1';
-import { prepareRitual, syncRitualControls } from './ritual.js?v=21.1.1';
-import { settings } from '../core/settings.js?v=21.1.1';
-import { playerConfig } from '../../config/player.js?v=21.1.1';
-import { getDifficulty } from '../../config/difficulty.js?v=21.1.1';
-import { getEncounter } from '../boss/registry.js?v=21.1.1';
-import { weapons } from '../classes/registry.js?v=21.1.1';
-import { summonSquad } from '../classes/summoner.js?v=21.1.1';
-import { configureArena } from '../core/arena.js?v=21.1.1';
-import { audio } from '../core/audio.js?v=21.1.1';
-import { $ } from '../core/dom.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { loop } from './loop.js?v=21.1.1';
-import { enter } from './phases.js?v=21.1.1';
-import { setFocusMode } from '../input/fullscreen.js?v=21.1.1';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=21.1.1';
-import { showOverlay, ui } from '../ui/hud.js?v=21.1.1';
+import { makeRippers } from '../systems/rippers.js?v=22.0.0';
+import { updateCamera } from '../world/camera.js?v=22.0.0';
+import { spawnNearAltar } from './movement.js?v=22.0.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=22.0.0';
+import { settings } from '../core/settings.js?v=22.0.0';
+import { playerConfig } from '../../config/player.js?v=22.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=22.0.0';
+import { getEncounter } from '../boss/registry.js?v=22.0.0';
+import { weapons } from '../classes/registry.js?v=22.0.0';
+import { summonSquad } from '../classes/summoner.js?v=22.0.0';
+import { configureArena } from '../core/arena.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.0.0';
+import { $ } from '../core/dom.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { loop } from './loop.js?v=22.0.0';
+import { enter } from './phases.js?v=22.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=22.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=22.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=22.0.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -24,6 +26,7 @@ function makeGame(encounterId='supreme-calamitas'){
     mode:'playing',
     encounterId:encounter.config.id,
     difficulty,
+    rippers:makeRippers(difficulty),
     scale,
     t:0,
     totalTime:0,
@@ -118,6 +121,8 @@ function start(options={}){
   state.game=makeGame();
   configureArena(state.game.difficulty);
   spawnNearAltar(state.game);
+  delete state.pointer.viewX;delete state.pointer.viewY;
+  updateCamera(state.game,0,true);
   const opening=getEncounter().config.opening;
   if(options.ritual)prepareRitual(state.game);
   else enter(opening.stage,opening.marker,opening.label);

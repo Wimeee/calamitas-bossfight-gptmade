@@ -14,8 +14,8 @@ test('ground, variable jump, one-way platforms and drop-through',async()=>{
   advance(t,g,.3);assert.equal(p.support,'lower');assert.equal(p.y,platform.y-18);
   t.setKeys({s:true});advance(t,g,.1);
   assert.ok(p.y+18>platform.y+4);assert.ok(p.vy>0);assert.notEqual(p.support,'lower');
-  const upper=terrain.platforms.at(-1);Object.assign(p,{x:500,y:upper.y-18,vy:0,grounded:true,support:upper.id,jumpWasHeld:false});
-  advance(t,g,.65);assert.equal(p.support,'ground','held S alone passes all platform rows but never the floor');
+  const upper=terrain.platforms.find(p=>p.id==='upper');Object.assign(p,{x:500,y:upper.y-18,vy:0,grounded:true,support:upper.id,jumpWasHeld:false});
+  advance(t,g,2);assert.equal(p.support,'ground','held S alone passes all platform rows but never the floor');
   t.spawnNearAltar(g,500);t.setKeys({s:true});advance(t,g,.05);t.setKeys({});advance(t,g,.5);
   assert.equal(p.support,'lower','releasing S restores landing on the next platform');
   t.spawnNearAltar(g,500);t.setDeviceMode('mobile');t.setAxis({x:0,y:1});advance(t,g,.1);
@@ -27,7 +27,7 @@ test('wings are finite, refill only on landing, fast fall is faster and pause fr
   Object.assign(p,{x:t.arena.l+25,y:t.arena.t+40,grounded:false,jumpGrace:0});
   t.setKeys({jump:true});advance(t,g,.5);assert.ok(p.flightRemaining<2&&p.flightRemaining>1.8);assert.equal(p.flying,true);
   advance(t,g,1.95);assert.equal(p.flightRemaining,0);assert.equal(p.grounded,false);
-  t.setKeys({});advance(t,g,2);assert.equal(p.grounded,true);assert.equal(p.flightRemaining,2.4);
+  t.setKeys({});advance(t,g,5);assert.equal(p.grounded,true);assert.equal(p.flightRemaining,2.4);
   Object.assign(p,{y:t.arena.t+90,vy:0,grounded:false});advance(t,g,.2);const normal=p.vy;
   Object.assign(p,{y:t.arena.t+90,vy:0,grounded:false});t.setKeys({s:true});advance(t,g,.2);assert.ok(p.vy>normal);
   const before=[p.x,p.y,p.vx,p.vy,p.flightRemaining];g.mode='paused';advance(t,g,.2);assert.deepEqual([p.x,p.y,p.vx,p.vy,p.flightRemaining],before);
@@ -37,7 +37,7 @@ test('horizontal movement is consistent at 30, 60 and 120 FPS and platforms exis
   const {t,el}=await loadGame();const results=[];
   for(const rate of [30,60,120]){t.start();const g=t.getGame();t.setKeys({d:true});advance(t,g,1,rate);results.push(g.player.x);}
   assert.ok(Math.max(...results)-Math.min(...results)<1.5);
-  for(const difficulty of ['normal','revenge','death']){el('diff').value=difficulty;t.start();const terrain=t.getTerrain();assert.equal(terrain.platforms.length,3);for(const p of terrain.platforms){assert.ok(p.l<p.r&&p.y>t.arena.t&&p.y<terrain.floorY);}}
+  for(const difficulty of ['normal','revenge','death']){el('diff').value=difficulty;t.start();const terrain=t.getTerrain();assert.ok(terrain.platforms.length>=7);for(const p of terrain.platforms){assert.ok(p.l<p.r&&p.y>t.arena.t&&p.y<terrain.floorY);}}
 });
 
 test('double-tap, mouse dash, Space migration and mobile jump keep their separate actions',async()=>{

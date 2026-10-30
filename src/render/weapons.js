@@ -1,11 +1,11 @@
-import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=21.1.1';
-import { weapons } from '../classes/registry.js?v=21.1.1';
-import { TAU } from '../core/config.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { clamp } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { drawArkPair } from './melee.js?v=21.1.1';
-import { line, pixel, round } from './primitives.js?v=21.1.1';
+import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=22.0.0';
+import { weapons } from '../classes/registry.js?v=22.0.0';
+import { TAU } from '../core/config.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { clamp } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { drawArkPair } from './melee.js?v=22.0.0';
+import { line, pixel, round } from './primitives.js?v=22.0.0';
 
 
 function drawPixelWhip(g){

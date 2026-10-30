@@ -1,8 +1,8 @@
-import { movePlayerWithTerrain } from '../game/movement.js?v=21.1.1';
-import { hurt } from '../combat/damage.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { clamp, lerp, norm } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
+import { movePlayerWithTerrain } from '../game/movement.js?v=22.0.0';
+import { hurt } from '../combat/damage.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { clamp, lerp, norm } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
 
 
 function updateMaelstrom(dt){

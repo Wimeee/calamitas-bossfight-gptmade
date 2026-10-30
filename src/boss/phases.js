@@ -1,9 +1,9 @@
-import { getTerrain } from '../world/terrain.js?v=21.1.1';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { audio } from '../core/audio.js?v=21.1.1';
-import { TAU } from '../core/config.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
+import { getTerrain } from '../world/terrain.js?v=22.0.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.0.0';
+import { TAU } from '../core/config.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
 
 
 function enterCalamitas(stage,marker,label){
@@ -41,6 +41,7 @@ function enterCalamitas(stage,marker,label){
   g.hint='';
   if(stage==='hell'){
     g.phaseN++;
+    g.hellField=null;
     g.hellTimer=.56;
     g.hellWave=0;
     g.hellSegment=-1;
@@ -57,8 +58,8 @@ function enterCalamitas(stage,marker,label){
   if(stage==='hearts'){
     g.hearts=[];
     for(let i=0;i<10;i++){
-      const x=i<5?arena.l+50+i*54:arena.r-50-(i-5)*54;
-      g.hearts.push({x,y:arena.t+49+(i%2)*33,hp:config.heartHP,max:config.heartHP,r:16})
+      const x=i<5?arena.l+130+i*100:arena.r-130-(i-5)*100;
+      g.hearts.push({x,y:95-Math.floor(i%5/2)*240,hp:config.heartHP,max:config.heartHP,r:16})
     }
     g.hint='SEPULCHER: 10/10 сердець — Calamitas невразлива';
     g.dialog='SEPULCHER AWAKENS';

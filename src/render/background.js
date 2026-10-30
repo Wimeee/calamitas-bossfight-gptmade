@@ -1,18 +1,19 @@
-import { drawTerrain } from './terrain.js?v=21.1.1';
-import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { line } from './primitives.js?v=21.1.1';
+import { cameraView } from '../world/camera.js?v=22.0.0';
+import { drawTerrain } from './terrain.js?v=22.0.0';
+import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { line } from './primitives.js?v=22.0.0';
 
 
 function drawBackdrop(g){
-  let now=g?g.t:0;
+  let now=g?g.t:0;const view=cameraView(g);
   drawBackdropBase();
   for(let i=0;i<105;i++){
     let x=(i*293+17)%W,y=(i*173+47)%H;
     ctx.fillStyle=i%5?'#8d314777':'#d87b6f77';
-    ctx.fillRect(x,(y+now*(i%3+1)*4)%H,2,2)
+    ctx.fillRect(view.x+x,view.y+(y+now*(i%3+1)*4)%H,2,2)
   }
   drawArenaLayer();
   drawTerrain();

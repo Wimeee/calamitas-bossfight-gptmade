@@ -1,10 +1,10 @@
-import { hurt } from '../combat/damage.js?v=21.1.1';
-import { enemyBullet, fan } from '../combat/projectiles.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { seq } from '../core/config.js?v=21.1.1';
-import { clamp, dist, lerp, norm } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=21.1.1';
+import { hurt } from '../combat/damage.js?v=22.0.0';
+import { enemyBullet, fan } from '../combat/projectiles.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { seq } from '../core/config.js?v=22.0.0';
+import { clamp, dist, lerp, norm } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=22.0.0';
 
 function bossAttack(dt){
   const g=state.game,b=g.boss,p=g.player,second=g.thresholds.has('40'),hearts=g.stage==='hearts';

@@ -1,15 +1,15 @@
-import { initializeMeleeAtlas } from './render/melee-atlas.js?v=21.1.1';
-import { initializeMenu } from './ui/menu.js?v=21.1.1';
-import { configureArena } from './core/arena.js?v=21.1.1';
-import { VERSION } from './core/config.js?v=21.1.1';
-import { $, root } from './core/dom.js?v=21.1.1';
-import { initializeDesktop } from './input/desktop.js?v=21.1.1';
-import { initializeFullscreen } from './input/fullscreen.js?v=21.1.1';
-import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=21.1.1';
-import { draw } from './render/scene.js?v=21.1.1';
-import { initializeSprites } from './render/sprites.js?v=21.1.1';
-import { initializeControls } from './ui/controls.js?v=21.1.1';
-import { initializeUpdates } from './ui/updates.js?v=21.1.1';
+import { initializeMeleeAtlas } from './render/melee-atlas.js?v=22.0.0';
+import { initializeMenu } from './ui/menu.js?v=22.0.0';
+import { configureArena } from './core/arena.js?v=22.0.0';
+import { VERSION } from './core/config.js?v=22.0.0';
+import { $, root } from './core/dom.js?v=22.0.0';
+import { initializeDesktop } from './input/desktop.js?v=22.0.0';
+import { initializeFullscreen } from './input/fullscreen.js?v=22.0.0';
+import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=22.0.0';
+import { draw } from './render/scene.js?v=22.0.0';
+import { initializeSprites } from './render/sprites.js?v=22.0.0';
+import { initializeControls } from './ui/controls.js?v=22.0.0';
+import { initializeUpdates } from './ui/updates.js?v=22.0.0';
 
 
 function initializeGame(){

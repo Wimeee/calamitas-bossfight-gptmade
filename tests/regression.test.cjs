@@ -11,8 +11,8 @@ check(Object.keys(t.pixelArt).length===30,'all 30 embedded sprites generated');
 check(t.VERSION===require('../package.json').version,'update detector version');
 check(JSON.parse(fs.readFileSync('version.json','utf8')).version===t.VERSION,'manifest matches');
 for(const diff of ['normal','revenge','death']){
- t.configureArena(diff);const oldArea=diff==='death'?710*424:886*530;
- check(Math.abs((t.arena.r-t.arena.l)*(t.arena.b-t.arena.t)/oldArea-1.5)<1e-12,'arena exactly +50% '+diff);
+ t.configureArena(diff);const size=diff==='death'?2000:2512;
+ check(t.arena.r-t.arena.l===size&&t.arena.b-t.arena.t===size,'tile-scaled square arena '+diff);
 }
 check(t.screenToWorld(600,360).x===500&&t.screenToWorld(600,360).y===300,'view transform center');
 // Desktop CSS-to-canvas conversion must compensate for the larger canvas origin.

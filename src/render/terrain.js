@@ -1,26 +1,24 @@
-import { paintAltar } from './altar.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { W,H,VIEW_X,VIEW_Y } from '../core/config.js?v=21.1.1';
-import { getTerrain } from '../world/terrain.js?v=21.1.1';
+import { paintAltar } from './altar.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { getTerrain } from '../world/terrain.js?v=22.0.0';
+import { cameraView } from '../world/camera.js?v=22.0.0';
 
-let cached=null,key='';
+let key='',strips=new Map(),altar=null;
+function strip(width,ground=false){
+  const id=width+'|'+ground;if(strips.has(id))return strips.get(id);
+  const s=document.createElement('canvas');s.width=Math.ceil(width);s.height=18;const c=s.getContext('2d');
+  c.fillStyle=ground?'#211920':'#211623';c.fillRect(0,0,width,ground?18:8);
+  c.fillStyle=ground?'#a37560':'#bd9675';c.fillRect(0,0,width,2);
+  c.fillStyle='#68444d';c.fillRect(0,4,width,2);
+  for(let x=8;x<width;x+=26){c.fillStyle='#d4ae8470';c.fillRect(x,2,2,3);}
+  if(!ground){c.fillStyle='#6a414a';c.fillRect(5,8,5,7);c.fillRect(width-10,8,5,7);}
+  strips.set(id,s);return s;
+}
 export function drawTerrain(){
-  const terrain=getTerrain();
-  if(key!==terrain.key){
-    key=terrain.key;cached=document.createElement('canvas');cached.width=W;cached.height=H;
-    const c=cached.getContext('2d');c.translate(VIEW_X,VIEW_Y);
-    c.fillStyle='#211920';c.fillRect(arena.l,terrain.floorY,arena.r-arena.l,arena.b-terrain.floorY-5);
-    c.fillStyle='#a37560';c.fillRect(arena.l,terrain.floorY,arena.r-arena.l,3);
-    for(let x=arena.l+7;x<arena.r;x+=24){c.fillStyle='#69404b';c.fillRect(x,terrain.floorY+6,15,3);}
-    for(const p of terrain.platforms){
-      c.fillStyle='#211623';c.fillRect(p.l,p.y,p.r-p.l,8);
-      c.fillStyle='#bd9675';c.fillRect(p.l,p.y,p.r-p.l,2);
-      c.fillStyle='#68444d';c.fillRect(p.l,p.y+4,p.r-p.l,2);
-      for(let x=p.l+8;x<p.r;x+=26){c.fillStyle='#d4ae8470';c.fillRect(x,p.y+2,2,3);}
-      c.fillStyle='#6a414a';c.fillRect(p.l+5,p.y+8,5,7);c.fillRect(p.r-10,p.y+8,5,7);
-    }
-    paintAltar(c,terrain.altar.x,terrain.altar.y);
-  }
-  ctx.drawImage(cached,-VIEW_X,-VIEW_Y);
+  const t=getTerrain(),v=cameraView();
+  if(key!==t.key){key=t.key;strips.clear();altar=document.createElement('canvas');altar.width=100;altar.height=90;paintAltar(altar.getContext('2d'),50,48);}
+  if(t.floorY>=v.y-20&&t.floorY<=v.y+v.h+20)ctx.drawImage(strip(arena.r-arena.l,true),arena.l,t.floorY);
+  for(const p of t.platforms)if(p.y>=v.y-20&&p.y<=v.y+v.h+20)ctx.drawImage(strip(p.r-p.l),p.l,p.y);
+  ctx.drawImage(altar,t.altar.x-50,t.altar.y-48);
 }

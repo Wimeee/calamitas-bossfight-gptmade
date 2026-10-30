@@ -1,9 +1,9 @@
-import { movementConfig as config } from '../../config/movement.js?v=21.1.1';
-import { playerConfig } from '../../config/player.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { clamp } from '../core/math.js?v=21.1.1';
-import { getTerrain } from '../world/terrain.js?v=21.1.1';
+import { movementConfig as config } from '../../config/movement.js?v=22.0.0';
+import { playerConfig } from '../../config/player.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { clamp } from '../core/math.js?v=22.0.0';
+import { getTerrain } from '../world/terrain.js?v=22.0.0';
 
 const approach=(value,target,amount)=>value<target?Math.min(target,value+amount):Math.max(target,value-amount);
 export function resetMovement(g,x=380){

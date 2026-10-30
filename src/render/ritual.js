@@ -1,12 +1,12 @@
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.1.1';
-import { drawGlowCircle } from './glow-cache.js?v=21.1.1';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=21.1.1';
-import { settings } from '../core/settings.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { W,H,TAU } from '../core/config.js?v=21.1.1';
-import { clamp } from '../core/math.js?v=21.1.1';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=21.1.1';
-import { line,pixel,round,text } from './primitives.js?v=21.1.1';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.0.0';
+import { drawGlowCircle } from './glow-cache.js?v=22.0.0';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=22.0.0';
+import { settings } from '../core/settings.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { W,H,TAU } from '../core/config.js?v=22.0.0';
+import { clamp } from '../core/math.js?v=22.0.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=22.0.0';
+import { line,pixel,round,text } from './primitives.js?v=22.0.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 

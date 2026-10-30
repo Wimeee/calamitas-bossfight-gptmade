@@ -1,13 +1,13 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=21.1.1';
-import { playerConfig } from '../../config/player.js?v=21.1.1';
-import { arkAngle } from '../classes/melee.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { settings } from '../core/settings.js?v=21.1.1';
-import { clamp } from '../core/math.js?v=21.1.1';
-import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=21.1.1';
-import { line,round,text } from './primitives.js?v=21.1.1';
-import { drawWarriorTrail } from './warrior-trails.js?v=21.1.1';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=22.0.0';
+import { playerConfig } from '../../config/player.js?v=22.0.0';
+import { arkAngle } from '../classes/melee.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { settings } from '../core/settings.js?v=22.0.0';
+import { clamp } from '../core/math.js?v=22.0.0';
+import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=22.0.0';
+import { line,round,text } from './primitives.js?v=22.0.0';
+import { drawWarriorTrail } from './warrior-trails.js?v=22.0.0';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();

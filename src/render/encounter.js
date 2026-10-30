@@ -1,10 +1,10 @@
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { clamp, norm } from '../core/math.js?v=21.1.1';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=21.1.1';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.1';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { clamp, norm } from '../core/math.js?v=22.0.0';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=22.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=22.0.0';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   if(g.stage==='hell'&&g.huntWarning){
@@ -24,8 +24,6 @@ export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
     let remain=Math.max(0,15-g.stageT);
     const phase=Math.min(2,Math.floor(g.stageT/5));
     const dir=hellDirections[g.phaseN-1][phase];
-    text('BULLET HELL '+g.phaseN+' · '+Math.ceil(remain)+'s',500,65,19,'#ffb1a1');
-    text(dir.map(x=>hellSymbols[x]).join('  '),500,89,25,'#ffdda4');
     // Anticipation for the *next* strict horizontal/vertical laser rows.
     if(g.hellTimer>0&&g.hellTimer<.38){
       ctx.save();
@@ -59,11 +57,7 @@ export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   });
   drawMaelstrom(g);
   if(g.dashWind>0){
-    const aim=g.dashVector||norm(p.x-b.x,p.y-b.y);
-    ctx.setLineDash([11,9]);
-    line(b.x,b.y,b.x+aim.x*560,b.y+aim.y*560,'#ffb05e9e',4);
-    ctx.setLineDash([]);
-    text('!',b.x,b.y-49,23,'#ffd09e')
+    ctx.strokeStyle='#ffb05e';ctx.lineWidth=3;ctx.beginPath();ctx.arc(b.x,b.y,37,0,TAU);ctx.stroke();
   }
   if(g.dashActive>0){
     for(let i=1;i<=6;i++){

@@ -1,24 +1,26 @@
-import { getTerrain } from '../world/terrain.js?v=21.1.1';
-import { updatePlayerMovement } from './movement.js?v=21.1.1';
-import { updateRitual } from './ritual.js?v=21.1.1';
-import { playerConfig } from '../../config/player.js?v=21.1.1';
-import { getEncounter } from '../boss/registry.js?v=21.1.1';
-import { classRegistry, weapons } from '../classes/registry.js?v=21.1.1';
-import { updateClassKit } from '../classes/shared.js?v=21.1.1';
-import { shoot } from '../combat/attacks.js?v=21.1.1';
-import { updateBullets } from '../combat/projectiles.js?v=21.1.1';
-import { possibleTargets } from '../combat/targets.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { audio } from '../core/audio.js?v=21.1.1';
-import { TAU } from '../core/config.js?v=21.1.1';
-import { clamp, rnd } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { updateSystems } from '../systems/index.js?v=21.1.1';
-import { ui } from '../ui/hud.js?v=21.1.1';
+import { updateCamera } from '../world/camera.js?v=22.0.0';
+import { getTerrain } from '../world/terrain.js?v=22.0.0';
+import { updatePlayerMovement } from './movement.js?v=22.0.0';
+import { updateRitual } from './ritual.js?v=22.0.0';
+import { playerConfig } from '../../config/player.js?v=22.0.0';
+import { getEncounter } from '../boss/registry.js?v=22.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=22.0.0';
+import { updateClassKit } from '../classes/shared.js?v=22.0.0';
+import { shoot } from '../combat/attacks.js?v=22.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=22.0.0';
+import { possibleTargets } from '../combat/targets.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.0.0';
+import { TAU } from '../core/config.js?v=22.0.0';
+import { clamp, rnd } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { updateSystems } from '../systems/index.js?v=22.0.0';
+import { ui } from '../ui/hud.js?v=22.0.0';
 
 
 function update(dt){
   let g=state.game,p=g.player;
+  if(g.mode!=='playing')return;
   if(g.ritual){updateRitual(dt);return;}
   g.t+=dt;
   g.totalTime+=dt;
@@ -47,7 +49,7 @@ function update(dt){
   // Natural healing builds while not recently hit, with local Terraria-inspired buffs.
   const calmTime=Math.max(0,g.t-p.lastHit),naturalRegen=2.5+Math.min(4.5,calmTime*.45);
   const campfireBonus=Math.hypot(p.x-230,p.y-(getTerrain().platforms[0].y-17))<195?2:0;
-  const lanternBonus=Math.hypot(p.x-750,p.y-105)<205?2:0;
+  const lanternBonus=Math.hypot(p.x-750,p.y-getTerrain().lantern.y)<205?2:0;
   p.regenRate=naturalRegen+campfireBonus+lanternBonus+(p.regenPotionT>0?4:0);
   p.hp=Math.min(p.maxHp,p.hp+p.regenRate*dt);
   g.pickupTimer-=dt;
@@ -77,6 +79,7 @@ function update(dt){
   }
   
   updatePlayerMovement(g,dt);
+  updateCamera(g,dt);
   if(state.deviceMode==='mobile'&&state.aimHeld){
     state.pointer.x=clamp(p.x+state.aimAxis.x*300,arena.l,arena.r);
     state.pointer.y=clamp(p.y+state.aimAxis.y*300,arena.t,arena.b)

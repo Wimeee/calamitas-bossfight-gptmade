@@ -1,8 +1,8 @@
-import { movementConfig } from '../../config/movement.js?v=21.1.1';
-import { weapons } from '../classes/registry.js?v=21.1.1';
-import { milestones } from '../core/config.js?v=21.1.1';
-import { $, root } from '../core/dom.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
+import { movementConfig } from '../../config/movement.js?v=22.0.0';
+import { weapons } from '../classes/registry.js?v=22.0.0';
+import { milestones } from '../core/config.js?v=22.0.0';
+import { $, root } from '../core/dom.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
 
 function syncFlightHUD(g=state.game){
   if(!g)return;
@@ -28,6 +28,10 @@ const ui=()=>{
   $('dashes').textContent=p.dashes;
   $('statehint').textContent=g.hint;
   syncFlightHUD(g);
+  for(const kind of ['rage','adrenaline']){
+    const button=root.querySelector('[data-mobile-action="'+kind+'"]'),r=g.rippers;
+    if(button){button.hidden=!r?.enabled;button.disabled=!r?.enabled||r[kind]<1||r[kind+'Time']>0||g.mode!=='playing'||!!g.ritual||g.stage==='accept';button.textContent=(kind==='rage'?'RAGE':'ADREN')+' '+(r?.[kind+'Time']>0?Math.ceil(r[kind+'Time'])+'с':Math.floor((r?.[kind]||0)*100)+'%');}
+  }
   $('weaponname').textContent=weapons[p.weapon].name;
   $('weapondesc').textContent=weapons[p.weapon].desc;
   const dashButton=root.querySelector('[data-mobile-action="dash"]'),healButton=root.querySelector('[data-mobile-action="heal"]'),regenButton=root.querySelector('[data-mobile-action="regen"]'),targetButton=root.querySelector('[data-mobile-action="target"]');

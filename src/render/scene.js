@@ -1,22 +1,24 @@
-import { getTerrain } from '../world/terrain.js?v=21.1.1';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=21.1.1';
-import { drawEnemyProjectiles } from './projectiles.js?v=21.1.1';
-import { drawWarriorBody } from './warrior.js?v=21.1.1';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=21.1.1';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=21.1.1';
-import { getEncounter } from '../boss/registry.js?v=21.1.1';
-import { possibleTargets } from '../combat/targets.js?v=21.1.1';
-import { arena } from '../core/arena.js?v=21.1.1';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=21.1.1';
-import { ctx } from '../core/dom.js?v=21.1.1';
-import { clamp, norm } from '../core/math.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { drawBackdrop } from './background.js?v=21.1.1';
-import { drawClassKit } from './class-effects.js?v=21.1.1';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=21.1.1';
-import { drawSword } from './melee.js?v=21.1.1';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=21.1.1';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=21.1.1';
+import { cameraView } from '../world/camera.js?v=22.0.0';
+import { drawWorldHUD } from './world-hud.js?v=22.0.0';
+import { getTerrain } from '../world/terrain.js?v=22.0.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.0.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=22.0.0';
+import { drawWarriorBody } from './warrior.js?v=22.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=22.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=22.0.0';
+import { getEncounter } from '../boss/registry.js?v=22.0.0';
+import { possibleTargets } from '../combat/targets.js?v=22.0.0';
+import { arena } from '../core/arena.js?v=22.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
+import { ctx } from '../core/dom.js?v=22.0.0';
+import { clamp, norm } from '../core/math.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { drawBackdrop } from './background.js?v=22.0.0';
+import { drawClassKit } from './class-effects.js?v=22.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=22.0.0';
+import { drawSword } from './melee.js?v=22.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=22.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=22.0.0';
 
 
 function draw(g){
@@ -24,7 +26,8 @@ function draw(g){
   ctx.fillStyle='#0c0710';
   ctx.fillRect(0,0,W,H);
   const shake=shakeOffset(g);
-  ctx.translate(VIEW_X+shake.x,VIEW_Y+shake.y);
+  const view=cameraView(g);
+  ctx.translate(-view.x+shake.x,-view.y+shake.y);
   drawBackdrop(g);
   if(!g){
     text('ALTAR OF THE ACCURSED',500,300,27,'#a74e60');
@@ -46,10 +49,10 @@ function draw(g){
   text('CAMPFIRE',230,campfireY+31,9,'#e6ac6f');
   ctx.shadowColor='#ff7777';
   ctx.shadowBlur=12;
-  line(750,arena.t+3,750,96,'#b79b95',2);
-  round(750,105,16,'#6a293b','#ef979b',2);
+  line(750,getTerrain().lantern.y-45,750,getTerrain().lantern.y-9,'#b79b95',2);
+  round(750,getTerrain().lantern.y,16,'#6a293b','#ef979b',2);
   ctx.shadowBlur=0;
-  text('❤',750,112,19,'#ffb8a8');
+  text('❤',750,getTerrain().lantern.y+7,19,'#ffb8a8');
   for(const drop of g.pickups){
     let bob=Math.sin(g.t*4+drop.phase)*4;
     ctx.shadowColor=drop.kind==='heart'?'#ff6479':'#73b7ff';
@@ -132,6 +135,7 @@ function draw(g){
   }
   ctx.globalAlpha=1;
   ctx.restore();
+  drawWorldHUD(g);
   // boss health at top
   ctx.fillStyle='#230f1a';
   ctx.fillRect(W/2-320,11,640,11);

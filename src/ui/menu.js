@@ -1,19 +1,19 @@
-import { weapons } from '../classes/registry.js?v=21.1.1';
-import { audio } from '../core/audio.js?v=21.1.1';
-import { VERSION } from '../core/config.js?v=21.1.1';
-import { $, root } from '../core/dom.js?v=21.1.1';
-import { state } from '../core/state.js?v=21.1.1';
-import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=21.1.1';
-import { start,togglePause } from '../game/session.js?v=21.1.1';
-import { loop } from '../game/loop.js?v=21.1.1';
-import { setFocusMode } from '../input/fullscreen.js?v=21.1.1';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=21.1.1';
-import { createMenuBackground } from '../render/menu-background.js?v=21.1.1';
-import { pixelArt } from '../render/sprites.js?v=21.1.1';
+import { weapons } from '../classes/registry.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.0.0';
+import { VERSION } from '../core/config.js?v=22.0.0';
+import { $, root } from '../core/dom.js?v=22.0.0';
+import { state } from '../core/state.js?v=22.0.0';
+import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=22.0.0';
+import { start,togglePause } from '../game/session.js?v=22.0.0';
+import { loop } from '../game/loop.js?v=22.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=22.0.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=22.0.0';
+import { createMenuBackground } from '../render/menu-background.js?v=22.0.0';
+import { pixelArt } from '../render/sprites.js?v=22.0.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
-const bindingLabels={dash:'Ривок · клавіша / миша',heal:'Лікування',regen:'Регенерація',pause:'Пауза',restart:'Новий бій',attack:'Атака з клавіатури'};
+const bindingLabels={dash:'Ривок · клавіша / миша',heal:'Лікування',regen:'Регенерація',pause:'Пауза',restart:'Новий бій',attack:'Атака з клавіатури',rage:'Rage / Лють',adrenaline:'Adrenaline'};
 const classNames={melee:'Melee',ranger:'Ranger',mage:'Mage',summon:'Summoner',rogue:'Rogue'};
 const classSymbols={melee:'⚔',ranger:'⌖',mage:'✧',summon:'☄',rogue:'✦'};
 
