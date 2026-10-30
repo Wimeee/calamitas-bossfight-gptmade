@@ -1,14 +1,14 @@
-import { updateCamera } from '../world/camera.js?v=22.0.0';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=22.0.0';
-import { getTerrain } from '../world/terrain.js?v=22.0.0';
-import { playerConfig } from '../../config/player.js?v=22.0.0';
-import { getEncounter } from '../boss/registry.js?v=22.0.0';
-import { audio } from '../core/audio.js?v=22.0.0';
-import { $ } from '../core/dom.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
-import { resetTouchInput } from '../input/mobile.js?v=22.0.0';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=22.0.0';
-import { enter } from './phases.js?v=22.0.0';
+import { updateCamera } from '../world/camera.js?v=22.1.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=22.1.0';
+import { getTerrain } from '../world/terrain.js?v=22.1.0';
+import { playerConfig } from '../../config/player.js?v=22.1.0';
+import { getEncounter } from '../boss/registry.js?v=22.1.0';
+import { audio } from '../core/audio.js?v=22.1.0';
+import { $ } from '../core/dom.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
+import { resetTouchInput } from '../input/mobile.js?v=22.1.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=22.1.0';
+import { enter } from './phases.js?v=22.1.0';
 
 export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y;},range:86,duration:6.4,skipAfter:.8});
 
@@ -55,7 +55,7 @@ export function beginRitual(){
   g.label='THE BRIMSTONE WITCH';
   g.hint='Ритуал розпочато. Enter / Space — пропустити.';
   clearRitualInput();
-  audio.fx('phase');
+  audio.calamitas('altar',g);
   syncRitualControls();
   ui();
   return true;
@@ -64,6 +64,8 @@ export function beginRitual(){
 export function completeRitual(){
   const g=state.game;
   if(!g?.ritual||g.mode!=='playing'||g.ritual.phase!=='summoning')return false;
+  const laughed=g.ritual.laughPlayed;
+  audio.stopCalamitas('altar');
   delete g.ritual;
   clearRitualInput();
   // Every attempt enters the encounter from the same original spawn and resources.
@@ -72,6 +74,7 @@ export function completeRitual(){
   g.player.iframes=playerConfig.spawnInvulnerability;
   const opening=getEncounter(g).config.opening;
   enter(opening.stage,opening.marker,opening.label);
+  if(!laughed)audio.calamitas('laugh',g);
   syncRitualControls();
   ui();
   return true;
@@ -92,6 +95,7 @@ export function updateRitual(dt){
     syncFlightHUD(g);
   }else{
     r.elapsed+=dt;
+    if(!r.laughPlayed&&r.elapsed>=4.5){r.laughPlayed=true;audio.stopCalamitas('altar');audio.calamitas('laugh',g);}
     if(r.elapsed>=ritualConfig.duration){completeRitual();return;}
   }
   syncRitualControls();

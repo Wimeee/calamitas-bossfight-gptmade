@@ -1,5 +1,7 @@
-import { settings,updateSettings } from './settings.js?v=22.0.0';
-import { $ } from './dom.js?v=22.0.0';
+import { calamitasSamples } from './sample-audio.js?v=22.1.0';
+import { state } from './state.js?v=22.1.0';
+import { settings,updateSettings } from './settings.js?v=22.1.0';
+import { $ } from './dom.js?v=22.1.0';
 
 const audio={
   ctx:null,
@@ -25,6 +27,7 @@ const audio={
         const b=this.ctx.createBuffer(1,len,this.ctx.sampleRate),ch=b.getChannelData(0);
         for(let i=0;i<len;i++)ch[i]=(Math.random()*2-1)*(1-i/len);
         this.noise=b;
+        calamitasSamples.initialize(this.ctx,this.master);
       }catch(e){
         this.supported=false;
         return false
@@ -34,6 +37,11 @@ const audio={
     });
     return true
   },
+  calamitas(name,game=state.game){
+    if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
+    if(!calamitasSamples.play(name,game))this.fx(({altar:'phase',laugh:'phase',dash:'dash',bigCast:'big',cast:'enemy',hellblast:'enemy'})[name]||'enemy');
+  },
+  stopCalamitas(tag){calamitasSamples.stop(tag);},
   vol(v){
     updateSettings({sfxVolume:v});
     if(this.master&&this.ctx)this.master.gain.setTargetAtTime(.25*this.volume,this.ctx.currentTime,.025)
@@ -185,7 +193,7 @@ const audio={
     }finally{this.musicVoice=false;}
   },
   setSound(flag){
-    this.sfx=flag;updateSettings({sfxEnabled:flag});
+    this.sfx=flag;if(!flag)this.stopCalamitas();updateSettings({sfxEnabled:flag});
     $('soundtoggle').textContent=flag?'🔊 Звуки: УВІМК':'🔇 Звуки: ВИМК';
     $('soundtoggle').setAttribute('aria-pressed',String(flag));
     $('soundtoggle').classList.toggle('sound-muted',!flag)

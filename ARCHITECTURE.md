@@ -98,3 +98,20 @@ Platforms are one-way: ascending players pass through, descending feet land, and
 - `render/arena-cache.js` crops the large static raster to the viewport. Terrain caches narrow strips and a small altar, instead of another full-world canvas.
 - `systems/rippers.js` owns normalized meters, timers, activation, source proximity curve and hit loss; `config/rippers.js` owns constants and sources. Damage multipliers are applied once in `combat/damage.js`, not in each class or renderer. Expert, pause, ritual, restart, death and Acceptance rules are explicit.
 - C/V bindings and mobile buttons call the same activation function. No automatic use of a full meter.
+
+## Local Calamitas visual/audio test
+- `config/calamitas-sprites.js` maps the official 2×21 atlas and seven six-frame groups. `render/calamitas-atlas.js` loads PNGs once and supplies the fallback. `render/calamitas.js` stores pose clocks/trails in a WeakMap, reads game state without altering combat, and caches a finite set of tinted frames and field stamps.
+- `core/sample-audio.js` loads/decode-caches the six clips in `config/calamitas-audio.js` on the existing gesture-unlocked AudioContext. It never queues missing samples for late playback, caps concurrent voices, and follows SFX settings. Encounter events call `audio.calamitas`; pause, finish and restart call `audio.stopCalamitas`.
+- Boss castAt/castKind are presentation event markers; they do not change attacks or damage. Ritual cues use the existing simulation timeline, so pausing cannot trigger them in the background.
+- Imported art/audio is restricted to this local test. Preserve the original terms and provenance; do not publish the working copy/assets without permission.
+
+### Privacy and punch correction (2026-10-30)
+Repository visibility is Private and Pages is disabled. Keep local previews available; do not treat making the repository private as a replacement for asset provenance.
+Phase-II blast/hellblast use one-shot frames 0..2 for wind-up, 3 for release and 4..5 for recovery, then flight. castSecond prevents stale phase-I events from replaying after the transition. Recovery can finish even if attackIndex already advanced on the last shot.
+
+Shader textures (forcefield/immune) convert source RGB luminance to alpha once on load. They use additive-style black backgrounds in Calamity; directly tinting their source alpha creates opaque rotating squares. Boss body sheets retain their original alpha unchanged.
+
+The user's ready shield.png now replaces both procedural aura stamps. Preserve the supplied RGB art; shieldTextureAlpha only removes black matte once, with unmatting to preserve the on-black appearance. Do not generate/tint a replacement ring or stack the old immune circles when the texture is available.
+
+### Calamitas visual proportions (local, 2026-10-30)
+Body frames now draw at native scale 1. The source normal field is 72×3 = 216 px in diameter; immunity uses 156×1.35 = 210.6 px. The supplied red shield follows these visual bounds and smoothly contracts toward 45% during wind-up/charge. Presentation clocks freeze with simulation time; no collision/damage values change. Phase-II body glow shares the configured body scale. Reviewed key portions of the newer Calamity 2.1 fight: https://www.youtube.com/watch?v=1AMuDxYrP7U (visual reference, not a full-frame audit).

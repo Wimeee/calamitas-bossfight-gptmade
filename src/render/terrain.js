@@ -1,8 +1,8 @@
-import { paintAltar } from './altar.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { getTerrain } from '../world/terrain.js?v=22.0.0';
-import { cameraView } from '../world/camera.js?v=22.0.0';
+import { paintAltar } from './altar.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { getTerrain } from '../world/terrain.js?v=22.1.0';
+import { cameraView } from '../world/camera.js?v=22.1.0';
 
 let key='',strips=new Map(),altar=null;
 function strip(width,ground=false){

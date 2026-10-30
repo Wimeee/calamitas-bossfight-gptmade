@@ -1,10 +1,10 @@
-import { cameraView } from '../world/camera.js?v=22.0.0';
-import { drawTerrain } from './terrain.js?v=22.0.0';
-import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { line } from './primitives.js?v=22.0.0';
+import { cameraView } from '../world/camera.js?v=22.1.0';
+import { drawTerrain } from './terrain.js?v=22.1.0';
+import { drawBackdropBase,drawArenaLayer } from './arena-cache.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { line } from './primitives.js?v=22.1.0';
 
 
 function drawBackdrop(g){

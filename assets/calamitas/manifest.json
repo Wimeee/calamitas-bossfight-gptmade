@@ -1,0 +1,62 @@
+{
+  "source": "https://github.com/CalamityTeam/CalamityModPublic",
+  "commit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "usage": "Local visual/audio compatibility test. Original assets remain proprietary; no redistribution license is asserted.",
+  "assets": [
+    {
+      "name": "hooded.png",
+      "path": "NPCs/SupremeCalamitas/SupremeCalamitasHooded.png",
+      "sha": "eae9fb6ec75cf9a7cd26737b1a5c1e61fc884ca5"
+    },
+    {
+      "name": "unhooded.png",
+      "path": "NPCs/SupremeCalamitas/SupremeCalamitas.png",
+      "sha": "82907f2312b60c99b7a9d4982fc3bc9e94b3e1a1"
+    },
+    {
+      "name": "forcefield.png",
+      "path": "NPCs/SupremeCalamitas/ForcefieldTexture.png",
+      "sha": "6adeaa39a5c3c2b25168b0e541993e0f1ff2e843"
+    },
+    {
+      "name": "immune-ring.png",
+      "path": "Particles/SemiCircularSmearVertical.png",
+      "sha": "40306fac87821d9ea3ebfada2805cec567e29764"
+    },
+    {
+      "name": "altar.ogg",
+      "path": "Sounds/Custom/SCalAltarSummon.ogg",
+      "sha": "b99de291226687ef79e2e7de14d417fb92fa9fe5"
+    },
+    {
+      "name": "laugh.ogg",
+      "path": "Sounds/Custom/SupremeCalamitasSpawn.ogg",
+      "sha": "eaf7921f2e0f8b1ad355e0a16be0cfbbe24917ed"
+    },
+    {
+      "name": "dash.ogg",
+      "path": "Sounds/Custom/SCalSounds/SCalDash.ogg",
+      "sha": "3b8727578ac3bd57070ebcdfb2575bb554c002f8"
+    },
+    {
+      "name": "cast.ogg",
+      "path": "Sounds/Custom/SCalSounds/BrimstoneShoot.ogg",
+      "sha": "fce1be6b0b53bb5e75b34a770b4cdc617d9718fb"
+    },
+    {
+      "name": "big-cast.ogg",
+      "path": "Sounds/Custom/SCalSounds/BrimstoneBigShoot.ogg",
+      "sha": "7afaf0a822966e4967aea05a026f05e5183f37b4"
+    },
+    {
+      "name": "hellblast.ogg",
+      "path": "Sounds/Custom/SCalSounds/BrimstoneHellblastSound.ogg",
+      "sha": "b2e6e44be221726930c24457e5888261fbc9b8b5"
+    },
+    {
+      "name": "shield.png",
+      "path": "user attachment: codex-clipboard-b05b5376-6f1c-48c3-bbe7-f4285f11e02c.png",
+      "sha": "07d38736dfb3d22856bf404f8147e0ecb323dbde"
+    }
+  ]
+}

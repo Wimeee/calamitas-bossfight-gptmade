@@ -1,24 +1,24 @@
-import { cameraView } from '../world/camera.js?v=22.0.0';
-import { drawWorldHUD } from './world-hud.js?v=22.0.0';
-import { getTerrain } from '../world/terrain.js?v=22.0.0';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.0.0';
-import { drawEnemyProjectiles } from './projectiles.js?v=22.0.0';
-import { drawWarriorBody } from './warrior.js?v=22.0.0';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=22.0.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=22.0.0';
-import { getEncounter } from '../boss/registry.js?v=22.0.0';
-import { possibleTargets } from '../combat/targets.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { clamp, norm } from '../core/math.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
-import { drawBackdrop } from './background.js?v=22.0.0';
-import { drawClassKit } from './class-effects.js?v=22.0.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=22.0.0';
-import { drawSword } from './melee.js?v=22.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=22.0.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=22.0.0';
+import { cameraView } from '../world/camera.js?v=22.1.0';
+import { drawWorldHUD } from './world-hud.js?v=22.1.0';
+import { getTerrain } from '../world/terrain.js?v=22.1.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.1.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=22.1.0';
+import { drawWarriorBody } from './warrior.js?v=22.1.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=22.1.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=22.1.0';
+import { getEncounter } from '../boss/registry.js?v=22.1.0';
+import { possibleTargets } from '../combat/targets.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { clamp, norm } from '../core/math.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
+import { drawBackdrop } from './background.js?v=22.1.0';
+import { drawClassKit } from './class-effects.js?v=22.1.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=22.1.0';
+import { drawSword } from './melee.js?v=22.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=22.1.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=22.1.0';
 
 
 function draw(g){

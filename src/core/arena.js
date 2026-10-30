@@ -1,6 +1,6 @@
-import { worldConfig } from '../../config/world.js?v=22.0.0';
-import { state } from './state.js?v=22.0.0';
-import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H } from './config.js?v=22.0.0';
+import { worldConfig } from '../../config/world.js?v=22.1.0';
+import { state } from './state.js?v=22.1.0';
+import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H } from './config.js?v=22.1.0';
 
 const arena={l:57,r:943,t:35,b:565};
 

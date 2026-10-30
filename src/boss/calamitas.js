@@ -1,10 +1,11 @@
-import { hurt } from '../combat/damage.js?v=22.0.0';
-import { enemyBullet, fan } from '../combat/projectiles.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { seq } from '../core/config.js?v=22.0.0';
-import { clamp, dist, lerp, norm } from '../core/math.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=22.0.0';
+import { audio } from '../core/audio.js?v=22.1.0';
+import { hurt } from '../combat/damage.js?v=22.1.0';
+import { enemyBullet, fan } from '../combat/projectiles.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { seq } from '../core/config.js?v=22.1.0';
+import { clamp, dist, lerp, norm } from '../core/math.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=22.1.0';
 
 function bossAttack(dt){
   const g=state.game,b=g.boss,p=g.player,second=g.thresholds.has('40'),hearts=g.stage==='hearts';
@@ -14,7 +15,7 @@ function bossAttack(dt){
   if(act.startsWith('dash')){
     if(g.dashWind>0){
       g.dashWind-=dt;
-      if(g.dashWind<=0){g.dashActive=c.dashDuration;g.dashCount++;}
+      if(g.dashWind<=0){g.dashActive=c.dashDuration;g.dashCount++;audio.calamitas('dash',g);}
     }else if(g.dashActive>0){
       g.dashActive-=dt;
       b.x+=g.dashVector.x*c.dashSpeed*(second?1.08:1)*dt;
@@ -42,6 +43,8 @@ function bossAttack(dt){
         const q=enemyBullet(b.x,b.y,d.x,d.y,180,7,'hellblast',36);
         if(q){q.straight=true;q.acceleration=28;q.maxSpeed=260;}
       }else enemyBullet(b.x,b.y,d.x,d.y,125,13,'giga',72);
+      b.castAt=g.t;b.castKind=act;b.castSecond=second;
+      audio.calamitas(act.startsWith('giga')?'bigCast':act==='hellblast'?'hellblast':'cast',g);
       g.attackTick++;
       const count=above?(g.phase2Intro>0?3:hearts?3:4):act==='hellblast'?(hearts?5:c.hellblastCount):Number(act.slice(4));
       if(g.attackTick>=count){

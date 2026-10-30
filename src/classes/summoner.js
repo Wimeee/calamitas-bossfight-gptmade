@@ -1,10 +1,10 @@
-import { kit } from './shared.js?v=22.0.0';
-import { hitTarget } from '../combat/damage.js?v=22.0.0';
-import { possibleTargets } from '../combat/targets.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { audio } from '../core/audio.js?v=22.0.0';
-import { clamp, norm } from '../core/math.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
+import { kit } from './shared.js?v=22.1.0';
+import { hitTarget } from '../combat/damage.js?v=22.1.0';
+import { possibleTargets } from '../combat/targets.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { audio } from '../core/audio.js?v=22.1.0';
+import { clamp, norm } from '../core/math.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
 
 
 function summonSquad(){

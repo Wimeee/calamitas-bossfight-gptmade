@@ -1,6 +1,8 @@
-import { TAU } from '../core/config.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=22.0.0';
+import { calamitasImage } from './calamitas-atlas.js?v=22.1.0';
+import { drawOfficialCalamitas } from './calamitas.js?v=22.1.0';
+import { TAU } from '../core/config.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=22.1.0';
 
 
 function drawBrother(br,g){
@@ -12,7 +14,7 @@ function drawBrother(br,g){
 
 function drawCalamitas(g){
   const b=g.boss,inv=g.stage!=='normal';
-  if(inv){
+  if(inv&&!calamitasImage('shield')){
     ctx.save();
     ctx.strokeStyle='#f4496666';
     ctx.lineWidth=2;
@@ -21,7 +23,7 @@ function drawCalamitas(g){
     ctx.stroke();
     ctx.restore();
   }
-  pixel('witch'+(Math.floor(g.t*7)%3),b.x,b.y,1.65,0,g.player.x<b.x);
+  if(!drawOfficialCalamitas(g))pixel('witch'+(Math.floor(g.t*7)%3),b.x,b.y,1.65,0,g.player.x<b.x);
   if(g.t<(b.hitFlash||0)){
     ctx.strokeStyle='#fff5d8';
     ctx.strokeRect(b.x-33,b.y-48,66,96);

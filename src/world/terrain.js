@@ -1,6 +1,6 @@
-import { worldConfig } from '../../config/world.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { movementConfig as config } from '../../config/movement.js?v=22.0.0';
+import { worldConfig } from '../../config/world.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { movementConfig as config } from '../../config/movement.js?v=22.1.0';
 
 let cached=null,key='';
 export function getTerrain(){

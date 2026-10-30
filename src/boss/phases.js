@@ -1,14 +1,15 @@
-import { getTerrain } from '../world/terrain.js?v=22.0.0';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { audio } from '../core/audio.js?v=22.0.0';
-import { TAU } from '../core/config.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
+import { getTerrain } from '../world/terrain.js?v=22.1.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { audio } from '../core/audio.js?v=22.1.0';
+import { TAU } from '../core/config.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
 
 
 function enterCalamitas(stage,marker,label){
   if(state.game&&state.game.t>.4){
-    audio.fx(marker==='h30'?'maelstrom':'phase')
+    if(marker==='h40')audio.calamitas('laugh',state.game);
+    else audio.fx(marker==='h30'?'maelstrom':'phase')
   }
   let g=state.game;
   g.stage=stage;

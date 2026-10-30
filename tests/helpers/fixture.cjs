@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const {pathToFileURL}=require('node:url');
 
 async function loadGame(options = {}) {
   const noop = () => {};
@@ -38,7 +39,7 @@ async function loadGame(options = {}) {
         if (source.includes('function ' + name + '(')) source += '\n' + name + '=()=>{};\n';
       }
     }
-    const mod = new vm.SourceTextModule(source, {context: sandbox, identifier: file});
+    const mod = new vm.SourceTextModule(source, {context: sandbox, identifier: file, initializeImportMeta(meta){meta.url=pathToFileURL(file).href;}});
     modules.set(file, mod);
     return mod;
   }

@@ -1,7 +1,7 @@
-import { W,H } from '../core/config.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { state } from '../core/state.js?v=22.0.0';
-import { clamp } from '../core/math.js?v=22.0.0';
+import { W,H } from '../core/config.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { state } from '../core/state.js?v=22.1.0';
+import { clamp } from '../core/math.js?v=22.1.0';
 
 export function cameraView(g=state.game){
   const c=g?.camera||{x:500,y:300};return {x:c.x-W/2,y:c.y-H/2,w:W,h:H};

@@ -18,3 +18,7 @@
 - Player movement is now platformer physics in `game/movement.js` and `world/terrain.js`. Never reintroduce direct free-flight position updates. Space is reserved for jump/flight; attack is LMB and ability RMB. Platform terrain art remains cached to preserve the measured FPS fix.
 
 - v22 uses a scrolling square world. Never use fixed VIEW offsets to map input or place screen HUD in world coordinates. World/physics dimensions belong to config/world.js; rippers use base canon values without accessory/permanent upgrades.
+
+- v22.1 includes third-party art/audio under assets/calamitas/, authorized by the user for the private repository on 2026-10-30. Retain provenance and repository privacy. Keep test-artifacts previews local.
+
+- User requested repository privacy on 2026-10-30. Wimeee/calamitas-bossfight-gptmade is now Private; GitHub Pages is disabled on the current plan (old URL returns 404). Do not re-enable public hosting or make the repository public without an explicit user request. Test via the local server.

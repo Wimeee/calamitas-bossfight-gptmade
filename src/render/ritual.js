@@ -1,12 +1,13 @@
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.0.0';
-import { drawGlowCircle } from './glow-cache.js?v=22.0.0';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=22.0.0';
-import { settings } from '../core/settings.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { W,H,TAU } from '../core/config.js?v=22.0.0';
-import { clamp } from '../core/math.js?v=22.0.0';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=22.0.0';
-import { line,pixel,round,text } from './primitives.js?v=22.0.0';
+import { drawOfficialCalamitas } from './calamitas.js?v=22.1.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.1.0';
+import { drawGlowCircle } from './glow-cache.js?v=22.1.0';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=22.1.0';
+import { settings } from '../core/settings.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { W,H,TAU } from '../core/config.js?v=22.1.0';
+import { clamp } from '../core/math.js?v=22.1.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=22.1.0';
+import { line,pixel,round,text } from './primitives.js?v=22.1.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -65,7 +66,7 @@ export function drawRitualWorld(g){
       round(Math.cos(a)*(28+f*100),Math.sin(a)*(28+f*100)-f*25,1.7,i%3?'#ff6650':'#ffdf9c');
     }
     ctx.globalAlpha=ease(s,4.5,5.2);
-    pixel('witch'+Math.floor(s*7)%3,0,0,1.65+Math.sin(s*4)*.03);ctx.restore();
+    if(!drawOfficialCalamitas(g,{x:0,y:0}))pixel('witch'+Math.floor(s*7)%3,0,0,1.65);ctx.restore();
   }
 }
 

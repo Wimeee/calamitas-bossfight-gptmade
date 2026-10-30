@@ -1,10 +1,11 @@
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
-import { clamp, norm } from '../core/math.js?v=22.0.0';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=22.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=22.0.0';
+import { calamitasImage } from './calamitas-atlas.js?v=22.1.0';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
+import { clamp, norm } from '../core/math.js?v=22.1.0';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=22.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=22.1.0';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   if(g.stage==='hell'&&g.huntWarning){
@@ -39,11 +40,13 @@ export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   }
   if(g.stage==='hearts'){
     drawSepulcher(g);
+    if(!calamitasImage('shield')){
     ctx.strokeStyle='#a93f5577';
     ctx.lineWidth=24;
     ctx.beginPath();
     ctx.arc(b.x,b.y,66+Math.sin(g.t*3)*6,0,TAU);
     ctx.stroke();
+    }
     g.hearts.forEach(h=>{
         pixel('heart',h.x,h.y,1.5+Math.sin(g.t*5)*.05);
         hpMini(h.x,h.y-27,h.hp,h.max,35)

@@ -1,8 +1,8 @@
-import { cameraView } from '../world/camera.js?v=22.0.0';
-import { arena } from '../core/arena.js?v=22.0.0';
-import { settings } from '../core/settings.js?v=22.0.0';
-import { H,VIEW_X,VIEW_Y,W } from '../core/config.js?v=22.0.0';
-import { ctx } from '../core/dom.js?v=22.0.0';
+import { cameraView } from '../world/camera.js?v=22.1.0';
+import { arena } from '../core/arena.js?v=22.1.0';
+import { settings } from '../core/settings.js?v=22.1.0';
+import { H,VIEW_X,VIEW_Y,W } from '../core/config.js?v=22.1.0';
+import { ctx } from '../core/dom.js?v=22.1.0';
 
 let base=null,arenaLayer=null,arenaKey='';
 function surface(w=W,h=H){const c=document.createElement('canvas');c.width=w;c.height=h;return c;}
