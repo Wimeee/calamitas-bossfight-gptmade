@@ -1,12 +1,22 @@
-import {state} from '../core/state.js?v=26.0.4';
-import {cameraView} from '../world/camera.js?v=26.0.4';
-import {arena} from '../core/arena.js?v=26.0.4';
-import {ctx} from '../core/dom.js?v=26.0.4';
-import {W,H} from '../core/config.js?v=26.0.4';
-import {arenaColors} from '../world/arena-state.js?v=26.0.4';
-import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.4';
-import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.4';
+import {state} from '../core/state.js?v=26.0.5';
+import {cameraView} from '../world/camera.js?v=26.0.5';
+import {arena} from '../core/arena.js?v=26.0.5';
+import {ctx} from '../core/dom.js?v=26.0.5';
+import {W,H} from '../core/config.js?v=26.0.5';
+import {arenaColors} from '../world/arena-state.js?v=26.0.5';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.5';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.5';
 let field=null,mask=null;
+let backdrop=null,backdropSource=null,backdropKey='';
+function backdropRaster(image){
+ // Camera zoom cancels out: preserve the native cover geometry at backing-pixel resolution.
+ const scale=Math.max(W/image.width,H/image.height)*1.12,w=Math.ceil(image.width*scale),h=Math.ceil(image.height*scale),key=w+'|'+h+'|'+!!ctx.imageSmoothingEnabled;
+ if(w*h>16777216)return image;
+ if(backdropSource===image&&backdropKey===key)return backdrop;
+ backdrop??=document.createElement('canvas');backdrop.width=w;backdrop.height=h;
+ const c=backdrop.getContext('2d');c.imageSmoothingEnabled=ctx.imageSmoothingEnabled;c.drawImage(image,0,0,w,h);
+ backdropSource=image;backdropKey=key;return backdrop;
+}
 function surface(){return document.createElement('canvas');}
 function ensureSurfaces(){
  if(!field){field=surface();mask=surface();}
@@ -18,7 +28,7 @@ function nativeField(c,texture,v,dx,dy,scale,alpha){
 }
 export function drawBackdropBase(){
  const g=state.game,v=cameraView(g),t=g?.ritual?g.ritual.ambient:g?.t||0;ctx.fillStyle='#100b11';ctx.fillRect(v.x,v.y,v.w,v.h);
- const image=arenaImage('CalamitasBackground');if(image){const scale=Math.max(v.w/image.width,v.h/image.height)*1.12,w=image.width*scale,h=image.height*scale;ctx.drawImage(image,v.x+(v.w-w)/2+Math.sin(t*.11)*24,v.y+(v.h-h)/2+Math.cos(t*.08)*18,w,h);}
+ const image=arenaImage('CalamitasBackground');if(image){const scale=Math.max(v.w/image.width,v.h/image.height)*1.12,w=image.width*scale,h=image.height*scale;ctx.drawImage(backdropRaster(image),v.x+(v.w-w)/2+Math.sin(t*.11)*24,v.y+(v.h-h)/2+Math.cos(t*.08)*18,w,h);}
  const a=g?.arenaState||{phase:0,previous:0,colorMix:1};
  for(const [phase,mix] of [[a.previous,1-a.colorMix],[a.phase,a.colorMix]])nativeField(ctx,arenaTexture('arenaSmoke',phase),v,-t*7+Math.sin(t*.14)*28,t*3,2.8,.1*mix);
  const cinder=arenaImage('CalamitasCinder');if(cinder){ctx.save();for(let i=0;i<42;i++){const speed=12+i%4*5,x=v.x+((i*239.17+t*3+Math.sin(t*.5+i)*22)%v.w+v.w)%v.w,y=v.y+((i*173.7-t*speed)%v.h+v.h)%v.h;ctx.globalAlpha=.3+.25*(.5+.5*Math.sin(t*1.6+i));ctx.drawImage(cinder,x,y,4,4);}ctx.restore();}

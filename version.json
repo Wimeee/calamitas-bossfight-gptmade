@@ -1,4 +1,4 @@
 {
-  "version": "26.0.4",
-  "notes": "Fix Firefox sword texture churn and prepare assets before battle"
+  "version": "26.0.5",
+  "notes": "Cache native arena backdrop scaling to reduce Firefox frame cost"
 }

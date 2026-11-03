@@ -1,4 +1,4 @@
-import { ctx } from '../core/dom.js?v=26.0.4';
+import { ctx } from '../core/dom.js?v=26.0.5';
 
 const trails=new Map();
 function trail(wide){

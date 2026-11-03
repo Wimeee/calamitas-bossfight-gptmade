@@ -1,15 +1,15 @@
-import {heartSpawnPositions} from '../world/heart-layout.js?v=26.0.4';
-import {updateSummonCast} from '../systems/summon-effects.js?v=26.0.4';
-import {initializeSeekers} from './seekers.js?v=26.0.4';
-import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=26.0.4';
-import {beginAcceptance} from './acceptance.js?v=26.0.4';
-import { getTerrain } from '../world/terrain.js?v=26.0.4';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=26.0.4';
-import { arena } from '../core/arena.js?v=26.0.4';
-import { audio } from '../core/audio.js?v=26.0.4';
-import { TAU } from '../core/config.js?v=26.0.4';
-import { state } from '../core/state.js?v=26.0.4';
-import { rnd } from '../core/math.js?v=26.0.4';
+import {heartSpawnPositions} from '../world/heart-layout.js?v=26.0.5';
+import {updateSummonCast} from '../systems/summon-effects.js?v=26.0.5';
+import {initializeSeekers} from './seekers.js?v=26.0.5';
+import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=26.0.5';
+import {beginAcceptance} from './acceptance.js?v=26.0.5';
+import { getTerrain } from '../world/terrain.js?v=26.0.5';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=26.0.5';
+import { arena } from '../core/arena.js?v=26.0.5';
+import { audio } from '../core/audio.js?v=26.0.5';
+import { TAU } from '../core/config.js?v=26.0.5';
+import { state } from '../core/state.js?v=26.0.5';
+import { rnd } from '../core/math.js?v=26.0.5';
 
 // Source: SupremeCalamitas.cs phase transitions
 // sepulcherSpawnCastTime = 75 ticks (1.25s)

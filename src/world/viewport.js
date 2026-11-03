@@ -1,5 +1,5 @@
-import {canvas,root} from '../core/dom.js?v=26.0.4';
-import {W,H,setViewportSize} from '../core/config.js?v=26.0.4';
+import {canvas,root} from '../core/dom.js?v=26.0.5';
+import {W,H,setViewportSize} from '../core/config.js?v=26.0.5';
 export function resizeViewport(){
  const r=canvas.getBoundingClientRect();if(!(r.width>0&&r.height>0))return;
  const ratio=r.width/r.height,h=720,w=Math.round(h*ratio),scale=Math.min(1,2560/w);

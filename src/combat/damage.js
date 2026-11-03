@@ -1,11 +1,11 @@
-import {warriorBalance} from '../../config/warrior-balance.js?v=26.0.4';
-import { applyPlayerHex } from './debuffs.js?v=26.0.4';
-import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=26.0.4';
-import { audio } from '../core/audio.js?v=26.0.4';
-import { rnd } from '../core/math.js?v=26.0.4';
-import { state } from '../core/state.js?v=26.0.4';
-import { finish } from '../game/session.js?v=26.0.4';
-import { weaponImpact } from '../render/effects.js?v=26.0.4';
+import {warriorBalance} from '../../config/warrior-balance.js?v=26.0.5';
+import { applyPlayerHex } from './debuffs.js?v=26.0.5';
+import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=26.0.5';
+import { audio } from '../core/audio.js?v=26.0.5';
+import { rnd } from '../core/math.js?v=26.0.5';
+import { state } from '../core/state.js?v=26.0.5';
+import { finish } from '../game/session.js?v=26.0.5';
+import { weaponImpact } from '../render/effects.js?v=26.0.5';
 
 
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){

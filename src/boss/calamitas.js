@@ -1,11 +1,11 @@
-import {tryAsgardianSlam} from '../combat/asgardian.js?v=26.0.4';
-import {emitCalamitasCast,emitCalamitasAmbient} from '../systems/calamitas-effects.js?v=26.0.4';
-import { audio } from '../core/audio.js?v=26.0.4';
-import { hurt } from '../combat/damage.js?v=26.0.4';
-import { enemyBullet, spawnBrimstoneBarrageFan } from '../combat/projectiles.js?v=26.0.4';
-import { seq } from '../core/config.js?v=26.0.4';
-import { clamp, norm, segmentDistance } from '../core/math.js?v=26.0.4';
-import { state } from '../core/state.js?v=26.0.4';
+import {tryAsgardianSlam} from '../combat/asgardian.js?v=26.0.5';
+import {emitCalamitasCast,emitCalamitasAmbient} from '../systems/calamitas-effects.js?v=26.0.5';
+import { audio } from '../core/audio.js?v=26.0.5';
+import { hurt } from '../combat/damage.js?v=26.0.5';
+import { enemyBullet, spawnBrimstoneBarrageFan } from '../combat/projectiles.js?v=26.0.5';
+import { seq } from '../core/config.js?v=26.0.5';
+import { clamp, norm, segmentDistance } from '../core/math.js?v=26.0.5';
+import { state } from '../core/state.js?v=26.0.5';
 
 // Base Calamity, pinned 1a8cebd: SupremeCalamitas.cs 2090-2545, 2660-3100.
 // Source velocities are px/tick; public browser velocities are px/second.

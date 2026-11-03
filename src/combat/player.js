@@ -1,7 +1,7 @@
-import {startAsgardianDash} from '../game/asgardian-dash.js?v=26.0.4';
-import { playerConfig } from '../../config/player.js?v=26.0.4';
-import { audio } from '../core/audio.js?v=26.0.4';
-import { state } from '../core/state.js?v=26.0.4';
+import {startAsgardianDash} from '../game/asgardian-dash.js?v=26.0.5';
+import { playerConfig } from '../../config/player.js?v=26.0.5';
+import { audio } from '../core/audio.js?v=26.0.5';
+import { state } from '../core/state.js?v=26.0.5';
 
 
 function heal(){

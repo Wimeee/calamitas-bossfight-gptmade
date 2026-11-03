@@ -1,5 +1,5 @@
-import {addCalamitasEffect as add,calamitasVisualRandom as random} from './calamitas-effects.js?v=26.0.4';
-import {heartSpawnPositions} from '../world/heart-layout.js?v=26.0.4';
+import {addCalamitasEffect as add,calamitasVisualRandom as random} from './calamitas-effects.js?v=26.0.5';
+import {heartSpawnPositions} from '../world/heart-layout.js?v=26.0.5';
 function orb(g,x,y,scale,life=20,color='#ff2020',vx=0,vy=0){add(g,{kind:'orb',x,y,vx,vy,scale,life,color});}
 function flame(g,x,y,count){for(let i=0;i<count;i++)add(g,{kind:'flame',x:x+(random(g)-.5)*60,y:y+(random(g)-.5)*60,vx:(random(g)-.5)*.5,vy:-(3+random(g)*1.45),scale:1.35+random(g)*.25,life:40,color:'#ff2020',frame:i%3});}
 function catmull(p0,p1,p2,p3,t){return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);}

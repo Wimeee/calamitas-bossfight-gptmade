@@ -1,0 +1,109 @@
+{
+  "engine": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
+  "context": {
+    "alpha": true,
+    "colorSpace": "srgb",
+    "desynchronized": false,
+    "willReadFrequently": false
+  },
+  "preparationMs": 4907,
+  "totalProfileMs": 15716,
+  "scope": "Installed headless Firefox159, frozen real scene after660 attack simulation ticks,18 Ark particles,0 shots. Alternating original/cached backdrop only. Comparative frame intervals; not full fight, visible user device or guaranteed120FPS.",
+  "meanRGBDifference": 0.028602378476388555,
+  "results": [
+    {
+      "label": "original",
+      "frames": 83,
+      "p50": 27.780000000000655,
+      "p95": 38.88000000000011,
+      "worst": 181.10000000000036,
+      "framesOver25ms": 63,
+      "newCanvases": 29,
+      "maxCanvasPerFrame": 29,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 186,
+        "tintPixels": 2888616,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 186,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 18
+    },
+    {
+      "label": "cached",
+      "frames": 82,
+      "p50": 27.780000000000655,
+      "p95": 51.399999999999636,
+      "worst": 99.97999999999956,
+      "framesOver25ms": 59,
+      "newCanvases": 0,
+      "maxCanvasPerFrame": 0,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 186,
+        "tintPixels": 2888616,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 186,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 18
+    },
+    {
+      "label": "original",
+      "frames": 85,
+      "p50": 27.780000000000655,
+      "p95": 44.43999999999869,
+      "worst": 44.44000000000051,
+      "framesOver25ms": 68,
+      "newCanvases": 0,
+      "maxCanvasPerFrame": 0,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 186,
+        "tintPixels": 2888616,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 186,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 18
+    },
+    {
+      "label": "cached",
+      "frames": 106,
+      "p50": 22.220000000001164,
+      "p95": 33.33999999999833,
+      "worst": 61.100000000000364,
+      "framesOver25ms": 41,
+      "newCanvases": 0,
+      "maxCanvasPerFrame": 0,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 186,
+        "tintPixels": 2888616,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 186,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 18
+    }
+  ],
+  "shots": 0,
+  "particles": 18
+}
