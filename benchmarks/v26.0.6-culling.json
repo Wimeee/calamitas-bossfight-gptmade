@@ -1,0 +1,305 @@
+{
+  "scope": "Controlled identical scene,500projectiles600native hit particles, many offscreen; draw CPU submission, not live user FPS",
+  "edge": {
+    "scope": "Controlled same scene:500projectiles and600native hit particles, many far outside viewport; CPU draw submission, not user FPS",
+    "before": {
+      "draws": 2213,
+      "ms": 11.926666667064032
+    },
+    "after": {
+      "draws": 613,
+      "ms": 8.893333333730698
+    },
+    "differentChannels": 0,
+    "maxChannelDifference": 0
+  },
+  "firefox": {
+    "scope": "Controlled same scene:500projectiles and600native hit particles, many far outside viewport; CPU draw submission, not user FPS",
+    "before": {
+      "draws": 2213,
+      "ms": 59.96666666666667
+    },
+    "after": {
+      "draws": 613,
+      "ms": 47.4
+    },
+    "differentChannels": 0,
+    "maxChannelDifference": 0
+  },
+  "auditBefore": {
+    "scope": "Controlled real browser complete game renderer and simulation, High,1920x1080; draw timings are CPU submission, not user-device FPS",
+    "canvas": "1280x720",
+    "results": [
+      {
+        "scene": "worm",
+        "entities": {
+          "bullets": 31,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 2.9000000059604645,
+          "p95Ms": 5.5999999940395355
+        },
+        "cpu": {
+          "medianMs": 0.09999999403953552,
+          "p95Ms": 0.5999999940395355
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.4000000059604645,
+            "p95Ms": 1.899999976158142
+          },
+          "entities": {
+            "medianMs": 0.7000000178813934,
+            "p95Ms": 1.7999999821186066
+          },
+          "projectiles": {
+            "medianMs": 0,
+            "p95Ms": 0
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "bh4-maelstrom",
+        "entities": {
+          "bullets": 17,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 1.300000011920929,
+          "p95Ms": 2.600000023841858
+        },
+        "cpu": {
+          "medianMs": 0.09999999403953552,
+          "p95Ms": 0.20000001788139343
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.20000001788139343
+          },
+          "entities": {
+            "medianMs": 0.19999998807907104,
+            "p95Ms": 0.699999988079071
+          },
+          "projectiles": {
+            "medianMs": 0,
+            "p95Ms": 0.20000001788139343
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "brothers",
+        "entities": {
+          "bullets": 4,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 0.7000000178813934,
+          "p95Ms": 3.9000000059604645
+        },
+        "cpu": {
+          "medianMs": 0,
+          "p95Ms": 0.30000001192092896
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.30000001192092896
+          },
+          "entities": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.20000001788139343
+          },
+          "projectiles": {
+            "medianMs": 0,
+            "p95Ms": 0.5
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "ark-heavy",
+        "entities": {
+          "bullets": 23,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 6.5,
+          "p95Ms": 25.19999998807907
+        },
+        "cpu": {
+          "medianMs": 0.09999999403953552,
+          "p95Ms": 0.19999998807907104
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 1.199999988079071
+          },
+          "entities": {
+            "medianMs": 0,
+            "p95Ms": 0.10000002384185791
+          },
+          "projectiles": {
+            "medianMs": 0.19999998807907104,
+            "p95Ms": 0.4000000059604645
+          },
+          "ark": {
+            "medianMs": 4.300000011920929,
+            "p95Ms": 26.400000005960464
+          }
+        }
+      }
+    ]
+  },
+  "auditAfter": {
+    "scope": "Controlled real browser complete game renderer and simulation, High,1920x1080; draw timings are CPU submission, not user-device FPS",
+    "canvas": "1280x720",
+    "results": [
+      {
+        "scene": "worm",
+        "entities": {
+          "bullets": 31,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 2.5,
+          "p95Ms": 6.799999982118607
+        },
+        "cpu": {
+          "medianMs": 0.10000002384185791,
+          "p95Ms": 0.4000000059604645
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.4000000059604645,
+            "p95Ms": 1.7999999821186066
+          },
+          "entities": {
+            "medianMs": 0.8999999761581421,
+            "p95Ms": 2
+          },
+          "projectiles": {
+            "medianMs": 0,
+            "p95Ms": 0
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "bh4-maelstrom",
+        "entities": {
+          "bullets": 17,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 1.5,
+          "p95Ms": 4.5
+        },
+        "cpu": {
+          "medianMs": 0.09999999403953552,
+          "p95Ms": 0.20000001788139343
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.800000011920929
+          },
+          "entities": {
+            "medianMs": 0.30000001192092896,
+            "p95Ms": 1.100000023841858
+          },
+          "projectiles": {
+            "medianMs": 0,
+            "p95Ms": 0.10000002384185791
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "brothers",
+        "entities": {
+          "bullets": 4,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 0.7999999821186066,
+          "p95Ms": 3.300000011920929
+        },
+        "cpu": {
+          "medianMs": 0,
+          "p95Ms": 0.19999998807907104
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.20000001788139343
+          },
+          "entities": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.5999999940395355
+          },
+          "projectiles": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.20000001788139343
+          },
+          "ark": {
+            "medianMs": 0,
+            "p95Ms": 0
+          }
+        }
+      },
+      {
+        "scene": "ark-heavy",
+        "entities": {
+          "bullets": 30,
+          "ark": 0
+        },
+        "full": {
+          "medianMs": 6.700000017881393,
+          "p95Ms": 20.799999982118607
+        },
+        "cpu": {
+          "medianMs": 0.09999999403953552,
+          "p95Ms": 0.19999998807907104
+        },
+        "component": {
+          "background": {
+            "medianMs": 0.09999999403953552,
+            "p95Ms": 0.5
+          },
+          "entities": {
+            "medianMs": 0,
+            "p95Ms": 0.10000002384185791
+          },
+          "projectiles": {
+            "medianMs": 0.30000001192092896,
+            "p95Ms": 0.5
+          },
+          "ark": {
+            "medianMs": 5.300000011920929,
+            "p95Ms": 17.400000005960464
+          }
+        }
+      }
+    ]
+  }
+}

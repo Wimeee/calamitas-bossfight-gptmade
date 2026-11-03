@@ -1,5 +1,5 @@
-import {hurt} from './damage.js?v=26.0.5';
-import {relativeActorDistance} from './motion-collision.js?v=26.0.5';
+import {hurt} from './damage.js?v=26.0.6';
+import {relativeActorDistance} from './motion-collision.js?v=26.0.6';
 
 // All actors use the same frame-local timeline. The ordinary body remains harmless.
 export function resolveCalamitasContact(g,motion){

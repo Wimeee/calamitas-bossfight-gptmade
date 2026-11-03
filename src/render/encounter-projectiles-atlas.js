@@ -1,4 +1,5 @@
-import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=26.0.5';
+import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=26.0.6';
+import {circleVisible} from './visibility.js?v=26.0.6';
 
 const images = new Map();
 let ready = null;
@@ -72,6 +73,8 @@ export function paintProjectileFrame(ctx, kind, frame, x, y, scale, alpha, facin
   const image = images.get(kind);
   if (!image) return false;
   const rect = projectileFrameRect(kind, frame);
+  const factor=Math.abs((spriteSpec.scale||1)*(scale||1)),pivot=spriteSpec.anchor||{x:rect.w/2,y:rect.h/2};
+  if(!circleVisible(ctx,x,y,Math.hypot(Math.max(Math.abs(pivot.x),Math.abs(rect.w-pivot.x)),Math.max(Math.abs(pivot.y),Math.abs(rect.h-pivot.y)))*factor))return true;
   ctx.save();
   ctx.globalAlpha *= alpha;
   ctx.translate(x, y);
@@ -93,6 +96,8 @@ export function paintProjectileFrameAlt(ctx, kind, frame, x, y, scale, alpha, fa
   if (!image) return paintProjectileFrame(ctx, kind, frame, x, y, scale, alpha, facing, angle);
   const w=spriteSpec.altWidth||image.naturalWidth||spriteSpec.cellW,h=(spriteSpec.altHeight||image.naturalHeight||spriteSpec.height)/spriteSpec.frames;
   const rect={sx:0,sy:(frame%spriteSpec.frames)*h,w,h};
+  const factor=Math.abs((spriteSpec.scale||1)*(scale||1)),pivot=spriteSpec.altAnchor||spriteSpec.anchor||{x:rect.w/2,y:rect.h/2};
+  if(!circleVisible(ctx,x,y,Math.hypot(Math.max(Math.abs(pivot.x),Math.abs(rect.w-pivot.x)),Math.max(Math.abs(pivot.y),Math.abs(rect.h-pivot.y)))*factor))return true;
   ctx.save();
   ctx.globalAlpha *= alpha;
   ctx.translate(x, y);

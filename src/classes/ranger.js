@@ -1,12 +1,12 @@
-import { beginAttack, kit } from './shared.js?v=26.0.5';
-import { beamWallDistance, fireChannelWeapon } from '../combat/beams.js?v=26.0.5';
-import { hitTarget } from '../combat/damage.js?v=26.0.5';
-import { possibleTargets } from '../combat/targets.js?v=26.0.5';
-import { audio } from '../core/audio.js?v=26.0.5';
-import { segmentDistance } from '../core/math.js?v=26.0.5';
-import { state } from '../core/state.js?v=26.0.5';
-import { muzzlePoint, weaponAim } from '../render/weapons.js?v=26.0.5';
-import { getSepulcherBlockers, traceSepulcherBeam } from '../combat/sepulcher-blocking.js?v=26.0.5';
+import { beginAttack, kit } from './shared.js?v=26.0.6';
+import { beamWallDistance, fireChannelWeapon } from '../combat/beams.js?v=26.0.6';
+import { hitTarget } from '../combat/damage.js?v=26.0.6';
+import { possibleTargets } from '../combat/targets.js?v=26.0.6';
+import { audio } from '../core/audio.js?v=26.0.6';
+import { segmentDistance } from '../core/math.js?v=26.0.6';
+import { state } from '../core/state.js?v=26.0.6';
+import { muzzlePoint, weaponAim } from '../render/weapons.js?v=26.0.6';
+import { getSepulcherBlockers, traceSepulcherBeam } from '../combat/sepulcher-blocking.js?v=26.0.6';
 
 
 function activateRanger(){

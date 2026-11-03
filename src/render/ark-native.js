@@ -1,6 +1,7 @@
-import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.0.5';
-import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.0.5';
-import { ctx } from '../core/dom.js?v=26.0.5';
+import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.0.6';
+import {circleVisible} from './visibility.js?v=26.0.6';
+import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.0.6';
+import { ctx } from '../core/dom.js?v=26.0.6';
 const images={};let loading;
 const vfxNames=['rip-texture','rip-layer','scissors-glow','heavy-smoke','thin-sparkle','light','bloom-line','bloom-cap','slice-line','pulse-ring','parry-bar-back','parry-bar-front'];
 export function initializeNativeArk(){
@@ -8,7 +9,7 @@ export function initializeNativeArk(){
  loading=Promise.all(['left','left-glow','right','right-glow','sparkle','trail-glow','swing-smear','swirl-smoke','projectile-streak','bloom-circle',...vfxNames].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
   const file=['sparkle','swing-smear','swirl-smoke','projectile-streak','bloom-circle'].includes(part)?part:'ark-'+part;
-  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.0.5',import.meta.url).href;
+  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.0.6',import.meta.url).href;
  }))).then(()=>nativeArkReady());return loading;
 }
 export function nativeArkReady(){return !!(images.left&&images['left-glow']&&images.right&&images['right-glow']);}
@@ -26,7 +27,7 @@ export function drawNativeScissors(x,y,angle,opening=0,scale=1,alpha=1){
  drawNativeArkBlade('left',x,y,scale,angle+Math.PI/4-opening,false,alpha,[32,86]);return true;
 }
 export function drawNativeArkSpark(x,y,scale=1,angle=0,alpha=1,color='#d8bfff',bloomScale=1){
- const image=images.sparkle;if(!image)return false;const bloom=arkEffectTexture('bloom-circle',color);
+ const image=images.sparkle;if(!image)return false;if(!circleVisible(ctx,x,y,Math.max(Math.hypot(image.width,image.height)*Math.abs(scale)/2,image.height*Math.abs(scale*bloomScale)/Math.SQRT2)))return true;const bloom=arkEffectTexture('bloom-circle',color);
  ctx.save();ctx.globalAlpha*=alpha;ctx.globalCompositeOperation='lighter';ctx.translate(x,y);
  if(bloom){const size=image.height*scale*bloomScale;ctx.save();ctx.globalAlpha*=.5;ctx.drawImage(bloom,-size/2,-size/2,size,size);ctx.restore();}
  ctx.rotate(angle);ctx.save();ctx.rotate(Math.PI/4);ctx.globalAlpha*=.5;const small=scale*.75;ctx.drawImage(image,-image.width*small/2,-image.height*small/2,image.width*small,image.height*small);ctx.restore();
@@ -65,6 +66,9 @@ export function arkFrameTexture(name,color,frame){
 export function drawNativeArkLight(x,y,sx,sy,angle,alpha,color){
  if(sx<=0||sy<=0||alpha<=0)return false;
  if(!images.light)return false;
+ const source=images.light,bloomSource=images['bloom-circle'];
+ const boundW=2*Math.ceil(Math.max((bloomSource?.width||0)*144/256,source.width*1.1)/2+2),boundH=2*Math.ceil(Math.max((bloomSource?.height||0)*144/256,source.height*1.1)/2+2);
+ if(!circleVisible(ctx,x,y,Math.hypot(boundW*sx,boundH*sy)/2))return true;
  const opacity=Math.round(Math.min(1,alpha*(typeof ctx.globalAlpha==='number'?ctx.globalAlpha:1))*128)/128;if(opacity<=0)return true;
  const key=effectColor(color)+'|'+opacity;let stamp=lightStamps.get(key);
  if(stamp){lightStamps.delete(key);lightStamps.set(key,stamp);}else{

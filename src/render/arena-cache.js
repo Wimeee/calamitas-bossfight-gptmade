@@ -1,11 +1,11 @@
-import {state} from '../core/state.js?v=26.0.5';
-import {cameraView} from '../world/camera.js?v=26.0.5';
-import {arena} from '../core/arena.js?v=26.0.5';
-import {ctx} from '../core/dom.js?v=26.0.5';
-import {W,H} from '../core/config.js?v=26.0.5';
-import {arenaColors} from '../world/arena-state.js?v=26.0.5';
-import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.5';
-import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.5';
+import {state} from '../core/state.js?v=26.0.6';
+import {cameraView} from '../world/camera.js?v=26.0.6';
+import {arena} from '../core/arena.js?v=26.0.6';
+import {ctx} from '../core/dom.js?v=26.0.6';
+import {W,H} from '../core/config.js?v=26.0.6';
+import {arenaColors} from '../world/arena-state.js?v=26.0.6';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.6';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.6';
 let field=null,mask=null;
 let backdrop=null,backdropSource=null,backdropKey='';
 function backdropRaster(image){

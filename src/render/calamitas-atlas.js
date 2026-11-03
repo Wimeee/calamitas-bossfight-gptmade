@@ -1,4 +1,4 @@
-import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=26.0.5';
+import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=26.0.6';
 const images=new Map();let ready=null;
 export const calamitasAssetStatus={state:'idle',loaded:0,failed:0};
 // Preserve the ready artwork while removing its additive black matte once.

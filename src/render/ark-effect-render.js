@@ -1,10 +1,12 @@
-import {ctx} from '../core/dom.js?v=26.0.5';
-import {settings} from '../core/settings.js?v=26.0.5';
-import {arkParticlePose} from '../systems/ark-effects.js?v=26.0.5';
-import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.0.5';
+import {ctx} from '../core/dom.js?v=26.0.6';
+import {circleVisible} from './visibility.js?v=26.0.6';
+import {settings} from '../core/settings.js?v=26.0.6';
+import {arkParticlePose} from '../systems/ark-effects.js?v=26.0.6';
+import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.0.6';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=frame?arkFrameTexture(name,color,frame):arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;
+ if(!circleVisible(ctx,x,y,Math.hypot((frame?80:texture.width)*sx,(frame?80:texture.height)*sy)/2))return;
  ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.globalAlpha*=Math.min(1,alpha);
  if(frame){ctx.drawImage(texture,-40*sx,-40*sy,80*sx,80*sy);}
  else ctx.drawImage(texture,-texture.width*sx/2,-texture.height*sy/2,texture.width*sx,texture.height*sy);

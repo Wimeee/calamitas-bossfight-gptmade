@@ -1,13 +1,13 @@
-import {initializeArenaAtlas} from '../render/arena-atlas.js?v=26.0.5';
-import {initializeHelperAtlas} from '../render/helper-atlas.js?v=26.0.5';
-import {initializeHUDAtlas} from '../render/hud-atlas.js?v=26.0.5';
-import {initializeCalamitasAtlas} from '../render/calamitas-atlas.js?v=26.0.5';
-import {initializeMeleeAtlas} from '../render/melee-atlas.js?v=26.0.5';
-import {initializeMinionAtlas} from '../render/minion-atlas.js?v=26.0.5';
-import {initializeEncounterProjectileAtlas} from '../render/encounter-projectiles-atlas.js?v=26.0.5';
-import {initializeWorldDecorationAtlas} from '../render/world-decorations.js?v=26.0.5';
-import {initializeAsgardianAtlas} from '../render/asgardian.js?v=26.0.5';
-import {warmNativeArkEffects} from '../render/ark-native.js?v=26.0.5';
+import {initializeArenaAtlas} from '../render/arena-atlas.js?v=26.0.6';
+import {initializeHelperAtlas} from '../render/helper-atlas.js?v=26.0.6';
+import {initializeHUDAtlas} from '../render/hud-atlas.js?v=26.0.6';
+import {initializeCalamitasAtlas} from '../render/calamitas-atlas.js?v=26.0.6';
+import {initializeMeleeAtlas} from '../render/melee-atlas.js?v=26.0.6';
+import {initializeMinionAtlas} from '../render/minion-atlas.js?v=26.0.6';
+import {initializeEncounterProjectileAtlas} from '../render/encounter-projectiles-atlas.js?v=26.0.6';
+import {initializeWorldDecorationAtlas} from '../render/world-decorations.js?v=26.0.6';
+import {initializeAsgardianAtlas} from '../render/asgardian.js?v=26.0.6';
+import {warmNativeArkEffects} from '../render/ark-native.js?v=26.0.6';
 let preparation;
 export const battlePreparationStatus={state:'idle',failed:0};
 export function prepareBattleAssets(){

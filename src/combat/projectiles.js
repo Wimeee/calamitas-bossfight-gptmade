@@ -1,23 +1,23 @@
-import {emitArkProjectileSmoke} from '../systems/ark-effects.js?v=26.0.5';
-import {movingPlayerDistance,projectileMotionPosition} from './motion-collision.js?v=26.0.5';
-import {emitProjectileMagic} from '../systems/projectile-effects.js?v=26.0.5';
-import {emitSeekerDeath} from '../systems/summon-effects.js?v=26.0.5';
-import {emitBrotherDeath} from '../systems/helper-effects.js?v=26.0.5';
-import {updateBrotherProjectile} from './brother-projectiles.js?v=26.0.5';
-import {breakHeartTendrils} from '../world/arena-state.js?v=26.0.5';
-import { projectileHexDuration } from './debuffs.js?v=26.0.5';
-import { spawnPickup } from '../game/pickups.js?v=26.0.5';
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=26.0.5';
-import { cosmicStarBurst } from '../classes/summoner.js?v=26.0.5';
-import { hitTarget, hurt } from './damage.js?v=26.0.5';
-import { nearestForHoming, possibleTargets } from './targets.js?v=26.0.5';
-import { arena } from '../core/arena.js?v=26.0.5';
-import { audio } from '../core/audio.js?v=26.0.5';
-import { TAU } from '../core/config.js?v=26.0.5';
-import { clamp, lerp, norm, rnd, segmentDistance } from '../core/math.js?v=26.0.5';
-import { state } from '../core/state.js?v=26.0.5';
-import { enter } from '../game/phases.js?v=26.0.5';
-import { getSepulcherBlockers, checkSepulcherCollision } from './sepulcher-blocking.js?v=26.0.5';
+import {emitArkProjectileSmoke} from '../systems/ark-effects.js?v=26.0.6';
+import {movingPlayerDistance,projectileMotionPosition} from './motion-collision.js?v=26.0.6';
+import {emitProjectileMagic} from '../systems/projectile-effects.js?v=26.0.6';
+import {emitSeekerDeath} from '../systems/summon-effects.js?v=26.0.6';
+import {emitBrotherDeath} from '../systems/helper-effects.js?v=26.0.6';
+import {updateBrotherProjectile} from './brother-projectiles.js?v=26.0.6';
+import {breakHeartTendrils} from '../world/arena-state.js?v=26.0.6';
+import { projectileHexDuration } from './debuffs.js?v=26.0.6';
+import { spawnPickup } from '../game/pickups.js?v=26.0.6';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=26.0.6';
+import { cosmicStarBurst } from '../classes/summoner.js?v=26.0.6';
+import { hitTarget, hurt } from './damage.js?v=26.0.6';
+import { nearestForHoming, possibleTargets } from './targets.js?v=26.0.6';
+import { arena } from '../core/arena.js?v=26.0.6';
+import { audio } from '../core/audio.js?v=26.0.6';
+import { TAU } from '../core/config.js?v=26.0.6';
+import { clamp, lerp, norm, rnd, segmentDistance } from '../core/math.js?v=26.0.6';
+import { state } from '../core/state.js?v=26.0.6';
+import { enter } from '../game/phases.js?v=26.0.6';
+import { getSepulcherBlockers, checkSepulcherCollision } from './sepulcher-blocking.js?v=26.0.6';
 
 
 

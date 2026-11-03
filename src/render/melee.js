@@ -1,10 +1,10 @@
-import { drawWarriorWeapon } from './warrior.js?v=26.0.5';
-import { arkAngle } from '../classes/melee.js?v=26.0.5';
-import { TAU } from '../core/config.js?v=26.0.5';
-import { ctx } from '../core/dom.js?v=26.0.5';
-import { clamp, lerp } from '../core/math.js?v=26.0.5';
-import { line, round, text } from './primitives.js?v=26.0.5';
-import { weaponAim } from './weapons.js?v=26.0.5';
+import { drawWarriorWeapon } from './warrior.js?v=26.0.6';
+import { arkAngle } from '../classes/melee.js?v=26.0.6';
+import { TAU } from '../core/config.js?v=26.0.6';
+import { ctx } from '../core/dom.js?v=26.0.6';
+import { clamp, lerp } from '../core/math.js?v=26.0.6';
+import { line, round, text } from './primitives.js?v=26.0.6';
+import { weaponAim } from './weapons.js?v=26.0.6';
 
 
 function drawArkBlade(x,y,a,length,side=1,alpha=1){

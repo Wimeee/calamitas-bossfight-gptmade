@@ -1,15 +1,15 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=26.0.5';
-import { playerConfig } from '../../config/player.js?v=26.0.5';
-import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=26.0.5';
-import { ctx } from '../core/dom.js?v=26.0.5';
-import { state } from '../core/state.js?v=26.0.5';
-import { settings } from '../core/settings.js?v=26.0.5';
-import { clamp } from '../core/math.js?v=26.0.5';
-import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=26.0.5';
-import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=26.0.5';
-import { line,round,text } from './primitives.js?v=26.0.5';
-import { drawNativeArmor } from './native-armor.js?v=26.0.5';
-import { drawWarriorTrail } from './warrior-trails.js?v=26.0.5';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=26.0.6';
+import { playerConfig } from '../../config/player.js?v=26.0.6';
+import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=26.0.6';
+import { ctx } from '../core/dom.js?v=26.0.6';
+import { state } from '../core/state.js?v=26.0.6';
+import { settings } from '../core/settings.js?v=26.0.6';
+import { clamp } from '../core/math.js?v=26.0.6';
+import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=26.0.6';
+import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=26.0.6';
+import { line,round,text } from './primitives.js?v=26.0.6';
+import { drawNativeArmor } from './native-armor.js?v=26.0.6';
+import { drawWarriorTrail } from './warrior-trails.js?v=26.0.6';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();

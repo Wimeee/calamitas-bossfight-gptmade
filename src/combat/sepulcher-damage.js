@@ -1,6 +1,6 @@
-import {ripperDamage,ripperCombat} from '../systems/rippers.js?v=26.0.5';
-import {segmentDistance} from '../core/math.js?v=26.0.5';
-import {audio} from '../core/audio.js?v=26.0.5';
+import {ripperDamage,ripperCombat} from '../systems/rippers.js?v=26.0.6';
+import {segmentDistance} from '../core/math.js?v=26.0.6';
+import {audio} from '../core/audio.js?v=26.0.6';
 // Pinned Calamity Sepulcher*.SetDefaults: DR=.999999f, unbreakableDR=true.
 // Arms have dontTakeDamage=true; all other segments share the head via realLife.
 const DAMAGE_MULTIPLIER=Math.fround(1-Math.fround(.999999));

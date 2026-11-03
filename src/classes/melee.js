@@ -1,17 +1,17 @@
-import {sampleArkEffects,emitArkReady,emitArkParry,emitArkHit,emitArkSnap,emitArkRipBurst,emitArkStitch} from '../systems/ark-effects.js?v=26.0.5';
-import {damageSepulcherArea,damageSepulcherWhere,sepulcherCapsuleHits} from '../combat/sepulcher-damage.js?v=26.0.5';
-import { arkAngle, arkSwingGeometry, arkParryGeometry } from './ark-motion.js?v=26.0.5';
-import { weapons } from './registry.js?v=26.0.5';
-import { beginAttack } from './shared.js?v=26.0.5';
-import { addShot } from '../combat/attacks.js?v=26.0.5';
-import { hitTarget } from '../combat/damage.js?v=26.0.5';
-import { possibleTargets } from '../combat/targets.js?v=26.0.5';
-import { audio } from '../core/audio.js?v=26.0.5';
-import { TAU } from '../core/config.js?v=26.0.5';
-import { clamp, dist, lerp, norm, segmentDistance } from '../core/math.js?v=26.0.5';
-import { state } from '../core/state.js?v=26.0.5';
-import { muzzlePoint, weaponAim } from '../render/weapons.js?v=26.0.5';
-import { getSepulcherBlockers, checkSepulcherCollision } from '../combat/sepulcher-blocking.js?v=26.0.5';
+import {sampleArkEffects,emitArkReady,emitArkParry,emitArkHit,emitArkSnap,emitArkRipBurst,emitArkStitch} from '../systems/ark-effects.js?v=26.0.6';
+import {damageSepulcherArea,damageSepulcherWhere,sepulcherCapsuleHits} from '../combat/sepulcher-damage.js?v=26.0.6';
+import { arkAngle, arkSwingGeometry, arkParryGeometry } from './ark-motion.js?v=26.0.6';
+import { weapons } from './registry.js?v=26.0.6';
+import { beginAttack } from './shared.js?v=26.0.6';
+import { addShot } from '../combat/attacks.js?v=26.0.6';
+import { hitTarget } from '../combat/damage.js?v=26.0.6';
+import { possibleTargets } from '../combat/targets.js?v=26.0.6';
+import { audio } from '../core/audio.js?v=26.0.6';
+import { TAU } from '../core/config.js?v=26.0.6';
+import { clamp, dist, lerp, norm, segmentDistance } from '../core/math.js?v=26.0.6';
+import { state } from '../core/state.js?v=26.0.6';
+import { muzzlePoint, weaponAim } from '../render/weapons.js?v=26.0.6';
+import { getSepulcherBlockers, checkSepulcherCollision } from '../combat/sepulcher-blocking.js?v=26.0.6';
 
 
 function arkHeld(){

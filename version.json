@@ -1,4 +1,4 @@
 {
-  "version": "26.0.5",
-  "notes": "Cache native arena backdrop scaling to reduce Firefox frame cost"
+  "version": "26.0.6",
+  "notes": "Skip fully offscreen native effects and projectile sprites"
 }
