@@ -1,4 +1,4 @@
 {
-  "version": "26.2.0",
-  "notes": "Add lighter60FPS mobile rendering, fix music phase streams, zoom desktop out15percent"
+  "version": "26.2.1",
+  "notes": "Zoom mobile camera in25percent for clearer bullet patterns"
 }

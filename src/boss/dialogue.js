@@ -1,4 +1,4 @@
-import {getLocale,registerTranslation} from '../core/localization.js?v=26.2.0';
+import {getLocale,registerTranslation} from '../core/localization.js?v=26.2.1';
 // Keys/text from installed Calamity2.2.4 en-US boss localization; Ukrainian translation.
 export const calamitasDialogue=Object.freeze({
  SCalSummonText:["Do you enjoy going through hell?","Тобі подобається проходити крізь пекло?"],

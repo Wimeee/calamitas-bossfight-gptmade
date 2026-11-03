@@ -1,5 +1,5 @@
-import {renderQuality} from '../core/settings.js?v=26.2.0';
-import { settings, subscribeSettings } from '../core/settings.js?v=26.2.0';
+import {renderQuality} from '../core/settings.js?v=26.2.1';
+import { settings, subscribeSettings } from '../core/settings.js?v=26.2.1';
 
 function createMenuBackground(canvas) {
   const ctx=canvas.getContext('2d');
