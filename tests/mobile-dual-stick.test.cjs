@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict');const {loadGame}=require('./helpers/fixture.cjs');
 test('mobile launch requests native fullscreen synchronously before resource waits',async()=>{
- const {t,sandbox}=await loadGame();let calls=0;sandbox.document.documentElement={requestFullscreen(options){calls++;assert.equal(options.navigationUI,'hide');return Promise.reject(Error('browser refuses'));}};
+ const {t,sandbox}=await loadGame();let calls=0;sandbox.document.documentElement={requestFullscreen(){calls++;return Promise.reject(Error('browser refuses'));}};
  t.updateSettings({device:'mobile'});const launched=t.launchBattle();assert.equal(calls,1,'request must stay in the initiating user gesture');await launched;assert.equal(t.state.deviceMode,'mobile');assert.equal(t.state.screen,'game');
 });
 test('upward movement stick jumps and holds wings; releasing it stops flying',async()=>{

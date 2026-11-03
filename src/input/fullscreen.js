@@ -1,6 +1,6 @@
-import { $, root } from '../core/dom.js?v=26.1.1';
-import { state } from '../core/state.js?v=26.1.1';
-import { resetTouchInput } from './mobile.js?v=26.1.1';
+import { $, root } from '../core/dom.js?v=26.1.2';
+import { state } from '../core/state.js?v=26.1.2';
+import { resetTouchInput } from './mobile.js?v=26.1.2';
 
 
 function setFocusMode(active){
@@ -18,15 +18,29 @@ function setFocusMode(active){
 
 
 let nativeActive=false;
+export const nativeFullscreenState={phase:'idle',error:''};
+const nativeElement=()=>document.fullscreenElement||document.webkitFullscreenElement;
+function syncNativeFullscreen(){const active=!!nativeElement();root.classList.toggle('native-fullscreen',active);root.dataset.fullscreenState=nativeFullscreenState.phase;return active;}
 function requestMobileFullscreen(){
-  const target=document.documentElement;
-  if(typeof target?.requestFullscreen!=='function')return Promise.resolve(false);
-  // Stay in the initiating tap, before waiting for resource preparation.
-  try{return Promise.resolve(target.requestFullscreen({navigationUI:'hide'})).then(()=>{
-    nativeActive=true;try{globalThis.screen?.orientation?.lock?.('landscape')?.catch?.(()=>{});}catch{}return true;
-  },()=>false);}catch{return Promise.resolve(false);}
+  if(nativeElement()){nativeFullscreenState.phase='active';syncNativeFullscreen();return Promise.resolve(true);}
+  const target=document.documentElement,request=target?.requestFullscreen||target?.webkitRequestFullscreen;
+  if(typeof request!=='function'){nativeFullscreenState.phase='unsupported';syncNativeFullscreen();return Promise.resolve(false);}
+  const failed=error=>{nativeFullscreenState.phase='denied';nativeFullscreenState.error=String(error?.message||error||'Fullscreen refused');syncNativeFullscreen();return false;};
+  nativeFullscreenState.phase='pending';nativeFullscreenState.error='';syncNativeFullscreen();
+  // Parameterless request also supports browsers which reject FullscreenOptions.
+  // Keep this synchronous with the trusted click; resource waits happen later.
+  try{return Promise.resolve(request.call(target)).then(()=>{
+    nativeActive=!!nativeElement();nativeFullscreenState.phase=nativeActive?'active':'idle';syncNativeFullscreen();
+    if(nativeActive)try{globalThis.screen?.orientation?.lock?.('landscape')?.catch?.(()=>{});}catch{}return nativeActive;
+  },failed);}catch(error){return Promise.resolve(failed(error));}
 }
 async function toggleFullscreen(){
+  if(state.deviceMode==='mobile'){
+    setFocusMode(true);
+    if(nativeElement())await(document.exitFullscreen||document.webkitExitFullscreen)?.call(document);
+    else await requestMobileFullscreen();
+    syncNativeFullscreen();return;
+  }
   if(root.classList.contains('focus-mode')){
     if(document.fullscreenElement)await document.exitFullscreen();
     setFocusMode(false);return;
@@ -40,10 +54,11 @@ async function toggleFullscreen(){
 function initializeFullscreen(){
   $('focus-exit').addEventListener('click',toggleFullscreen);
   $('fullscreen').addEventListener('click',toggleFullscreen);
-  document.addEventListener('fullscreenchange',()=>{
-    if(document.fullscreenElement===root||document.fullscreenElement&&document.fullscreenElement===document.documentElement)nativeActive=true;
-    else if(nativeActive){nativeActive=false;setFocusMode(false);}
-  });
+  const changed=()=>{const active=!!nativeElement();nativeFullscreenState.phase=active?'active':'idle';syncNativeFullscreen();
+    if(active)nativeActive=true;
+    else if(nativeActive){nativeActive=false;setFocusMode(state.deviceMode==='mobile'&&state.screen==='game');}
+  };
+  document.addEventListener('fullscreenchange',changed);document.addEventListener('webkitfullscreenchange',changed);
   window.addEventListener('keydown',e=>{
     if(e.code==='Escape'&&root.classList.contains('focus-mode')){
       if(document.fullscreenElement===root)document.exitFullscreen().catch(()=>{});

@@ -1,16 +1,16 @@
-import { weapons } from '../classes/registry.js?v=26.1.1';
-import { audio } from '../core/audio.js?v=26.1.1';
-import { VERSION } from '../core/config.js?v=26.1.1';
-import { $, root } from '../core/dom.js?v=26.1.1';
-import { state } from '../core/state.js?v=26.1.1';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.1.1';
-import { start,togglePause } from '../game/session.js?v=26.1.1';
-import { loop } from '../game/loop.js?v=26.1.1';
-import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=26.1.1';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.1.1';
-import { createMenuBackground } from '../render/menu-background.js?v=26.1.1';
-import { pixelArt } from '../render/sprites.js?v=26.1.1';
-import {prepareBattleAssets} from '../core/battle-assets.js?v=26.1.1';
+import { weapons } from '../classes/registry.js?v=26.1.2';
+import { audio } from '../core/audio.js?v=26.1.2';
+import { VERSION } from '../core/config.js?v=26.1.2';
+import { $, root } from '../core/dom.js?v=26.1.2';
+import { state } from '../core/state.js?v=26.1.2';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.1.2';
+import { start,togglePause } from '../game/session.js?v=26.1.2';
+import { loop } from '../game/loop.js?v=26.1.2';
+import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=26.1.2';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.1.2';
+import { createMenuBackground } from '../render/menu-background.js?v=26.1.2';
+import { pixelArt } from '../render/sprites.js?v=26.1.2';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=26.1.2';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -64,6 +64,7 @@ function launchBattle(){
 }
 async function resumeBattle(){
   if(!state.game||state.game.mode!=='paused')return;
+  if(state.deviceMode==='mobile')void requestMobileFullscreen();
   if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
   revealGame();togglePause();state.last=performance.now();
   if(state.deviceMode==='mobile')setFocusMode(true);

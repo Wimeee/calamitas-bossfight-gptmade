@@ -1,18 +1,18 @@
-import {prepareBattleAssets} from './core/battle-assets.js?v=26.1.1';
-import {initializeLocalization} from './core/localization.js?v=26.1.1';
-import { initializeViewport } from './world/viewport.js?v=26.1.1';
-import { initializeMenu } from './ui/menu.js?v=26.1.1';
-import { configureArena } from './core/arena.js?v=26.1.1';
-import { MOBILE_CONTROLS_ENABLED } from './core/settings.js?v=26.1.1';
-import { VERSION } from './core/config.js?v=26.1.1';
-import { $, root } from './core/dom.js?v=26.1.1';
-import { initializeDesktop } from './input/desktop.js?v=26.1.1';
-import { initializeFullscreen } from './input/fullscreen.js?v=26.1.1';
-import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=26.1.1';
-import { draw } from './render/scene.js?v=26.1.1';
-import { initializeSprites } from './render/sprites.js?v=26.1.1';
-import { initializeControls } from './ui/controls.js?v=26.1.1';
-import { initializeUpdates } from './ui/updates.js?v=26.1.1';
+import {prepareBattleAssets} from './core/battle-assets.js?v=26.1.2';
+import {initializeLocalization} from './core/localization.js?v=26.1.2';
+import { initializeViewport } from './world/viewport.js?v=26.1.2';
+import { initializeMenu } from './ui/menu.js?v=26.1.2';
+import { configureArena } from './core/arena.js?v=26.1.2';
+import { MOBILE_CONTROLS_ENABLED } from './core/settings.js?v=26.1.2';
+import { VERSION } from './core/config.js?v=26.1.2';
+import { $, root } from './core/dom.js?v=26.1.2';
+import { initializeDesktop } from './input/desktop.js?v=26.1.2';
+import { initializeFullscreen } from './input/fullscreen.js?v=26.1.2';
+import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=26.1.2';
+import { draw } from './render/scene.js?v=26.1.2';
+import { initializeSprites } from './render/sprites.js?v=26.1.2';
+import { initializeControls } from './ui/controls.js?v=26.1.2';
+import { initializeUpdates } from './ui/updates.js?v=26.1.2';
 
 
 function initializeGame(){

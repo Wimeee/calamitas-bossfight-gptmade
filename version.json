@@ -1,4 +1,4 @@
 {
-  "version": "26.1.1",
-  "notes": "Replace mobile button panel with dual sticks and native fullscreen launch"
+  "version": "26.1.2",
+  "notes": "Fix mobile native fullscreen retry and resume gesture handling"
 }

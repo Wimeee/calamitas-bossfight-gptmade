@@ -1,7 +1,7 @@
-import { state } from '../core/state.js?v=26.1.1';
-import { update } from './update.js?v=26.1.1';
-import { draw } from '../render/scene.js?v=26.1.1';
-import { updateFPSCounter } from '../ui/fps.js?v=26.1.1';
+import { state } from '../core/state.js?v=26.1.2';
+import { update } from './update.js?v=26.1.2';
+import { draw } from '../render/scene.js?v=26.1.2';
+import { updateFPSCounter } from '../ui/fps.js?v=26.1.2';
 
 
 function loop(now){

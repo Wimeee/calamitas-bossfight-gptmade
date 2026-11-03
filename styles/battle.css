@@ -138,6 +138,10 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game.focus-mode.mobile [data-mobile-action="rage"]:disabled,#scal-game.focus-mode.mobile [data-mobile-action="adrenaline"]:disabled{visibility:hidden}
 #scal-game.focus-mode.mobile [data-mobile-action="pause"]{top:6px;right:8px;width:32px;height:32px!important;min-height:32px!important}
 #scal-game.focus-mode.mobile [data-mobile-action="pause"]::after{content:'Ⅱ';font-size:14px}
+#scal-game.focus-mode.mobile .mobile-actions [data-mobile-action="fullscreen"]{display:block;top:6px;right:48px;width:32px;height:32px!important;min-height:32px!important}
+#scal-game.focus-mode.mobile .mobile-actions [data-mobile-action="fullscreen"]::after{content:'⛶';font-size:18px}
+#scal-game.focus-mode.mobile.native-fullscreen .mobile-actions [data-mobile-action="fullscreen"]{display:none}
+#scal-game.focus-mode.mobile[data-fullscreen-state="denied"] .mobile-actions [data-mobile-action="fullscreen"]{opacity:1;border-color:#efbf76}
 #scal-game.focus-mode.mobile #return-menu{top:6px;left:8px;padding:5px 8px;min-height:28px;font-size:9px;opacity:.6}
 #scal-game.mobile .fps-counter{left:50%;top:6px;bottom:auto;transform:translateX(-50%);font-size:9px;padding:2px 5px;border:0;background:transparent;opacity:.5}
 @media(max-width:500px){#scal-game.focus-mode.mobile [data-mobile-action="rage"],#scal-game.focus-mode.mobile [data-mobile-action="adrenaline"]{bottom:172px}}
