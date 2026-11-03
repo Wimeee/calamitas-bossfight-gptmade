@@ -1,4 +1,4 @@
 {
-  "version": "26.0.2",
-  "notes": "Restore centered Terraria-inspired title menu"
+  "version": "26.0.3",
+  "notes": "Combat render optimization and optional current/minimum FPS counter"
 }

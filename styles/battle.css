@@ -117,3 +117,5 @@ body:not(.menu-open) #site-version-tag{display:none}
 /* Arena view uses the full desktop surface; its backing size follows the viewport. */
 #scal-game.focus-mode:not(.mobile) .status,#scal-game.focus-mode:not(.mobile) .quick{display:none}
 #scal-game.focus-mode:not(.mobile) canvas{object-fit:fill}
+
+#scal-game .fps-counter{position:fixed;z-index:10005;left:14px;bottom:24px;padding:6px 9px;border:1px solid #bca69538;border-radius:3px;background:#100b14d9;color:#f3ddbc;font:12px/1.5 ui-monospace,Consolas,monospace;pointer-events:none;font-variant-numeric:tabular-nums}#scal-game .fps-counter[hidden]{display:none!important}

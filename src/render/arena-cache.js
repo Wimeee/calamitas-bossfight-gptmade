@@ -1,11 +1,11 @@
-import {state} from '../core/state.js?v=26.0.2';
-import {cameraView} from '../world/camera.js?v=26.0.2';
-import {arena} from '../core/arena.js?v=26.0.2';
-import {ctx} from '../core/dom.js?v=26.0.2';
-import {W,H} from '../core/config.js?v=26.0.2';
-import {arenaColors} from '../world/arena-state.js?v=26.0.2';
-import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.2';
-import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.2';
+import {state} from '../core/state.js?v=26.0.3';
+import {cameraView} from '../world/camera.js?v=26.0.3';
+import {arena} from '../core/arena.js?v=26.0.3';
+import {ctx} from '../core/dom.js?v=26.0.3';
+import {W,H} from '../core/config.js?v=26.0.3';
+import {arenaColors} from '../world/arena-state.js?v=26.0.3';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=26.0.3';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=26.0.3';
 let field=null,mask=null;
 function surface(){return document.createElement('canvas');}
 function ensureSurfaces(){

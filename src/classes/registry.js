@@ -1,10 +1,10 @@
-import { activateMage, attackMage, updateMage } from './mage.js?v=26.0.2';
-import { arkAbility, attackMelee, updateSword } from './melee.js?v=26.0.2';
-import { activateRanger, attackRanger, updateRanger } from './ranger.js?v=26.0.2';
-import { activateRogue, attackRogue, updateRogue } from './rogue.js?v=26.0.2';
-import { activateSummoner, attackSummoner, updateCosmic } from './summoner.js?v=26.0.2';
+import { activateMage, attackMage, updateMage } from './mage.js?v=26.0.3';
+import { arkAbility, attackMelee, updateSword } from './melee.js?v=26.0.3';
+import { activateRanger, attackRanger, updateRanger } from './ranger.js?v=26.0.3';
+import { activateRogue, attackRogue, updateRogue } from './rogue.js?v=26.0.3';
+import { activateSummoner, attackSummoner, updateCosmic } from './summoner.js?v=26.0.3';
 
-import { weapons } from '../../config/classes.js?v=26.0.2';
+import { weapons } from '../../config/classes.js?v=26.0.3';
 
 const classRegistry={
   melee:{attack:attackMelee,activate:arkAbility,updateCombat:updateSword},

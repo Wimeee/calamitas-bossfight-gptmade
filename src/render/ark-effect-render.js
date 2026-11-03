@@ -1,7 +1,7 @@
-import {ctx} from '../core/dom.js?v=26.0.2';
-import {settings} from '../core/settings.js?v=26.0.2';
-import {arkParticlePose} from '../systems/ark-effects.js?v=26.0.2';
-import {arkEffectTexture,drawNativeArkSpark,drawNativeRipMask} from './ark-native.js?v=26.0.2';
+import {ctx} from '../core/dom.js?v=26.0.3';
+import {settings} from '../core/settings.js?v=26.0.3';
+import {arkParticlePose} from '../systems/ark-effects.js?v=26.0.3';
+import {arkEffectTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.0.3';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;
@@ -27,8 +27,7 @@ export function drawArkEffects(g,layer='front'){
    image('thin-sparkle',a.x,a.y,sx,sy,a.rotation,a.alpha,p.color);
   }else if(p.kind==='light'){
    const squish=Math.max(1,Math.min(p.maxSquish||3,Math.hypot(a.vx,a.vy)/10*(p.squish||1))),sx=a.scale*(1-squish*.3),sy=a.scale*squish,angle=Math.atan2(a.vy,a.vx)+Math.PI/2;
-   image('bloom-circle',a.x,a.y,sx*2*72/256,sy*2*72/256,angle,a.alpha*.8,color);
-   image('light',a.x,a.y,sx*1.1,sy*1.1,angle,a.alpha*.8,color);image('light',a.x,a.y,sx,sy,angle,a.alpha*.9);
+   drawNativeArkLight(a.x,a.y,sx,sy,angle,a.alpha,color);
   }else if(p.kind==='bloom')image('bloom-circle',a.x,a.y,a.scale,a.scale,0,Math.sin(a.u*Math.PI),p.color);
   else if(p.kind==='pulse'){const scale=p.scale+(p.endScale-p.scale)*(1-Math.pow(1-a.u,4));image('pulse-ring',a.x,a.y,scale,scale,0,Math.pow(Math.cos(a.u*Math.PI/2),2),p.color);}
   else if(p.kind==='slice'){

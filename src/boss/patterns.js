@@ -1,8 +1,8 @@
-import { enemyBullet } from '../combat/projectiles.js?v=26.0.2';
-import { arena } from '../core/arena.js?v=26.0.2';
-import { TAU } from '../core/config.js?v=26.0.2';
-import { clamp } from '../core/math.js?v=26.0.2';
-import { state } from '../core/state.js?v=26.0.2';
+import { enemyBullet } from '../combat/projectiles.js?v=26.0.3';
+import { arena } from '../core/arena.js?v=26.0.3';
+import { TAU } from '../core/config.js?v=26.0.3';
+import { clamp } from '../core/math.js?v=26.0.3';
+import { state } from '../core/state.js?v=26.0.3';
 
 
 function updateExtraPatterns(dt){

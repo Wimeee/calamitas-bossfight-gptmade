@@ -1,18 +1,18 @@
-import { activateRipper } from '../systems/rippers.js?v=26.0.2';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.0.2';
-import { queueJump } from '../game/movement.js?v=26.0.2';
-import { releaseArk } from '../classes/melee.js?v=26.0.2';
-import { classAbility } from '../classes/shared.js?v=26.0.2';
-import { markCosmicTarget } from '../classes/summoner.js?v=26.0.2';
-import { shoot } from '../combat/attacks.js?v=26.0.2';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.0.2';
-import { possibleTargets } from '../combat/targets.js?v=26.0.2';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=26.0.2';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.0.2';
-import { $, canvas, root } from '../core/dom.js?v=26.0.2';
-import { clamp, norm } from '../core/math.js?v=26.0.2';
-import { state } from '../core/state.js?v=26.0.2';
-import { togglePause } from '../game/session.js?v=26.0.2';
+import { activateRipper } from '../systems/rippers.js?v=26.0.3';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.0.3';
+import { queueJump } from '../game/movement.js?v=26.0.3';
+import { releaseArk } from '../classes/melee.js?v=26.0.3';
+import { classAbility } from '../classes/shared.js?v=26.0.3';
+import { markCosmicTarget } from '../classes/summoner.js?v=26.0.3';
+import { shoot } from '../combat/attacks.js?v=26.0.3';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.0.3';
+import { possibleTargets } from '../combat/targets.js?v=26.0.3';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=26.0.3';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.0.3';
+import { $, canvas, root } from '../core/dom.js?v=26.0.3';
+import { clamp, norm } from '../core/math.js?v=26.0.3';
+import { state } from '../core/state.js?v=26.0.3';
+import { togglePause } from '../game/session.js?v=26.0.3';
 
 let mobileAimTouch=null;
 

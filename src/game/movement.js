@@ -1,10 +1,10 @@
-import {moveAsgardianDash,endAsgardianDash} from './asgardian-dash.js?v=26.0.2';
-import { movementConfig as config } from '../../config/movement.js?v=26.0.2';
-import { playerConfig } from '../../config/player.js?v=26.0.2';
-import { arena } from '../core/arena.js?v=26.0.2';
-import { state } from '../core/state.js?v=26.0.2';
-import { clamp } from '../core/math.js?v=26.0.2';
-import { getTerrain } from '../world/terrain.js?v=26.0.2';
+import {moveAsgardianDash,endAsgardianDash} from './asgardian-dash.js?v=26.0.3';
+import { movementConfig as config } from '../../config/movement.js?v=26.0.3';
+import { playerConfig } from '../../config/player.js?v=26.0.3';
+import { arena } from '../core/arena.js?v=26.0.3';
+import { state } from '../core/state.js?v=26.0.3';
+import { clamp } from '../core/math.js?v=26.0.3';
+import { getTerrain } from '../world/terrain.js?v=26.0.3';
 
 const approach=(value,target,amount)=>value<target?Math.min(target,value+amount):Math.max(target,value-amount);
 // Source wing ascent bonuses operate in native pixels/tick; config converts to pixels/second.

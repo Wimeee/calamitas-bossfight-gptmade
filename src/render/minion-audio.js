@@ -1,5 +1,5 @@
-import { settings, subscribeSettings } from '../core/settings.js?v=26.0.2';
-import { state } from '../core/state.js?v=26.0.2';
+import { settings, subscribeSettings } from '../core/settings.js?v=26.0.3';
+import { state } from '../core/state.js?v=26.0.3';
 
 // Minion/encounter SFX config - only real sounds from assets/calamitas/encounter/Sounds/
 // Reuses the same AudioContext/gain/voice lifecycle as calamitas-audio

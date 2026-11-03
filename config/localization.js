@@ -1,5 +1,7 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+["Найнижчий FPS","Lowest FPS"],
+["Показувати FPS і найнижчий FPS","Show FPS and lowest FPS"],
 ["Підійди до вівтаря","Approach the altar"],
 ["Підійди до вівтаря та натисни E / Enter або кнопку виклику.","Approach the altar and press E / Enter or the summon button."],
 ["Менша арена · Посилені вибухи · Повернення брата","Smaller arena · Stronger bursts · Brother resurrection"],

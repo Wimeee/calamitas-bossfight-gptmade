@@ -1,6 +1,6 @@
-import {asgardianConfig as c} from '../../config/asgardian.js?v=26.0.2';
-import {movementConfig} from '../../config/movement.js?v=26.0.2';
-import {emitAsgardianTrail} from '../systems/asgardian-effects.js?v=26.0.2';
+import {asgardianConfig as c} from '../../config/asgardian.js?v=26.0.3';
+import {movementConfig} from '../../config/movement.js?v=26.0.3';
+import {emitAsgardianTrail} from '../systems/asgardian-effects.js?v=26.0.3';
 const TICK=1/60;
 function runSpeed(p){return p.grounded?movementConfig.runSpeed:movementConfig.airSpeed;}
 function remaining(speed,limit,phase=0){let ticks=0;while(speed>limit&&ticks<120){speed*=speed>c.fastThreshold?c.fastDecay:c.slowDecay;ticks++;}return Math.max(TICK-phase,ticks*TICK-phase);}

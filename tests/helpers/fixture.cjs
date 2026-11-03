@@ -20,7 +20,7 @@ async function loadGame(options = {}) {
     elements.set(id, element);
     return element;
   }
-  const document = {getElementById: el, querySelector: selector => el(selector.replace('#', '')), createElement: () => el('canvas' + elements.size), addEventListener: noop, body: el('body')};
+  const document = {listeners:{},getElementById: el, querySelector: selector => el(selector.replace('#', '')), createElement: () => el('canvas' + elements.size), addEventListener(type,listener){(this.listeners[type]??=[]).push(listener);}, body: el('body')};
   el('scal-game').querySelector = selector => el(selector.replace('#', ''));
   const window = {listeners: {}, addEventListener(type, listener) { (this.listeners[type] ??= []).push(listener); }, matchMedia: () => ({matches: false}), scrollTo: noop};
   if (options.Audio) window.Audio = options.Audio;

@@ -2,7 +2,7 @@
 const MOBILE_CONTROLS_ENABLED = false;
 const STORAGE_KEY = 'utbg_settings_v1';
 const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ',rage:'KeyC',adrenaline:'KeyV'});
-const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:true,touchScale:1,doubleTapDash:true});
+const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:true,touchScale:1,doubleTapDash:true});
 const listeners = new Set();
 function cleanSettings(value = {}) {
   const number = (name, fallback) => typeof value[name] === 'number' && Number.isFinite(value[name]) ? Math.max(0,Math.min(1,value[name])) : fallback;
@@ -28,6 +28,7 @@ function cleanSettings(value = {}) {
     musicEnabled:typeof value.musicEnabled==='boolean'?value.musicEnabled:defaults.musicEnabled,
     quality:['low','high','ultra'].includes(value.quality)?value.quality:defaults.quality,
     screenShake:typeof value.screenShake==='boolean'?value.screenShake:defaults.screenShake,
+    showFPS:typeof value.showFPS==='boolean'?value.showFPS:defaults.showFPS,
     device:!MOBILE_CONTROLS_ENABLED?'desktop':['auto','desktop','mobile'].includes(value.device)?value.device:defaults.device,
     autoAim:typeof value.autoAim==='boolean'?value.autoAim:defaults.autoAim,
     doubleTapDash:typeof value.doubleTapDash==='boolean'?value.doubleTapDash:defaults.doubleTapDash,

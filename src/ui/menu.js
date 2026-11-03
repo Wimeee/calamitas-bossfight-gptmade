@@ -1,15 +1,15 @@
-import { weapons } from '../classes/registry.js?v=26.0.2';
-import { audio } from '../core/audio.js?v=26.0.2';
-import { VERSION } from '../core/config.js?v=26.0.2';
-import { $, root } from '../core/dom.js?v=26.0.2';
-import { state } from '../core/state.js?v=26.0.2';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.2';
-import { start,togglePause } from '../game/session.js?v=26.0.2';
-import { loop } from '../game/loop.js?v=26.0.2';
-import { setFocusMode } from '../input/fullscreen.js?v=26.0.2';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.2';
-import { createMenuBackground } from '../render/menu-background.js?v=26.0.2';
-import { pixelArt } from '../render/sprites.js?v=26.0.2';
+import { weapons } from '../classes/registry.js?v=26.0.3';
+import { audio } from '../core/audio.js?v=26.0.3';
+import { VERSION } from '../core/config.js?v=26.0.3';
+import { $, root } from '../core/dom.js?v=26.0.3';
+import { state } from '../core/state.js?v=26.0.3';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.3';
+import { start,togglePause } from '../game/session.js?v=26.0.3';
+import { loop } from '../game/loop.js?v=26.0.3';
+import { setFocusMode } from '../input/fullscreen.js?v=26.0.3';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.3';
+import { createMenuBackground } from '../render/menu-background.js?v=26.0.3';
+import { pixelArt } from '../render/sprites.js?v=26.0.3';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -65,7 +65,7 @@ function syncSettings(){
   byId('mobile-settings').disabled=!MOBILE_CONTROLS_ENABLED;
   byId('setting-device').disabled=!MOBILE_CONTROLS_ENABLED;
   for(const [id,value] of Object.entries({'setting-sfx':settings.sfxVolume*100,'setting-music':settings.musicVolume*100,'setting-quality':settings.quality,'setting-device':settings.device,'setting-touch-scale':settings.touchScale}))byId(id).value=String(value);
-  for(const [id,value]of Object.entries({'setting-sfx-enabled':settings.sfxEnabled,'setting-music-enabled':settings.musicEnabled,'setting-shake':settings.screenShake,'setting-doubletap':settings.doubleTapDash,'setting-autoaim':settings.autoAim}))byId(id).checked=value;
+  for(const [id,value]of Object.entries({'setting-sfx-enabled':settings.sfxEnabled,'setting-music-enabled':settings.musicEnabled,'setting-shake':settings.screenShake,'setting-fps':settings.showFPS,'setting-doubletap':settings.doubleTapDash,'setting-autoaim':settings.autoAim}))byId(id).checked=value;
   byId('setting-sfx-value').textContent=Math.round(settings.sfxVolume*100)+'%';
   byId('setting-music-value').textContent=Math.round(settings.musicVolume*100)+'%';
   byId('menu-keybindings').innerHTML=Object.entries(bindingLabels).map(([name,label])=>`<div class="binding-row"><span>${label}</span><button class="binding-key ${model.listening===name?'listening':''}" data-binding="${name}">${model.listening===name?'…':keyLabel(settings.bindings[name])}</button></div>`).join('');
@@ -96,7 +96,7 @@ function initializeMenu(){
   byId('return-menu').addEventListener('click',()=>showMenu());
   const values={'setting-sfx':['sfxVolume',v=>Number(v)/100],'setting-music':['musicVolume',v=>Number(v)/100],'setting-quality':['quality',String],'setting-device':['device',String],'setting-touch-scale':['touchScale',Number]};
   for(const [id,[name,convert]]of Object.entries(values))byId(id).addEventListener(id.includes('sfx')||id==='setting-music'?'input':'change',e=>{audio.init();updateSettings({[name]:convert(e.target.value)});});
-  for(const [id,name]of Object.entries({'setting-sfx-enabled':'sfxEnabled','setting-music-enabled':'musicEnabled','setting-shake':'screenShake','setting-doubletap':'doubleTapDash','setting-autoaim':'autoAim'}))byId(id).addEventListener('change',e=>{audio.init();updateSettings({[name]:e.target.checked});});
+  for(const [id,name]of Object.entries({'setting-sfx-enabled':'sfxEnabled','setting-music-enabled':'musicEnabled','setting-shake':'screenShake','setting-fps':'showFPS','setting-doubletap':'doubleTapDash','setting-autoaim':'autoAim'}))byId(id).addEventListener('change',e=>{audio.init();updateSettings({[name]:e.target.checked});});
   byId('menu-reset-settings').addEventListener('click',()=>{model.listening=null;resetSettings();audio.fx('menu');});
   byId('menu-keybindings').addEventListener('click',e=>{
     const button=e.target.closest?.('[data-binding]');if(!button)return;model.listening=button.dataset.binding;syncSettings();
