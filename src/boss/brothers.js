@@ -1,6 +1,6 @@
-import {audio} from '../core/audio.js?v=26.1.0';
-import {rnd} from '../core/math.js?v=26.1.0';
-import {spawnBrotherProjectile} from '../combat/brother-projectiles.js?v=26.1.0';
+import {audio} from '../core/audio.js?v=26.1.1';
+import {rnd} from '../core/math.js?v=26.1.1';
+import {spawnBrotherProjectile} from '../combat/brother-projectiles.js?v=26.1.1';
 const clamp=n=>Math.max(0,Math.min(1,n)),lerp=(a,b,t)=>a+(b-a)*t,remap=(n,a,b,c,d)=>lerp(c,d,clamp((n-a)/(b-a)));
 const roundEven=n=>Math.abs(n-Math.floor(n)-.5)<1e-10?(Math.floor(n)%2?Math.ceil(n):Math.floor(n)):Math.round(n);
 function direction(x,y){const d=Math.hypot(x,y)||1;return{x:x/d,y:y/d};}

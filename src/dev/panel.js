@@ -1,7 +1,7 @@
-import {state} from '../core/state.js?v=26.1.0';
-import {launchBattle} from '../ui/menu.js?v=26.1.0';
-import {start,togglePause} from '../game/session.js?v=26.1.0';
-import {configureDebugScenario} from './scenarios.js?v=26.1.0';
+import {state} from '../core/state.js?v=26.1.1';
+import {launchBattle} from '../ui/menu.js?v=26.1.1';
+import {start,togglePause} from '../game/session.js?v=26.1.1';
+import {configureDebugScenario} from './scenarios.js?v=26.1.1';
 
 const panel=document.createElement('aside');
 panel.style.cssText='position:fixed;z-index:100000;top:80px;left:12px;max-width:340px;padding:10px;background:#170f1fed;color:#fff;border:1px solid #ba789c;font:13px sans-serif;border-radius:6px';

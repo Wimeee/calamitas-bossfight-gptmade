@@ -1,18 +1,18 @@
-import { activateRipper } from '../systems/rippers.js?v=26.1.0';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.1.0';
-import { queueJump } from '../game/movement.js?v=26.1.0';
-import { releaseArk } from '../classes/melee.js?v=26.1.0';
-import { classAbility } from '../classes/shared.js?v=26.1.0';
-import { markCosmicTarget } from '../classes/summoner.js?v=26.1.0';
-import { shoot } from '../combat/attacks.js?v=26.1.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.1.0';
-import { possibleTargets } from '../combat/targets.js?v=26.1.0';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=26.1.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.0';
-import { $, canvas, root } from '../core/dom.js?v=26.1.0';
-import { clamp, norm } from '../core/math.js?v=26.1.0';
-import { state } from '../core/state.js?v=26.1.0';
-import { togglePause } from '../game/session.js?v=26.1.0';
+import { activateRipper } from '../systems/rippers.js?v=26.1.1';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.1.1';
+import { queueJump } from '../game/movement.js?v=26.1.1';
+import { releaseArk } from '../classes/melee.js?v=26.1.1';
+import { classAbility } from '../classes/shared.js?v=26.1.1';
+import { markCosmicTarget } from '../classes/summoner.js?v=26.1.1';
+import { shoot } from '../combat/attacks.js?v=26.1.1';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.1.1';
+import { possibleTargets } from '../combat/targets.js?v=26.1.1';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=26.1.1';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.1';
+import { $, canvas, root } from '../core/dom.js?v=26.1.1';
+import { clamp, norm } from '../core/math.js?v=26.1.1';
+import { state } from '../core/state.js?v=26.1.1';
+import { togglePause } from '../game/session.js?v=26.1.1';
 
 let mobileAimTouch=null;
 
@@ -65,7 +65,8 @@ function stickSetup(id,axisName){
     if(axisName==='move')state.moveAxis={x,y};else
     {
       state.aimAxis={x,y};
-      state.aimHeld=Math.hypot(x,y)>.14
+      state.aimHeld=Math.hypot(x,y)>.14;
+      if(state.aimHeld&&state.mobileAutoAim){state.mobileAutoAim=false;updateSettings({autoAim:false});updateMobileLabels();}
     }
   };
   const clear=()=>{
@@ -103,6 +104,7 @@ function stickSetup(id,axisName){
   };
   el.addEventListener('pointerup',end);
   el.addEventListener('pointercancel',end);
+  el.addEventListener('lostpointercapture',end);
   // iPhone / embedded WebKit fallback: touch events keep both joysticks independent.
   el.addEventListener('touchstart',e=>{
       if(state.deviceMode!=='mobile')return;
@@ -192,7 +194,7 @@ function setDeviceMode(mode){
   root.classList.toggle('mobile',state.deviceMode==='mobile');
   $('device').value=state.deviceMode;
   resetTouchInput();
-  $('overlaydesc').textContent=state.deviceMode==='mobile'?'📱 Стік — біг / спуск. Окремі кнопки стрибка, крил і ривка. Автоприціл і стрільба увімкнені. Торкайся арени для ручного прицілу. Самонер: 4 міньйони та хлист. Краще грати горизонтально.':'💻 '+controlHint();
+  $('overlaydesc').textContent=state.deviceMode==='mobile'?'Лівий стік — рух, вгору — стрибок і політ, вниз — спуск. Правий — приціл і атака. Відпусти його для змикання Арка.':'💻 '+controlHint();
   try{
     localStorage.setItem('calamitas_device_mode',state.deviceMode)
   }catch(_){
@@ -270,6 +272,7 @@ function initializeMobile(){
           activeId=null;
           release()
       });
+      b.addEventListener('lostpointercapture',e=>{if(activeId!==e.pointerId)return;activeId=null;release();});
       b.addEventListener('touchstart',e=>{
           if(state.deviceMode!=='mobile')return;
           e.preventDefault();

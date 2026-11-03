@@ -1,4 +1,4 @@
-import {addCalamitasEffect as add,calamitasVisualRandom as random} from './calamitas-effects.js?v=26.1.0';
+import {addCalamitasEffect as add,calamitasVisualRandom as random} from './calamitas-effects.js?v=26.1.1';
 export function emitProjectileMagic(g,q,event){
  const giga=q.kind==='giga',opacity=q.opacity??1;
  if(event==='bloom'){const left=q.nativeLife;if(left===30)for(let i=0;i<2;i++)add(g,{kind:'bloom',x:q.x,y:q.y,vx:0,vy:0,start:.1,end:giga?.85:.7,life:30,color:'#79154d'});if(left===15||left===8)add(g,{kind:'bloom',x:q.x,y:q.y,vx:0,vy:0,start:.1,end:left===15?(giga?.8:.65):(giga?.7:.5),life:left,color:left===15?'#ff2020':'#ffffff'});return;}

@@ -1,8 +1,8 @@
-// Temporary desktop-only development build. Flip this flag to restore mobile UI/input.
+// Touch input is available on phones; desktop input remains selected for fine pointers.
 const MOBILE_CONTROLS_ENABLED = true;
 const STORAGE_KEY = 'utbg_settings_v1';
 const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ',rage:'KeyC',adrenaline:'KeyV'});
-const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:true,touchScale:1,doubleTapDash:true});
+const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:false,touchScale:1,doubleTapDash:true});
 const listeners = new Set();
 function cleanSettings(value = {}) {
   const number = (name, fallback) => typeof value[name] === 'number' && Number.isFinite(value[name]) ? Math.max(0,Math.min(1,value[name])) : fallback;
@@ -47,6 +47,7 @@ function readSettings() {
       localStorage.setItem(STORAGE_KEY,JSON.stringify(result));
       localStorage.setItem(migrationKey,'1');
     }
+    if(localStorage.getItem("utbg_dual_stick_v1")!=="1"){result.autoAim=false;localStorage.setItem(STORAGE_KEY,JSON.stringify(result));localStorage.setItem("utbg_dual_stick_v1","1");}
     return result;
   } catch { return cleanSettings(); }
 }

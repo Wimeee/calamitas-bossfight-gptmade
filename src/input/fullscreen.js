@@ -1,6 +1,6 @@
-import { $, root } from '../core/dom.js?v=26.1.0';
-import { state } from '../core/state.js?v=26.1.0';
-import { resetTouchInput } from './mobile.js?v=26.1.0';
+import { $, root } from '../core/dom.js?v=26.1.1';
+import { state } from '../core/state.js?v=26.1.1';
+import { resetTouchInput } from './mobile.js?v=26.1.1';
 
 
 function setFocusMode(active){
@@ -18,13 +18,22 @@ function setFocusMode(active){
 
 
 let nativeActive=false;
+function requestMobileFullscreen(){
+  const target=document.documentElement;
+  if(typeof target?.requestFullscreen!=='function')return Promise.resolve(false);
+  // Stay in the initiating tap, before waiting for resource preparation.
+  try{return Promise.resolve(target.requestFullscreen({navigationUI:'hide'})).then(()=>{
+    nativeActive=true;try{globalThis.screen?.orientation?.lock?.('landscape')?.catch?.(()=>{});}catch{}return true;
+  },()=>false);}catch{return Promise.resolve(false);}
+}
 async function toggleFullscreen(){
   if(root.classList.contains('focus-mode')){
-    if(document.fullscreenElement===root)await document.exitFullscreen();
+    if(document.fullscreenElement)await document.exitFullscreen();
     setFocusMode(false);return;
   }
   setFocusMode(true);
-  if(state.deviceMode!=='mobile'&&typeof root.requestFullscreen==='function'){
+  if(state.deviceMode==='mobile')await requestMobileFullscreen();
+  else if(typeof root.requestFullscreen==='function'){
     try{await root.requestFullscreen();nativeActive=true;}catch(_){/* Full-viewport fallback remains active. */}
   }
 }
@@ -32,7 +41,7 @@ function initializeFullscreen(){
   $('focus-exit').addEventListener('click',toggleFullscreen);
   $('fullscreen').addEventListener('click',toggleFullscreen);
   document.addEventListener('fullscreenchange',()=>{
-    if(document.fullscreenElement===root)nativeActive=true;
+    if(document.fullscreenElement===root||document.fullscreenElement&&document.fullscreenElement===document.documentElement)nativeActive=true;
     else if(nativeActive){nativeActive=false;setFocusMode(false);}
   });
   window.addEventListener('keydown',e=>{
@@ -42,4 +51,4 @@ function initializeFullscreen(){
     }
   });
 }
-export {setFocusMode,toggleFullscreen,initializeFullscreen};
+export {setFocusMode,toggleFullscreen,initializeFullscreen,requestMobileFullscreen};

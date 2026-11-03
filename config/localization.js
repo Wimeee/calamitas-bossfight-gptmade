@@ -1,5 +1,8 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+["Лівий стік — рух і політ. Правий — приціл та атака.","Left stick: move and fly. Right stick: aim and attack."],
+["✥ РУХ · ↑ ПОЛІТ","✥ MOVE · ↑ FLY"],["✦ ПРИЦІЛ / АТАКА","✦ AIM / ATTACK"],
+["Лівий стік — рух, вгору — стрибок і політ, вниз — спуск. Правий — приціл і атака. Відпусти його для змикання Арка.","Left stick: move; up: jump/fly; down: drop. Right stick: aim/attack; release to snap Ark."],
 ["ПК і телефон · Українська / English","PC and mobile · Ukrainian / English"],
 ["↥ СТРИБОК / ПОЛІТ","↥ JUMP / FLY"],
 ["Підготовка…","Preparing…"],

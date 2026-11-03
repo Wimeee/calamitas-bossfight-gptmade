@@ -23,7 +23,7 @@ test('settings validate, persist, reset and support real rebinding without movin
   assert.equal(t.model.background.particleCount,35);assert.equal(t.bindKey('dash','KeyG'),true);
   assert.equal(t.gameKey({code:'KeyG'}),' ');assert.equal(t.gameKey({code:'Space'}),'jump');assert.equal(t.gameKey({code:'KeyW'}),'w');assert.equal(t.bindKey('heal','KeyG'),false);assert.equal(t.bindKey('dash','KeyW'),false);
   t.updateSettings({sfxVolume:NaN,musicVolume:99,quality:'broken'});assert.equal(t.settings.sfxVolume,.55);assert.equal(t.settings.musicVolume,1);assert.equal(t.settings.quality,'high');
-  t.resetSettings();assert.equal(t.settings.bindings.dash,'ShiftLeft');assert.equal(t.settings.autoAim,true);assert.equal(t.settings.musicEnabled,true);
+  t.resetSettings();assert.equal(t.settings.bindings.dash,'ShiftLeft');assert.equal(t.settings.autoAim,false);assert.equal(t.settings.musicEnabled,true);
 });
 
 test('menu blocks game hotkeys and retains explicitly selected mobile aiming preferences',async()=>{

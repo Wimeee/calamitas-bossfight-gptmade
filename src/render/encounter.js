@@ -1,13 +1,13 @@
-import {drawCalamitasEffects} from './calamitas-effects.js?v=26.1.0';
-import {drawHelperEffects} from './helper-effects.js?v=26.1.0';
-import { calamitasImage } from './calamitas-atlas.js?v=26.1.0';
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=26.1.0';
-import { arena } from '../core/arena.js?v=26.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.0';
-import { ctx } from '../core/dom.js?v=26.1.0';
-import { clamp, norm } from '../core/math.js?v=26.1.0';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher, drawSeeker, drawHeart } from './enemies.js?v=26.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=26.1.0';
+import {drawCalamitasEffects} from './calamitas-effects.js?v=26.1.1';
+import {drawHelperEffects} from './helper-effects.js?v=26.1.1';
+import { calamitasImage } from './calamitas-atlas.js?v=26.1.1';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=26.1.1';
+import { arena } from '../core/arena.js?v=26.1.1';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.1';
+import { ctx } from '../core/dom.js?v=26.1.1';
+import { clamp, norm } from '../core/math.js?v=26.1.1';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher, drawSeeker, drawHeart } from './enemies.js?v=26.1.1';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=26.1.1';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
   drawMaelstrom(g);

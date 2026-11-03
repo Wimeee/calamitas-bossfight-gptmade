@@ -22,7 +22,7 @@ g=fresh();g.player.combo=4;t.shoot();t.enter('hell','h75','TEST');ok(!g.player.a
 for(const weapon of ['melee','ranger','mage','summon','rogue']){el('class').value=weapon;t.start();g=t.getGame();t.enter('normal','opening','TEST');const ev={clientX:600,clientY:300,button:0,pointerId:1,preventDefault(){}};for(const fn of el('game').listeners.pointerdown)fn(ev);ok(t.getPointer().fire,'LMB holds '+weapon);ok(g.player.fireCd>0,'LMB fires immediately '+weapon);for(const fn of el('game').listeners.pointerup)fn(ev);ok(!t.getPointer().fire,'LMB releases '+weapon);}
 g=fresh();for(const fn of el('game').listeners.pointerdown)fn({clientX:600,clientY:300,button:1,pointerId:2,preventDefault(){}});ok(!t.getPointer().fire&&!g.player.swing,'middle button ignored');
 if(t.MOBILE_CONTROLS_ENABLED){
-g=fresh();t.setDeviceMode('mobile');g.player.combo=4;t.shoot();step(g,38);ok(g.player.arkThrow.snapped,'mobile auto performs timed snap');
+g=fresh();t.setDeviceMode('mobile');t.takeAction('auto');g.player.combo=4;t.shoot();step(g,38);ok(g.player.arkThrow.snapped,'optional mobile auto performs timed snap');
 g=fresh();t.setDeviceMode('mobile');t.takeAction('auto');g.player.combo=4;t.shoot();step(g,45);ok(!g.player.arkThrow.snapped,'manual mobile waits for release');t.releaseArk();ok(g.player.arkThrow.snapped,'manual mobile release snaps');
 }
 g=fresh();g.boss.x=490;g.boss.y=320;t.shoot();const swing=g.player.swing;for(let i=0;i<8;i++){g.t+=.034;t.updateSword(.034);}ok(swing.hitIds.has(g.boss),'swept melee hits at 30fps');const damaged=g.boss.hp;t.updateSword(.1);ok(g.boss.hp===damaged,'swing hits each enemy once');
