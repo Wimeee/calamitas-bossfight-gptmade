@@ -1,13 +1,14 @@
-import { drawOfficialCalamitas } from './calamitas.js?v=26.1.2';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.1.2';
-import { drawGlowCircle } from './glow-cache.js?v=26.1.2';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=26.1.2';
-import { settings } from '../core/settings.js?v=26.1.2';
-import { ctx } from '../core/dom.js?v=26.1.2';
-import { W,H,TAU } from '../core/config.js?v=26.1.2';
-import { clamp } from '../core/math.js?v=26.1.2';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=26.1.2';
-import { line,pixel,round,text } from './primitives.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import { drawOfficialCalamitas } from './calamitas.js?v=26.2.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.2.0';
+import { drawGlowCircle } from './glow-cache.js?v=26.2.0';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=26.2.0';
+import { settings } from '../core/settings.js?v=26.2.0';
+import { ctx } from '../core/dom.js?v=26.2.0';
+import { W,H,TAU } from '../core/config.js?v=26.2.0';
+import { clamp } from '../core/math.js?v=26.2.0';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=26.2.0';
+import { line,pixel,round,text } from './primitives.js?v=26.2.0';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 
@@ -34,17 +35,17 @@ export function drawRitualWorld(g){
   ctx.fillStyle=glow;ctx.fillRect(-250,-250,500,500);
   sigil(72+power*54,t*.13,.25+power*.65);
   if(charging)sigil(152,s*-.3,power*.7);
-  ctx.shadowColor='#ff4b5c';ctx.shadowBlur=settings.quality==='low'?0:18;
+  ctx.shadowColor='#ff4b5c';ctx.shadowBlur=renderQuality()==='low'?0:18;
   line(0,-18,-7,-3,'#ff9c75',2);line(-7,-3,5,2,'#ff5c61',2);line(5,2,0,11,'#ff9c75',2);
   ctx.shadowBlur=0;
-  const count=settings.quality==='low'?24:72;
+  const count=renderQuality()==='low'?24:72;
   for(let i=0;i<count;i++){
     // Deterministic decorative motion never consumes combat randomness.
     const f=(t*(charging?.42:.16)+i*.6180339)%1,a=i*2.39996+t*.6;
     const radius=charging?(1-f)*(125+power*65):12+f*24;
     const x=Math.cos(a)*radius,y=charging?Math.sin(a)*radius:-30-f*65;
     ctx.globalAlpha=Math.sin(f*Math.PI)*(.4+power*.6);
-    drawGlowCircle(x,y,1+(i%3)*.55,i%3?'#ff6b51':'#ffe5a5',settings.quality==='low'?0:18,'',1,'#ff4b5c');
+    drawGlowCircle(x,y,1+(i%3)*.55,i%3?'#ff6b51':'#ffe5a5',renderQuality()==='low'?0:18,'',1,'#ff4b5c');
   }
   ctx.globalAlpha=1;ctx.shadowBlur=0;
   if(!charging){text('ALTAR OF THE ACCURSED',0,-107,14,'#d49c90');text(nearAltar(g)?'E / ENTER · ВИКЛИКАТИ':'ПІДІЙДИ БЛИЖЧЕ',0,-54,11,'#ffcca2');}
@@ -60,7 +61,7 @@ export function drawRitualWorld(g){
     halo.addColorStop(0,'#ff745a99');halo.addColorStop(1,'#b00b3700');
     ctx.fillStyle=halo;ctx.fillRect(-125,-125,250,250);
     sigil(77,s*.32,.6);
-    for(let i=0;i<(settings.quality==='low'?18:48);i++){
+    for(let i=0;i<(renderQuality()==='low'?18:48);i++){
       const f=(s*.65+i*.618)%1,a=i*2.4;
       ctx.globalAlpha=(1-f)*ease(s,4.5,5.2);
       round(Math.cos(a)*(28+f*100),Math.sin(a)*(28+f*100)-f*25,1.7,i%3?'#ff6650':'#ffdf9c');
@@ -82,7 +83,7 @@ export function drawRitualOverlay(g){
       ctx.globalAlpha=ease(s,2.6,2.9)*(1-ease(s,5.5,6.35));
       text('THE BRIMSTONE WITCH',W/2,H*.39,13,'#dca995');
       const title='SUPREME CALAMITAS',visible=Math.floor(ease(s,2.75,4.35)*title.length),step=34,start=W/2-(title.length-1)*step/2;
-      ctx.shadowColor='#fd334e';ctx.shadowBlur=settings.quality==='low'?0:24;
+      ctx.shadowColor='#fd334e';ctx.shadowBlur=renderQuality()==='low'?0:24;
       for(let i=0;i<visible;i++)text(title[i],start+i*step,H*.5,39,'#ffe0c9');
       ctx.shadowBlur=0;line(W*.32,H*.55,W*.68,H*.55,'#c64b6266',1);
       text('Your sins are beyond redemption.',W/2,H*.6,15,'#cf9a9a');

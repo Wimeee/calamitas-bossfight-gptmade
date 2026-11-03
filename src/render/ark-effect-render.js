@@ -1,8 +1,10 @@
-import {ctx} from '../core/dom.js?v=26.1.2';
-import {circleVisible} from './visibility.js?v=26.1.2';
-import {settings} from '../core/settings.js?v=26.1.2';
-import {arkParticlePose} from '../systems/ark-effects.js?v=26.1.2';
-import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.1.2';
+import {state} from '../core/state.js?v=26.2.0';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import {ctx} from '../core/dom.js?v=26.2.0';
+import {circleVisible} from './visibility.js?v=26.2.0';
+import {settings} from '../core/settings.js?v=26.2.0';
+import {arkParticlePose} from '../systems/ark-effects.js?v=26.2.0';
+import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.2.0';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=frame?arkFrameTexture(name,color,frame):arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;
@@ -17,7 +19,8 @@ export function drawArkEffects(g,layer='front'){
  if(g.mode==='dead')return;
  if(layer==='smoke')for(const r of g.arkRifts||[]){const age=(g.t-r.born)*60,width=Math.pow(.925,Math.max(0,age-15));drawNativeRipMask(r,width,1);}
  if(!g.arkEffects)return;
- for(const p of g.arkEffects){const smoke=p.kind==='smoke';if((layer==='smoke')!==smoke)continue;if(smoke&&settings.quality==='low'&&!p.glowing&&p.id%2)continue;
+ for(const p of g.arkEffects){const smoke=p.kind==='smoke';if((layer==='smoke')!==smoke)continue;if(smoke&&renderQuality()==='low'&&!p.glowing&&p.id%2)continue;
+  if(state.deviceMode==='mobile'&&(p.kind==='light'||p.kind==='crit'||p.kind==='flare'||p.kind==='smoke')&&p.id%2)continue;
   const a=arkParticlePose(p,g.t);if(!a)continue;
   const color=p.hueShift?'hsl('+((hue(p.color)+a.age*p.hueShift*360)%360)+' 100% 65%)':p.color;
   ctx.save();ctx.globalCompositeOperation=smoke&&!p.glowing?'source-over':'lighter';

@@ -41,7 +41,7 @@ test('dart arc spacing, dash target lock, phase II after brothers, altar and let
  assert.equal(g.stage,'normal');assert.ok(g.thresholds.has('40'));assert.equal(g.phase2Intro,200/60);
  const terrain=t.getTerrain();assert.equal(terrain.altar.x,500);assert.equal(terrain.altar.y,terrain.platforms[1].y);
  const point=t.canvasPointToWorld(200,100,{left:0,top:0,width:1200,height:600},true);
- const zoom=0.765;
+ const zoom=0.765*.85;
  assert.ok(Math.abs(point.x-(g.camera.x-480/zoom))<1e-9);assert.ok(Math.abs(point.y-(g.camera.y-240/zoom))<1e-9);
  assert.ok(el('scal-game').classList.contains('focus-mode'),'battle starts in full-window mode');await t.toggleFullscreen();assert.equal(el('scal-game').classList.contains('focus-mode'),false);await t.toggleFullscreen();assert.ok(el('scal-game').classList.contains('focus-mode'));
 });

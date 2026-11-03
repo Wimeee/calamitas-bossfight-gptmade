@@ -1,5 +1,5 @@
-import {audio} from '../core/audio.js?v=26.1.2';
-import {rnd} from '../core/math.js?v=26.1.2';
+import {audio} from '../core/audio.js?v=26.2.0';
+import {rnd} from '../core/math.js?v=26.2.0';
 export function spawnBrotherProjectile(g,kind,x,y,vx,vy,variant=2,side=0,damage=100){
  if(g.projectiles.length>=1000)return null;const q={nativeBrother:true,kind,x,y,vx:vx*60,vy:vy*60,variant,side,damage,t:0,life:25,nativeLife:kind==='fist'?1200:1500,nativeTime:0,remainder:0,opacity:0,frame:0,scale:1,r:kind==='fist'?35:43,canHit:false};g.projectiles.push(q);return q;
 }

@@ -1,0 +1,84 @@
+{
+  "render": {
+    "scope": "Identical frozen stress frame,240enemy darts and Ark hits/rip; browser CPU draw submission, not physical phone FPS",
+    "samples": [
+      {
+        "mode": "desktop",
+        "quality": "high",
+        "width": 1558,
+        "height": 720,
+        "pixels": 1121760,
+        "medianDrawMs": 8.299999982118607,
+        "p95DrawMs": 23.899999976158142
+      },
+      {
+        "mode": "mobile",
+        "quality": "low",
+        "width": 1013,
+        "height": 468,
+        "pixels": 474084,
+        "medianDrawMs": 3,
+        "p95DrawMs": 16.5
+      },
+      {
+        "mode": "desktop",
+        "quality": "high",
+        "width": 1558,
+        "height": 720,
+        "pixels": 1121760,
+        "medianDrawMs": 7.4000000059604645,
+        "p95DrawMs": 21.700000017881393
+      },
+      {
+        "mode": "mobile",
+        "quality": "low",
+        "width": 1013,
+        "height": 468,
+        "pixels": 474084,
+        "medianDrawMs": 3,
+        "p95DrawMs": 16.19999998807907
+      }
+    ],
+    "combatUnchanged": true,
+    "savedQuality": "high"
+  },
+  "music": {
+    "button": {
+      "x": 780,
+      "y": 22
+    },
+    "afterTouch": {
+      "phases": [
+        {
+          "phase": "grief",
+          "blocked": false,
+          "streams": 1,
+          "supported": true
+        },
+        {
+          "phase": "lament",
+          "blocked": false,
+          "streams": 2,
+          "supported": true
+        },
+        {
+          "phase": "epiphany",
+          "blocked": false,
+          "streams": 2,
+          "supported": true
+        },
+        {
+          "phase": "acceptance",
+          "blocked": false,
+          "streams": 2,
+          "supported": true
+        }
+      ],
+      "mediaElements": 2,
+      "paused": [
+        false,
+        false
+      ]
+    }
+  }
+}

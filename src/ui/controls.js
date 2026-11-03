@@ -1,12 +1,13 @@
-import { initializeRitual } from '../game/ritual.js?v=26.1.2';
-import { weapons } from '../classes/registry.js?v=26.1.2';
-import { audio } from '../core/audio.js?v=26.1.2';
-import { $, root } from '../core/dom.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=26.1.2';
+import { initializeRitual } from '../game/ritual.js?v=26.2.0';
+import { weapons } from '../classes/registry.js?v=26.2.0';
+import { audio } from '../core/audio.js?v=26.2.0';
+import { $, root } from '../core/dom.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=26.2.0';
 
 
 function initializeControls(){
+  window.addEventListener('pointerup',()=>{if(state.deviceMode==='mobile'&&state.screen==='game')audio.init();});
   initializeRitual();
   $('soundtoggle').addEventListener('click',()=>{
       audio.init();

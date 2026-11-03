@@ -1,3 +1,4 @@
+import {state} from './state.js?v=26.2.0';
 // Touch input is available on phones; desktop input remains selected for fine pointers.
 const MOBILE_CONTROLS_ENABLED = true;
 const STORAGE_KEY = 'utbg_settings_v1';
@@ -81,3 +82,6 @@ function shakeOffset(game) {
   return {x:Math.sin(game.t*125)*strength,y:Math.cos(game.t*143)*strength};
 }
 export {MOBILE_CONTROLS_ENABLED,settings,defaults,defaultBindings,cleanSettings,updateSettings,resetSettings,subscribeSettings,resolveGameKey,keyLabel,controlHint,bindKey,shakeOffset};
+
+export function renderQuality(){return state.deviceMode==='mobile'?'low':settings.quality;}
+export function renderScale(){return state.deviceMode==='mobile'?.65:1;}

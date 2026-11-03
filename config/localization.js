@@ -1,5 +1,6 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+["На телефоні графіка автоматично полегшена з ціллю 60 FPS. Вибір якості — для ПК.","Mobile automatically uses lighter graphics targeting 60 FPS. The quality selection applies to PC."],
 ["Лівий стік — рух і політ. Правий — приціл та атака.","Left stick: move and fly. Right stick: aim and attack."],
 ["✥ РУХ · ↑ ПОЛІТ","✥ MOVE · ↑ FLY"],["✦ ПРИЦІЛ / АТАКА","✦ AIM / ATTACK"],
 ["Лівий стік — рух, вгору — стрибок і політ, вниз — спуск. Правий — приціл і атака. Відпусти його для змикання Арка.","Left stick: move; up: jump/fly; down: drop. Right stick: aim/attack; release to snap Ark."],

@@ -1,15 +1,16 @@
-import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.1.2';
-import { arena } from '../core/arena.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { clamp } from '../core/math.js?v=26.1.2';
+import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.2.0';
+import { arena } from '../core/arena.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { clamp } from '../core/math.js?v=26.2.0';
 
+export function defaultCameraZoom(){return ZOOM_DEFAULT*(state.deviceMode==='mobile'?1:.85);}
 function getZoom(g) {
   const z = g?.camera?.zoom;
-  return Number.isFinite(z) ? clamp(z, ZOOM_MIN, ZOOM_MAX) : ZOOM_DEFAULT;
+  return Number.isFinite(z) ? clamp(z, ZOOM_MIN, ZOOM_MAX) : defaultCameraZoom();
 }
 
 export function cameraView(g=state.game){
-  const c = g?.camera || {x:500,y:300, zoom: ZOOM_DEFAULT};
+  const c = g?.camera || {x:500,y:300, zoom: defaultCameraZoom()};
   const zoom = getZoom(g);
   const halfW = W / 2 / zoom;
   const halfH = H / 2 / zoom;
@@ -17,7 +18,7 @@ export function cameraView(g=state.game){
 }
 
 export function updateCamera(g,dt=0,snap=false){
-  const p=g.player,c=g.camera||(g.camera={x:p.x,y:p.y, zoom: ZOOM_DEFAULT});
+  const p=g.player,c=g.camera||(g.camera={x:p.x,y:p.y, zoom: defaultCameraZoom()});
   // Follow the player at the chosen zoom; arena extents never rescale the scene.
   c.zoom=getZoom(g);
   const targetX=p.x,targetY=p.y;

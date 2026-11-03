@@ -18,7 +18,7 @@ check(t.screenToWorld(600,360).x===500&&t.screenToWorld(600,360).y===300,'view t
 // Desktop CSS-to-canvas conversion must compensate for the larger canvas origin.
 t.eventPos({clientX:500,clientY:300});check(t.getPointer().x===500&&t.getPointer().y===300,'mouse conversion');
 t.configureArena('normal');
-t.eventPos({clientX:100,clientY:100});check(Math.abs(t.getPointer().x-(-127.45098039215685))<1e-9&&Math.abs(t.getPointer().y-(-13.725490196078425))<1e-9,'mouse off-center conversion at zoom=0.765');
+t.eventPos({clientX:100,clientY:100});check(Math.abs(t.getPointer().x-(500-480/(.765*.85)))<1e-9&&Math.abs(t.getPointer().y-(300-240/(.765*.85)))<1e-9,'mouse off-center conversion with15percent desktop zoom-out');
 t.aimCanvas({clientX:500,clientY:300});check(t.getPointer().x===500&&t.getPointer().y===300,'mobile aim conversion');
 el('scal-game').classList.add('focus-mode');
 el('game').getBoundingClientRect=()=>({left:0,top:0,width:1200,height:600});

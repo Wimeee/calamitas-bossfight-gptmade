@@ -1,35 +1,41 @@
-import {drawAsgardianShield,drawAsgardianEffects} from './asgardian.js?v=26.1.2';
-import {drawArkEffects} from './ark-effect-render.js?v=26.1.2';
-import {drawCalamitasDialogue} from './dialogue.js?v=26.1.2';
-import {drawArenaDebris} from './arena-debris.js?v=26.1.2';
-import { drawRipperPlayerEffects } from './ripper-effects.js?v=26.1.2';
-import { drawBattleHUD } from './battle-hud.js?v=26.1.2';
-import { nativeText } from './hud-atlas.js?v=26.1.2';
-import { paintWorldDecoration } from './world-decorations.js?v=26.1.2';
-import { cameraView } from '../world/camera.js?v=26.1.2';
-import { drawWorldHUD } from './world-hud.js?v=26.1.2';
-import { getTerrain } from '../world/terrain.js?v=26.1.2';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.1.2';
-import { drawEnemyProjectiles } from './projectiles.js?v=26.1.2';
-import { drawWarriorBody } from './warrior.js?v=26.1.2';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=26.1.2';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=26.1.2';
-import { getEncounter } from '../boss/registry.js?v=26.1.2';
-import { possibleTargets } from '../combat/targets.js?v=26.1.2';
-import { arena } from '../core/arena.js?v=26.1.2';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.2';
-import { ctx } from '../core/dom.js?v=26.1.2';
-import { clamp, norm } from '../core/math.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { drawBackdrop } from './background.js?v=26.1.2';
-import { drawClassKit } from './class-effects.js?v=26.1.2';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=26.1.2';
-import { drawSword } from './melee.js?v=26.1.2';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=26.1.2';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import {drawAsgardianShield,drawAsgardianEffects} from './asgardian.js?v=26.2.0';
+import {drawArkEffects} from './ark-effect-render.js?v=26.2.0';
+import {drawCalamitasDialogue} from './dialogue.js?v=26.2.0';
+import {drawArenaDebris} from './arena-debris.js?v=26.2.0';
+import { drawRipperPlayerEffects } from './ripper-effects.js?v=26.2.0';
+import { drawBattleHUD } from './battle-hud.js?v=26.2.0';
+import { nativeText } from './hud-atlas.js?v=26.2.0';
+import { paintWorldDecoration } from './world-decorations.js?v=26.2.0';
+import { cameraView } from '../world/camera.js?v=26.2.0';
+import { drawWorldHUD } from './world-hud.js?v=26.2.0';
+import { getTerrain } from '../world/terrain.js?v=26.2.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.2.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=26.2.0';
+import { drawWarriorBody } from './warrior.js?v=26.2.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=26.2.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=26.2.0';
+import { getEncounter } from '../boss/registry.js?v=26.2.0';
+import { possibleTargets } from '../combat/targets.js?v=26.2.0';
+import { arena } from '../core/arena.js?v=26.2.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.2.0';
+import { ctx,canvas } from '../core/dom.js?v=26.2.0';
+import { clamp, norm } from '../core/math.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { drawBackdrop } from './background.js?v=26.2.0';
+import { drawClassKit } from './class-effects.js?v=26.2.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=26.2.0';
+import { drawSword } from './melee.js?v=26.2.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=26.2.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=26.2.0';
 
 
 function draw(g){
+  const sx=canvas.width>0?canvas.width/W:1,sy=canvas.height>0?canvas.height/H:1;
+  ctx.save();ctx.setTransform(sx,0,0,sy,0,0);
+  try{drawScene(g);}finally{ctx.restore();}
+}
+function drawScene(g){
   ctx.save();
   ctx.fillStyle='#0c0710';
   ctx.fillRect(0,0,W,H);
@@ -128,7 +134,7 @@ function draw(g){
   drawWeaponImpacts(g);
   drawClassKit(g);
   drawFlightGauge(g);
-  for(let sparkIndex=0;sparkIndex<Math.min(g.sparks.length,settings.quality==='low'?40:Infinity);sparkIndex++){
+  for(let sparkIndex=0;sparkIndex<Math.min(g.sparks.length,renderQuality()==='low'?40:Infinity);sparkIndex++){
     const s=g.sparks[sparkIndex];
     ctx.globalAlpha=clamp(s.life/s.max,0,1);
     round(s.x,s.y,3,s.c)

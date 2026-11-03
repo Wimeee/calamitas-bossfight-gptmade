@@ -1,18 +1,19 @@
-import { activateRipper } from '../systems/rippers.js?v=26.1.2';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.1.2';
-import { queueJump } from '../game/movement.js?v=26.1.2';
-import { releaseArk } from '../classes/melee.js?v=26.1.2';
-import { classAbility } from '../classes/shared.js?v=26.1.2';
-import { markCosmicTarget } from '../classes/summoner.js?v=26.1.2';
-import { shoot } from '../combat/attacks.js?v=26.1.2';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.1.2';
-import { possibleTargets } from '../combat/targets.js?v=26.1.2';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=26.1.2';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.2';
-import { $, canvas, root } from '../core/dom.js?v=26.1.2';
-import { clamp, norm } from '../core/math.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { togglePause } from '../game/session.js?v=26.1.2';
+import {resizeViewport} from '../world/viewport.js?v=26.2.0';
+import { activateRipper } from '../systems/rippers.js?v=26.2.0';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint,renderQuality } from '../core/settings.js?v=26.2.0';
+import { queueJump } from '../game/movement.js?v=26.2.0';
+import { releaseArk } from '../classes/melee.js?v=26.2.0';
+import { classAbility } from '../classes/shared.js?v=26.2.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=26.2.0';
+import { shoot } from '../combat/attacks.js?v=26.2.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.2.0';
+import { possibleTargets } from '../combat/targets.js?v=26.2.0';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=26.2.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.2.0';
+import { $, canvas, root } from '../core/dom.js?v=26.2.0';
+import { clamp, norm } from '../core/math.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { togglePause } from '../game/session.js?v=26.2.0';
 
 let mobileAimTouch=null;
 
@@ -192,7 +193,8 @@ function setDeviceMode(mode){
   $('device').disabled=!MOBILE_CONTROLS_ENABLED;
   const picker=root.querySelector('.device-controls');if(picker)picker.hidden=!MOBILE_CONTROLS_ENABLED;
   root.classList.toggle('mobile',state.deviceMode==='mobile');
-  $('device').value=state.deviceMode;
+  root.dataset.quality=renderQuality();
+  $('device').value=state.deviceMode;resizeViewport();
   resetTouchInput();
   $('overlaydesc').textContent=state.deviceMode==='mobile'?'Лівий стік — рух, вгору — стрибок і політ, вниз — спуск. Правий — приціл і атака. Відпусти його для змикання Арка.':'💻 '+controlHint();
   try{

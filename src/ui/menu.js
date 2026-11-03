@@ -1,16 +1,16 @@
-import { weapons } from '../classes/registry.js?v=26.1.2';
-import { audio } from '../core/audio.js?v=26.1.2';
-import { VERSION } from '../core/config.js?v=26.1.2';
-import { $, root } from '../core/dom.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.1.2';
-import { start,togglePause } from '../game/session.js?v=26.1.2';
-import { loop } from '../game/loop.js?v=26.1.2';
-import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=26.1.2';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.1.2';
-import { createMenuBackground } from '../render/menu-background.js?v=26.1.2';
-import { pixelArt } from '../render/sprites.js?v=26.1.2';
-import {prepareBattleAssets} from '../core/battle-assets.js?v=26.1.2';
+import { weapons } from '../classes/registry.js?v=26.2.0';
+import { audio } from '../core/audio.js?v=26.2.0';
+import { VERSION } from '../core/config.js?v=26.2.0';
+import { $, root } from '../core/dom.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey,renderQuality } from '../core/settings.js?v=26.2.0';
+import { start,togglePause } from '../game/session.js?v=26.2.0';
+import { loop } from '../game/loop.js?v=26.2.0';
+import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=26.2.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.2.0';
+import { createMenuBackground } from '../render/menu-background.js?v=26.2.0';
+import { pixelArt } from '../render/sprites.js?v=26.2.0';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=26.2.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -53,6 +53,7 @@ let launching=null;
 function launchBattle(){
   if(launching)return launching;
   const button=byId('menu-launch'),label=button.innerHTML,panel=model.panel;
+  audio.init();
   const device=effectiveDevice();if(device==='mobile')void requestMobileFullscreen();
   button.disabled=true;button.textContent='Підготовка…';button.setAttribute('aria-busy','true');
   launching=(async()=>{try{
@@ -81,7 +82,7 @@ function syncSettings(){
   byId('menu-keybindings').innerHTML=Object.entries(bindingLabels).map(([name,label])=>`<div class="binding-row"><span>${label}</span><button class="binding-key ${model.listening===name?'listening':''}" data-binding="${name}">${model.listening===name?'…':keyLabel(settings.bindings[name])}</button></div>`).join('');
   byId('setup-controls-hint').textContent=controlHint()+(MOBILE_CONTROLS_ENABLED?'\nЛівий стік — рух і політ. Правий — приціл та атака.':'');
   byId('desktop-control-summary').textContent='ПК: '+controlHint();
-  root.dataset.quality=settings.quality;root.style.setProperty?.('--touch-scale',settings.touchScale);
+  root.dataset.quality=renderQuality();root.style.setProperty?.('--touch-scale',settings.touchScale);
   audio.sfx=settings.sfxEnabled;audio.music=settings.musicEnabled;
   $('soundtoggle').textContent=audio.sfx?'🔊 Звуки: УВІМК':'🔇 Звуки: ВИМК';
   $('musictoggle').textContent=audio.music?'♫ Музика: УВІМК':'♫ Музика: ВИМК';

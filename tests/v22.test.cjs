@@ -9,7 +9,7 @@ test('player-follow camera and desktop/mobile aim share world coordinates',async
   assert.ok(t.getTerrain().platforms.length>=7);
   const before=g.camera.y;g.player.y+=200;t.updateCamera(g,.5);
   assert.ok(g.camera.y>before+150,'vertical camera follows the player');
-  const view=t.cameraView(g);assert.equal(view.zoom,t.ZOOM_DEFAULT,'arena dimensions must not shrink the player');g.player.x+=200;t.updateCamera(g,0,true);assert.equal(g.camera.x,g.player.x);assert.equal(g.camera.y,g.player.y);
+  const view=t.cameraView(g);assert.equal(view.zoom,t.ZOOM_DEFAULT*.85,'arena dimensions must not shrink the player');g.player.x+=200;t.updateCamera(g,0,true);assert.equal(g.camera.x,g.player.x);assert.equal(g.camera.y,g.player.y);
   const center=t.screenToWorld(t.W/2,t.H/2);assert.equal(center.x,g.camera.x);assert.equal(center.y,g.camera.y);
   t.eventPos({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);
   t.aimCanvas({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);

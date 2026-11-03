@@ -1,16 +1,17 @@
-import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=26.1.2';
-import { seq, TAU } from '../core/config.js?v=26.1.2';
-import { ctx } from '../core/dom.js?v=26.1.2';
-import { settings } from '../core/settings.js?v=26.1.2';
-import { clamp } from '../core/math.js?v=26.1.2';
-import { calamitasImage, paintCalamitasFrame } from './calamitas-atlas.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=26.2.0';
+import { seq, TAU } from '../core/config.js?v=26.2.0';
+import { ctx } from '../core/dom.js?v=26.2.0';
+import { settings } from '../core/settings.js?v=26.2.0';
+import { clamp } from '../core/math.js?v=26.2.0';
+import { calamitasImage, paintCalamitasFrame } from './calamitas-atlas.js?v=26.2.0';
 import {
   computeChargeShieldGeometry,
   computeForcefieldGeometry,
   interpolateFieldRadius,
   interpolateAngle,
   lerpShieldRotation
-} from './calamitas-math.js?v=26.1.2';
+} from './calamitas-math.js?v=26.2.0';
 
 const clocks = new WeakMap(), effects = new Map();
 
@@ -327,7 +328,7 @@ export function drawCalamitasForcefield(g, pose, x = g.boss.x, y = g.boss.y) {
 export function drawOfficialCalamitas(g, { x = g.boss.x, y = g.boss.y, aura = true } = {}) {
   if (!calamitasImage(g.boss.skin === 'unhooded' ? 'unhooded' : 'hooded')) return false;
   const pose = sampleCalamitasPose(g);
-  const low = settings.quality === 'low';
+  const low = renderQuality() === 'low';
 
   if (pose.second) {
     const stamp = tintSurface(pose.skin, pose.clip, pose.frame);

@@ -1,8 +1,8 @@
-import { worldConfig } from '../../config/world.js?v=26.1.2';
-import { state } from './state.js?v=26.1.2';
-import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from './config.js?v=26.1.2';
-import { cameraView } from '../world/camera.js?v=26.1.2';
-import { clamp } from './math.js?v=26.1.2';
+import { worldConfig } from '../../config/world.js?v=26.2.0';
+import { state } from './state.js?v=26.2.0';
+import { ARENA_SCALE, VIEW_X, VIEW_Y, W, H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from './config.js?v=26.2.0';
+import { cameraView } from '../world/camera.js?v=26.2.0';
+import { clamp } from './math.js?v=26.2.0';
 
 const arena={l:57,r:943,t:35,b:565};
 

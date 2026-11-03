@@ -1,7 +1,8 @@
-import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.1.2';
-import {circleVisible} from './visibility.js?v=26.1.2';
-import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.1.2';
-import { ctx } from '../core/dom.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.2.0';
+import {circleVisible} from './visibility.js?v=26.2.0';
+import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.2.0';
+import { ctx } from '../core/dom.js?v=26.2.0';
 const images={};let loading;
 const vfxNames=['rip-texture','rip-layer','scissors-glow','heavy-smoke','thin-sparkle','light','bloom-line','bloom-cap','slice-line','pulse-ring','parry-bar-back','parry-bar-front'];
 export function initializeNativeArk(){
@@ -9,7 +10,7 @@ export function initializeNativeArk(){
  loading=Promise.all(['left','left-glow','right','right-glow','sparkle','trail-glow','swing-smear','swirl-smoke','projectile-streak','bloom-circle',...vfxNames].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
   const file=['sparkle','swing-smear','swirl-smoke','projectile-streak','bloom-circle'].includes(part)?part:'ark-'+part;
-  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.1.2',import.meta.url).href;
+  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.2.0',import.meta.url).href;
  }))).then(()=>nativeArkReady());return loading;
 }
 export function nativeArkReady(){return !!(images.left&&images['left-glow']&&images.right&&images['right-glow']);}
@@ -95,7 +96,7 @@ export function drawNativeArkTrail(g,s,angle,progress){
  const geometry=arkSwingGeometry(s,progress,g.player),swirl=!!s.wide;
  if(!swirl&&progress*s.max*120>10){
   const side=s.charge>0?'scissors-glow':'right-glow',image=images[side];
-  if(image)for(let i=1;i<10;i++){
+  if(image)for(let i=1;i<10;i+=renderQuality()==='low'?3:1){
    const past=Math.max(0,progress-i/(120*s.max)),pose=arkSwingGeometry(s,past,g.player),scale=geometry.scale-.2*i/10;
    const rotation=pose.angle+Math.PI/4+(geometry.flip?Math.PI/2:0),origin=s.charge>0?[33,86]:[geometry.flip?image.width:0,image.height];
    ctx.save();ctx.globalAlpha*=s.charge>0?.15:.05;ctx.translate(geometry.draw.x,geometry.draw.y);ctx.rotate(rotation);ctx.scale(geometry.flip?-scale:scale,scale);ctx.drawImage(image,-(geometry.flip?image.width-origin[0]:origin[0]),-origin[1]);ctx.restore();
@@ -114,8 +115,9 @@ export function drawNativeProjectileTrail(s){
  const image=effectImage('projectile-streak',s.id==='arkBeam'?205:280);if(!image)return false;
  const history=s.nativeTrail||[],points=[...history,{x:s.x,y:s.y}];if(points.length<2)return true;
  ctx.save();ctx.globalCompositeOperation='lighter';
- for(let i=1;i<points.length;i++){
-  const a=points[i-1],b=points[i],dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy);if(length<.01)continue;
+ const step=renderQuality()==='low'?2:1;
+ for(let i=1;i<points.length;i+=step){
+  const a=points[i-1],b=points[Math.min(points.length-1,i+step-1)],dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy);if(length<.01)continue;
   const width=(s.id==='arkBeam'?24:22)*Math.pow(i/points.length,3);
   ctx.save();ctx.globalAlpha*=.65*i/points.length;ctx.translate(a.x,a.y);ctx.rotate(Math.atan2(dy,dx));
   ctx.drawImage(image,0,-width/2,length+1,width);ctx.restore();

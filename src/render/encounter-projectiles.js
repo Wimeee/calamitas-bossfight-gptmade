@@ -1,10 +1,11 @@
-import {drawBrotherProjectile} from './brother-projectiles.js?v=26.1.2';
-import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=26.1.2';
-import {ctx} from '../core/dom.js?v=26.1.2';
-import {settings} from '../core/settings.js?v=26.1.2';
-import {line} from './primitives.js?v=26.1.2';
-import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=26.1.2';
-import {TAU} from '../core/config.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import {drawBrotherProjectile} from './brother-projectiles.js?v=26.2.0';
+import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=26.2.0';
+import {ctx} from '../core/dom.js?v=26.2.0';
+import {settings} from '../core/settings.js?v=26.2.0';
+import {line} from './primitives.js?v=26.2.0';
+import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=26.2.0';
+import {TAU} from '../core/config.js?v=26.2.0';
 
 // Source-accurate projectile kind mapping:
 // - 'dart' → 'barrage' (BrimstoneBarrage.cs) - used by Sepulcher, seekers, fireblast/gigablast explosions
@@ -50,7 +51,7 @@ export function encounterProjectileFrame(q,g){
 // Native trail is straight; only the emitted SparkParticles form a helix.
 function drawHellblast(q,g,kind,frame,angle){
  const facing=q.vx<0?-1:1,rotation=Math.atan2(q.vy*facing,q.vx*facing),opacity=q.opacity??1;
- if(settings.quality!=='low'){const old=q.nativeTrail?.[1];if(old)paintProjectileFrame(ctx,kind,frame,old.x,old.y,1,opacity*.25,facing,rotation);}
+ if(renderQuality()!=='low'){const old=q.nativeTrail?.[1];if(old)paintProjectileFrame(ctx,kind,frame,old.x,old.y,1,opacity*.25,facing,rotation);}
  paintProjectileFrame(ctx,kind,frame,q.x,q.y,1,opacity,facing,rotation);
 }
 function drawHellblast2(q,g,kind,frame,angle){const facing=q.vx<0?-1:1;paintProjectileFrame(ctx,kind,frame,q.x,q.y,1,q.opacity??1,facing,Math.atan2(q.vy*facing,q.vx*facing));}
@@ -83,7 +84,7 @@ function drawWave(q, g, kind, frame, angle) {
   const drawY = q.y + perpY * waveOffset;
 
   // Draw trail for wave motion
-  if (settings.quality !== 'low') {
+  if (renderQuality() !== 'low') {
     for (let i = 1; i <= 3; i++) {
       const prevPhase = wavePhase - i * 0.5;
       const prevOffset = Math.sin(prevPhase) * waveAmplitude;
@@ -166,7 +167,7 @@ export function drawEnemyProjectiles(g){
         // Sepulcher darts use custom scale (0.85) and opacity (fade in last 1s) from projectile
         const scale = (q.kind==='sepulcherDart' && q.scale!==undefined) ? q.scale : 1;
         const alpha = ((q.kind==='sepulcherDart'||q.sourceCalamitas) && q.opacity!==undefined) ? q.opacity : 1;
-        if(settings.quality!=='low'){
+        if(renderQuality()!=='low'){
           for(let i=2;i>0;i--){
             paintProjectileFrame(ctx,kind,frame,q.x-q.vx*i*0.015,q.y-q.vy*i*0.015,scale,0.12*alpha,1,angle);
           }

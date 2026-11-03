@@ -1,6 +1,6 @@
-import { $, root } from '../core/dom.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { resetTouchInput } from './mobile.js?v=26.1.2';
+import { $, root } from '../core/dom.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { resetTouchInput } from './mobile.js?v=26.2.0';
 
 
 function setFocusMode(active){

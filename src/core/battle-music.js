@@ -1,4 +1,6 @@
-import { calamitasMusic } from '../../config/calamitas-music.js?v=26.1.2';
+import { calamitasMusic } from '../../config/calamitas-music.js?v=26.2.0';
+import {state} from './state.js?v=26.2.0';
+const unlockSilence='data:audio/wav;base64,UklGRmQBAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YUABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==';
 
 export function battleMusicPhase(game){
   if(game?.mode==='won')return 'acceptance';
@@ -10,10 +12,19 @@ export function battleMusicPhase(game){
 }
 
 // Stream only active sections. Long OST files never become four decoded PCM buffers.
-export function createBattleMusic({Audio=window.Audio,now=()=>performance.now()/1000,fadeSeconds=1.6}={}){
+export function createBattleMusic({Audio=window.Audio,now=()=>performance.now()/1000,fadeSeconds=1.6,mobile=()=>false}={}){
   let game=null,active=null,voices=[],allowed=false,failedPhase=null;
+  const mobileChannels=[];
+  function primeChannels(){
+    if(!mobile()||typeof Audio!=='function')return;
+    while(mobileChannels.length<2){const element=new Audio(unlockSilence);element.preload='auto';mobileChannels.push({element,voice:null,primed:false,priming:false});}
+    for(const entry of mobileChannels){if(entry.voice||entry.primed||entry.priming)continue;entry.priming=true;entry.element.src=unlockSilence;entry.element.volume=1;entry.element.loop=false;
+      try{Promise.resolve(entry.element.play()).then(()=>{entry.primed=true;if(!entry.voice){entry.element.pause();entry.element.currentTime=0;}},()=>{}).finally(()=>{entry.priming=false;});}catch{entry.priming=false;}
+    }
+  }
+  function acquire(track){const entry=mobile()?mobileChannels.find(c=>!c.voice):null;if(!entry)return{element:new Audio(track.url),entry:null};entry.element.src=track.url;entry.element.currentTime=0;entry.element.load?.();return{element:entry.element,entry};}
   const pauseVoice=voice=>{voice.element.pause();voice.requested=false;};
-  function dispose(voice){pauseVoice(voice);voice.disposed=true;voice.element.removeAttribute?.('src');voice.element.load?.();}
+  function dispose(voice){pauseVoice(voice);voice.disposed=true;for(const [name,handler]of Object.entries(voice.handlers||{}))voice.element.removeEventListener?.(name,handler);voice.element.removeAttribute?.('src');voice.element.load?.();if(voice.entry?.voice===voice)voice.entry.voice=null;}
   function pause(){allowed=false;for(const voice of voices)pauseVoice(voice);}
   function stop(){pause();for(const voice of voices)dispose(voice);voices=[];active=null;game=null;failedPhase=null;}
   function play(voice){
@@ -24,6 +35,7 @@ export function createBattleMusic({Audio=window.Audio,now=()=>performance.now()/
     }catch{voice.blocked=true;voice.requested=false;}
   }
   function unlock(){
+    primeChannels();
     failedPhase=null;
     for(const voice of voices){voice.blocked=false;if(allowed)play(voice);}
   }
@@ -44,16 +56,15 @@ export function createBattleMusic({Audio=window.Audio,now=()=>performance.now()/
     allowed=true;const time=now();
     if(active?.phase!==phase&&failedPhase!==phase){
       try{
-        const track=calamitasMusic.tracks[phase],element=new Audio(track.url);
-        element.preload='auto';element.loop=phase!=='acceptance'&&track.loop;element.volume=0;
         // At most two streams even when several HP thresholds are crossed quickly.
         for(const voice of voices)if(voice!==active)dispose(voice);
         voices=active?[active]:[];
-        active={element,phase,inAt:time,ready:typeof element.addEventListener!=='function',requested:false,blocked:false,disposed:false};voices.push(active);
+        const track=calamitasMusic.tracks[phase],{element,entry}=acquire(track);
+        element.preload='auto';element.loop=phase!=='acceptance'&&track.loop;element.volume=0;
+        active={element,entry,phase,inAt:time,ready:typeof element.addEventListener!=='function',requested:false,blocked:false,disposed:false};if(entry)entry.voice=active;voices.push(active);
         const incoming=active;
-        element.addEventListener?.('playing',()=>ready(incoming));
-        element.addEventListener?.('error',()=>failed(incoming));
-        element.addEventListener?.('ended',()=>{incoming.ended=true;});
+        incoming.handlers={playing:()=>ready(incoming),error:()=>failed(incoming),ended:()=>{if(!incoming.disposed)incoming.ended=true;}};
+        for(const [name,handler]of Object.entries(incoming.handlers))element.addEventListener?.(name,handler);
         if(active.ready)for(const voice of voices)if(voice!==active){voice.outAt=time;voice.outVolume=voice.element.volume;}
       }catch{failedPhase=phase;}
     }
@@ -72,4 +83,4 @@ export function createBattleMusic({Audio=window.Audio,now=()=>performance.now()/
   return {sync,pause,stop,unlock,status:()=>({phase:active?.phase||null,blocked:!!active?.blocked,streams:voices.length,supported:typeof Audio==='function'})};
 }
 
-export const battleMusic=createBattleMusic();
+export const battleMusic=createBattleMusic({mobile:()=>state.deviceMode==='mobile'||!!window.matchMedia?.('(pointer:coarse)').matches});

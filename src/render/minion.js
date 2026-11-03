@@ -1,10 +1,11 @@
-import {heartTendrilAnchors} from '../world/arena-state.js?v=26.1.2';
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=26.1.2';
-import {ctx} from '../core/dom.js?v=26.1.2';
-import {settings} from '../core/settings.js?v=26.1.2';
-import {hpMini,pixel,text} from './primitives.js?v=26.1.2';
-import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=26.1.2';
-import {lerp, clamp} from '../core/math.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import {heartTendrilAnchors} from '../world/arena-state.js?v=26.2.0';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=26.2.0';
+import {ctx} from '../core/dom.js?v=26.2.0';
+import {settings} from '../core/settings.js?v=26.2.0';
+import {hpMini,pixel,text} from './primitives.js?v=26.2.0';
+import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=26.2.0';
+import {lerp, clamp} from '../core/math.js?v=26.2.0';
 const clocks=new WeakMap();
 const now=g=>g.ritual?g.ritual.ambient:g.t;
 
@@ -21,7 +22,7 @@ export function brotherPoseState(br,g){
 
 export function drawBrother(br,g){
  const p=brotherPoseState(br,g);
- if(settings.quality!=='low')for(let i=p.trail.length-1;i>0;i--)paintMinionFrame(ctx,p.specKind,p.clip,p.frame,p.trail[i].x,p.trail[i].y,1,.08*(4-i),p.facing,0);
+ if(renderQuality()!=='low')for(let i=p.trail.length-1;i>0;i--)paintMinionFrame(ctx,p.specKind,p.clip,p.frame,p.trail[i].x,p.trail[i].y,1,.08*(4-i),p.facing,0);
  if(!paintMinionFrame(ctx,p.specKind,p.clip,p.frame,br.x,br.y,1,1,p.facing,0))pixel('brother'+br.kind,br.x,br.y,1.6,0,br.x>g.player.x);
  if(minionImage(p.specKind+'Glow'))paintMinionFrame(ctx,p.specKind,p.clip,p.frame,br.x,br.y,1,.8,p.facing,0,'glow');
  text(br.kind?'CATASTROPHE':'CATACLYSM',br.x,br.y-112,11,'#ffd4ca');hpMini(br.x,br.y-105,br.hp,br.max,65,'#ed9e8b');

@@ -1,15 +1,16 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=26.1.2';
-import { playerConfig } from '../../config/player.js?v=26.1.2';
-import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=26.1.2';
-import { ctx } from '../core/dom.js?v=26.1.2';
-import { state } from '../core/state.js?v=26.1.2';
-import { settings } from '../core/settings.js?v=26.1.2';
-import { clamp } from '../core/math.js?v=26.1.2';
-import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=26.1.2';
-import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=26.1.2';
-import { line,round,text } from './primitives.js?v=26.1.2';
-import { drawNativeArmor } from './native-armor.js?v=26.1.2';
-import { drawWarriorTrail } from './warrior-trails.js?v=26.1.2';
+import {renderQuality} from '../core/settings.js?v=26.2.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=26.2.0';
+import { playerConfig } from '../../config/player.js?v=26.2.0';
+import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=26.2.0';
+import { ctx } from '../core/dom.js?v=26.2.0';
+import { state } from '../core/state.js?v=26.2.0';
+import { settings } from '../core/settings.js?v=26.2.0';
+import { clamp } from '../core/math.js?v=26.2.0';
+import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=26.2.0';
+import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=26.2.0';
+import { line,round,text } from './primitives.js?v=26.2.0';
+import { drawNativeArmor } from './native-armor.js?v=26.2.0';
+import { drawWarriorTrail } from './warrior-trails.js?v=26.2.0';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();
@@ -76,7 +77,7 @@ export function drawWarriorIdleWeapon(g){return g.player.weapon===0;}
 export function drawWarriorWeapon(g){
   const p=g.player;if(p.weapon!==0||!meleeAtlasReady('ark'))return false;
   if(p.arkCharges>0&&g.mode!=='dead'){
-    const count=settings.quality==='low'?1:2;
+    const count=renderQuality()==='low'?1:2;
     for(let i=0;i<count;i++){
       const a=g.t*2+i*Math.PI;
       drawNativeArkSpark(p.x+Math.cos(a)*27,p.y+Math.sin(a)*24,.5,a);
@@ -96,7 +97,7 @@ export function drawWarriorWeapon(g){
     }else drawNativeArkBlade(s.wide?'left':'right',geometry.draw.x,geometry.draw.y,geometry.scale,rotation,geometry.flip);
   }
   if(p.arkThrow){
-    const s=p.arkThrow,ready=!s.returning&&s.age>=s.max*.25&&s.age<s.max*.75,steps=settings.quality==='low'?4:8;
+    const s=p.arkThrow,ready=!s.returning&&s.age>=s.max*.25&&s.age<s.max*.75,steps=renderQuality()==='low'?4:8;
     drawNativeConstellation(g,s);
     drawNativeSnapBurst(g,s);
     if(nativeArkReady()){
