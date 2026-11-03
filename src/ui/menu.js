@@ -1,15 +1,15 @@
-import { weapons } from '../classes/registry.js?v=26.0.0';
-import { audio } from '../core/audio.js?v=26.0.0';
-import { VERSION } from '../core/config.js?v=26.0.0';
-import { $, root } from '../core/dom.js?v=26.0.0';
-import { state } from '../core/state.js?v=26.0.0';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.0';
-import { start,togglePause } from '../game/session.js?v=26.0.0';
-import { loop } from '../game/loop.js?v=26.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=26.0.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.0';
-import { createMenuBackground } from '../render/menu-background.js?v=26.0.0';
-import { pixelArt } from '../render/sprites.js?v=26.0.0';
+import { weapons } from '../classes/registry.js?v=26.0.1';
+import { audio } from '../core/audio.js?v=26.0.1';
+import { VERSION } from '../core/config.js?v=26.0.1';
+import { $, root } from '../core/dom.js?v=26.0.1';
+import { state } from '../core/state.js?v=26.0.1';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.1';
+import { start,togglePause } from '../game/session.js?v=26.0.1';
+import { loop } from '../game/loop.js?v=26.0.1';
+import { setFocusMode } from '../input/fullscreen.js?v=26.0.1';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.1';
+import { createMenuBackground } from '../render/menu-background.js?v=26.0.1';
+import { pixelArt } from '../render/sprites.js?v=26.0.1';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};

@@ -1,10 +1,10 @@
-import {drawBrotherProjectile} from './brother-projectiles.js?v=26.0.0';
-import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=26.0.0';
-import {ctx} from '../core/dom.js?v=26.0.0';
-import {settings} from '../core/settings.js?v=26.0.0';
-import {line} from './primitives.js?v=26.0.0';
-import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=26.0.0';
-import {TAU} from '../core/config.js?v=26.0.0';
+import {drawBrotherProjectile} from './brother-projectiles.js?v=26.0.1';
+import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=26.0.1';
+import {ctx} from '../core/dom.js?v=26.0.1';
+import {settings} from '../core/settings.js?v=26.0.1';
+import {line} from './primitives.js?v=26.0.1';
+import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=26.0.1';
+import {TAU} from '../core/config.js?v=26.0.1';
 
 // Source-accurate projectile kind mapping:
 // - 'dart' → 'barrage' (BrimstoneBarrage.cs) - used by Sepulcher, seekers, fireblast/gigablast explosions

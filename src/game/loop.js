@@ -1,6 +1,6 @@
-import { state } from '../core/state.js?v=26.0.0';
-import { update } from './update.js?v=26.0.0';
-import { draw } from '../render/scene.js?v=26.0.0';
+import { state } from '../core/state.js?v=26.0.1';
+import { update } from './update.js?v=26.0.1';
+import { draw } from '../render/scene.js?v=26.0.1';
 
 
 function loop(now){

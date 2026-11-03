@@ -1,4 +1,4 @@
 {
-  "version": "26.0.0",
-  "notes": "Menu redesign, original-creators thanks, smooth music and grounded decorations"
+  "version": "26.0.1",
+  "notes": "Cache native combat and HUD text to reduce render submissions"
 }

@@ -1,13 +1,13 @@
-import {ctx} from '../core/dom.js?v=26.0.0';
-import {state} from '../core/state.js?v=26.0.0';
-import {nativeArmorCells} from './native-armor.js?v=26.0.0';
-import {arkEffectTexture} from './ark-native.js?v=26.0.0';
+import {ctx} from '../core/dom.js?v=26.0.1';
+import {state} from '../core/state.js?v=26.0.1';
+import {nativeArmorCells} from './native-armor.js?v=26.0.1';
+import {arkEffectTexture} from './ark-native.js?v=26.0.1';
 const images={},tints=new Map();let loading;
 export function initializeAsgardianAtlas(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  return loading=Promise.all(['shield','mark','explosion'].map(name=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[name]=image;resolve(true);};image.onerror=()=>resolve(false);
-  image.src=new URL('../../assets/asgardian-original/'+name+'.png?v=26.0.0',import.meta.url).href;
+  image.src=new URL('../../assets/asgardian-original/'+name+'.png?v=26.0.1',import.meta.url).href;
  }))).then(r=>r.every(Boolean));
 }
 export function asgardianShieldFrame(g){

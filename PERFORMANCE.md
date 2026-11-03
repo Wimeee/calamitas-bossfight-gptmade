@@ -16,3 +16,7 @@
 A local browser profile used the actual renderer, a fixed mixed set of 240 enemy projectiles, High graphics, 1.6-second samples and eight warm-up frames. Before: median RAF interval 33.3 ms (44 sampled frames); disabling live shadow blur gave 5.6 ms. After caching projectile glows and arena surfaces: median RAF interval 5.6 ms (213 frames), with glows enabled. Median JavaScript draw submission remained about 1.3 ms in both versions; the improvement is in raster/compositor work, not simulation. The browser was uncapped; these numbers are comparative test-environment measurements, not promised player-device FPS.
 
 Projectile glow textures are bounded to 96 variants. Arena gradient/grid/border rebuild only when arena bounds or Low/High mode change. Ritual spark halos use the same cache. A focused test verifies no new raster surfaces over 40 warmed dense-bullet frames and no projectile-state mutation. No damage, speed, projectile count or collision changes. Baseline commit: 3bfdf6e57e6fc6d878bbe421dd03dcc76c4d62c7.
+
+
+## v26.0.1 text raster cache
+Actual Edge Canvas isolated test: 90 outlined combat labels across120 frames, after10 warm-up frames. Before1291.2ms/162000 destination draw calls; after216.3ms/10800 calls. About6x faster text submission, 15x fewer destination submissions. This is NOT full-fight FPS and does not establish120FPS on the user device. Bitmap labels retain native fonts, outline, tint, scale and locale. Cache limited128 entries and262144pixels per label, unloaded font pages bypass it. No combat changes.

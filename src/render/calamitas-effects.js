@@ -1,5 +1,5 @@
-import {ctx} from '../core/dom.js?v=26.0.0';
-import {helperTint,helperImage} from './helper-atlas.js?v=26.0.0';
+import {ctx} from '../core/dom.js?v=26.0.1';
+import {helperTint,helperImage} from './helper-atlas.js?v=26.0.1';
 export function drawCalamitasEffects(g){
  ctx.save();ctx.globalCompositeOperation='lighter';
  for(const p of g.calamitasEffects||[]){
