@@ -1,0 +1,444 @@
+{
+  "sourceCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "assets": [
+    {
+      "path": "NPCs/SupremeCalamitas/BrimstoneHeart.png",
+      "bytes": 2249,
+      "sha": "c597cfe505dbc26ebfb4a17f3d193fbd257e9d06",
+      "verified": true,
+      "width": 44,
+      "height": 370,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/BrimstoneHeart.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherArm.png",
+      "bytes": 769,
+      "sha": "b45111f2065293ffdd8a1711e4dfab68e0bd55bf",
+      "verified": true,
+      "width": 20,
+      "height": 62,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherArm.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherBody.png",
+      "bytes": 1924,
+      "sha": "5e8b75333ef4e7beb6b6b9b19646e550aa3167ea",
+      "verified": true,
+      "width": 82,
+      "height": 72,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherBody.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherBodyAlt.png",
+      "bytes": 2057,
+      "sha": "2bbd84fc04bd4f0503280ffbefd7162ded602c22",
+      "verified": true,
+      "width": 86,
+      "height": 82,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherBodyAlt.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherBodyEnergyBall.png",
+      "bytes": 874,
+      "sha": "3ab290bdf10a6b6e9008d9b5c75e3713a72f033a",
+      "verified": true,
+      "width": 22,
+      "height": 120,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherBodyEnergyBall.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherForearm.png",
+      "bytes": 625,
+      "sha": "da24ee8a4f3729b9c615fdfabe77230f37fb4775",
+      "verified": true,
+      "width": 18,
+      "height": 60,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherForearm.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherHand.png",
+      "bytes": 839,
+      "sha": "c28935e9f286312610f017859b5e32c48c1b3a75",
+      "verified": true,
+      "width": 34,
+      "height": 48,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherHand.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherHead.png",
+      "bytes": 1768,
+      "sha": "ce918150f1e3334acb2269f120379bbaccd2d7c1",
+      "verified": true,
+      "width": 62,
+      "height": 88,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherHead.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SepulcherTail.png",
+      "bytes": 1033,
+      "sha": "283e094283b74c7340eb4b2c3a1dbb9115b58f2f",
+      "verified": true,
+      "width": 54,
+      "height": 54,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SepulcherTail.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SoulSeekerSupreme.png",
+      "bytes": 4550,
+      "sha": "cea992e2a7df713761a6ddd205afa906a1388301",
+      "verified": true,
+      "width": 96,
+      "height": 780,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SoulSeekerSupreme.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SoulSeekerSupremeGlow.png",
+      "bytes": 1531,
+      "sha": "5c481d1bf2f547532d66622c1214aadf77a01f1f",
+      "verified": true,
+      "width": 96,
+      "height": 780,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SoulSeekerSupremeGlow.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCataclysm.png",
+      "bytes": 68819,
+      "sha": "9c0dd24eefa42ad4d312ae97ae1d437fcb69ae44",
+      "verified": true,
+      "width": 636,
+      "height": 1872,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCataclysm.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCataclysmGlow.png",
+      "bytes": 30301,
+      "sha": "68fc1f97f4471e9d77c9ec980dee4e8ee91f2bfb",
+      "verified": true,
+      "width": 636,
+      "height": 1872,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCataclysmGlow.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCataclysm_Head_Boss.png",
+      "bytes": 462,
+      "sha": "17e315f774e099f1f3ee9045ac1a3c416b15d884",
+      "verified": true,
+      "width": 46,
+      "height": 48,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCataclysm_Head_Boss.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCatastrophe.png",
+      "bytes": 56795,
+      "sha": "bb734a4da09d492a5f82159f7c00bdf2d2b81f68",
+      "verified": true,
+      "width": 800,
+      "height": 1840,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCatastrophe.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCatastropheGlow.png",
+      "bytes": 15965,
+      "sha": "18486cd16c9268492638914a630bd7456b736e61",
+      "verified": true,
+      "width": 800,
+      "height": 1840,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCatastropheGlow.png"
+    },
+    {
+      "path": "NPCs/SupremeCalamitas/SupremeCatastrophe_Head_Boss.png",
+      "bytes": 498,
+      "sha": "7741147b989204443f9d63bccea3fa7015c2d30a",
+      "verified": true,
+      "width": 38,
+      "height": 38,
+      "file": "assets/calamitas/encounter/NPCs/SupremeCalamitas/SupremeCatastrophe_Head_Boss.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneBarrage.png",
+      "bytes": 1154,
+      "sha": "7664f14d4e49ff011c6c49db6e60366ad68f4a9e",
+      "verified": true,
+      "width": 18,
+      "height": 176,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneBarrage.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneHellblast.png",
+      "bytes": 3027,
+      "sha": "dd8e4e8aa493af8ac21b8efb4a89bcfe654715c3",
+      "verified": true,
+      "width": 54,
+      "height": 176,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneHellblast.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneHellblast2.png",
+      "bytes": 3144,
+      "sha": "917a949d4c352fc24a35aa3aef83e6cbccdebee0",
+      "verified": true,
+      "width": 54,
+      "height": 176,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneHellblast2.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneHellfireball.png",
+      "bytes": 3433,
+      "sha": "71720f8c11a56296dc7fb27b19426b7227ae7af1",
+      "verified": true,
+      "width": 34,
+      "height": 492,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneHellfireball.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneMonster.png",
+      "bytes": 4500,
+      "sha": "395e451b2808a15f64d070464fd2bb26803bb4b9",
+      "verified": true,
+      "width": 360,
+      "height": 360,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneMonster.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneMonsterII.png",
+      "bytes": 10197,
+      "sha": "b0fcfdf17426023e8c62631aaa23eb5f766fbc3d",
+      "verified": true,
+      "width": 360,
+      "height": 360,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneMonsterII.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneRay.png",
+      "bytes": 234,
+      "sha": "8ebe735ad9d063f1f9b8b107c74e753f47e404e0",
+      "verified": true,
+      "width": 26,
+      "height": 22,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneRay.png"
+    },
+    {
+      "path": "Projectiles/Boss/BrimstoneWave.png",
+      "bytes": 1216,
+      "sha": "cac79d9d9641bc34040a65f1dcab0630116a5e2a",
+      "verified": true,
+      "width": 48,
+      "height": 128,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/BrimstoneWave.png"
+    },
+    {
+      "path": "Projectiles/Boss/SCalBrimstoneFireblast.png",
+      "bytes": 941,
+      "sha": "eacc1095868641e607aa1d886195ee8fc30fde7a",
+      "verified": true,
+      "width": 36,
+      "height": 250,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SCalBrimstoneFireblast.png"
+    },
+    {
+      "path": "Projectiles/Boss/SCalBrimstoneGigablast.png",
+      "bytes": 1728,
+      "sha": "c1867a5f81a0b63f0830cff99c70af2863c2858d",
+      "verified": true,
+      "width": 52,
+      "height": 492,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SCalBrimstoneGigablast.png"
+    },
+    {
+      "path": "Projectiles/Boss/SupremeCataclysmFist.png",
+      "bytes": 1660,
+      "sha": "463e2b2186933bb0085385a6b8c0db47fa8cf4dc",
+      "verified": true,
+      "width": 126,
+      "height": 224,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SupremeCataclysmFist.png"
+    },
+    {
+      "path": "Projectiles/Boss/SupremeCataclysmFistAlt.png",
+      "bytes": 1610,
+      "sha": "980f37b1c0c7edb44954eb364c6a36d0374e36a5",
+      "verified": true,
+      "width": 126,
+      "height": 224,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SupremeCataclysmFistAlt.png"
+    },
+    {
+      "path": "Projectiles/Boss/SupremeCatastropheSlash.png",
+      "bytes": 1136,
+      "sha": "9ce070f410e59c8a804b3b6b3951064ce7b42a63",
+      "verified": true,
+      "width": 168,
+      "height": 240,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SupremeCatastropheSlash.png"
+    },
+    {
+      "path": "Projectiles/Boss/SupremeCatastropheSlashAlt.png",
+      "bytes": 1289,
+      "sha": "92684fe7f385399cc00792260ee00f2445b30913",
+      "verified": true,
+      "width": 192,
+      "height": 232,
+      "file": "assets/calamitas/encounter/Projectiles/Boss/SupremeCatastropheSlashAlt.png"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneBigShoot.ogg",
+      "bytes": 23797,
+      "sha": "7afaf0a822966e4967aea05a026f05e5183f37b4",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneBigShoot.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneFireblastImpact.ogg",
+      "bytes": 22640,
+      "sha": "4e309aaf5a4f6afcd3bba65778d4fd76b38ba400",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneFireblastImpact.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneGigablastImpact.ogg",
+      "bytes": 30398,
+      "sha": "2a5e151e6068c9681b8a55a85e8343187883999d",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneGigablastImpact.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneHellblastSound.ogg",
+      "bytes": 16218,
+      "sha": "b2e6e44be221726930c24457e5888261fbc9b8b5",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneHellblastSound.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneMonsterDrone.ogg",
+      "bytes": 72801,
+      "sha": "26afb38c27cecb7bf9c09c11944fd65d445b4f47",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneMonsterDrone.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneMonsterSpawn.ogg",
+      "bytes": 51511,
+      "sha": "820dfa81807937d640ee4dfcaafb4913945031ca",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneMonsterSpawn.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrimstoneShoot.ogg",
+      "bytes": 13009,
+      "sha": "fce1be6b0b53bb5e75b34a770b4cdc617d9718fb",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrimstoneShoot.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrothersDeath1.ogg",
+      "bytes": 24338,
+      "sha": "87ee3d42b333c2b86d8a6169fc2b27b4fd176312",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrothersDeath1.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrothersDeath2.ogg",
+      "bytes": 27572,
+      "sha": "75215c094c1fc47fa526c483727f420745fd29e4",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrothersDeath2.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrothersHurt1.ogg",
+      "bytes": 13308,
+      "sha": "8aa9efd1535feae2498cd686f91f5d8f2c735e1f",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrothersHurt1.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/BrothersHurt2.ogg",
+      "bytes": 14335,
+      "sha": "81784fe35e02b95f7f4eb6ea851e079cf51bc1d0",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/BrothersHurt2.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/CatastropheResonanceSlash.ogg",
+      "bytes": 18647,
+      "sha": "db749a15bfc973e3df281406d10da41f9d29f07a",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/CatastropheResonanceSlash.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/GFBDrone.ogg",
+      "bytes": 31207,
+      "sha": "bfabb1a582ff2eff9200fa11c0759dcc3b791c6b",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/GFBDrone.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/SCalDash.ogg",
+      "bytes": 25053,
+      "sha": "3b8727578ac3bd57070ebcdfb2575bb554c002f8",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/SCalDash.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/SCalEndBH.ogg",
+      "bytes": 44273,
+      "sha": "6c5860b3cba74aa817b599f768cbd218a5c3a0bf",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/SCalEndBH.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/SCalRumble.ogg",
+      "bytes": 40650,
+      "sha": "0ed9a09f26f2b16281596a95ba0c0a10b6075251",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/SCalRumble.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/SepulcherSpawn.ogg",
+      "bytes": 74234,
+      "sha": "b0b6e2ccf8c2f04be03ff907f81532234e6282f5",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/SepulcherSpawn.ogg"
+    },
+    {
+      "path": "Sounds/Custom/SCalSounds/SupremeCalamitasGiveUp.ogg",
+      "bytes": 43059,
+      "sha": "03dcd515f734741d076afda03b8f20097dcfb588",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/Custom/SCalSounds/SupremeCalamitasGiveUp.ogg"
+    },
+    {
+      "path": "Sounds/NPCKilled/SepulcherDeath.ogg",
+      "bytes": 73221,
+      "sha": "8da5bc64667205de1d0608a1b593652510d8f92c",
+      "verified": true,
+      "file": "assets/calamitas/encounter/Sounds/NPCKilled/SepulcherDeath.ogg"
+    },
+    {
+      "path": "ExtraTextures/SoulVortex.png",
+      "bytes": 21974,
+      "sha": "3450a057bdc4df65ab0ee8d83290ef0c46d5835a",
+      "verified": true,
+      "width": 408,
+      "height": 408,
+      "file": "assets/calamitas/encounter/ExtraTextures/SoulVortex.png"
+    },
+    {
+      "path": "ExtraTextures/ScreamyFace.png",
+      "bytes": 159313,
+      "sha": "712955d4f77f71a993a22737af89543355e3bf68",
+      "verified": true,
+      "width": 512,
+      "height": 512,
+      "file": "assets/calamitas/encounter/ExtraTextures/ScreamyFace.png"
+    },
+    {
+      "path": "Particles/LargeBloom.png",
+      "bytes": 75747,
+      "sha": "643741e8c9316821da6d64d0a2010e5c48a9413a",
+      "verified": true,
+      "width": 360,
+      "height": 360,
+      "file": "assets/calamitas/encounter/Particles/LargeBloom.png"
+    }
+  ]
+}

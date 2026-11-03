@@ -1,15 +1,21 @@
-import { kit } from '../classes/shared.js?v=22.1.0';
-import { hitTarget } from './damage.js?v=22.1.0';
-import { possibleTargets } from './targets.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { clamp } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { muzzlePoint } from '../render/weapons.js?v=22.1.0';
+import { kit } from '../classes/shared.js?v=25.0.0';
+import { hitTarget } from './damage.js?v=25.0.0';
+import { possibleTargets } from './targets.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { clamp } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { muzzlePoint } from '../render/weapons.js?v=25.0.0';
+import { getSepulcherBlockers, traceSepulcherBeam } from './sepulcher-blocking.js?v=25.0.0';
 
 
 function beamWallDistance(x,y,dx,dy){
-  const tx=dx>1e-8?(arena.r-x)/dx:dx< -1e-8?(arena.l-x)/dx:Infinity;
-  const ty=dy>1e-8?(arena.b-y)/dy:dy< -1e-8?(arena.t-y)/dy:Infinity;
+  let {l,r,t,b}=arena;
+  for(const target of possibleTargets()){
+    l=Math.min(l,target.x-target.r);r=Math.max(r,target.x+target.r);
+    t=Math.min(t,target.y-target.r);b=Math.max(b,target.y+target.r);
+  }
+  const tx=dx>1e-8?(r-x)/dx:dx< -1e-8?(l-x)/dx:Infinity;
+  const ty=dy>1e-8?(b-y)/dy:dy< -1e-8?(t-y)/dy:Infinity;
   return Math.max(0,Math.min(tx,ty,1800));
 }
 
@@ -17,6 +23,21 @@ function beamWallDistance(x,y,dx,dy){
 function traceWeaponBeam(x,y,angle,halfWidth){
   const dx=Math.cos(angle),dy=Math.sin(angle);
   let distance=beamWallDistance(x,y,dx,dy),hit=null;
+
+  // Check Sepulcher blockers first (if worm exists)
+  const g = state.game;
+  if (g?.sepulcher) {
+    const blockers = getSepulcherBlockers(g);
+    if (blockers.length > 0) {
+      const beamResult = traceSepulcherBeam(x, y, dx, dy, halfWidth, blockers, distance);
+      if (beamResult.hit) {
+        distance = beamResult.distance;
+        hit = null; // Blocker is not a damageable target
+      }
+    }
+  }
+
+  // Check damageable targets (hearts, brothers, seekers, boss)
   for(const target of possibleTargets()){
     const rx=target.x-x,ry=target.y-y,along=rx*dx+ry*dy,r=target.r+halfWidth;
     const disc=r*r-(rx*rx+ry*ry-along*along);

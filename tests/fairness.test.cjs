@@ -31,16 +31,17 @@ test('fire and gigablast stop before even radial explosions, with original diffi
 });
 test('dart arc spacing, dash target lock, phase II after brothers, altar and letterbox aim',async()=>{
  const {t,el}=await loadGame();t.start();t.enter('normal','opening','TEST');const g=t.getGame();
- g.attackIndex=0;g.attackTimer=0;t.bossAttack(.01);
- assert.equal(g.projectiles.length,8);
- const angles=g.projectiles.map(q=>Math.atan2(q.vy,q.vx));
- for(let i=1;i<angles.length;i++)assert.ok(Math.abs(angles[i]-angles[i-1]-.18)<1e-9);
- g.attackIndex=3;g.attackTimer=0;t.bossAttack(.01);const target={...g.dashVector};g.player.x+=150;t.bossAttack(.8);
+ g.attackIndex=0;g.attackTimer=0;t.bossAttack(182/60);
+ const darts=g.projectiles.filter(q=>q.kind==='dart');assert.equal(darts.length,8);
+ const angles=darts.map(q=>Math.atan2(q.vy,q.vx));
+ for(let i=1;i<angles.length;i++)assert.ok(Math.abs(angles[i]-angles[i-1]-(40*Math.PI/180)/7)<1e-9);
+ g.attackIndex=3;g.attackTimer=0;t.bossAttack(1/60);const target={...g.dashVector};g.player.x+=150;t.bossAttack(.8);
  assert.equal(g.dashVector.x,target.x);assert.equal(g.dashVector.y,target.y);
  t.enter('brothers','bros','TEST');g.brothers.forEach(b=>b.hp=0);t.updateBullets(0);
- assert.equal(g.stage,'normal');assert.ok(g.thresholds.has('40'));assert.equal(g.phase2Intro,3);
+ assert.equal(g.stage,'normal');assert.ok(g.thresholds.has('40'));assert.equal(g.phase2Intro,200/60);
  const terrain=t.getTerrain();assert.equal(terrain.altar.x,500);assert.equal(terrain.altar.y+35,terrain.platforms[1].y);
  const point=t.canvasPointToWorld(200,100,{left:0,top:0,width:1200,height:600},true);
- assert.ok(Math.abs(point.x-(g.camera.x-480))<1e-9);assert.ok(Math.abs(point.y-(g.camera.y-240))<1e-9);
- await t.toggleFullscreen();assert.ok(el('scal-game').classList.contains('focus-mode'));await t.toggleFullscreen();assert.equal(el('scal-game').classList.contains('focus-mode'),false);
+ const zoom=0.765;
+ assert.ok(Math.abs(point.x-(g.camera.x-480/zoom))<1e-9);assert.ok(Math.abs(point.y-(g.camera.y-240/zoom))<1e-9);
+ assert.ok(el('scal-game').classList.contains('focus-mode'),'battle starts in full-window mode');await t.toggleFullscreen();assert.equal(el('scal-game').classList.contains('focus-mode'),false);await t.toggleFullscreen();assert.ok(el('scal-game').classList.contains('focus-mode'));
 });

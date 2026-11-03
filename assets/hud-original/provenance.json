@@ -1,0 +1,258 @@
+{
+  "note": "Original local Terraria and Calamity 2.2.4 UI assets; lossless conversion. Local use only.",
+  "files": [
+    {
+      "file": "rage.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/RageBar.rawimg",
+      "sha256": "694ca7603ed9a53e75d0bbf58b8da36848d73a1d681523751db64939c596f968",
+      "width": 80,
+      "height": 36
+    },
+    {
+      "file": "rageBorder.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/RageBarBorder.rawimg",
+      "sha256": "cb20b7be46c415f3e2311c2710db31beea0364564ff554ec7f27eaa020dbfa62",
+      "width": 104,
+      "height": 36
+    },
+    {
+      "file": "rageFull.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/RageFullAnimation.rawimg",
+      "sha256": "091420be858b42182f0c77d156437a6a3d315e038234746d45d2f6e88ac58437",
+      "width": 152,
+      "height": 380
+    },
+    {
+      "file": "adrenaline.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/AdrenalineBar.rawimg",
+      "sha256": "9c5422bb32b1f6ba4989b77b41ddd36614bc274a62391a0dbe9d84ddf3d6731c",
+      "width": 80,
+      "height": 36
+    },
+    {
+      "file": "adrenalineBorder.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/AdrenalineBarBorder.rawimg",
+      "sha256": "55734209c9762926871049145be8a4f495d464b765f2f388b253d9b383739322",
+      "width": 104,
+      "height": 480
+    },
+    {
+      "file": "adrenalineBorderFull.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/AdrenalineBarBorderFull.rawimg",
+      "sha256": "c976640e4c922a5e7ad4d5364bc89678999025e8025212e671ce7e2ef0f4f28c",
+      "width": 104,
+      "height": 240
+    },
+    {
+      "file": "adrenalineFull.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/Rippers/AdrenalineFullAnimation.rawimg",
+      "sha256": "da3ca5bd3c92701b2a0d56d4cb8022aec301003ae2d8d2cdfa15b9d7952b9826",
+      "width": 172,
+      "height": 700
+    },
+    {
+      "file": "bossMain.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/MiscTextures/BossHPMainBar.rawimg",
+      "sha256": "60c8151e91df89c0bba02b73bb402efe62b652b7029c07ee3243c4accb7ea0ed",
+      "width": 2,
+      "height": 15
+    },
+    {
+      "file": "bossCombo.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/MiscTextures/BossHPComboBar.rawimg",
+      "sha256": "3b0991d9c5e8f9f5153776362773f35b229dcdab2a5f5aead9094caae4b518b9",
+      "width": 2,
+      "height": 15
+    },
+    {
+      "file": "bossSeparator.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/MiscTextures/BossHPSeperatorBar.rawimg",
+      "sha256": "c54858d2e621389e6df4ec93f7c5bb7fc81366b601a0670c1636c5d6b494d8cd",
+      "width": 1,
+      "height": 6
+    },
+    {
+      "file": "hex.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Buffs/DamageOverTime/VulnerabilityHex.rawimg",
+      "sha256": "38e8020e18f2ca133700466192790bd1276d3c21d10216e7dfa5be7c2b5e8f4e",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "file": "Panel_Left.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/Panel_Left.xnb",
+      "sha256": "d9f2a1aa5f25ff509aa51d40de668c1da48af0ea43d394f9dc180414cdfbca0a",
+      "width": 6,
+      "height": 24
+    },
+    {
+      "file": "HP_Panel_Middle.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/HP_Panel_Middle.xnb",
+      "sha256": "cb28e48a5fe8d63012c17f74e846245893a140582848413596bbee30f7542b33",
+      "width": 12,
+      "height": 24
+    },
+    {
+      "file": "HP_Panel_Right.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/HP_Panel_Right.xnb",
+      "sha256": "8363fa71dabbe91927d1685bc104bf7cdddfdd2f96ae0c11c0f63ee0cb3acb9f",
+      "width": 46,
+      "height": 38
+    },
+    {
+      "file": "HP_Fill.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill.xnb",
+      "sha256": "4064198fd43218ca8360c22f8a1187a223ea92ded469ba6d1871f4cd3f23bd60",
+      "width": 12,
+      "height": 12
+    },
+    {
+      "file": "MP_Panel_Middle.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/MP_Panel_Middle.xnb",
+      "sha256": "5a102c7301304385040a4d0e4fd0fab25bdbe3d2689d1289e958f5b3b305b5a3",
+      "width": 12,
+      "height": 24
+    },
+    {
+      "file": "MP_Panel_Right.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/MP_Panel_Right.xnb",
+      "sha256": "e86a65d6ab35d82b731787a43d2063711e7dc10337688597e16751ce01c41d64",
+      "width": 46,
+      "height": 40
+    },
+    {
+      "file": "MP_Fill.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/UI/PlayerResourceSets/HorizontalBars/MP_Fill.xnb",
+      "sha256": "c20894e30f3e005ea7676d133b4e1268f979c5a8419a24816e19f94023f3c299",
+      "width": 12,
+      "height": 12
+    },
+    {
+      "file": "mouse-0.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Mouse_Text.xnb",
+      "sha256": "5233075886cb16aa2baa80ac88daeffa266cfb67af49d8051ef927092dd5f9ba",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "mouse-20.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Mouse_Text.xnb",
+      "sha256": "5140da0814f265de4427a307752be2a1696b1c4ccd04254d6053e796804c2eaa",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "mouse-21.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Mouse_Text.xnb",
+      "sha256": "072d0e4d3e337614905ebc2a91294d166af2f48eadef1c795d3dba5cde7206de",
+      "width": 32,
+      "height": 64
+    },
+    {
+      "file": "bossFont-0.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Fonts/HPBarFont.xnb",
+      "sha256": "a6ffd6c5ea20fdfded00efd407be196c79713376f3924afa481e52f33353f99b",
+      "width": 256,
+      "height": 512
+    },
+    {
+      "file": "bossFont-1.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Fonts/HPBarFont.xnb",
+      "sha256": "d2635662580319786743a552dfa39eb1a5c0c48be19fa3110e423021ffe6129e",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "file": "bossFont-22.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Fonts/HPBarFont.xnb",
+      "sha256": "a8e8adc819471a129d83ca5aee6a21be9307279d6ed1742264ea59bc73b8aba9",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "combat-0.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Combat_Text.xnb",
+      "sha256": "d6f583bbe9fd3aaaabe296032462391f0886f9a9b6f9cfb0a03e2b35045bb21d",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "combat-20.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Combat_Text.xnb",
+      "sha256": "00b29db30fcff58a5f565fc7c4132b3e54a5015ba01a5359a1af2e3c9eef0bb8",
+      "width": 256,
+      "height": 512
+    },
+    {
+      "file": "combat-21.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Combat_Text.xnb",
+      "sha256": "d03fb414e503c7c3bac2fa96dc9d6309692ce2783894785c0bfe574198f475f9",
+      "width": 32,
+      "height": 64
+    },
+    {
+      "file": "combat-22.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Fonts/Combat_Text.xnb",
+      "sha256": "035945539963791caefc2653baf14d2116fbe644e4c73c46816b9474f4bc2588",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "file": "FullRage.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AbilitySounds/FullRage.ogg",
+      "sha256": "f03e868fe204633f4a1b318187cad2beb3a95cab86ccdfae90ae4fdaf568b73c"
+    },
+    {
+      "file": "FullAdrenaline.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AbilitySounds/FullAdrenaline.ogg",
+      "sha256": "f6b152b11e6ec06071e4e6214c67613c86210c27bcec39f99bc2b41497bf352f"
+    },
+    {
+      "file": "RageActivate.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AbilitySounds/RageActivate.ogg",
+      "sha256": "183ab193804465fd8335846ccc8055dc7d18b53f2add5f5ffb51dff7cd6d252a"
+    },
+    {
+      "file": "AdrenalineActivate.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AbilitySounds/AdrenalineActivate.ogg",
+      "sha256": "5dc051b18e685634f352f4cb153d80e178ff9e6c51ecaa8b695facd5f04949d5"
+    },
+    {
+      "file": "RageEnd.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AbilitySounds/RageEnd.ogg",
+      "sha256": "5956869c15c4c5f0607663e47c1d7d66f5cbcfdf0290f7a6ab8a45a95c4fd70d"
+    },
+    {
+      "file": "ragePulse.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/HollowCircleHardEdge.rawimg",
+      "sha256": "31a9737b0eb9d30ca816470ec862ecaa1927c898b6b0387d3a926d7159174b3b",
+      "width": 156,
+      "height": 156
+    },
+    {
+      "file": "adrenDust.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Dusts/AdrenDust.rawimg",
+      "sha256": "af2ed5ceefe95ba2cc11bf83bef3f575d7266a0b1dddb719ec115b6c7207d3ee",
+      "width": 10,
+      "height": 30
+    },
+    {
+      "file": "rageDust.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Dust.xnb",
+      "sha256": "7cfcaeb4fc81e778483466bbd062ff6ef4f89d9c62339cdf87e5f624b6810c32",
+      "width": 8,
+      "height": 24,
+      "crop": "Dust114: x140, y30/40/50, 8x8 each; original NewDust frame addressing verified from installed tModLoader DLL"
+    },
+    {
+      "file": "AdrenalineMajorLoss.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Custom/AdrenalineMajorLoss.ogg",
+      "sha256": "dec4ca06567bba47a1b53cffaa7c5d6ca1d28252a8c4dce09519c5f7cbeff930"
+    },
+    {
+      "file": "ripperLight.png",
+      "source": "Original Calamity Particles/BloomCircle.rawimg; existing lossless melee-original/bloom-circle.png conversion",
+      "sha256": "44a81e3373298a0767b2420932a580325a69dd760791e550f4cd1622662df97c"
+    }
+  ]
+}

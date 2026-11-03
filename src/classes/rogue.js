@@ -1,11 +1,13 @@
-import { beginAttack, kit } from './shared.js?v=22.1.0';
-import { hitTarget } from '../combat/damage.js?v=22.1.0';
-import { possibleTargets } from '../combat/targets.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { dist, lerp, norm, segmentDistance } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { muzzlePoint, weaponAim } from '../render/weapons.js?v=22.1.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=25.0.0';
+import { beginAttack, kit } from './shared.js?v=25.0.0';
+import { hitTarget } from '../combat/damage.js?v=25.0.0';
+import { possibleTargets } from '../combat/targets.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { dist, lerp, norm, segmentDistance } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { muzzlePoint, weaponAim } from '../render/weapons.js?v=25.0.0';
+import { getSepulcherBlockers, checkSepulcherCollision } from '../combat/sepulcher-blocking.js?v=25.0.0';
 
 
 function throwCelestus(w,a){
@@ -43,6 +45,7 @@ function activateRogue(){
     s.returning=true;
     s.returnHits.clear();
     s.empowered=true;
+    damageSepulcherArea(g,s.x,s.y,85,1500,{hitIds:struck});
     for(const t of possibleTargets())if(!struck.has(t)&&dist(t,s)<t.r+85){
       hitTarget(t,1500,t.x,t.y,'#ffd2f4','rogue');
       struck.add(t);
@@ -80,12 +83,84 @@ function updateRogue(dt){
     const ox=s.x,oy=s.y;
     s.x+=s.vx*dt;
     s.y+=s.vy*dt;
+
+    // Process target hits and blocker collision in correct order along swept path
+    // Find earliest target hit vs blocker hit
     const hits=s.returning?s.returnHits:s.outHits;
-    for(const t of possibleTargets())if(!hits.has(t)&&segmentDistance(t.x,t.y,ox,oy,s.x,s.y)<t.r+(s.charged?21:14)){
-      hitTarget(t,s.dmg*(s.returning?(s.empowered?1.3:.7):1),t.x,t.y,'#f1b9ff','rogue');
-      hits.add(t);
-      if(s.charged)for(const other of possibleTargets())if(other!==t&&dist(other,t)<115)hitTarget(other,s.dmg*.3,other.x,other.y,'#f1b9ff','rogue');
+    const bladeRadius = s.charged ? 21 : 14;
+
+    // Check for target collisions along the swept path
+    let earliestTarget = null;
+    let earliestTargetT = Infinity;
+    for(const t of possibleTargets()){
+      if(hits.has(t)) continue;
+      const collision = checkSepulcherCollision(ox, oy, s.x, s.y, bladeRadius, [{
+        x: t.x, y: t.y, radius: t.r, type: 'target', ref: t
+      }]);
+      if (collision.hit && collision.t < earliestTargetT) {
+        earliestTargetT = collision.t;
+        earliestTarget = t;
+      }
     }
+
+    // Check for blocker collision
+    let blockerHit = null;
+    let blockerT = Infinity;
+    if (g.sepulcher && g.stage === 'hearts' && g.hearts?.some(h => h.hp > 0)) {
+      const blockers = getSepulcherBlockers(g);
+      if (blockers.length > 0) {
+        const collision = checkSepulcherCollision(ox, oy, s.x, s.y, bladeRadius, blockers);
+        if (collision.hit) {
+          blockerT = collision.t;
+          blockerHit = collision.blocker;
+        }
+      }
+    }
+
+    // Process hits in order along the path
+    // Targets with entry t <= blockerT get hit (multi-target piercing)
+    // If blocker is hit (blockerT < Infinity), blade is absorbed at that same tick
+    // No movement beyond worm between frames
+    let absorbedByWorm = false;
+    if (earliestTargetT <= blockerT) {
+      // Target(s) hit first - process ALL targets with entry <= blockerT
+      // For multi-target piercing without worm, blockerT is Infinity, so all targets in path get hit
+      const targetsInOrder = [];
+      for(const t of possibleTargets()){
+        if(hits.has(t)) continue;
+        const collision = checkSepulcherCollision(ox, oy, s.x, s.y, bladeRadius, [{
+          x: t.x, y: t.y, radius: t.r, type: 'target', ref: t
+        }]);
+        if (collision.hit && collision.t <= blockerT) {
+          targetsInOrder.push({ target: t, t: collision.t });
+        }
+      }
+      // Sort by collision t (earliest first)
+      targetsInOrder.sort((a, b) => a.t - b.t);
+
+      for (const entry of targetsInOrder) {
+        const t = entry.target;
+        hitTarget(t, s.dmg*(s.returning?(s.empowered?1.3:.7):1), t.x, t.y, '#f1b9ff', 'rogue');
+        hits.add(t);
+        if(s.charged){for(const other of possibleTargets())if(other!==t&&dist(other,t)<115)hitTarget(other,s.dmg*.3,other.x,other.y,'#f1b9ff','rogue');
+          damageSepulcherArea(g,t.x,t.y,115,s.dmg*.3);}
+      }
+
+      // If blocker is also hit in this step (blockerT < Infinity), absorb blade at blocker
+      // even if target(s) were hit first - no "next frame" pattern
+      if (blockerT < Infinity) {
+        absorbedByWorm = true;
+      }
+    } else if (blockerT < Infinity) {
+      // Blocker hit first (or only blocker) - absorb immediately
+      absorbedByWorm = true;
+    }
+
+    if (absorbedByWorm) {
+      k.blades.splice(i,1);
+      continue;
+    }
+
     if(s.returning&&segmentDistance(p.x,p.y,ox,oy,s.x,s.y)<20){
       p.stealth=Math.min(1,p.stealth+.11);
       p.fireCd=Math.max(0,p.fireCd-.035);

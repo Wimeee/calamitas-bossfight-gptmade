@@ -1,0 +1,273 @@
+{
+  "artVersion": "local CalamityMod2.2.4",
+  "sourceVersion": "official build.txt2.2.2",
+  "sourceCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "note": "Native RGBA encoded losslessly. Code/art version difference explicit; no claim exact2.2.4 behavior. WingsOfRebirth Real180x1566=9x180x174; do not use blank Wings equip sheet. Ark attacks use SunderingScissors and RendingNeedle/EonBolt, not guessed4frameblast.",
+  "files": [
+    {
+      "file": "auric-melee-head.png",
+      "source": "Items/Armor/Auric/AuricTeslaHeadMelee_Head.rawimg",
+      "width": 40,
+      "height": 1120,
+      "rgbaSha256": "6d46cec5ea25b757c12c3b6b4096797cc4564eebc5a3292507ecb73346f3343a",
+      "sha256": "fc4505442dccf24731209e9ce348c582beebf3410b6937b6d8e7a90392edb7ee"
+    },
+    {
+      "file": "auric-body.png",
+      "source": "Items/Armor/Auric/AuricTeslaBodyArmor_Body.rawimg",
+      "width": 360,
+      "height": 224,
+      "rgbaSha256": "008a34b007bc14ebba3a6e1dcee6c5639b75fae5c4598b172851f3bf6f19239c",
+      "sha256": "73f6a98d7a8516a52545371d3c4adb71f5be7c8d59fd2f56f73641e6b9a3186f"
+    },
+    {
+      "file": "auric-back.png",
+      "source": "Items/Armor/Auric/AuricTeslaBodyArmor_Back.rawimg",
+      "width": 40,
+      "height": 1120,
+      "rgbaSha256": "e2df9eb43b571b94b3a786bc0f53f784dd613db67850dc71e3269d4fe7657e0f",
+      "sha256": "b77adab245d58ae55dac54c5a1f6bfa38bcf00848ba03f1a2ef695114096145a"
+    },
+    {
+      "file": "auric-legs.png",
+      "source": "Items/Armor/Auric/AuricTeslaCuisses_Legs.rawimg",
+      "width": 40,
+      "height": 1120,
+      "rgbaSha256": "ff1b7c475efcba71f83a6f9e41cb71de8363ffa7d1dac25660b9f199b50044dc",
+      "sha256": "0c610b7580460b378008572af41abe628b8bb72e678c7621107fe9ce4c81edae"
+    },
+    {
+      "file": "rebirth-wings.png",
+      "source": "Items/Accessories/Wings/WingsofRebirth_Wings_Real.rawimg",
+      "width": 180,
+      "height": 1566,
+      "rgbaSha256": "9c1f789c439b23effad44496d59332bd4e95ab70a099d913a40853195f1a2040",
+      "sha256": "88dfbdf95924e5f18d383976202f20086833186d4ab7fa614d132095607a75e9"
+    },
+    {
+      "file": "ark-item.png",
+      "source": "Items/Weapons/Melee/ArkoftheCosmos.rawimg",
+      "width": 126,
+      "height": 132,
+      "rgbaSha256": "18c22fe20a54485898dfca0c649ef6881ffceaa42f9bdd3c01b1c5c1b786fb05",
+      "sha256": "b81e6fb31c689c8f219bbc520f7f9e1ad8ff2b477bf9f71bcdab2caed8d71c10"
+    },
+    {
+      "file": "ark-item-glow.png",
+      "source": "Items/Weapons/Melee/ArkoftheCosmosGlow.rawimg",
+      "width": 126,
+      "height": 132,
+      "rgbaSha256": "e339d8fbcb095d46297c693e86aa904647812a0235b291919862e7e22801dcd7",
+      "sha256": "ae2d06ee9125c0385c6024bce318bff121ab50056b2727265370c3a3b5861130"
+    },
+    {
+      "file": "ark-item-handle.png",
+      "source": "Items/Weapons/Melee/ArkoftheCosmosHandle.rawimg",
+      "width": 126,
+      "height": 132,
+      "rgbaSha256": "34c27584a8c4cd637b28a65ebe567ca0a4b166d68271931e1ee985680f667572",
+      "sha256": "9c8e81fdd045b7d43eb87fc36481fd4a4ef13bc7c98ec4d37f53af1b14779695"
+    },
+    {
+      "file": "ark-left.png",
+      "source": "Projectiles/Melee/SunderingScissorsLeft.rawimg",
+      "width": 120,
+      "height": 132,
+      "rgbaSha256": "0a44e09dfe8b5596602658d0c3512ed77e8c1a81aa9e102a2106f9c3cf3c38a2",
+      "sha256": "4f7b70c447b06b002fea6e07194eb7bbe67846c7885dbe8bf655b42f6bcb001f"
+    },
+    {
+      "file": "ark-left-glow.png",
+      "source": "Projectiles/Melee/SunderingScissorsLeftGlow.rawimg",
+      "width": 120,
+      "height": 132,
+      "rgbaSha256": "23895115de74f2f36f3d4a38041a3f8f6769d191f7093ffadf6994d96303e263",
+      "sha256": "899416d37c539ae16fa51b7a15c0a03321a4de8ffc5b1d7af1cd96b6a12c640f"
+    },
+    {
+      "file": "ark-right.png",
+      "source": "Projectiles/Melee/SunderingScissorsRight.rawimg",
+      "width": 134,
+      "height": 132,
+      "rgbaSha256": "df8d77f1653425eef4d6f0a3a705e484cdd5b45c364469cff4c249d0bc0915fd",
+      "sha256": "da93142f7f24ff96c7e4ab0d686129e09f1181f62bc9de6bbd5c4156406125e2"
+    },
+    {
+      "file": "ark-right-glow.png",
+      "source": "Projectiles/Melee/SunderingScissorsRightGlow.rawimg",
+      "width": 134,
+      "height": 132,
+      "rgbaSha256": "88ade5decce0429906b878bbafb347adeb2934ff38d57b754e185b8f34bd9716",
+      "sha256": "f3b41da8126642909637a9e2a9de7ebe86b45024b98ac3c47f924b2ff263765a"
+    },
+    {
+      "file": "ark-trail-glow.png",
+      "source": "Projectiles/Melee/SunderingScissorsGlow.rawimg",
+      "width": 134,
+      "height": 132,
+      "rgbaSha256": "065d6bc7e72b5c011741f8e6317801b44b2a0a36e350f93e38f3ee8c202fc320",
+      "sha256": "d108fc4d2eb08eae8267d2a7f39edb758c9c6e57bebb49d6eb3275c5d66ee414"
+    },
+    {
+      "file": "rending-needle.png",
+      "source": "Projectiles/Melee/RendingNeedle.rawimg",
+      "width": 14,
+      "height": 88,
+      "rgbaSha256": "a135a7f66af4130d78a3cf68e8126f72cb4d1752eac924dc986b2136c4db56cb",
+      "sha256": "8d543731f61a1d7a21860d479d967de05a63d0cbaa94505e63205c0fd160de2d"
+    },
+    {
+      "file": "galaxia-bolt.png",
+      "source": "Projectiles/Melee/GalaxiaBolt.rawimg",
+      "width": 22,
+      "height": 34,
+      "rgbaSha256": "a37f5f9abcee7eb9ec4c891347ce6fbb89b5fd6fed9b3c99b441c15f7aaaa1cd",
+      "sha256": "cb52354dbde34a0067304f40b5fd39d1cfa500c17698d7d6c61eed96adc74256"
+    },
+    {
+      "file": "sparkle.png",
+      "source": "Particles/Sparkle.rawimg",
+      "width": 33,
+      "height": 33,
+      "rgbaSha256": "09fdaca1c2980367bc1746e669f427d9eba254459340ff209f9764595d098562",
+      "sha256": "bfef65ed33b365aa88189dba4aceec944295146dc020ed543f9cb545b0a4b26d"
+    },
+    {
+      "file": "bloom-circle.png",
+      "source": "Particles/BloomCircle.rawimg",
+      "width": 200,
+      "height": 200,
+      "rgbaSha256": "973640e9d89f3c9d1343c29ad638d51034f46cff999739d8eb9850e8d6911fba",
+      "sha256": "44a81e3373298a0767b2420932a580325a69dd760791e550f4cd1622662df97c"
+    },
+    {
+      "file": "scissor-snap.ogg",
+      "source": "Sounds/Custom/ScissorGuillotineSnap.ogg",
+      "sha256": "9988d206d79ca1a413e5931d9df00c075a5a0269d1a63f8bc24fdeb40350e7c3"
+    },
+    {
+      "file": "meaty-slash.ogg",
+      "source": "Sounds/Custom/MeatySlash.ogg",
+      "sha256": "a83fff636574348467068f5b8ee8389a0e1c1986a4e449ae723a1c8f9c15c906"
+    },
+    {
+      "file": "swift-slice.ogg",
+      "source": "Sounds/Custom/SwiftSlice.ogg",
+      "sha256": "3a16cb91c0f5b69e00a131e0a91070b85878a039dee1fe5f500c7559e42c7f98"
+    },
+    {
+      "file": "phantom-phoenix-1.ogg",
+      "source": "Sounds/Item/LouderPhantomPhoenix1.ogg",
+      "sha256": "85cdf3c1ec58d5cc680df9dac5b3c7aa020433c78c53641e205d32472a0e3b6a"
+    },
+    {
+      "file": "phantom-phoenix-2.ogg",
+      "source": "Sounds/Item/LouderPhantomPhoenix2.ogg",
+      "sha256": "6d2f5c09743e0cdadb9100cb5ff824debf08aa89ebd49919b0389cc3f07e1c2c"
+    },
+    {
+      "file": "phantom-phoenix-3.ogg",
+      "source": "Sounds/Item/LouderPhantomPhoenix3.ogg",
+      "sha256": "4ddedfebe19208de888eef3f3f4a82d90bf1c3d3618d50bad24e49bb1c5747ab"
+    },
+    {
+      "file": "swing-smear.png",
+      "source": "Particles/TrientCircularSmear.rawimg",
+      "width": 156,
+      "height": 156,
+      "sha256": "70015e98813838701593e92ddbe84c8f455c4183cb60f7c2102ea30852650459"
+    },
+    {
+      "file": "swirl-smoke.png",
+      "source": "Particles/CircularSmearSmokey.rawimg",
+      "width": 156,
+      "height": 156,
+      "sha256": "be3183da12f637225fc15c5461e58840708c34a2ab9eadcd5998b733edce24fc"
+    },
+    {
+      "file": "projectile-streak.png",
+      "source": "ExtraTextures/Trails/ScarletDevilStreak.rawimg",
+      "width": 256,
+      "height": 256,
+      "sha256": "98335340b482ed6f2fec49b0034b64f06879a748cd1bb390fa8623f91a90cdb4"
+    },
+    {
+      "file": "vanilla-item-4.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_4.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "26fb4f48033eed5ad97df5929f6b2cd5d40bd737fdb8d4ad6da3f0732e911ba0"
+    },
+    {
+      "file": "vanilla-item-35.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_35.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "e7fb4aab27b3897f948500001865bf42a6f385f3964c70027074d50321bec6ff"
+    },
+    {
+      "file": "vanilla-item-63.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_63.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "0d9e089d55f39a3df6429ca9ed81178a21128aebeadc17cdad6054d2e9ca9606"
+    },
+    {
+      "file": "vanilla-item-64.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_64.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "e4d85213256af4328a3160f64244825ec72c73dfc87dcceb5a9b7f060e26803c"
+    },
+    {
+      "file": "vanilla-item-65.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_65.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "8eecfa54b1014a02a6f7caa92a5d782ae4138e183e913078fbf13c4a2580a4fc"
+    },
+    {
+      "file": "vanilla-item-71.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_71.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "082597eae3c9f50601229fd9eeb72473825c6e34e66756dd4f594f9380b4a199"
+    },
+    {
+      "file": "vanilla-item-84.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_84.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "104d3d4857ca01fb5e58aac08f061fa3fc4f79a99b80b22f25e2c063c649215a"
+    },
+    {
+      "file": "vanilla-dd2-wither-beast-crystal-impact-0.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Custom/dd2_wither_beast_crystal_impact_0.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "6789cdcad480396c307bb01df56f7c9cb92343a30e89dd582cdeeed9b77d586f"
+    },
+    {
+      "file": "vanilla-dd2-wither-beast-crystal-impact-1.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Custom/dd2_wither_beast_crystal_impact_1.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "8838bf4ab850157e05f106b46cb838ef4e84d43fde3f7d79b5a0d8d3258cac27"
+    },
+    {
+      "file": "vanilla-dd2-wither-beast-crystal-impact-2.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Custom/dd2_wither_beast_crystal_impact_2.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "6d3aff519ccd4b80f2c9ac2d9312c63d2a9dbbade764171aee4026cbb7efb3e1"
+    },
+    {
+      "file": "vanilla-player-hit-0.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Player_Hit_0.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "a12583c99f8401dbe587f3934aa5bac6283bac749878fd5e312a8efb9af8eca3"
+    },
+    {
+      "file": "vanilla-player-hit-1.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Player_Hit_1.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "de722365662ec6daaa1cc158ab6921b709f03562f80a562dbb76961cbf0dcf5e"
+    },
+    {
+      "file": "vanilla-player-hit-2.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Player_Hit_2.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "588f1cadbb1948aed987c672a8f2852a85b79909ffa332d29279e4d7e41d8690"
+    }
+  ]
+}

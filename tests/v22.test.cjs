@@ -1,31 +1,31 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {loadGame}=require('./helpers/fixture.cjs');
 
-test('large arena, camera tracking and desktop/mobile aim stay in the same world coordinates',async()=>{
-  const {t,el}=await loadGame();
-  for(const diff of ['normal','revenge','death']){
-    el('diff').value=diff;t.start();const g=t.getGame(),size=diff==='death'?2000:2512;
-    assert.equal(t.arena.r-t.arena.l,size);assert.equal(t.arena.b-t.arena.t,size);
-    assert.ok(size>t.W&&size>t.H);
-    assert.ok(t.getTerrain().platforms.length>=7);
-    const before=g.camera.x;g.player.x+=450;t.updateCamera(g,.5);assert.ok(g.camera.x>before+400);
-    const center=t.screenToWorld(t.W/2,t.H/2);assert.equal(center.x,g.camera.x);assert.equal(center.y,g.camera.y);
-    t.eventPos({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);
-    t.aimCanvas({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);
-    const aimBefore=t.state.pointer.x;g.player.x+=100;t.updateCamera(g,.5);assert.ok(t.state.pointer.x>aimBefore+90,'stationary mouse follows camera scrolling');
-    g.player.x=t.arena.r-11;t.updateCamera(g,0,true);
-    assert.ok(t.cameraView(g).x+t.W<=t.arena.r+40+.0001);
-    const point=t.edgePoint(t.arena.l,g.player.y,g);assert.ok(point&&point.x>0&&point.x<t.W);
-    g.stageT=1;g.hellSegment=-1;t.bulletHell(.01);
-    for(const q of t.hellPlan(g,5).slots)assert.ok(Number.isFinite(q.x)&&Number.isFinite(q.y));
-  }
+test('player-follow camera and desktop/mobile aim share world coordinates',async()=>{
+ const {t,el}=await loadGame();
+ for(const diff of ['normal','revenge','death']){
+  el('diff').value=diff;t.start();const g=t.getGame(),size=diff==='death'?2000:2500;
+  assert.equal(t.arena.r-t.arena.l,size);assert.equal(t.arena.b-t.arena.t,size);
+  assert.ok(t.getTerrain().platforms.length>=7);
+  const before=g.camera.y;g.player.y+=200;t.updateCamera(g,.5);
+  assert.ok(g.camera.y>before+150,'vertical camera follows the player');
+  const view=t.cameraView(g);assert.equal(view.zoom,t.ZOOM_DEFAULT,'arena dimensions must not shrink the player');g.player.x+=200;t.updateCamera(g,0,true);assert.equal(g.camera.x,g.player.x);assert.equal(g.camera.y,g.player.y);
+  const center=t.screenToWorld(t.W/2,t.H/2);assert.equal(center.x,g.camera.x);assert.equal(center.y,g.camera.y);
+  t.eventPos({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);
+  t.aimCanvas({clientX:500,clientY:300});assert.ok(Math.abs(t.state.pointer.x-g.camera.x)<1e-8);
+  const aimBefore=t.state.pointer.y;g.player.y+=100;t.updateCamera(g,.5);
+  assert.ok(t.state.pointer.y>aimBefore+40,'stationary mouse follows vertical scrolling');
+  g.stageT=1;g.hellSegment=-1;t.bulletHell(.01);
+  for(const q of t.hellPlan(g,5).slots)assert.ok(Number.isFinite(q.x)&&Number.isFinite(q.y));
+ }
 });
+
 test('Rage uses the source proximity curve, manual activation, damage and nine-second duration',async()=>{
   const {t,el}=await loadGame();el('diff').value='revenge';t.start();const g=t.getGame(),r=g.rippers;
   assert.equal(t.proximityRage(160),1);assert.equal(t.proximityRage(801),0);assert.ok(t.proximityRage(500)>0&&t.proximityRage(500)<1);
   Object.assign(g.boss,{x:g.player.x+100,y:g.player.y});t.updateRippers(15,g);assert.equal(r.rage,1);
   assert.equal(t.activateRipper('rage'),true);assert.equal(t.activateRipper('rage'),false);
-  const target={hp:1000};t.hitTarget(target,100,0,0,'#fff','ranger',false);assert.equal(target.hp,865);
+  g.player.weapon=1;const target={hp:1000};t.hitTarget(target,100,0,0,'#fff','ranger',false);assert.equal(target.hp,865);
   t.updateRippers(9,g);assert.equal(r.rageTime,0);assert.equal(r.rage,0);
   g.boss.x=g.player.x+1500;r.rage=1;r.combat=10;t.updateRippers(10,g);t.updateRippers(15,g);assert.ok(Math.abs(r.rage-.5)<1e-9);
 });

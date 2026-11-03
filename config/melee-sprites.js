@@ -1,5 +1,13 @@
 // Rectangles exclude the source sheets' labels. Anchors are relative to each rectangle.
-const frames=(boxes,y,h,anchor)=>boxes.map(([x,w],i)=>({x,y,w,h,ax:anchor?anchor(w,i)[0]:w/2,ay:anchor?anchor(w,i)[1]:h/2}));
+// boxes: array of [x, w] - x is ignored if yOffset provided (for vertical layouts)
+// yOffset: optional function(index) => y coordinate for vertical sheet layouts
+const frames=(boxes,y,h,anchor,yOffset)=>boxes.map(([x,w],i)=>({
+  x: yOffset ? 0 : x,
+  y: yOffset ? yOffset(i) : y,
+  w, h,
+  ax: anchor ? anchor(w,i)[0] : w/2,
+  ay: anchor ? anchor(w,i)[1] : h/2
+}));
 const body={
   idle:frames([[214,96],[359,97],[503,96],[642,100]],10,128),
   run:frames([[198,142],[371,140],[552,131],[732,135],[903,128],[1066,139]],139,131),
@@ -33,4 +41,32 @@ const ark={
   fire:frames([[1218,109],[1329,108]],813,121),
   star:frames([[1447,85],[1534,105]],813,121)
 };
-export const meleeSpriteConfig=Object.freeze({body,ark,bodyScale:.38});
+
+// Wings of Rebirth (YharonBag drop) — native layout from WingsofRebirth_Wings_Real.rawimg
+// 9 frames (0-8), each 180x174. Source: 180x1566 = 9 x 180x174 (VERTICAL layout)
+// Frame 0: grounded, Frame 1: gliding, Frame 2: falling
+// Frames 3-8: active flight loop (enters at 7, then 8, then 1..8 looping)
+// Pivot: texture.Width/2, texture.Height/18 = 90, 87 (from WingsofRebirthLayer.cs)
+// Frame rate: advances every 5 source ticks = 12 FPS at 60Hz (WingUpdate: frameRate=5)
+// Frame rect: x=0, y=index*174, w=180, h=174
+const wings={
+  grounded:frames([[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180]],0,174,()=>[90,87], (i)=>i*174),
+  gliding:frames([[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180]],0,174,()=>[90,87], (i)=>i*174),
+  falling:frames([[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180]],0,174,()=>[90,87], (i)=>i*174),
+  flight:frames([[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180],[0,180]],0,174,()=>[90,87], (i)=>i*174)
+};
+
+// RendingNeedle (Ark Beam) — native texture from RendingNeedle.rawimg (14x88)
+// Single texture, centered. Scale 2.4f, opacity 0.6f in source.
+// Rotation: velocity.ToRotation() + PiOver2
+const rendingNeedle={
+  fly:frames([[0,14]],0,88,()=>[7,44])
+};
+
+// GalaxiaBolt / EonBolt (Ark Star/homing) — native texture from GalaxiaBolt.rawimg (22x34)
+// Single texture, centered. Used by EonBolt projectile for homing stars.
+const galaxiaBolt={
+  fly:frames([[0,22]],0,34,()=>[11,17])
+};
+
+export const meleeSpriteConfig=Object.freeze({body,ark,wings,rendingNeedle,galaxiaBolt,bodyScale:.38});

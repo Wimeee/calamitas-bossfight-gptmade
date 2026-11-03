@@ -1,6 +1,7 @@
-import { playerConfig } from '../../config/player.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
+import {startAsgardianDash} from '../game/asgardian-dash.js?v=25.0.0';
+import { playerConfig } from '../../config/player.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
 
 
 function heal(){
@@ -33,13 +34,10 @@ function dash(direction=0){
   let p=state.game.player;
   if(p.dashCd>0)return;
   const dx=direction||(state.keys.d||state.keys.ArrowRight?1:0)-(state.keys.a||state.keys.ArrowLeft?1:0)+state.moveAxis.x;
-  p.dashX=Math.abs(dx)>.1?Math.sign(dx):state.pointer.x<p.x?-1:1;
-  p.dashY=0;
-  p.dashCd=playerConfig.dashCooldown;
-  p.dashT=playerConfig.dashDuration;
-  p.contactGuard=playerConfig.contactGuardDuration;
+  const dashDirection=Math.abs(dx)>.1?Math.sign(dx):state.pointer.x<p.x?-1:1;
+  if(!startAsgardianDash(state.game,dashDirection))return;
   if(!state.game.ritual)p.dashes++;
-  audio.fx('dash')
+  // Native Asgardian startup is silent; the ram explosion supplies impact audio.
 }
 
 

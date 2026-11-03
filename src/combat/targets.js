@@ -1,4 +1,4 @@
-import { state } from '../core/state.js?v=22.1.0';
+import { state } from '../core/state.js?v=25.0.0';
 
 
 function attackTarget(){
@@ -15,6 +15,7 @@ function nearestForHoming(x,y){
 
 function possibleTargets(){
   let g=state.game;
+  if(g.castDelayState||g.stage==='normal'&&(g.phase2Intro>0||g.boss.dontTakeDamage))return [];
   return g.stage==='hearts'?g.hearts:g.stage==='brothers'?g.brothers:g.stage==='seekers'?g.seekers:g.stage==='normal'?[g.boss]:[]
 }
 

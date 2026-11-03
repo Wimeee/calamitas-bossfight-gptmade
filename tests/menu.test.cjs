@@ -18,17 +18,17 @@ test('menu launches every class and returning freezes and resumes the same battl
 
 test('settings validate, persist, reset and support real rebinding without moving reserved keys',async()=>{
   const {t,sandbox}=await loadGame();
-  assert.equal(t.settings.musicEnabled,false);t.updateSettings({sfxVolume:.2,musicVolume:.8,quality:'low',autoAim:false});
+  assert.equal(t.settings.musicEnabled,true);t.updateSettings({sfxVolume:.2,musicVolume:.8,quality:'low',autoAim:false});
   const saved=JSON.parse(sandbox.localStorage.getItem('utbg_settings_v1'));assert.equal(saved.sfxVolume,.2);assert.equal(saved.musicVolume,.8);assert.equal(saved.autoAim,false);
   assert.equal(t.model.background.particleCount,35);assert.equal(t.bindKey('dash','KeyG'),true);
   assert.equal(t.gameKey({code:'KeyG'}),' ');assert.equal(t.gameKey({code:'Space'}),'jump');assert.equal(t.gameKey({code:'KeyW'}),'w');assert.equal(t.bindKey('heal','KeyG'),false);assert.equal(t.bindKey('dash','KeyW'),false);
   t.updateSettings({sfxVolume:NaN,musicVolume:99,quality:'broken'});assert.equal(t.settings.sfxVolume,.55);assert.equal(t.settings.musicVolume,1);assert.equal(t.settings.quality,'high');
-  t.resetSettings();assert.equal(t.settings.bindings.dash,'ShiftLeft');assert.equal(t.settings.autoAim,true);assert.equal(t.settings.musicEnabled,false);
+  t.resetSettings();assert.equal(t.settings.bindings.dash,'ShiftLeft');assert.equal(t.settings.autoAim,true);assert.equal(t.settings.musicEnabled,true);
 });
 
-test('menu blocks game hotkeys and mobile autoaim preferences survive battle start',async()=>{
+test('menu blocks game hotkeys and retained aiming preferences survive desktop-only battle start',async()=>{
   const {t}=await loadGame();t.selectClass('ranger');t.updateSettings({device:'mobile',autoAim:false});await t.launchBattle();
-  assert.equal(t.state.deviceMode,'mobile');assert.equal(t.state.mobileAutoAim,false);
+  assert.equal(t.state.deviceMode,'desktop');assert.equal(t.state.mobileAutoAim,false);
   t.showMenu();const game=t.getGame();t.kd({code:'KeyR',target:{tagName:'BODY'},preventDefault(){throw Error('Menu hotkey was handled by game');}});assert.equal(t.getGame(),game);assert.equal(game.mode,'paused');
 });
 

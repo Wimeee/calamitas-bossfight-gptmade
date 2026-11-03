@@ -1,4 +1,4 @@
-import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=22.1.0';
+import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=25.0.0';
 const images=new Map();let ready=null;
 export const calamitasAssetStatus={state:'idle',loaded:0,failed:0};
 // Preserve the ready artwork while removing its additive black matte once.
@@ -19,7 +19,12 @@ function prepareShieldTexture(image){
 function load(name,file){
   return new Promise(resolve=>{
     const image=new Image();image.onload=()=>{
-      try{images.set(name,name==='shield'?prepareShieldTexture(image):image);calamitasAssetStatus.loaded++;}
+      try{
+        // Only the supplied shield has an additive black matte. Native parts retain RGBA.
+        const needsAlpha=name==='shield';
+        images.set(name,needsAlpha?prepareShieldTexture(image):image);
+        calamitasAssetStatus.loaded++;
+      }
       catch{calamitasAssetStatus.failed++;}
       resolve();
     };
@@ -31,7 +36,14 @@ export function initializeCalamitasAtlas(){
   if(ready)return ready;
   if(typeof Image==='undefined'){calamitasAssetStatus.state='unsupported';return Promise.resolve();}
   calamitasAssetStatus.state='loading';
-  ready=Promise.all([load('hooded',spec.hooded.file),load('unhooded',spec.unhooded.file),load('shield','shield.png')])
+  ready=Promise.all([
+    load('hooded',spec.hooded.file),
+    load('unhooded',spec.unhooded.file),
+    load('shield','shield.png'),
+    load('forcefield','forcefield.png'),
+    load('shieldTop',spec.shieldTop.file),
+    load('shieldBottom',spec.shieldBottom.file)
+  ])
     .then(()=>{calamitasAssetStatus.state=calamitasAssetStatus.failed?'fallback':'ready';});
   return ready;
 }
@@ -44,6 +56,6 @@ export function calamitasImage(name){return images.get(name);}
 export function paintCalamitasFrame(c,pose,x,y,scale=spec.scale,alpha=1){
   const image=images.get(pose.skin);if(!image)return false;
   const r=calamitasFrameRect(pose.clip,pose.frame,pose.skin);
-  c.save();c.globalAlpha*=alpha;c.translate(x,y);c.rotate(pose.angle||0);c.scale(pose.facing,1);c.imageSmoothingEnabled=false;
+  c.save();c.globalAlpha*=alpha;c.translate(x,y);c.rotate(pose.angle||0);c.scale(-pose.facing,1); /* Native artwork faces right; spriteDirection+1 flips it. */c.imageSmoothingEnabled=false;
   c.drawImage(image,r.sx,r.sy,r.w,r.h,-r.w*scale/2,-r.h*scale/2,r.w*scale,r.h*scale);c.restore();return true;
 }

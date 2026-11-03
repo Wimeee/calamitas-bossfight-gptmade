@@ -1,10 +1,11 @@
-import { kit } from './shared.js?v=22.1.0';
-import { hitTarget } from '../combat/damage.js?v=22.1.0';
-import { possibleTargets } from '../combat/targets.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { clamp, norm } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
+import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=25.0.0';
+import { kit } from './shared.js?v=25.0.0';
+import { hitTarget } from '../combat/damage.js?v=25.0.0';
+import { possibleTargets } from '../combat/targets.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { clamp, norm } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
 
 
 function summonSquad(){
@@ -38,6 +39,7 @@ function lashWhip(){
       }
     }
   }
+  damageSepulcherWhere(g,t=>{const dx=t.x-p.x,dy=t.y-p.y,delta=Math.atan2(Math.sin(Math.atan2(dy,dx)-angle),Math.cos(Math.atan2(dy,dx)-angle));return Math.hypot(dx,dy)<range+t.r&&Math.abs(delta)<.49;},850);
   if(nearest){
     p.cosmicMark=nearest;
     g.floaters.push({x:nearest.x,y:nearest.y-26,life:1,text:'WHIP TAG +35%',col:'#ffda93'});
@@ -151,6 +153,7 @@ function updateCosmic(dt){
 
 function cosmicStarBurst(s,hit){
   const g=state.game;
+  damageSepulcherArea(g,s.x,s.y,90,s.dmg*.48);
   for(const target of possibleTargets()){
     if(target===hit)continue;
     if(Math.hypot(target.x-s.x,target.y-s.y)<90+target.r)

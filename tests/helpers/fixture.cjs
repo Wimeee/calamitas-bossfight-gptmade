@@ -5,7 +5,7 @@ const {pathToFileURL}=require('node:url');
 
 async function loadGame(options = {}) {
   const noop = () => {};
-  const context = new Proxy({createRadialGradient: () => ({addColorStop: noop}), measureText: () => ({width: 100})}, {get: (object, key) => object[key] || noop});
+  const context = new Proxy({createRadialGradient: () => ({addColorStop: noop}), measureText: () => ({width: 100}), ...options.canvasContext}, {get: (object, key) => object[key] || noop});
   const elements = new Map();
   function el(id) {
     if (elements.has(id)) return elements.get(id);
@@ -23,12 +23,15 @@ async function loadGame(options = {}) {
   const document = {getElementById: el, querySelector: selector => el(selector.replace('#', '')), createElement: () => el('canvas' + elements.size), addEventListener: noop, body: el('body')};
   el('scal-game').querySelector = selector => el(selector.replace('#', ''));
   const window = {listeners: {}, addEventListener(type, listener) { (this.listeners[type] ??= []).push(listener); }, matchMedia: () => ({matches: false}), scrollTo: noop};
+  if (options.Audio) window.Audio = options.Audio;
   let seed = 12345;
   const math = Object.create(Math);
   math.random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
-  const storage = new Map();
+  const storage = options.storage || new Map();
   const sandbox = {document, window, navigator: {maxTouchPoints: 0}, localStorage: {getItem: key => storage.get(key) || null, setItem: (key, value) => storage.set(key, value)}, console, requestAnimationFrame: () => 1, cancelAnimationFrame: noop, performance: {now: () => 1000}, setInterval: noop, URL, location: {href: 'http://localhost:8877/'}, fetch: async () => ({ok: false}), Math: math};
   vm.createContext(sandbox);
+  if (options.requestAnimationFrame) sandbox.requestAnimationFrame = options.requestAnimationFrame;
+  if (options.Image) sandbox.Image = options.Image;
   const root = path.resolve(__dirname, '../..');
   const modules = new Map();
   function getModule(file) {

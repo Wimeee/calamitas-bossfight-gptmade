@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "file": "arenaSmoke.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Graphics/Metaballs/ScalArenaLayerSmoke.rawimg",
+      "width": 1600,
+      "height": 1600,
+      "sha256": "4f957570c8d80c85944e20e328b37ce6689285473a42a0b7fdad5bb88630d156"
+    },
+    {
+      "file": "arenaWave.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Graphics/Metaballs/ScalArenaLayerWave.rawimg",
+      "width": 1536,
+      "height": 1536,
+      "sha256": "3a991d163fd66f994bbbf1afafeaad211b2d52021f8909df78fba22409c6fd06"
+    },
+    {
+      "file": "heartGore1.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Gores/SupremeCalamitas/BrimstoneHeart_Gore1.rawimg",
+      "width": 28,
+      "height": 40,
+      "sha256": "0bbdb707448210dba0a7f9ccaa92a643807c28c171f8485b1710403e8fc484c8"
+    },
+    {
+      "file": "heartGore2.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Gores/SupremeCalamitas/BrimstoneHeart_Gore2.rawimg",
+      "width": 24,
+      "height": 34,
+      "sha256": "8ad55cc60a3e41179ab9f476afd923a2e237916d228d35f6995cb9b7c45cc9f1"
+    },
+    {
+      "file": "platforms.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Tiles_19.xnb",
+      "width": 486,
+      "height": 1260,
+      "sha256": "99423a5dd91c202436c71273dfe25df6859421f8a70421afe57104b13e7fc3e8"
+    },
+    {
+      "file": "CalamitasBackground.png",
+      "source": "CalamityMod2.2.4/Skies/CalamitasBackground.rawimg",
+      "sha256": "d5a8611bb00695dcad426324c7a88b328237e88e31a41788d957cb097f9b7fe2"
+    },
+    {
+      "file": "CalamitasCinder.png",
+      "source": "CalamityMod2.2.4/Skies/CalamitasCinder.rawimg",
+      "sha256": "490d32a15a092e7b85d8e93c788baf730f641ecb03493db0412fcec862d7a990"
+    }
+  ]
+}

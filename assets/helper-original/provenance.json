@@ -1,0 +1,208 @@
+{
+  "mod": "Calamity2.2.4",
+  "files": [
+    {
+      "file": "screamyFace.png",
+      "source": "ExtraTextures/ScreamyFace.rawimg",
+      "width": 512,
+      "height": 512,
+      "sha256": "8b66d73a23be61347c0fa041f212e39995d5f11a02355172f0f6b6939ee4ffbc"
+    },
+    {
+      "file": "soulVortex.png",
+      "source": "ExtraTextures/SoulVortex.rawimg",
+      "width": 408,
+      "height": 408,
+      "sha256": "0aafc58bf8f97aff1af1d5a8155a500dc933e4cd7c9e9342537fd42877a7a8a6"
+    },
+    {
+      "file": "largeBloom.png",
+      "source": "Particles/LargeBloom.rawimg",
+      "width": 360,
+      "height": 360,
+      "sha256": "28510a6af9c09cb43aa406b9f542566fd3dfdf11172ab0394a3040f8e42bbc67"
+    },
+    {
+      "file": "spark.png",
+      "source": "Particles/GlowSpark.rawimg",
+      "width": 2048,
+      "height": 2048,
+      "sha256": "9faee87e69d908f30ef5864a3218accc967cb751a54dd31ad75bf6bbb239f18e"
+    },
+    {
+      "file": "brimstone.png",
+      "source": "Dusts/BrimstoneFlame.rawimg",
+      "width": 10,
+      "height": 30,
+      "sha256": "cbc17bc72d1ce044b68955b1caba96babe48e720ae000eecdd63d6a01e42067c"
+    },
+    {
+      "file": "fistAlt.png",
+      "source": "Projectiles/Boss/SupremeCataclysmFistAlt.rawimg",
+      "width": 126,
+      "height": 224,
+      "sha256": "b47a4575bd381a9a6684523028336d8e2543b78321f33f456ed0470d2a5a1a9d"
+    },
+    {
+      "file": "slashAlt.png",
+      "source": "Projectiles/Boss/SupremeCatastropheSlashAlt.rawimg",
+      "width": 192,
+      "height": 232,
+      "sha256": "c485a627929c010cff3735617cae4c948d16935d61d38422e34b4926c3a2a0cc"
+    },
+    {
+      "file": "BrimstoneMonsterSpawn.ogg",
+      "source": "Sounds/Custom/SCalSounds/BrimstoneMonsterSpawn.ogg",
+      "sha256": "92f773d37182b4cd7c3f3cb4739cb0c6de8052d7eef04fc4440820149ad9e948"
+    },
+    {
+      "file": "BrimstoneMonsterDrone.ogg",
+      "source": "Sounds/Custom/SCalSounds/BrimstoneMonsterDrone.ogg",
+      "sha256": "8bc7e11a72e8038b39690a724e963f2f5aba741f5f32141916336cfd27ebfe7d"
+    },
+    {
+      "file": "WeldingBurn.ogg",
+      "source": "Sounds/Item/WeldingBurn.ogg",
+      "sha256": "24b410095484938e650f68fb1387ae6aacb5ec2febe48d7ab5eef2f9ee84d3c5"
+    },
+    {
+      "file": "RavagerLimbLoss2.ogg",
+      "source": "Sounds/NPCKilled/RavagerLimbLoss2.ogg",
+      "sha256": "2b6a015b4f0c6dffec3c1a370c0e6b1a4c7ae64143e1243f905a17a38eca320f"
+    },
+    {
+      "file": "RavagerPillarSummon.ogg",
+      "source": "Sounds/Custom/Ravager/RavagerPillarSummon.ogg",
+      "sha256": "04bf5e21ea32e7d664aab0f426057274157998ddf650d11a0f8fb6d087d068fc"
+    },
+    {
+      "file": "ThanatosHitOpen1.ogg",
+      "source": "Sounds/NPCHit/ThanatosHitOpen1.ogg",
+      "sha256": "14ff43f8aeb9afccc54bd1e6680e30a919b050e5613c761874f6afed18c32cac"
+    },
+    {
+      "file": "ScorchedEarthShot1.ogg",
+      "source": "Sounds/Item/ScorchedEarthShot1.ogg",
+      "sha256": "9f4e5edba3a92bcbd310e5013a3bcbf480d9bf711498b09e8995b4aa56499391"
+    },
+    {
+      "file": "ScorchedEarthShot2.ogg",
+      "source": "Sounds/Item/ScorchedEarthShot2.ogg",
+      "sha256": "d59779e8c33a074d8c53d92ea58c4e89c6ff59eb50c07c7ae62f6ce309d6e4fd"
+    },
+    {
+      "file": "ScorchedEarthShot3.ogg",
+      "source": "Sounds/Item/ScorchedEarthShot3.ogg",
+      "sha256": "5374a52c3e6a7e320f62279e8d812b5292817ab13b5984b8d49df3407d850729"
+    },
+    {
+      "file": "MurasamaBigSwing.ogg",
+      "source": "Sounds/Item/MurasamaBigSwing.ogg",
+      "sha256": "edbbf48b7f8737332ec5f4941d27e100895d547b1647cdcadfd6ffb23c1c10e4"
+    },
+    {
+      "file": "ExobladeBeamSlash.ogg",
+      "source": "Sounds/Item/ExobladeBeamSlash.ogg",
+      "sha256": "09cf5b30e3b1c5fbe8ed7f9e39d9c9e3b1a228ca1d5eb2cb66e36dc8efa52cf5"
+    },
+    {
+      "file": "RavagerDeath1.ogg",
+      "source": "Sounds/NPCKilled/RavagerDeath1.ogg",
+      "sha256": "c6f52db1ba5117b4e9f4a947da8a0079fa0551a4e015b55aaec9930315ee453c"
+    },
+    {
+      "file": "RavagerDeath2.ogg",
+      "source": "Sounds/NPCKilled/RavagerDeath2.ogg",
+      "sha256": "26339dc49aae0bc3fca99aeee280f8e6d83d4cd82f477e4ac5a49fbd61125218"
+    },
+    {
+      "file": "RavagerLimbLoss3.ogg",
+      "source": "Sounds/NPCKilled/RavagerLimbLoss3.ogg",
+      "sha256": "b18720d31ad60f9af3ceb2428f53a0c02f39947c983e568d59ba28b50ec220f5"
+    },
+    {
+      "file": "point.png",
+      "source": "Particles/PointParticle.rawimg",
+      "width": 22,
+      "height": 22,
+      "sha256": "8fbf60f5bad01cc801ad9bfbaad6d34d627c381eb0ff4d883754c9e527a453be"
+    },
+    {
+      "file": "orb.png",
+      "source": "Particles/GlowOrbParticle.rawimg",
+      "width": 72,
+      "height": 72,
+      "sha256": "b0814434cfc6ce7e92fca54b10c0d6d8f16c45a8732d1054dd2c9ba7a865c712"
+    },
+    {
+      "file": "pulse.png",
+      "source": "Particles/HollowCircleHardEdge.rawimg",
+      "width": 156,
+      "height": 156,
+      "sha256": "31a9737b0eb9d30ca816470ec862ecaa1927c898b6b0387d3a926d7159174b3b"
+    },
+    {
+      "file": "staticPulse.png",
+      "source": "Particles/HighResHollowCircleHardEdge.rawimg",
+      "width": 2048,
+      "height": 2048,
+      "sha256": "1c409cb3acd616ec18156ec4f80df27d1e0a266500375a57fcd93258955121bd"
+    },
+    {
+      "file": "castBloom.png",
+      "source": "Particles/BloomCircle.rawimg",
+      "width": 200,
+      "height": 200,
+      "sha256": "44a81e3373298a0767b2420932a580325a69dd760791e550f4cd1622662df97c"
+    },
+    {
+      "file": "void.png",
+      "source": "Particles/GlowSpark2.rawimg",
+      "width": 2048,
+      "height": 2048,
+      "sha256": "f9f6d2f424265a8175eed78e224b317c2a913b973b05afb40eeb12a521bdcf02"
+    },
+    {
+      "file": "nativeSpark.png",
+      "source": "Projectiles/StarProj.rawimg",
+      "width": 72,
+      "height": 72,
+      "sha256": "9d7fe04bb54c2ea0b46b7d0edbdb5025626762418cf89fff1707324f18271870"
+    },
+    {
+      "file": "seekerGore1.png",
+      "source": "Gores/SoulSeekerSupremeGores/SupremeSoulSeeker_Gore1.rawimg",
+      "width": 28,
+      "height": 32,
+      "sha256": "717186904cada104601f73c555ed9568ea0d16fd5ac7deaab793e5d57995c570"
+    },
+    {
+      "file": "seekerGore2.png",
+      "source": "Gores/SoulSeekerSupremeGores/SupremeSoulSeeker_Gore2.rawimg",
+      "width": 18,
+      "height": 20,
+      "sha256": "902655c6ac2c2c6e739ea03264336991fb40d73fbd5a37332f0d578382f81d2d"
+    },
+    {
+      "file": "seekerGore3.png",
+      "source": "Gores/SoulSeekerSupremeGores/SupremeSoulSeeker_Gore3.rawimg",
+      "width": 18,
+      "height": 30,
+      "sha256": "6c1f428fe4d5a620e8df446f335f3329a40626b3accb005d113ba00ed591836c"
+    },
+    {
+      "file": "seekerGore4.png",
+      "source": "Gores/SoulSeekerSupremeGores/SupremeSoulSeeker_Gore4.rawimg",
+      "width": 14,
+      "height": 16,
+      "sha256": "b3e1b0c180da941de0a9ca04bb17c2ae6ed738a2de9ebd416538baeef4cf64e7"
+    },
+    {
+      "file": "seekerGore5.png",
+      "source": "Gores/SoulSeekerSupremeGores/SupremeSoulSeeker_Gore5.rawimg",
+      "width": 22,
+      "height": 40,
+      "sha256": "167a63a1378d22490e136db788bba6fc7b4cc0f675ea34b310169beff24bccff"
+    }
+  ]
+}

@@ -1,24 +1,32 @@
-import { cameraView } from '../world/camera.js?v=22.1.0';
-import { drawWorldHUD } from './world-hud.js?v=22.1.0';
-import { getTerrain } from '../world/terrain.js?v=22.1.0';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=22.1.0';
-import { drawEnemyProjectiles } from './projectiles.js?v=22.1.0';
-import { drawWarriorBody } from './warrior.js?v=22.1.0';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=22.1.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=22.1.0';
-import { getEncounter } from '../boss/registry.js?v=22.1.0';
-import { possibleTargets } from '../combat/targets.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-import { clamp, norm } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { drawBackdrop } from './background.js?v=22.1.0';
-import { drawClassKit } from './class-effects.js?v=22.1.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=22.1.0';
-import { drawSword } from './melee.js?v=22.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=22.1.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=22.1.0';
+import {drawAsgardianShield,drawAsgardianEffects} from './asgardian.js?v=25.0.0';
+import {drawArkEffects} from './ark-effect-render.js?v=25.0.0';
+import {drawCalamitasDialogue} from './dialogue.js?v=25.0.0';
+import {drawArenaDebris} from './arena-debris.js?v=25.0.0';
+import { drawRipperPlayerEffects } from './ripper-effects.js?v=25.0.0';
+import { drawBattleHUD } from './battle-hud.js?v=25.0.0';
+import { nativeText } from './hud-atlas.js?v=25.0.0';
+import { paintWorldDecoration } from './world-decorations.js?v=25.0.0';
+import { cameraView } from '../world/camera.js?v=25.0.0';
+import { drawWorldHUD } from './world-hud.js?v=25.0.0';
+import { getTerrain } from '../world/terrain.js?v=25.0.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=25.0.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=25.0.0';
+import { drawWarriorBody } from './warrior.js?v=25.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=25.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=25.0.0';
+import { getEncounter } from '../boss/registry.js?v=25.0.0';
+import { possibleTargets } from '../combat/targets.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=25.0.0';
+import { ctx } from '../core/dom.js?v=25.0.0';
+import { clamp, norm } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { drawBackdrop } from './background.js?v=25.0.0';
+import { drawClassKit } from './class-effects.js?v=25.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=25.0.0';
+import { drawSword } from './melee.js?v=25.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=25.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=25.0.0';
 
 
 function draw(g){
@@ -27,8 +35,16 @@ function draw(g){
   ctx.fillRect(0,0,W,H);
   const shake=shakeOffset(g);
   const view=cameraView(g);
-  ctx.translate(-view.x+shake.x,-view.y+shake.y);
+  const zoom = view.zoom || 1;
+  const cam = state.game?.camera || {x:500, y:300};
+  // Standard camera transform: screen = (world - cam) * zoom + (W/2, H/2)
+  ctx.translate(W/2, H/2);
+  ctx.scale(zoom, zoom);
+  ctx.translate(-cam.x, -cam.y);
+  // Screen shake in canvas pixels (post-scale)
+  ctx.translate(shake.x / zoom, shake.y / zoom);
   drawBackdrop(g);
+  if(g)drawArenaDebris(g);
   if(!g){
     text('ALTAR OF THE ACCURSED',500,300,27,'#a74e60');
     ctx.restore();
@@ -39,33 +55,17 @@ function draw(g){
   }
   let b=g.boss,p=g.player;
   drawPatternWarnings(g);
-  // Terraria-inspired permanent arena fixtures: move near them for regeneration buffs.
-  ctx.shadowBlur=12;
-  const campfireY=getTerrain().platforms[0].y-17;
-  ctx.shadowColor='#ffa847';
-  round(230,campfireY,17,'#51301d','#ffab50',2);
-  ctx.shadowBlur=0;
-  text('🔥',230,campfireY+7,23);
-  text('CAMPFIRE',230,campfireY+31,9,'#e6ac6f');
-  ctx.shadowColor='#ff7777';
-  ctx.shadowBlur=12;
-  line(750,getTerrain().lantern.y-45,750,getTerrain().lantern.y-9,'#b79b95',2);
-  round(750,getTerrain().lantern.y,16,'#6a293b','#ef979b',2);
-  ctx.shadowBlur=0;
-  text('❤',750,getTerrain().lantern.y+7,19,'#ffb8a8');
   for(const drop of g.pickups){
-    let bob=Math.sin(g.t*4+drop.phase)*4;
-    ctx.shadowColor=drop.kind==='heart'?'#ff6479':'#73b7ff';
-    ctx.shadowBlur=16;
-    round(drop.x,drop.y+bob,15,drop.kind==='heart'?'#661b36':'#234b88',drop.kind==='heart'?'#ff8da3':'#a2caff',2);
-    ctx.shadowBlur=0;
-    text(drop.kind==='heart'?'❤':'✦',drop.x,drop.y+bob+6,20,drop.kind==='heart'?'#ffb1be':'#bedcff')
+    if(drop.kind==='star'&&p.weapon!==2)continue;
+    const name=drop.kind==='heart'?'heartPickup':'manaPickup';
+    paintWorldDecoration(ctx,name,drop.x,drop.y+9,1,1);
   }
   getEncounter(g).draw(g);
   drawEnemyProjectiles(g);
   drawChannelBeam(g);
   for(const s of g.shots)drawPlayerShot(s,g);
   drawFlightWings(g);
+  drawArkEffects(g,'smoke');
   drawSword(g);
   if(Array.isArray(p.cosmic)&&p.cosmic.length){
     p.cosmic.forEach((m,i)=>pixel('spirit'+i,m.x,m.y,1.05,Math.sin(g.t*3+i)*.12));
@@ -100,6 +100,7 @@ function draw(g){
     ctx.setLineDash([]);
     ctx.restore()
   }
+  drawRipperPlayerEffects(g);
   if((p.weapon===0&&g.mode==='dead')||p.iframes<=0||Math.floor(g.t*20)%2===0){
     if(!drawWarriorBody(g)){
       ctx.save();
@@ -119,7 +120,11 @@ function draw(g){
       ctx.restore()
     }
   }
+  drawAsgardianShield(g);
   drawHeldWeapon(g);
+  drawAsgardianEffects(g);
+  drawArkEffects(g,'front');
+  drawRipperPlayerEffects(g,true);
   drawWeaponImpacts(g);
   drawClassKit(g);
   drawFlightGauge(g);
@@ -131,28 +136,18 @@ function draw(g){
   ctx.globalAlpha=1;
   for(let f of g.floaters){
     ctx.globalAlpha=clamp(f.life,0,1);
-    text(f.text,f.x,f.y,15,f.col)
+    nativeText(ctx,f.text,f.x,f.y,{font:'combat',scale:f.dot?.55:.75,align:'center',color:f.col})
   }
   ctx.globalAlpha=1;
   ctx.restore();
   drawWorldHUD(g);
-  // boss health at top
-  ctx.fillStyle='#230f1a';
-  ctx.fillRect(W/2-320,11,640,11);
-  ctx.fillStyle='#cf4561';
-  ctx.fillRect(W/2-320,11,640*(b.hp/b.max),11);
-  ctx.strokeStyle='#e6abb0';
-  ctx.strokeRect(W/2-320,11,640,11);
-  text(getEncounter(g).config.name,W/2,8,11,'#ffd0c5');
-  if(g.dialogT>0){
+  drawBattleHUD(g);
+  if(g.dialogT>0&&!g.nativeDialogue){
     ctx.globalAlpha=clamp(g.dialogT*1.5,0,1);
     text(g.dialog,W/2,80,27,'#f5a9a8');
     ctx.globalAlpha=1
   }
-  if(g.stage==='accept'){
-    let sentences=['You have bested me...','The flames are fading.','The battle is over.','ACCEPTANCE'];
-    text(sentences[Math.min(3,Math.floor(g.acceptT/2.25))],W/2,H/2+95,20,'#ffe9d3');
-  }
+  drawCalamitasDialogue(g);
   if(g.mode==='paused'){
     ctx.fillStyle='#09080bd9';
     ctx.fillRect(0,0,W,H);

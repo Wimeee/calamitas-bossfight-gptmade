@@ -1,11 +1,15 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-import { prepareWarriorTrails } from './warrior-trails.js?v=22.1.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=25.0.0';
+import { ctx } from '../core/dom.js?v=25.0.0';
+import { prepareWarriorTrails } from './warrior-trails.js?v=25.0.0';
+import { initializeNativeArk } from './ark-native.js?v=25.0.0';
 
-const cache={body:null,ark:null};
+import { initializeNativeArmor } from './native-armor.js?v=25.0.0';
+
+const cache={body:null,ark:null,wings:null,rendingNeedle:null,galaxiaBolt:null};
 let loading;
 
 // Remove only edge-connected black matte, preserving enclosed dark armor details.
+// NOTE: Native RGBA assets are already transparent - this only runs on legacy sheets that may have black matte.
 export function removeSpriteMatte(pixels,w,h){
   const count=w*h,visited=new Uint8Array(count),queue=new Int32Array(count);
   let head=0,tail=0;
@@ -32,7 +36,11 @@ async function prepareFrame(image,rect,kind){
   c.drawImage(image,rect.x,rect.y,rect.w,rect.h,0,0,rect.w,rect.h);
   if(kind==='ark')for(const [x,y,w,h]of sheetLabels)c.clearRect(x-rect.x,y-rect.y,w,h);
   const data=c.getImageData(0,0,rect.w,rect.h);
-  removeSpriteMatte(data.data,rect.w,rect.h);c.putImageData(data,0,0);
+  // Native assets (wings, rendingNeedle, galaxiaBolt) are already clean RGBA - skip matte removal
+  if(!['wings','rendingNeedle','galaxiaBolt'].includes(kind)){
+    removeSpriteMatte(data.data,rect.w,rect.h);
+  }
+  c.putImageData(data,0,0);
   const bitmap=typeof createImageBitmap==='function'?await createImageBitmap(canvas):canvas;
   return{image:bitmap,...rect};
 }
@@ -60,24 +68,42 @@ async function prepareTransitions(frames,loop){
 export function initializeMeleeAtlas(){
   if(loading)return loading;
   if(typeof Image==='undefined')return Promise.resolve(false);
-  const load=(kind,name)=>new Promise(resolve=>{
+  const load=(kind,name,directory='melee-original')=>new Promise(resolve=>{
     const image=new Image();image.decoding='async';
     image.onload=async()=>{
       try{
         const groups={};
         for(const [animation,rects]of Object.entries(meleeSpriteConfig[kind])){
           const frames=await Promise.all(rects.map(rect=>prepareFrame(image,rect,kind)));
-          groups[animation]=kind==='ark'&&['open','spin','snap','rip','impact'].includes(animation)?await prepareTransitions(frames,animation==='spin'):frames;
+          const needsTransitions=kind==='ark'&&['open','spin','snap','rip','impact'].includes(animation);
+          groups[animation]=needsTransitions?await prepareTransitions(frames,animation==='spin'):frames;
           if(groups[animation]!==frames)for(const frame of frames)frame.image.close?.();
         }
         cache[kind]=groups;resolve(true);
       }catch{resolve(false);}
     };
     image.onerror=()=>resolve(false);
-    image.src=new URL('../../assets/melee/'+name+'?v=22.1.0',import.meta.url).href;
+    image.src=new URL('../../assets/'+directory+'/'+name+'?v=25.0.0',import.meta.url).href;
   });
-  loading=Promise.all([load('body','armor-source.png'),load('ark','ark-source.png')]).then(results=>{
-    const ready=results.every(Boolean);if(ready)prepareWarriorTrails();return ready;
+  loading=Promise.all([
+    load('body','armor-source.png','melee'),
+    load('ark','ark-source.png','melee'),
+    load('wings','rebirth-wings.png'),           // Native Wings of Rebirth (9 frames, 180x174)
+    load('rendingNeedle','rending-needle.png'),   // Native RendingNeedle (14x88) for arkBeam
+    load('galaxiaBolt','galaxia-bolt.png'),        // Native GalaxiaBolt (22x34) for arkStar
+    initializeNativeArk(),
+    initializeNativeArmor()
+  ]).then(results=>{
+    const bodyReady=results[0];
+    const arkReady=results[1];
+    const wingsReady=results[2];
+    const rendingReady=results[3];
+    const galaxiaReady=results[4];
+    // nativeArkReady = results[5] - but we don't block on it
+    // prepareWarriorTrails must run whenever body+ark are ready, regardless of optional native failures
+    if(bodyReady && arkReady) prepareWarriorTrails();
+    // Native successful loads remain usable when another image fails
+    return bodyReady && arkReady;
   });
   return loading;
 }

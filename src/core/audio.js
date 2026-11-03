@@ -1,7 +1,10 @@
-import { calamitasSamples } from './sample-audio.js?v=22.1.0';
-import { state } from './state.js?v=22.1.0';
-import { settings,updateSettings } from './settings.js?v=22.1.0';
-import { $ } from './dom.js?v=22.1.0';
+import { calamitasSamples } from './sample-audio.js?v=25.0.0';
+import { meleeSamples } from './sample-audio.js?v=25.0.0';
+import { minionAudio } from '../render/minion-audio.js?v=25.0.0';
+import { state } from './state.js?v=25.0.0';
+import { battleMusic } from './battle-music.js?v=25.0.0';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=25.0.0';
+import { $ } from './dom.js?v=25.0.0';
 
 const audio={
   ctx:null,
@@ -16,6 +19,7 @@ const audio={
   supported:!!(window.AudioContext||window.webkitAudioContext),
   noise:null,
   init(){
+    battleMusic.unlock();
     if(!this.supported)return false;
     if(!this.ctx){
       try{
@@ -28,6 +32,8 @@ const audio={
         for(let i=0;i<len;i++)ch[i]=(Math.random()*2-1)*(1-i/len);
         this.noise=b;
         calamitasSamples.initialize(this.ctx,this.master);
+        meleeSamples.initialize(this.ctx,this.master);
+        minionAudio.initialize(this.ctx,this.master);
       }catch(e){
         this.supported=false;
         return false
@@ -41,7 +47,12 @@ const audio={
     if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
     if(!calamitasSamples.play(name,game))this.fx(({altar:'phase',laugh:'phase',dash:'dash',bigCast:'big',cast:'enemy',hellblast:'enemy'})[name]||'enemy');
   },
-  stopCalamitas(tag){calamitasSamples.stop(tag);},
+  stopCalamitas(tag){calamitasSamples.stop(tag);meleeSamples.stop(tag);if(!tag)minionAudio.stop();},
+  minion(name,game=state.game,options){
+    if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
+    minionAudio.play(name,game,options);
+  },
+  stopMinion(tag){minionAudio.stop(tag);},
   vol(v){
     updateSettings({sfxVolume:v});
     if(this.master&&this.ctx)this.master.gain.setTargetAtTime(.25*this.volume,this.ctx.currentTime,.025)
@@ -94,6 +105,20 @@ const audio={
   },
   fx(name){
     if(!this.sfx||!this.ctx)return;
+    if(name==='damage'&&meleeSamples.play('playerHurt'))return;
+    // Try to play original melee OGG samples first
+    const meleeMap={
+      aegisImpact:'aegisImpact',aegisExplosion:'aegisExplosion',
+      adrenalineLost:'adrenalineLost',rageReady:'rageReady',adrenalineReady:'adrenalineReady',rageActivate:'rageActivate',adrenalineActivate:'adrenalineActivate',rageEnd:'rageEnd',
+      'arkSwing':'arkSwing','arkThrow':'arkThrow','arkSnap':'arkSnap',
+      'arkParry':'arkParry','arkParrySuccess':'arkParrySuccess',
+      'arkSnapReady':'arkSnapReady','arkSnapEnd':'arkSnapEnd','arkRecharge':'arkRecharge','arkRipWindup':'arkRipWindup','arkStitch':'arkStitch','arkBigRip':'arkBigRip','arkRipSlice':'arkRipSlice','arkHit':'arkHit'
+    };
+    if(meleeMap[name]&&meleeSamples.play(meleeMap[name]))return;
+    // Try to play original calamitas OGG samples
+    const calMap={altar:'altar',laugh:'laugh',dash:'dash',cast:'cast',bigCast:'bigCast',hellblast:'hellblast'};
+    if(calMap[name]&&calamitasSamples.play(calMap[name]))return;
+    // Fallback to synthesized sounds
     switch(name){
       case 'sword':
       if(!this.gate('sword',.13))return;
@@ -176,22 +201,12 @@ const audio={
       break;
     }
   },
-  // Original, optional 16-step eerie pulse; intentionally not Calamity OST.
   tick(g){
-    if(!this.music||!this.ctx||!g||g.mode!=='playing'||this.volume<=0)return;
-    let step=Math.floor(g.totalTime/.24);
-    if(step===this.step)return;
-    this.step=step;
-    let idx=step%16;
-    this.musicVoice=true;
-    try{
-    const hz=m=>440*Math.pow(2,(m-69)/12),base=this.notes[idx];
-    if(idx%2===0)this.tone(hz(base-12),.28,'triangle',.065,.87);
-    if(idx%4===0)this.tone(hz(base+12),.34,'sine',.040,1.01);
-    if(idx%2===1)this.hiss(.025,.028);
-    if((g.stage==='hell'||g.thresholds.has('40'))&&idx%4===2)this.tone(hz(base+19),.12,'sawtooth',.026,.8);
-    }finally{this.musicVoice=false;}
+    battleMusic.sync(g,{enabled:this.music&&settings.musicEnabled&&this.volume>0,volume:settings.musicVolume*this.volume,screen:state.screen});
   },
+  syncMusic(){this.tick(state.game);},
+  pauseMusic(){battleMusic.pause();},
+  stopMusic(){battleMusic.stop();},
   setSound(flag){
     this.sfx=flag;if(!flag)this.stopCalamitas();updateSettings({sfxEnabled:flag});
     $('soundtoggle').textContent=flag?'🔊 Звуки: УВІМК':'🔇 Звуки: ВИМК';
@@ -200,12 +215,14 @@ const audio={
   },
   setMusic(flag){
     this.music=flag;updateSettings({musicEnabled:flag});
-    this.step=-1;
+    this.syncMusic();
     $('musictoggle').textContent=flag?'♫ Музика: УВІМК':'♫ Музика: ВИМК';
     $('musictoggle').setAttribute('aria-pressed',String(flag));
     $('musictoggle').classList.toggle('sound-muted',!flag)
   }
 };
 
+
+subscribeSettings(()=>{audio.music=settings.musicEnabled;audio.syncMusic();});
 
 export { audio };

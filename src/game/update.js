@@ -1,21 +1,31 @@
-import { updateCamera } from '../world/camera.js?v=22.1.0';
-import { getTerrain } from '../world/terrain.js?v=22.1.0';
-import { updatePlayerMovement } from './movement.js?v=22.1.0';
-import { updateRitual } from './ritual.js?v=22.1.0';
-import { playerConfig } from '../../config/player.js?v=22.1.0';
-import { getEncounter } from '../boss/registry.js?v=22.1.0';
-import { classRegistry, weapons } from '../classes/registry.js?v=22.1.0';
-import { updateClassKit } from '../classes/shared.js?v=22.1.0';
-import { shoot } from '../combat/attacks.js?v=22.1.0';
-import { updateBullets } from '../combat/projectiles.js?v=22.1.0';
-import { possibleTargets } from '../combat/targets.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { TAU } from '../core/config.js?v=22.1.0';
-import { clamp, rnd } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { updateSystems } from '../systems/index.js?v=22.1.0';
-import { ui } from '../ui/hud.js?v=22.1.0';
+import {resolveCalamitasContact} from '../combat/boss-contact.js?v=25.0.0';
+import {updateAsgardianCollisions,updateAsgardianInferno} from '../combat/asgardian.js?v=25.0.0';
+import {updateAsgardianEffects} from '../systems/asgardian-effects.js?v=25.0.0';
+import {updateArkEffects} from '../systems/ark-effects.js?v=25.0.0';
+import {beginCombatMotion} from '../combat/motion-collision.js?v=25.0.0';
+import {updateCalamitasEffects} from '../systems/calamitas-effects.js?v=25.0.0';
+import {updateHelperEffects} from '../systems/helper-effects.js?v=25.0.0';
+import { updateArenaState } from '../world/arena-state.js?v=25.0.0';
+import { updatePlayerDebuffs } from '../combat/debuffs.js?v=25.0.0';
+import { updatePickups } from './pickups.js?v=25.0.0';
+import { updateCamera } from '../world/camera.js?v=25.0.0';
+import { getTerrain } from '../world/terrain.js?v=25.0.0';
+import { updatePlayerMovement } from './movement.js?v=25.0.0';
+import { updateRitual } from './ritual.js?v=25.0.0';
+import { playerConfig } from '../../config/player.js?v=25.0.0';
+import { getEncounter } from '../boss/registry.js?v=25.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=25.0.0';
+import { updateClassKit } from '../classes/shared.js?v=25.0.0';
+import { shoot } from '../combat/attacks.js?v=25.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=25.0.0';
+import { possibleTargets } from '../combat/targets.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { TAU } from '../core/config.js?v=25.0.0';
+import { clamp, rnd } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { updateSystems } from '../systems/index.js?v=25.0.0';
+import { ui } from '../ui/hud.js?v=25.0.0';
 
 
 function update(dt){
@@ -23,8 +33,13 @@ function update(dt){
   if(g.mode!=='playing')return;
   if(g.ritual){updateRitual(dt);return;}
   g.t+=dt;
+  updateArenaState(g,dt);
   g.totalTime+=dt;
   updateSystems(dt,g);
+  updateArkEffects(dt,g);
+  updateAsgardianEffects(dt,g);
+  updateAsgardianInferno(dt,g);
+  updateHelperEffects(dt,g);
   audio.tick(g);
   g.stageT+=dt;
   g.dialogT=Math.max(0,g.dialogT-dt);
@@ -51,34 +66,15 @@ function update(dt){
   const campfireBonus=Math.hypot(p.x-230,p.y-(getTerrain().platforms[0].y-17))<195?2:0;
   const lanternBonus=Math.hypot(p.x-750,p.y-getTerrain().lantern.y)<205?2:0;
   p.regenRate=naturalRegen+campfireBonus+lanternBonus+(p.regenPotionT>0?4:0);
-  p.hp=Math.min(p.maxHp,p.hp+p.regenRate*dt);
-  g.pickupTimer-=dt;
-  if(g.pickupTimer<=0&&g.pickups.length<4&&g.stage!=='accept'){
-    const kind=Math.random()<.63?'heart':'star';
-    g.pickups.push({kind,x:rnd(arena.l+55,arena.r-55),y:rnd(arena.t+75,arena.b-65),life:17,phase:rnd(0,TAU)});
-    g.pickupTimer=rnd(12,17);
-  }
-  for(let i=g.pickups.length-1;i>=0;i--){
-    const drop=g.pickups[i];
-    drop.life-=dt;
-    if(Math.hypot(drop.x-p.x,drop.y-p.y)<24){
-      if(drop.kind==='heart'){
-        p.hp=Math.min(p.maxHp,p.hp+70);
-        g.floaters.push({x:p.x,y:p.y-20,life:1.3,text:'+70 HP',col:'#ffb5ad'})
-      }
-      else
-      {
-        p.mana=Math.min(p.maxMana,p.mana+90);
-        g.floaters.push({x:p.x,y:p.y-20,life:1.3,text:'+90 MANA',col:'#a4c9ff'})
-      }
-      p.pickupsTaken++;
-      audio.fx('pickup');
-      g.pickups.splice(i,1);
-    }else
-    if(drop.life<=0)g.pickups.splice(i,1);
-  }
-  
-  updatePlayerMovement(g,dt);
+  const debuffTime=updatePlayerDebuffs(g,dt);
+  if(g.mode!=='playing')return;
+  if(debuffTime>0){p.hp=Math.min(p.maxHp,p.hp+p.regenRate*Math.max(0,dt-debuffTime));p.regenRate=0;}
+  else p.hp=Math.min(p.maxHp,p.hp+p.regenRate*dt);
+  updatePickups(g,dt);
+
+  const motion=beginCombatMotion(g,dt);
+  updatePlayerMovement(g,dt,motion);
+  if(p.aegisReadyAt>0)p.dashCd=Math.max(0,p.aegisReadyAt-g.t);
   updateCamera(g,dt);
   if(state.deviceMode==='mobile'&&state.aimHeld){
     state.pointer.x=clamp(p.x+state.aimAxis.x*300,arena.l,arena.r);
@@ -97,10 +93,14 @@ function update(dt){
   if(state.pointer.fire||state.mobileFire||state.aimHeld||state.keys.j||autoShoot)shoot();
   classRegistry[weapons[p.weapon].id].updateCombat?.(dt);
   const encounter=getEncounter(g);
-  encounter.update(dt);
+  encounter.update(dt,motion);
   encounter.updateHazards(dt);
-  updateBullets(dt);
+  if(motion.points.at(-1).time<dt)motion.points.push({time:dt,x:p.x,y:p.y});
+  updateAsgardianCollisions(g,motion);
+  resolveCalamitasContact(g,motion);
+  updateBullets(dt,motion);
   encounter.afterProjectiles();
+  updateCalamitasEffects(dt,g);
   g.impacts=g.impacts.filter(f=>(f.life-=dt)>0);
   g.dashGhosts=g.dashGhosts.filter(v=>(v.life-=dt)>0);
   g.sparks=g.sparks.filter(s=>(s.life-=dt)>0);
@@ -108,7 +108,7 @@ function update(dt){
       s.x+=s.vx*dt;
       s.y+=s.vy*dt
   });
-  g.floaters=g.floaters.filter(s=>(s.life-=dt)>0);
+  g.floaters=g.floaters.filter(s=>(s.life-=dt)>0).slice(-140);
   g.floaters.forEach(s=>s.y-=30*dt);
   if(g.t-(g.lastUI||0)>.095){
     ui();

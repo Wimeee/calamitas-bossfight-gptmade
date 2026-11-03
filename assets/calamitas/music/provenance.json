@@ -1,0 +1,40 @@
+{
+  "title": "Stained, Brutal Calamity",
+  "artist": "DM DOKURO",
+  "source": "D:/SteamLibrary/steamapps/workshop/content/1281930/2824688266/2025.12/CalamityModMusic.tmod",
+  "mod": "CalamityModMusic",
+  "version": "2.1",
+  "payloadSha1": "58dba53a0753a09ec5ed085c96ac1d9ae6538f4d",
+  "sourceSha256": "ca202bc18ae690d5ea7267b42c9ec8162241a19aafc9efdf40eff0a59eada9e5",
+  "authorUrl": "https://dmdokuro.bandcamp.com/track/stained-brutal-calamity",
+  "assets": [
+    {
+      "phase": "grief",
+      "original": "Sounds/Music/CalamitasPhase1.ogg",
+      "file": "assets/calamitas/music/grief.ogg",
+      "bytes": 3151536,
+      "sha256": "e53aa171822c25920de84e9674fff514976870bf746d52597bdaf4a2e694c39d"
+    },
+    {
+      "phase": "lament",
+      "original": "Sounds/Music/CalamitasPhase2.ogg",
+      "file": "assets/calamitas/music/lament.ogg",
+      "bytes": 2802282,
+      "sha256": "bc2dca9894eadace2e4b30198868dedc23bbeeadb21caf9a0e3a7edf21746dee"
+    },
+    {
+      "phase": "epiphany",
+      "original": "Sounds/Music/CalamitasPhase3.ogg",
+      "file": "assets/calamitas/music/epiphany.ogg",
+      "bytes": 5196536,
+      "sha256": "9ad33ccf0b8697a7420088dde4b68bc76b346298ac98c05dce189c2188aee946"
+    },
+    {
+      "phase": "acceptance",
+      "original": "Sounds/Music/CalamitasDefeat.ogg",
+      "file": "assets/calamitas/music/acceptance.ogg",
+      "bytes": 1095012,
+      "sha256": "6605f47d5138c74570a60b62c242ca23441588bfca45a631833ff05ff5878754"
+    }
+  ]
+}

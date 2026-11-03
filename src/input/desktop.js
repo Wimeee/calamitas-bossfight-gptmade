@@ -1,25 +1,25 @@
-import { activateRipper } from '../systems/rippers.js?v=22.1.0';
-import { cameraView } from '../world/camera.js?v=22.1.0';
-import { beginRitual, skipRitual } from '../game/ritual.js?v=22.1.0';
-import { queueJump } from '../game/movement.js?v=22.1.0';
-import { directionTap } from './dash-gesture.js?v=22.1.0';
-import { resolveGameKey } from '../core/settings.js?v=22.1.0';
-import { releaseArk } from '../classes/melee.js?v=22.1.0';
-import { classAbility } from '../classes/shared.js?v=22.1.0';
-import { shoot } from '../combat/attacks.js?v=22.1.0';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=22.1.0';
-import { arena, canvasPointToWorld } from '../core/arena.js?v=22.1.0';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
-import { canvas, root } from '../core/dom.js?v=22.1.0';
-import { clamp } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=22.1.0';
-import { resetTouchInput } from './mobile.js?v=22.1.0';
+import { activateRipper } from '../systems/rippers.js?v=25.0.0';
+import { cameraView } from '../world/camera.js?v=25.0.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=25.0.0';
+import { queueJump } from '../game/movement.js?v=25.0.0';
+import { directionTap } from './dash-gesture.js?v=25.0.0';
+import { resolveGameKey } from '../core/settings.js?v=25.0.0';
+import { releaseArk } from '../classes/melee.js?v=25.0.0';
+import { classAbility } from '../classes/shared.js?v=25.0.0';
+import { shoot } from '../combat/attacks.js?v=25.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=25.0.0';
+import { arena, canvasPointToWorld } from '../core/arena.js?v=25.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=25.0.0';
+import { canvas, root } from '../core/dom.js?v=25.0.0';
+import { clamp } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=25.0.0';
+import { resetTouchInput } from './mobile.js?v=25.0.0';
 
 
 function eventPos(e){
   const point=canvasPointToWorld(e.clientX,e.clientY,canvas.getBoundingClientRect(),root.classList.contains('focus-mode'));
-  const view=cameraView();state.pointer.viewX=point.x-view.x;state.pointer.viewY=point.y-view.y;
+  const view=cameraView();state.pointer.viewX=point.x-view.x;state.pointer.viewY=point.y-view.y;state.pointer.u=state.pointer.viewX/view.w;state.pointer.v=state.pointer.viewY/view.h;
   state.pointer.x=clamp(point.x,arena.l,arena.r);state.pointer.y=clamp(point.y,arena.t,arena.b);
 }
 

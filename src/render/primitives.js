@@ -1,7 +1,8 @@
-import { TAU } from '../core/config.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-import { clamp } from '../core/math.js?v=22.1.0';
-import { pixelArt } from './sprites.js?v=22.1.0';
+import {translate} from '../core/localization.js?v=25.0.0';
+import { TAU } from '../core/config.js?v=25.0.0';
+import { ctx } from '../core/dom.js?v=25.0.0';
+import { clamp } from '../core/math.js?v=25.0.0';
+import { pixelArt } from './sprites.js?v=25.0.0';
 
 
 function round(x,y,r,col,stroke,thick=1){
@@ -28,6 +29,7 @@ function line(x1,y1,x2,y2,col,width=2){
 
 
 function text(s,x,y,size=14,col='#fff',align='center'){
+  s=translate(s);
   ctx.font=`800 ${size}px system-ui`;
   ctx.fillStyle=col;
   ctx.textAlign=align;

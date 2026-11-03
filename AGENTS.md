@@ -1,3 +1,5 @@
+> Current user authorization2026-11-03: restore this repository and its existing GitHub Pages site publicly with v25. Pushes to main publish via the Pages workflow after checks. Earlier private-only notes below are historical.
+
 # Development notes
 
 - The game name is **Untitled Terraria Bossfight Game**. Read `ROADMAP.md` for the approved long-term plan. v21 adds Terraria-style movement and the approved left-primary/right-secondary controls. Other class sprite overhauls, new bosses and a full soundtrack remain separate future updates.

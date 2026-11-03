@@ -1,0 +1,89 @@
+{
+  "note": "Original installed Calamity2.2.4 selected resources; lossless RGBA conversion; original source code reference is pinned2.2.2.",
+  "files": [
+    {
+      "file": "heavy-smoke.png",
+      "width": 559,
+      "height": 480,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/HeavySmoke.rawimg",
+      "sha256": "f6ec0127e5edfde41c253eba07e7cbf911fc4418776b9c569f0933496e4506dd"
+    },
+    {
+      "file": "thin-sparkle.png",
+      "width": 13,
+      "height": 13,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/ThinSparkle.rawimg",
+      "sha256": "f0a28dac4f263297a3179c068a79413b9c2d3cee0c02f3784c420c32e1dcc8d5"
+    },
+    {
+      "file": "light.png",
+      "width": 72,
+      "height": 72,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/Light.rawimg",
+      "sha256": "02f823688dfdbf156955e08317b491558805dff0466811c5425e349636a6bcbd"
+    },
+    {
+      "file": "bloom-line.png",
+      "width": 64,
+      "height": 1,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/BloomLine.rawimg",
+      "sha256": "0909a16636f732158c963b9421c60b5796d4cae403fd3ecfbe4ebe81c63eac1d"
+    },
+    {
+      "file": "bloom-cap.png",
+      "width": 64,
+      "height": 32,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/BloomLineCap.rawimg",
+      "sha256": "8f96397fc86ee9ed829c4942e1095c5bdf401477d7b476100e54910eb2a8ed22"
+    },
+    {
+      "file": "slice-line.png",
+      "width": 64,
+      "height": 84,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/ThinEndedLine.rawimg",
+      "sha256": "f7cbf4952923d8add5bbafd4cf2ba7e751b3f9729d6abda3aa0244a4bc52e225"
+    },
+    {
+      "file": "parry-bar-back.png",
+      "width": 36,
+      "height": 12,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/MiscTextures/GenericBarBack.rawimg",
+      "sha256": "5534ae981b6253f78602ffff00d77a8f254bd54e8a0b2cd8b7e20aad3f6e896f"
+    },
+    {
+      "file": "parry-bar-front.png",
+      "width": 36,
+      "height": 12,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/UI/MiscTextures/GenericBarFront.rawimg",
+      "sha256": "ff83b813dc69acef7f4e64beb7867aecac3bc2b4646e114ccd36862e2cdee860"
+    },
+    {
+      "file": "rip-texture.png",
+      "width": 618,
+      "height": 1622,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Projectiles/Melee/ArkoftheCosmosBlast.rawimg",
+      "sha256": "b330fabfabf8fd89aad6214072d5c6dcad49fd0289ce6086e673ea86bdc97f45"
+    },
+    {
+      "file": "scissors-glow.png",
+      "width": 134,
+      "height": 132,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Projectiles/Melee/SunderingScissorsGlow.rawimg",
+      "sha256": "d108fc4d2eb08eae8267d2a7f39edb758c9c6e57bebb49d6eb3275c5d66ee414"
+    },
+    {
+      "file": "pulse-ring.png",
+      "width": 156,
+      "height": 156,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/HollowCircleHardEdge.rawimg",
+      "sha256": "31a9737b0eb9d30ca816470ec862ecaa1927c898b6b0387d3a926d7159174b3b"
+    },
+    {
+      "file": "rip-layer.png",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Graphics/Metaballs/BigRipLayer.rawimg",
+      "width": 200,
+      "height": 200,
+      "sha256": "03ae631ed19fd113555e1f5892ef1df60bd63cce76f0f546ce9bce1c838cfa4b"
+    }
+  ]
+}

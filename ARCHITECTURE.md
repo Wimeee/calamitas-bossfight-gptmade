@@ -115,3 +115,6 @@ The user's ready shield.png now replaces both procedural aura stamps. Preserve t
 
 ### Calamitas visual proportions (local, 2026-10-30)
 Body frames now draw at native scale 1. The source normal field is 72×3 = 216 px in diameter; immunity uses 156×1.35 = 210.6 px. The supplied red shield follows these visual bounds and smoothly contracts toward 45% during wind-up/charge. Presentation clocks freeze with simulation time; no collision/damage values change. Phase-II body glow shares the configured body scale. Reviewed key portions of the newer Calamity 2.1 fight: https://www.youtube.com/watch?v=1AMuDxYrP7U (visual reference, not a full-frame audit).
+
+## Native arena pass (local 2026-11-02)
+world/arena-state.js owns source phase extents, palette, interpolation and visual debris. World terrain is fixed independently of moving arena bounds; movement clamps to the current box. world/viewport.js owns live canvas dimensions; pointer stores normalized screen anchors. render/arena-atlas.js prepares a bounded set of native layer tints; arena-cache.js no longer creates world-size rasters on each resize. Native shader effects are adapted to Canvas. Original provenance lives in assets/arena-original.

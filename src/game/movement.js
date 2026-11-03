@@ -1,17 +1,23 @@
-import { movementConfig as config } from '../../config/movement.js?v=22.1.0';
-import { playerConfig } from '../../config/player.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { clamp } from '../core/math.js?v=22.1.0';
-import { getTerrain } from '../world/terrain.js?v=22.1.0';
+import {moveAsgardianDash,endAsgardianDash} from './asgardian-dash.js?v=25.0.0';
+import { movementConfig as config } from '../../config/movement.js?v=25.0.0';
+import { playerConfig } from '../../config/player.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { clamp } from '../core/math.js?v=25.0.0';
+import { getTerrain } from '../world/terrain.js?v=25.0.0';
 
 const approach=(value,target,amount)=>value<target?Math.min(target,value+amount):Math.max(target,value-amount);
+// Source wing ascent bonuses operate in native pixels/tick; config converts to pixels/second.
+export function rebirthWingVelocity(vy,dt){
+  const bonus=vy>0?config.wingFallingBonus:vy>-config.wingRisingThreshold?config.wingRisingBonus:0;
+  return Math.max(-config.flightSpeed,vy-(config.flightAcceleration+bonus)*dt);
+}
 export function resetMovement(g,x=380){
   const p=g.player;
   Object.assign(p,{x:clamp(x,arena.l+11,arena.r-11),y:getTerrain().floorY-config.halfHeight,
     vx:0,vy:0,grounded:true,support:'ground',flying:false,flightRemaining:config.flightTime,
     jumpBuffer:0,jumpGrace:config.jumpGrace,jumpSustain:0,dropTimer:0,dropHeld:false,jumpWasHeld:false,
-    dashT:0,dashCd:0,contactGuard:0,dashTapDirection:0,dashTapAt:-Infinity,physics:true});
+    dashT:0,dashCd:0,contactGuard:0,dashTapDirection:0,dashTapAt:-Infinity,physics:true,aegisDash:null,aegisReadyAt:0,aegisDashDuration:0});
 }
 
 export function spawnNearAltar(g,x=380){
@@ -31,19 +37,22 @@ export function movePlayerWithTerrain(g,dx,dy){
   if(p.x<=arena.l+11||p.x>=arena.r-11)p.vx=0;
   p.y+=dy;p.grounded=false;p.support=null;
   if(p.y<arena.t+config.halfHeight){p.y=arena.t+config.halfHeight;p.vy=Math.max(0,p.vy);}
-  let landing=terrain.floorY,support='ground';
+  let landing=Math.min(terrain.floorY,arena.b),support='ground';
   if(dy>=0&&p.dropTimer<=0&&!p.dropHeld)for(const platform of terrain.platforms){
     if(p.x+config.halfWidth>platform.l&&p.x-config.halfWidth<platform.r&&oldFeet<=platform.y+.5&&p.y+config.halfHeight>=platform.y&&platform.y<landing){
       landing=platform.y;support=platform.id;
     }
   }
   if(p.y+config.halfHeight>=landing){
-    p.y=landing-config.halfHeight;p.vy=0;p.grounded=true;p.support=support;p.flying=false;
+    p.y=landing-config.halfHeight;p.vy=0;
+    // A magical wall contains the player; only real terrain restores wings.
+    if(support==='ground'&&landing===arena.b&&arena.b<terrain.floorY){p.grounded=false;p.support=null;return;}
+    p.grounded=true;p.support=support;p.flying=false;
     p.flightRemaining=config.flightTime;
   }
 }
 
-export function updatePlayerMovement(g,dt){
+export function updatePlayerMovement(g,dt,motion=null){
   if(g.mode!=='playing'||g.ritual?.phase==='summoning')return;
   const p=g.player,k=state.keys;
   if(!p.physics)resetMovement(g,p.x);
@@ -76,18 +85,24 @@ export function updatePlayerMovement(g,dt){
     p.flying=false;
     if(flightHeld&&!down&&!p.grounded&&p.flightRemaining>0&&p.jumpSustain<=0){
       p.flying=true;p.flightRemaining=Math.max(0,p.flightRemaining-step);
-      p.vy=approach(p.vy,-config.flightSpeed,config.flightAcceleration*step);
+      p.vy=rebirthWingVelocity(p.vy,step);
     }else p.vy=Math.min(down?config.fastFallSpeed:config.fallSpeed,p.vy+(down?config.gravity*1.8:config.gravity)*step);
-    if(p.dashT>0){
+    if(p.aegisDash){
+      const oldX=p.x,dx=moveAsgardianDash(g,step);
+      movePlayerWithTerrain(g,dx,p.vy*step);
+      if(p.aegisDash&&Math.abs(p.x-oldX-dx)>1e-6)endAsgardianDash(g);
+    }else if(p.dashT>0){
       const active=Math.min(step,p.dashT);p.dashT=Math.max(0,p.dashT-step);
       p.vx=p.dashX*playerConfig.dashSpeed;
       movePlayerWithTerrain(g,p.vx*active,p.vy*step);
       if(!p.dashT)p.vx=clamp(p.vx,-config.runSpeed,config.runSpeed);
     }else{
-      const acceleration=horizontal?config.acceleration:p.grounded?config.braking:config.airBraking;
-      p.vx=approach(p.vx,horizontal*config.runSpeed,acceleration*step);
+      const acceleration=horizontal?(p.grounded?config.acceleration:config.airAcceleration):p.grounded?config.braking:config.airBraking;
+      const speed=p.grounded?config.runSpeed:config.airSpeed;
+      p.vx=approach(p.vx,horizontal*speed,acceleration*step);
       movePlayerWithTerrain(g,p.vx*step,p.vy*step);
     }
+    if(motion)motion.points.push({time:(i+1)*step,x:p.x,y:p.y});
   }
   if(!g.ritual&&p.dashT>0&&Math.floor(g.t*42)!==Math.floor((g.t-dt)*42))g.dashGhosts.push({x:p.x,y:p.y,life:.32,max:.32});
 }

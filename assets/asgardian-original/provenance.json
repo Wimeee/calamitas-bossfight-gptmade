@@ -1,0 +1,37 @@
+{
+  "note": "Original local Calamity2.2.4 RGBA; pinned source2.2.2 reference.",
+  "files": [
+    {
+      "file": "shield.png",
+      "width": 40,
+      "height": 1120,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Items/Accessories/AsgardianAegis_Shield.rawimg",
+      "sha256": "600236a3334ea12dc047da6deaa591241d36110e80e057d5999ad74afa1d2cb7"
+    },
+    {
+      "file": "mark.png",
+      "width": 34,
+      "height": 34,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/ProvidenceMarkParticle.rawimg",
+      "sha256": "b26aac268c70fedb9a7ec101d85295ada01d4b487a4d5189935054950122eb52"
+    },
+    {
+      "file": "explosion.png",
+      "width": 360,
+      "height": 360,
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Particles/DetailedExplosion.rawimg",
+      "sha256": "27701889367bd11db2ef5f5d5f3662b348d59d9bc00f28e00fe153afc2b03ee9"
+    },
+    {
+      "file": "impact.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/NPCKilled/DevourerSegmentBreak1.ogg",
+      "sha256": "7eed68dfa75d55391abc3500ade917b35eb8ad5e0f27e420fe9c0ec237edce38"
+    },
+    {
+      "file": "explosion.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_62.xnb",
+      "format": "lossless originalPCM in RIFF/WAVE",
+      "sha256": "fbebee2168f08b40d9541a1e33de52b789619e54b0380beef90d12a8d0fdfc21"
+    }
+  ]
+}

@@ -1,13 +1,16 @@
-import { calamitasImage } from './calamitas-atlas.js?v=22.1.0';
-import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-import { clamp, norm } from '../core/math.js?v=22.1.0';
-import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher } from './enemies.js?v=22.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=22.1.0';
+import {drawCalamitasEffects} from './calamitas-effects.js?v=25.0.0';
+import {drawHelperEffects} from './helper-effects.js?v=25.0.0';
+import { calamitasImage } from './calamitas-atlas.js?v=25.0.0';
+import { hellDirections, hellPlan, hellSymbols } from '../boss/bullet-hell.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=25.0.0';
+import { ctx } from '../core/dom.js?v=25.0.0';
+import { clamp, norm } from '../core/math.js?v=25.0.0';
+import { drawBrother, drawCalamitas, drawMaelstrom, drawSepulcher, drawSeeker, drawHeart } from './enemies.js?v=25.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=25.0.0';
 
 export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
+  drawMaelstrom(g);
   if(g.stage==='hell'&&g.huntWarning){
     const w=g.huntWarning;
     ctx.save();
@@ -47,27 +50,11 @@ export function drawCalamitasEncounter(g){const b=g.boss,p=g.player;
     ctx.arc(b.x,b.y,66+Math.sin(g.t*3)*6,0,TAU);
     ctx.stroke();
     }
-    g.hearts.forEach(h=>{
-        pixel('heart',h.x,h.y,1.5+Math.sin(g.t*5)*.05);
-        hpMini(h.x,h.y-27,h.hp,h.max,35)
-    })
+    g.hearts.forEach(h=>drawHeart(h,g))
   }
   if(g.stage==='brothers')g.brothers.forEach(br=>drawBrother(br,g));
-  if(g.stage==='seekers')g.seekers.forEach(s=>{
-      if(g.seekerWarning){ctx.strokeStyle='#ffdf9e';ctx.lineWidth=2;ctx.beginPath();ctx.arc(s.x,s.y,21,0,TAU);ctx.stroke();}
-      pixel('seeker',s.x,s.y,1.25);
-      hpMini(s.x,s.y-27,s.hp,s.max,27,'#db77a4')
-  });
-  drawMaelstrom(g);
-  if(g.dashWind>0){
-    ctx.strokeStyle='#ffb05e';ctx.lineWidth=3;ctx.beginPath();ctx.arc(b.x,b.y,37,0,TAU);ctx.stroke();
-  }
-  if(g.dashActive>0){
-    for(let i=1;i<=6;i++){
-      ctx.globalAlpha=(7-i)/21;
-      round(b.x-g.dashVector.x*i*19,b.y-g.dashVector.y*i*19,23-i*2,'#fa506f');
-    }
-    ctx.globalAlpha=1
-  }
-  drawCalamitas(g);
+  if(g.stage==='seekers')g.seekers.forEach(s=>drawSeeker(s,g));
+  drawHelperEffects(g);
+  if(!b.departed)drawCalamitas(g);
+  drawCalamitasEffects(g);
 }

@@ -1,39 +1,44 @@
-import { cameraView } from '../world/camera.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { settings } from '../core/settings.js?v=22.1.0';
-import { H,VIEW_X,VIEW_Y,W } from '../core/config.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-
-let base=null,arenaLayer=null,arenaKey='';
-function surface(w=W,h=H){const c=document.createElement('canvas');c.width=w;c.height=h;return c;}
-function stroke(c,x1,y1,x2,y2,color,width=1){c.strokeStyle=color;c.lineWidth=width;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();}
-
-export function drawBackdropBase(){
-  if(!base){
-    base=surface();const c=base.getContext('2d');c.translate(VIEW_X,VIEW_Y);
-    c.fillStyle='#0c0710';c.fillRect(-VIEW_X,-VIEW_Y,W,H);
-    const gradient=c.createRadialGradient(500,320,50,500,280,610);
-    gradient.addColorStop(0,'#341224');gradient.addColorStop(.65,'#210b1a');gradient.addColorStop(1,'#07070d');
-    c.fillStyle=gradient;c.fillRect(-VIEW_X,-VIEW_Y,W,H);
-  }
-  const view=cameraView();ctx.drawImage(base,view.x,view.y);
+import {state} from '../core/state.js?v=25.0.0';
+import {cameraView} from '../world/camera.js?v=25.0.0';
+import {arena} from '../core/arena.js?v=25.0.0';
+import {ctx} from '../core/dom.js?v=25.0.0';
+import {W,H} from '../core/config.js?v=25.0.0';
+import {arenaColors} from '../world/arena-state.js?v=25.0.0';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=25.0.0';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=25.0.0';
+let field=null,mask=null;
+function surface(){return document.createElement('canvas');}
+function ensureSurfaces(){
+ if(!field){field=surface();mask=surface();}
+ if(field.width!==W||field.height!==H){field.width=mask.width=W;field.height=mask.height=H;}
 }
-
-export function drawArenaLayer(){
-  const key=[arena.l,arena.r,arena.t,arena.b,settings.quality==='low'].join('|');
-  if(key!==arenaKey){
-    arenaKey=key;arenaLayer=surface(Math.ceil(arena.r-arena.l+80),Math.ceil(arena.b-arena.t+80));const c=arenaLayer.getContext('2d');c.translate(40-arena.l,40-arena.t);
-    c.fillStyle='#24101c';c.fillRect(arena.l,arena.t,arena.r-arena.l,arena.b-arena.t);
-    for(let x=arena.l+33;x<arena.r;x+=32)stroke(c,x,arena.t,x,arena.b,'#8b334018');
-    for(let y=arena.t+28;y<arena.b;y+=32)stroke(c,arena.l,y,arena.r,y,'#8b33401d');
-    c.globalAlpha=.22;
-    stroke(c,340,410,420,375,'#7b3950',3);stroke(c,420,375,520,388,'#7b3950',2);stroke(c,520,388,605,349,'#7b3950',2);
-    c.globalAlpha=1;c.shadowColor='#ec365b';c.shadowBlur=settings.quality==='low'?0:14;
-    c.strokeStyle='#f44d63';c.lineWidth=5;c.strokeRect(arena.l,arena.t,arena.r-arena.l,arena.b-arena.t);
-    c.shadowBlur=0;c.strokeStyle='#812537';c.lineWidth=11;c.strokeRect(arena.l-10,arena.t-10,arena.r-arena.l+20,arena.b-arena.t+20);
-  }
-  const v=cameraView(),left=arena.l-40,top=arena.t-40;
-  const x=Math.max(left,v.x),y=Math.max(top,v.y);
-  const w=Math.min(arena.r+40,v.x+v.w)-x,h=Math.min(arena.b+40,v.y+v.h)-y;
-  if(w>0&&h>0)ctx.drawImage(arenaLayer,x-left,y-top,w,h,x,y,w,h);
+function clear(c){c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.clearRect(0,0,W,H);}
+function nativeField(c,texture,v,dx,dy,scale,alpha){
+ if(!texture||alpha<=0)return;c.save();c.translate(dx,dy);c.scale(scale,scale);c.globalAlpha=alpha;c.fillStyle=c.createPattern(texture,'repeat');c.fillRect((v.x-dx)/scale,(v.y-dy)/scale,v.w/scale,v.h/scale);c.restore();
+}
+export function drawBackdropBase(){
+ const g=state.game,v=cameraView(g),t=g?.ritual?g.ritual.ambient:g?.t||0;ctx.fillStyle='#100b11';ctx.fillRect(v.x,v.y,v.w,v.h);
+ const image=arenaImage('CalamitasBackground');if(image){const scale=Math.max(v.w/image.width,v.h/image.height)*1.12,w=image.width*scale,h=image.height*scale;ctx.drawImage(image,v.x+(v.w-w)/2+Math.sin(t*.11)*24,v.y+(v.h-h)/2+Math.cos(t*.08)*18,w,h);}
+ const a=g?.arenaState||{phase:0,previous:0,colorMix:1};
+ for(const [phase,mix] of [[a.previous,1-a.colorMix],[a.phase,a.colorMix]])nativeField(ctx,arenaTexture('arenaSmoke',phase),v,-t*7+Math.sin(t*.14)*28,t*3,2.8,.1*mix);
+ const cinder=arenaImage('CalamitasCinder');if(cinder){ctx.save();for(let i=0;i<42;i++){const speed=12+i%4*5,x=v.x+((i*239.17+t*3+Math.sin(t*.5+i)*22)%v.w+v.w)%v.w,y=v.y+((i*173.7-t*speed)%v.h+v.h)%v.h;ctx.globalAlpha=.3+.25*(.5+.5*Math.sin(t*1.6+i));ctx.drawImage(cinder,x,y,4,4);}ctx.restore();}
+}
+function texturePhase(c,g,phase,mix,v){
+ if(mix<=0)return;const t=g.t||0;
+ nativeField(c,arenaTexture('arenaSmoke',phase),v,Math.sin(t*.24)*38+t*5,Math.cos(t*.17)*24-t*7,1.22+Math.sin(t*.42)*.025,.68*mix);
+ nativeField(c,arenaTexture('arenaWave',phase),v,Math.sin(t*.39)*19-t*11,t*21,1+Math.sin(t*.63)*.018,.85*mix);
+}
+export function arenaBorderVisible(v,box){
+ const o=ARENA_FEATHER_OUTER,i=ARENA_FEATHER_INNER;
+ if(v.x+v.w<=box.l-o||v.x>=box.r+o||v.y+v.h<=box.t-o||v.y>=box.b+o)return false;
+ return !(v.x>=box.l+i&&v.x+v.w<=box.r-i&&v.y>=box.t+i&&v.y+v.h<=box.b-i);
+}
+export function drawArenaLayer(g){
+ if(!g||g.ritual)return;const v=cameraView(g);if(!arenaBorderVisible(v,arena))return;ensureSurfaces();const a=g.arenaState||{phase:0,previous:0,colorMix:1},c=field.getContext('2d'),m=mask.getContext('2d');
+ clear(c);clear(m);c.setTransform(v.zoom,0,0,v.zoom,-v.x*v.zoom,-v.y*v.zoom);m.setTransform(v.zoom,0,0,v.zoom,-v.x*v.zoom,-v.y*v.zoom);
+ texturePhase(c,g,a.previous,1-a.colorMix,v);texturePhase(c,g,a.phase,a.colorMix,v);
+ if(paintArenaFeather(m,arena)){c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='destination-in';c.drawImage(mask,0,0);ctx.drawImage(field,v.x,v.y,v.w,v.h);}
+ // The collision boundary stays precise; only its surrounding native smoke is feathered.
+ ctx.save();const opacity=.5+Math.sin((g.t||0)*1.8)*.09;ctx.lineWidth=2;
+ for(const [phase,mix] of [[a.previous,1-a.colorMix],[a.phase,a.colorMix]]){if(mix<=0)continue;ctx.globalAlpha=opacity*mix;ctx.strokeStyle=arenaColors[phase];ctx.strokeRect(arena.l,arena.t,arena.r-arena.l,arena.b-arena.t);}ctx.restore();
 }

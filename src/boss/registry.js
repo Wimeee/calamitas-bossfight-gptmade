@@ -1,30 +1,35 @@
-import { calamitasConfig } from '../../config/calamitas.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { finish } from '../game/session.js?v=22.1.0';
-import { bulletHell } from './bullet-hell.js?v=22.1.0';
-import { bossAttack } from './calamitas.js?v=22.1.0';
-import { updateMaelstrom } from './maelstrom.js?v=22.1.0';
-import { updateMinions } from './minions.js?v=22.1.0';
-import { enterCalamitas, transitionCalamitas } from './phases.js?v=22.1.0';
-import { drawCalamitasEncounter } from '../render/encounter.js?v=22.1.0';
+import {updateAcceptance} from './acceptance.js?v=25.0.0';
+import { calamitasConfig } from '../../config/calamitas.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { finish } from '../game/session.js?v=25.0.0';
+import { bulletHell } from './bullet-hell.js?v=25.0.0';
+import { bossAttack } from './calamitas.js?v=25.0.0';
+import { updateMaelstrom } from './maelstrom.js?v=25.0.0';
+import { updateMinions } from './minions.js?v=25.0.0';
+import { enterCalamitas, transitionCalamitas, updatePhaseTransitions } from './phases.js?v=25.0.0';
+import { drawCalamitasEncounter } from '../render/encounter.js?v=25.0.0';
 
 export const encounterRegistry = {
   'supreme-calamitas': {
     config: calamitasConfig,
     createBoss() {
       const c = calamitasConfig;
-      return {x: c.spawnX, y: c.spawnY, hp: c.hp, max: c.hp, r: c.radius, alpha: 0};
+      return {x: c.spawnX, y: c.spawnY, hp: c.hp, max: c.hp, r: c.radius, alpha: 0, vx: 0, vy: 0};
     },
     enter: enterCalamitas,
     draw: drawCalamitasEncounter,
-    update(dt) {
+    update(dt, motion=null) {
       const g = state.game;
+      // Update phase transitions (cast delays) every frame
+      if(g.castDelayState){updatePhaseTransitions(dt, g);return;}
       if (g.stage === 'hell') bulletHell(dt);
       else if (g.stage === 'accept') {
-        g.acceptT += dt;
-        if (g.acceptT > 9.4) finish(true);
+        updateAcceptance(dt,g);
       } else {
-        if (g.stage === 'normal' || g.stage === 'hearts') bossAttack(dt);
+        // Don't run bossAttack during cast delay (g.castDelayState is set)
+        if ((g.stage === 'normal' || g.stage === 'hearts' || g.stage === 'seekers') && !g.castDelayState) {
+          bossAttack(dt,motion);
+        }
         updateMinions(dt);
       }
     },
@@ -32,7 +37,7 @@ export const encounterRegistry = {
       updateMaelstrom(dt);
     },
     afterProjectiles() {
-      if (state.game.stage === 'normal') transitionCalamitas();
+      if (state.game.stage === 'normal') transitionCalamitas(state.game);
     }
   }
 };

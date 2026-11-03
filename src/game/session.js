@@ -1,22 +1,25 @@
-import { makeRippers } from '../systems/rippers.js?v=22.1.0';
-import { updateCamera } from '../world/camera.js?v=22.1.0';
-import { spawnNearAltar } from './movement.js?v=22.1.0';
-import { prepareRitual, syncRitualControls } from './ritual.js?v=22.1.0';
-import { settings } from '../core/settings.js?v=22.1.0';
-import { playerConfig } from '../../config/player.js?v=22.1.0';
-import { getDifficulty } from '../../config/difficulty.js?v=22.1.0';
-import { getEncounter } from '../boss/registry.js?v=22.1.0';
-import { weapons } from '../classes/registry.js?v=22.1.0';
-import { summonSquad } from '../classes/summoner.js?v=22.1.0';
-import { configureArena } from '../core/arena.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { $ } from '../core/dom.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { loop } from './loop.js?v=22.1.0';
-import { enter } from './phases.js?v=22.1.0';
-import { setFocusMode } from '../input/fullscreen.js?v=22.1.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=22.1.0';
-import { showOverlay, ui } from '../ui/hud.js?v=22.1.0';
+import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=25.0.0';
+import { resetArenaState } from '../world/arena-state.js?v=25.0.0';
+import { resizeViewport } from '../world/viewport.js?v=25.0.0';
+import { makeRippers } from '../systems/rippers.js?v=25.0.0';
+import { updateCamera } from '../world/camera.js?v=25.0.0';
+import { spawnNearAltar } from './movement.js?v=25.0.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=25.0.0';
+import { settings } from '../core/settings.js?v=25.0.0';
+import { playerConfig } from '../../config/player.js?v=25.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=25.0.0';
+import { getEncounter } from '../boss/registry.js?v=25.0.0';
+import { weapons } from '../classes/registry.js?v=25.0.0';
+import { summonSquad } from '../classes/summoner.js?v=25.0.0';
+import { configureArena } from '../core/arena.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { $ } from '../core/dom.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { loop } from './loop.js?v=25.0.0';
+import { enter } from './phases.js?v=25.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=25.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=25.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=25.0.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -25,6 +28,7 @@ function makeGame(encounterId='supreme-calamitas'){
   return {
     mode:'playing',
     encounterId:encounter.config.id,
+    rematch:hasDefeatedCalamitas(),
     difficulty,
     rippers:makeRippers(difficulty),
     scale,
@@ -38,7 +42,7 @@ function makeGame(encounterId='supreme-calamitas'){
     marker:'opening',
     label:'BULLET HELL I',
     hint:'УХИЛЯЙСЯ — бос невразливий',
-    boss:encounter.createBoss(),
+    boss:{...encounter.createBoss(),skin:hasDefeatedCalamitas()?'unhooded':'hooded'},
     player:{
       x:500,
       y:410,
@@ -84,7 +88,7 @@ function makeGame(encounterId='supreme-calamitas'){
     patternTimer:2.6,
     patternIndex:0,
     pickups:[],
-    pickupTimer:11,
+    pickupStepRemainder:0,
     projectiles:[],
     shots:[],
     hearts:[],
@@ -112,6 +116,7 @@ function makeGame(encounterId='supreme-calamitas'){
 
 
 function start(options={}){
+  audio.stopMusic();
   state.screen='game';
   audio.stopCalamitas();
   audio.init();
@@ -121,8 +126,10 @@ function start(options={}){
   if(state.deviceMode==='mobile')state.mobileAutoAim=settings.autoAim;
   state.game=makeGame();
   configureArena(state.game.difficulty);
+  resetArenaState(state.game,true);
+  setFocusMode(true);resizeViewport();
   spawnNearAltar(state.game);
-  delete state.pointer.viewX;delete state.pointer.viewY;
+  delete state.pointer.viewX;delete state.pointer.viewY;delete state.pointer.u;delete state.pointer.v;
   updateCamera(state.game,0,true);
   const opening=getEncounter().config.opening;
   if(options.ritual)prepareRitual(state.game);
@@ -144,11 +151,14 @@ function start(options={}){
 
 
 function finish(win){
+  audio.stopMusic();
   audio.stopCalamitas();
   resetTouchInput();
   audio.fx(win?'victory':'death');
   let g=state.game;
   g.mode=win?'won':'dead';
+  if(win)rememberCalamitasVictory(g);
+  g.player.debuffs={};
   state.pointer.fire=false;
   $('diff').disabled=false;
   $('class').disabled=false;
@@ -171,7 +181,8 @@ function changeWeapon(n){
 function togglePause(){
   if(!state.game||state.game.mode==='dead'||state.game.mode==='won')return;
   state.game.mode=state.game.mode==='paused'?'playing':'paused';
-  if(state.game.mode==='paused')audio.stopCalamitas();
+  if(state.game.mode==='paused'){audio.stopCalamitas();audio.pauseMusic();}
+  else audio.syncMusic();
   syncRitualControls();
   $('pause').textContent=state.game.mode==='paused'?'▶ Продовжити':'⏸ Пауза'
 }

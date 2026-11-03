@@ -1,6 +1,9 @@
 node_modules/
 coverage/
 test-artifacts/
+_site/
+.serena/
 *.log
+*.bak
 .DS_Store
-
+*.backup

@@ -1,6 +1,8 @@
+// Temporary desktop-only development build. Flip this flag to restore mobile UI/input.
+const MOBILE_CONTROLS_ENABLED = false;
 const STORAGE_KEY = 'utbg_settings_v1';
 const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ',rage:'KeyC',adrenaline:'KeyV'});
-const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:false,quality:'high',screenShake:false,device:'auto',autoAim:true,touchScale:1,doubleTapDash:true});
+const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:true,touchScale:1,doubleTapDash:true});
 const listeners = new Set();
 function cleanSettings(value = {}) {
   const number = (name, fallback) => typeof value[name] === 'number' && Number.isFinite(value[name]) ? Math.max(0,Math.min(1,value[name])) : fallback;
@@ -26,7 +28,7 @@ function cleanSettings(value = {}) {
     musicEnabled:typeof value.musicEnabled==='boolean'?value.musicEnabled:defaults.musicEnabled,
     quality:['low','high','ultra'].includes(value.quality)?value.quality:defaults.quality,
     screenShake:typeof value.screenShake==='boolean'?value.screenShake:defaults.screenShake,
-    device:['auto','desktop','mobile'].includes(value.device)?value.device:defaults.device,
+    device:!MOBILE_CONTROLS_ENABLED?'desktop':['auto','desktop','mobile'].includes(value.device)?value.device:defaults.device,
     autoAim:typeof value.autoAim==='boolean'?value.autoAim:defaults.autoAim,
     doubleTapDash:typeof value.doubleTapDash==='boolean'?value.doubleTapDash:defaults.doubleTapDash,
     touchScale:[.9,1,1.12].includes(value.touchScale)?value.touchScale:defaults.touchScale,
@@ -34,8 +36,18 @@ function cleanSettings(value = {}) {
   };
 }
 function readSettings() {
-  try { return cleanSettings(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')); }
-  catch { return cleanSettings(); }
+  try {
+    const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    // Enable the new native soundtrack once, then honor subsequent manual mutes.
+    const migrationKey='utbg_native_music_default_v1';
+    const migrate=localStorage.getItem(migrationKey)!=='1';
+    const result=cleanSettings(migrate?{...value,musicEnabled:true}:value);
+    if(migrate){
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(result));
+      localStorage.setItem(migrationKey,'1');
+    }
+    return result;
+  } catch { return cleanSettings(); }
 }
 const settings = readSettings();
 function updateSettings(patch) {
@@ -66,4 +78,4 @@ function shakeOffset(game) {
   const age=game.t-game.player.lastHit,strength=Math.max(0,1-age/.18)*3;
   return {x:Math.sin(game.t*125)*strength,y:Math.cos(game.t*143)*strength};
 }
-export {settings,defaults,defaultBindings,cleanSettings,updateSettings,resetSettings,subscribeSettings,resolveGameKey,keyLabel,controlHint,bindKey,shakeOffset};
+export {MOBILE_CONTROLS_ENABLED,settings,defaults,defaultBindings,cleanSettings,updateSettings,resetSettings,subscribeSettings,resolveGameKey,keyLabel,controlHint,bindKey,shakeOffset};

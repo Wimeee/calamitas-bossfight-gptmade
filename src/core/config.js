@@ -1,7 +1,7 @@
-import { calamitasConfig } from '../../config/calamitas.js?v=22.1.0';
-const W=1200;
+import { calamitasConfig } from '../../config/calamitas.js?v=25.0.0';
+let W=1200;
 
-const H=720;
+let H=720;
 
 const TAU=Math.PI*2;
 
@@ -10,6 +10,10 @@ const VIEW_X=100;
 const VIEW_Y=60;
 
 const ARENA_SCALE=Math.sqrt(1.5);
+
+const ZOOM_DEFAULT=0.765;
+const ZOOM_MIN=0.3;
+const ZOOM_MAX=1.5;
 
 const milestones=[
   {id:'opening',label:'100%'},
@@ -26,7 +30,9 @@ const milestones=[
 
 const seq=calamitasConfig.attackSequence;
 
-const VERSION='22.1.0';
+const VERSION='25.0.0';
 
 
-export { W, H, TAU, VIEW_X, VIEW_Y, ARENA_SCALE, milestones, seq, VERSION };
+export { W, H, TAU, VIEW_X, VIEW_Y, ARENA_SCALE, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX, milestones, seq, VERSION };
+
+export function setViewportSize(width,height){W=Math.round(width);H=Math.round(height);}

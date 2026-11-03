@@ -16,9 +16,9 @@ test('official pinned assets are intact and all 42 cells fit both supplied layou
 });
 test('animation entry, phase-II poses, facing dead zone and blast punch follow combat state without changing it',async()=>{
  const {t}=await loadGame();t.start();const g=t.getGame();t.enter('normal','opening','TEST');
- let pose=t.sampleCalamitasPose(g);assert.equal(pose.clip,'dash');assert.equal(pose.frame,0);
+ let pose=t.sampleCalamitasPose(g);assert.equal(pose.clip,'idle');assert.equal(pose.frame,0);
  g.t=.35;assert.equal(t.sampleCalamitasPose(g).frame,3);
- g.attackIndex=1;pose=t.sampleCalamitasPose(g);assert.equal(pose.clip,'handCast');assert.equal(pose.frame,0);
+ g.attackIndex=1;pose=t.sampleCalamitasPose(g);assert.equal(pose.clip,'handCast');assert.equal(pose.frame,3);
  g.thresholds.add('40');g.attackTimer=.09;assert.equal(t.sampleCalamitasPose(g).clip,'handPunch');
  g.attackIndex=2;g.boss.castKind='giga2';g.boss.castAt=g.t;assert.equal(t.sampleCalamitasPose(g).clip,'blastPunch');assert.equal(t.sampleCalamitasPose(g).frame,3);
  g.t+=.125;assert.equal(t.sampleCalamitasPose(g).frame,4);
@@ -46,7 +46,7 @@ test('ritual natural completion/skip and dash/casts emit each sample at the actu
  t.updateRitual(4.6);assert.equal(events.filter(x=>x==='laugh').length,1);t.completeRitual();assert.equal(events.filter(x=>x==='laugh').length,1);assert.ok(stops.includes('altar'));
  t.start({ritual:true});g=t.getGame();g.player.x=500;t.beginRitual();t.updateRitual(1);const count=events.length;t.skipRitual();assert.equal(events.length,count+1);assert.equal(events.at(-1),'laugh');
  t.enter('normal','opening','TEST');g.attackIndex=3;g.attackTimer=0;t.bossAttack(.01);const before=events.length;t.bossAttack(.4);assert.equal(events.length,before+1);assert.equal(events.at(-1),'dash');
- g.dashWind=0;g.dashActive=0;g.attackIndex=0;g.attackTimer=0;t.bossAttack(.01);assert.equal(events.at(-1),'cast');
+ g.dashWind=0;g.dashActive=0;g.attackIndex=0;g.attackTimer=0;const castBefore=events.length;t.bossAttack(.01);assert.equal(events.length,castBefore);t.bossAttack(91/60);assert.equal(events.at(-1),'cast');
  t.togglePause();assert.ok(stops.includes(undefined));
 });
 

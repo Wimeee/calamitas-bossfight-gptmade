@@ -1,105 +1,94 @@
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=22.1.0';
-import { enemyBullet } from '../combat/projectiles.js?v=22.1.0';
-import { arena } from '../core/arena.js?v=22.1.0';
-import { clamp, norm, rnd } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { enter } from '../game/phases.js?v=22.1.0';
+import {retireBulletHellProjectiles} from '../combat/projectile-retirement.js?v=25.0.0';
+import {spawnMaelstrom} from './maelstrom.js?v=25.0.0';
+import { enemyBullet } from '../combat/projectiles.js?v=25.0.0';
+import { arena } from '../core/arena.js?v=25.0.0';
+import { rnd } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { enter } from '../game/phases.js?v=25.0.0';
+import { startCastDelay } from './phases.js?v=25.0.0';
 
-const hellDirections=[
-  [['down','right','left'],['right','left'],['down','right','left']],
-  [['up'],['right'],['right','left']],
-  [['down'],['left'],['right','left']],
-  [['up'],['right'],['right','left']],
-  [['down'],['right','left'],['down','right','left']]
+// SupremeCalamitas.cs 939-1644. The end counters 900/1800/... are cumulative:
+// all five Bullet Hells last 900 ticks, not 15/30/45/60/75 seconds.
+const hellDirections = [
+  [['down'], ['right','left'], ['down','right','left']],
+  [['up'], ['right'], ['right','left']],
+  [['down'], ['left'], ['right','left']],
+  [['up'], ['right'], ['right','left']],
+  [['down'], ['right','left'], ['down','right','left']]
 ];
+const hellSymbols = {up:'↑',down:'↓',right:'→',left:'←'};
 
-const hellSymbols={up:'↑',down:'↓',right:'→',left:'←'};
-
-
-function hellPlan(g,upcoming){
-  const segment=Math.min(2,Math.floor(g.stageT/5)),n=g.phaseN;
-  const dirs=hellDirections[n-1][segment];
-  const slots=[];
-  const field=g.hellField||arena;
-  // Stable pseudo-random edge coordinates: previews never consume combat RNG.
-  for(let i=0;i<dirs.length;i++){
-    const side=dirs[i],u=Math.sin((upcoming+1)*127.1+(n+1)*311.7+i*74.7)*43758.5453;
-    const f=.035+(u-Math.floor(u))*.93;
-    const x=field.l+(field.r-field.l)*f,y=field.t+(field.b-field.t)*f;
-    if(side==='down')slots.push({x,y:field.t-12,vx:0,vy:1,side});
-    if(side==='up')slots.push({x,y:field.b+12,vx:0,vy:-1,side});
-    if(side==='right')slots.push({x:field.l-12,y,vx:1,vy:0,side});
-    if(side==='left')slots.push({x:field.r+12,y,vx:-1,vy:0,side});
+function hellPlan(g, upcoming) {
+  const segment = Math.min(2, Math.floor(g.stageT / 5));
+  const dirs = hellDirections[g.phaseN - 1][segment], slots = [];
+  const p = g.player;
+  // Preview uses a stable hash; actual emissions below use combat RNG.
+  for (let i=0;i<dirs.length;i++) {
+    const side=dirs[i], hash=Math.sin((upcoming+1)*127.1+g.phaseN*311.7+i*74.7)*43758.5453;
+    const offset=((hash-Math.floor(hash))*2-1)*1000;
+    slots.push({x:p.x+(side==='right'?-1000:side==='left'?1000:offset),y:p.y+(side==='down'?-1000:side==='up'?1000:offset),vx:side==='right'?1:side==='left'?-1:0,vy:side==='down'?1:side==='up'?-1:0,side});
   }
   return {dirs,slots,segment};
 }
 
-
-function bulletHell(dt){
-  const g=state.game,n=g.phaseN,T=g.stageT;
-  const segment=Math.min(2,Math.floor(T/5));
-  g.boss.x=500;
-  g.boss.y=220;
-  const tuning=c.hell[g.difficulty],interval=tuning.interval*(n>=4?1.5:1),speed=tuning.speed;
-  if(g.hellSegment!==segment){
-    g.hellSegment=segment;
-    // Waves enter a broad combat field outside the viewport, never on top of the player.
-    const x=g.player.x,y=g.player.y;
-    g.hellField={l:Math.max(arena.l,x-820),r:Math.min(arena.r,x+820),t:Math.max(arena.t,y-550),b:Math.min(arena.b,y+550)};
-    // Short breath when switching direction; no unfair instant crossfire.
-    g.hellTimer=Math.max(g.hellTimer,c.segmentBreath);
-  }
-  g.hellTimer-=dt;
-  if(g.hellTimer<=0){
-    const wave=++g.hellWave;
-    for(const spec of hellPlan(g,wave).slots){
-      // Purely cardinal: every Hellblast crosses the ENTIRE arena on a straight line.
-      let q=enemyBullet(spec.x,spec.y,spec.vx,spec.vy,speed,6.3,'hellblast',35);
-      if(q){
-        q.straight=true;
-        q.turn=0;
-        q.life=20;
-        q.waveIndex=wave;
-        q.spawnDelay=c.edgeWarning;
-      }
-    }
-    g.hellTimer+=interval;
-  }
-  // Additional blast projectiles introduced by later Bullet Hells remain aimed.
-  if(n>1&&Math.floor((T-dt)/4.0)!==Math.floor(T/4.0)){
-    const side=Math.floor(T/4)%4,field=g.hellField||arena;
-    const x=side===0?field.l-9:side===1?field.r+9:rnd(field.l+60,field.r-60);
-    const y=side===2?field.t-9:side===3?field.b+9:rnd(field.t+55,field.b-55);
-    const aim=norm(g.player.x-x,g.player.y-y);
-    const giga=n>=3&&Math.floor(T/4)%2===0;
-    const count=giga?2:1;
-    for(let i=0;i<count;i++){
-      const offset=(i-(count-1)/2)*70;
-      const q=enemyBullet(x-aim.y*offset,y+aim.x*offset,aim.x,aim.y,125,giga?13:10,giga?'giga':'fire',51);
-      if(q)q.spawnDelay=.45;
-    }
-  }
-  if(n===5&&Math.floor((T-dt)/2.5)!==Math.floor(T/2.5)){
-    const left=Math.floor(T/2.5)%2===0;
-    enemyBullet(left?g.hellField.l-8:g.hellField.r+8,rnd(g.hellField.t+70,g.hellField.b-70),left?1:-1,0,154,10,'skull',43);
-  }
-  const directions=hellDirections[n-1][segment];
-  g.hint='HELLBLASTS '+directions.map(x=>hellSymbols[x]).join(' ')+' • короткі рухи між снарядами, бережи політ';
-  if(T>=c.hellDuration){
-    g.projectiles=[];
-    g.done.add(g.marker);
-    if(n===1)enter('hearts','opening','SEPULCHER I');
-    else
-    if(n===3)enter('brothers','bros','THE BROTHERS');
-    else
-    if(n===5)enter('hearts','sep2','SEPULCHER II');
-    else
-    {
-      enter('normal',n===2?'h75':'h30',n===2?'CALAMITAS':'WHISPERING MAELSTROM');
-      g.hint='АТАКУЙ CALAMITAS';
-    }
-  }
+function edge(g, side, speed, kind='hellblast2', damage=35, offset) {
+  const p=g.player, vertical=side==='up'||side==='down', random=offset??rnd(-1000,1000);
+  const dx=side==='right'?1:side==='left'?-1:0, dy=side==='down'?1:side==='up'?-1:0;
+  const q=enemyBullet(p.x+(vertical?random:-dx*1000),p.y+(vertical?-dy*1000:random),dx,dy,speed,kind==='giga'?25:kind==='fire'?18:kind==='skull'?15:6.3,kind,damage);
+  if(q){q.sourceCalamitas=true;q.straight=kind==='hellblast2';q.life=kind==='hellblast2'?25:kind==='skull'?20:kind==='fire'?2.5:2;q.opacity=kind==='giga'?1:0;q.waveIndex=g.hellWave;}
+  return q;
 }
 
+function finishHell(g) {
+  const n=g.phaseN;
+  // Native bulletHellCounter is shared across all five attacks, including cast delays.
+  g.hellEdgeCounter=g.hellTimers?.edgeHellblast??g.hellEdgeCounter??0;
+  retireBulletHellProjectiles(g);g.done.add(g.marker);g.hellTeleported=false;g.hellTimers=undefined;g.maelstromSpawned=false;
+  g.boss.vx=0;g.boss.vy=0;g.boss.contactDamage=0;
+  if(n===1||n===5)startCastDelay(g,'hearts',n===1?'opening':'sep2',n===1?'SEPULCHER I':'SEPULCHER II',75/60,'sepulcher');
+  else if(n===3)startCastDelay(g,'brothers','bros','THE BROTHERS',150/60,'brothers');
+  else enter('normal',n===2?'h75':'h30',n===2?'CALAMITAS':'WHISPERING MAELSTROM');
+}
 
-export { hellDirections, hellSymbols, hellPlan, bulletHell };
+function bulletHell(dt) {
+  const g=state.game,n=g.phaseN;
+  if(!g.hellTeleported){
+    g.boss.x=(arena.l+arena.r)/2;g.boss.y=(arena.t+arena.b)/2;
+    g.boss.vx=0;g.boss.vy=0;g.boss.contactDamage=0;g.hellTeleported=true;
+  }
+  const timers=g.hellTimers??={ticks:0,remainder:0,edgeHellblast:g.hellEdgeCounter||0,passedVar:0};
+  // Supports fresh legacy saves/controlled fixtures without inheriting stale counters.
+  timers.ticks??=0;timers.remainder??=0;timers.edgeHellblast??=0;
+  timers.remainder+=dt;
+  const gate=(g.difficulty==='normal'?9:8)+[0,1,4,6,8][n-1];
+  while(timers.remainder+1e-10>=1/60&&timers.ticks<900){
+    timers.remainder=Math.max(0,timers.remainder-1/60);timers.ticks++;timers.passedVar=timers.ticks;
+    const absolute=(n-1)*900+timers.ticks, segment=Math.min(2,Math.floor(timers.ticks/300));
+    g.hellSegment=segment;
+    g.hellField={l:g.player.x-1000,r:g.player.x+1000,t:g.player.y-1000,b:g.player.y+1000};
+    if(n>=2&&absolute%(n===5?240:180)===0){
+      edge(g,n===2&&segment===1?'left':'down',300,'fire',38);
+    }
+    if(n>=3&&absolute%(n===5?360:240)===0)edge(g,'down',600,'giga',50);
+    if(n===4&&timers.ticks===180&&!g.maelstrom)g.maelstromWarning={x:(arena.l+arena.r)/2,y:(arena.t+arena.b)/2};
+    if(n===4&&timers.ticks===420&&!g.maelstrom){
+      spawnMaelstrom(g,(arena.l+arena.r)/2,(arena.t+arena.b)/2);g.maelstromWarning=null;g.maelstromSpawned=true;
+    }
+    if(n===5&&absolute%30===0){
+      const random=rnd(-500,500);
+      edge(g,'left',300,'skull',43,random);edge(g,'right',300,'skull',43,-random);
+    }
+    timers.edgeHellblast++;
+    if(timers.edgeHellblast>=gate){
+      timers.edgeHellblast=0;g.hellWave++;
+      if(absolute%(gate*6)===0)edge(g,Math.random()<.5?'right':'left',240,'hellblast2',35,0);
+      const speed=segment===0?240:segment===1||n===3||n===4?210:180;
+      for(const dir of hellDirections[n-1][segment])edge(g,dir,speed);
+    }
+  }
+  const segment=Math.min(2,Math.floor(g.stageT/5));
+  g.hint='HELLBLASTS '+hellDirections[n-1][segment].map(x=>hellSymbols[x]).join(' ')+' • короткі рухи між снарядами, бережи політ';
+  if(timers.ticks>=900||g.stageT>=15-1e-9)finishHell(g);
+}
+
+export {hellDirections,hellSymbols,hellPlan,bulletHell};

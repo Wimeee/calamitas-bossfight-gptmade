@@ -105,3 +105,15 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game.focus-mode:not(.mobile) .screen{flex:1;min-height:0;width:100%;height:auto;aspect-ratio:auto;border:0;margin:0;background:#050408}
 #scal-game.focus-mode:not(.mobile) canvas{width:100%;height:100%;object-fit:contain}
 #scal-game.focus-mode:not(.mobile) .quick{flex:none;min-height:24px;padding:5px 12px}
+
+/* Temporary desktop-only build; native touch code is retained for release. */
+#scal-game.desktop-only #touchcontrols,
+#scal-game.desktop-only .device-controls{display:none!important}
+
+/* Native canvas HUD owns HP and MP; legacy DOM values stay available to assistive tools. */
+#scal-game .status>div:not(.number){position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%)}
+#scal-game .status{grid-template-columns:1fr}
+
+/* Arena view uses the full desktop surface; its backing size follows the viewport. */
+#scal-game.focus-mode:not(.mobile) .status,#scal-game.focus-mode:not(.mobile) .quick{display:none}
+#scal-game.focus-mode:not(.mobile) canvas{object-fit:fill}

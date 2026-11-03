@@ -1,27 +1,45 @@
-import { initializeCalamitasAtlas } from './render/calamitas-atlas.js?v=22.1.0';
-import { initializeMeleeAtlas } from './render/melee-atlas.js?v=22.1.0';
-import { initializeMenu } from './ui/menu.js?v=22.1.0';
-import { configureArena } from './core/arena.js?v=22.1.0';
-import { VERSION } from './core/config.js?v=22.1.0';
-import { $, root } from './core/dom.js?v=22.1.0';
-import { initializeDesktop } from './input/desktop.js?v=22.1.0';
-import { initializeFullscreen } from './input/fullscreen.js?v=22.1.0';
-import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=22.1.0';
-import { draw } from './render/scene.js?v=22.1.0';
-import { initializeSprites } from './render/sprites.js?v=22.1.0';
-import { initializeControls } from './ui/controls.js?v=22.1.0';
-import { initializeUpdates } from './ui/updates.js?v=22.1.0';
+import {initializeAsgardianAtlas} from './render/asgardian.js?v=25.0.0';
+import {initializeLocalization} from './core/localization.js?v=25.0.0';
+import {initializeHelperAtlas} from './render/helper-atlas.js?v=25.0.0';
+import { initializeViewport } from './world/viewport.js?v=25.0.0';
+import { initializeArenaAtlas } from './render/arena-atlas.js?v=25.0.0';
+import { initializeHUDAtlas } from './render/hud-atlas.js?v=25.0.0';
+import { initializeCalamitasAtlas } from './render/calamitas-atlas.js?v=25.0.0';
+import { initializeMeleeAtlas } from './render/melee-atlas.js?v=25.0.0';
+import { initializeMinionAtlas } from './render/minion-atlas.js?v=25.0.0';
+import { initializeEncounterProjectileAtlas } from './render/encounter-projectiles-atlas.js?v=25.0.0';
+import { initializeWorldDecorationAtlas } from './render/world-decorations.js?v=25.0.0';
+import { initializeMenu } from './ui/menu.js?v=25.0.0';
+import { configureArena } from './core/arena.js?v=25.0.0';
+import { MOBILE_CONTROLS_ENABLED } from './core/settings.js?v=25.0.0';
+import { VERSION } from './core/config.js?v=25.0.0';
+import { $, root } from './core/dom.js?v=25.0.0';
+import { initializeDesktop } from './input/desktop.js?v=25.0.0';
+import { initializeFullscreen } from './input/fullscreen.js?v=25.0.0';
+import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=25.0.0';
+import { draw } from './render/scene.js?v=25.0.0';
+import { initializeSprites } from './render/sprites.js?v=25.0.0';
+import { initializeControls } from './ui/controls.js?v=25.0.0';
+import { initializeUpdates } from './ui/updates.js?v=25.0.0';
 
 
 function initializeGame(){
   if(root.dataset.ready)return;
   configureArena('normal');
+  initializeViewport();
+  initializeArenaAtlas();
+  initializeHelperAtlas();
   initializeSprites();
   initializeMeleeAtlas();
   initializeCalamitasAtlas();
+  initializeMinionAtlas();
+  initializeEncounterProjectileAtlas();
+  initializeWorldDecorationAtlas();
+  initializeHUDAtlas();
+  initializeAsgardianAtlas();
   initializeControls();
   initializeDesktop();
-  initializeMobile();
+  if(MOBILE_CONTROLS_ENABLED)initializeMobile();
   initializeFullscreen();
   try{
     setDeviceMode(localStorage.getItem('calamitas_device_mode')||((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'))
@@ -31,11 +49,12 @@ function initializeGame(){
   $('weapons').querySelector('[data-weapon="0"]').classList.add('on');
   updateMobileLabels();
   draw(null);
-  $('runtime-status').textContent='✅ v'+VERSION+': TERRARIA MOVEMENT · ЛКМ — атака · ПКМ — уміння класу · На телефоні: рух стіком, автоатака й окрема кнопка уміння.';
+  $('runtime-status').textContent='✅ v'+VERSION+': TERRARIA MOVEMENT · ЛКМ — атака · ПКМ — уміння класу'+(MOBILE_CONTROLS_ENABLED?' · На телефоні: рух стіком, автоатака й окрема кнопка уміння.':'');
   $('runtime-status').classList.add('ok');
   root.dataset.ready='yes';
   initializeUpdates();
   initializeMenu();
+  initializeLocalization();
 }
 initializeGame();
 

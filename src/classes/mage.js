@@ -1,11 +1,12 @@
-import { beginAttack, kit } from './shared.js?v=22.1.0';
-import { fireChannelWeapon } from '../combat/beams.js?v=22.1.0';
-import { hitTarget } from '../combat/damage.js?v=22.1.0';
-import { possibleTargets } from '../combat/targets.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { dist, norm } from '../core/math.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { weaponAim } from '../render/weapons.js?v=22.1.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=25.0.0';
+import { beginAttack, kit } from './shared.js?v=25.0.0';
+import { fireChannelWeapon } from '../combat/beams.js?v=25.0.0';
+import { hitTarget } from '../combat/damage.js?v=25.0.0';
+import { possibleTargets } from '../combat/targets.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { dist, norm } from '../core/math.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { weaponAim } from '../render/weapons.js?v=25.0.0';
 
 
 function activateMage(){
@@ -34,6 +35,7 @@ function updateMage(dt){
     if(z.tick<=0){
       z.tick+=.25;
       for(const t of possibleTargets())if(dist(t,z)<t.r+z.r)hitTarget(t,450,t.x,t.y,'#ffd596','mage');
+      damageSepulcherArea(g,z.x,z.y,z.r,450);
     }
   }
 }

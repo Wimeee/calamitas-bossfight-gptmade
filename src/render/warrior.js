@@ -1,19 +1,22 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=22.1.0';
-import { playerConfig } from '../../config/player.js?v=22.1.0';
-import { arkAngle } from '../classes/melee.js?v=22.1.0';
-import { ctx } from '../core/dom.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { settings } from '../core/settings.js?v=22.1.0';
-import { clamp } from '../core/math.js?v=22.1.0';
-import { drawMeleeFrame,meleeAtlasReady,meleeFrameCount } from './melee-atlas.js?v=22.1.0';
-import { line,round,text } from './primitives.js?v=22.1.0';
-import { drawWarriorTrail } from './warrior-trails.js?v=22.1.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=25.0.0';
+import { playerConfig } from '../../config/player.js?v=25.0.0';
+import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=25.0.0';
+import { ctx } from '../core/dom.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { settings } from '../core/settings.js?v=25.0.0';
+import { clamp } from '../core/math.js?v=25.0.0';
+import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=25.0.0';
+import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=25.0.0';
+import { line,round,text } from './primitives.js?v=25.0.0';
+import { drawNativeArmor } from './native-armor.js?v=25.0.0';
+import { drawWarriorTrail } from './warrior-trails.js?v=25.0.0';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();
 const weaponClocks=new WeakMap();
 const bodyFps={idle:5,run:10,rise:7,fall:7};
 const aim=g=>Math.atan2(state.pointer.y-g.player.y,state.pointer.x-g.player.x);
+const getBladeExtent=side=>Math.hypot(side==='left'?120:134,132);
 const frameAt=(kind,name,progress)=>Math.min(meleeFrameCount(kind,name)-1,Math.floor(clamp(progress,0,1)*meleeFrameCount(kind,name)));
 
 export function warriorPose(g){
@@ -23,14 +26,16 @@ export function warriorPose(g){
   if(g.mode==='paused'&&clock.pose)return clock.pose;
   const dx=(k.d||k.ArrowRight?1:0)-(k.a||k.ArrowLeft?1:0)+state.moveAxis.x;
   const dy=(k.s||k.ArrowDown?1:0)-(k.w||k.ArrowUp?1:0)+state.moveAxis.y;
-  if(Math.abs(state.pointer.x-p.x)>12)clock.flip=state.pointer.x<p.x;
+  if(p.swing?.direction)clock.flip=p.swing.direction<0;
+  else if(p.arkParry)clock.flip=Math.cos(p.arkParry.angle)<0;
+  else if(Math.abs(state.pointer.x-p.x)>12)clock.flip=state.pointer.x<p.x;
   if(p.dashT>0&&Math.abs(p.dashX)>.1)clock.flip=p.dashX<0;
   let name='idle',progress=null;
   if(g.mode==='dead'){
     let start=deathClocks.get(g);if(start===undefined){start=performance.now();deathClocks.set(g,start);}
     name='death';progress=(performance.now()-start)/650;
   }else if(p.hits>0&&g.t-p.lastHit<.22){name='hurt';progress=(g.t-p.lastHit)/.22;}
-  else if(p.dashT>0){name='dash';progress=1-p.dashT/playerConfig.dashDuration;}
+  else if(p.dashT>0){name='dash';progress=1-p.dashT/(p.aegisDashDuration||playerConfig.dashDuration);}
   else if(g.mode==='playing'&&(!g.ritual||g.ritual.phase==='preparation')){
     if(p.physics){
       if(!p.grounded)name=p.vy< -20||p.flying?'rise':'fall';
@@ -61,17 +66,12 @@ export function warriorWeaponPose(g,target,action,scale){
 export function drawWarriorBody(g,x=g.player.x,y=g.player.y,ghost=false,fade=1){
   if(g.player.weapon!==0||!meleeAtlasReady('body'))return false;
   const pose=warriorPose(g);
+  if(drawNativeArmor(g,pose,x,y,ghost?.3*fade:1))return true;
   return drawMeleeFrame('body',ghost?'dash':pose.name,pose.index,x,y,meleeSpriteConfig.bodyScale,0,pose.flip,ghost?.3*fade:1);
 }
 
-export function drawWarriorIdleWeapon(g){
-  const p=g.player;if(p.weapon!==0||!meleeAtlasReady('ark'))return false;
-  if(!p.swing&&!p.arkThrow&&!p.arkParry&&!p.arkRip&&g.mode!=='dead'){
-    const pose=warriorWeaponPose(g,aim(g)+.35,null,.42),a=pose.angle;
-    drawMeleeFrame('ark','closed',2,p.x+Math.cos(a)*12,p.y+Math.sin(a)*12,pose.scale,a+Math.PI/2);
-  }
-  return true;
-}
+// Native item.noUseGraphic: no floating weapon outside an active holdout.
+export function drawWarriorIdleWeapon(g){return g.player.weapon===0;}
 
 export function drawWarriorWeapon(g){
   const p=g.player;if(p.weapon!==0||!meleeAtlasReady('ark'))return false;
@@ -79,23 +79,30 @@ export function drawWarriorWeapon(g){
     const count=settings.quality==='low'?1:2;
     for(let i=0;i<count;i++){
       const a=g.t*2+i*Math.PI;
-      drawMeleeFrame('ark','star',Math.floor(g.t*8)%2,p.x+Math.cos(a)*27,p.y+Math.sin(a)*24,.16);
+      drawNativeArkSpark(p.x+Math.cos(a)*27,p.y+Math.sin(a)*24,.5,a);
     }
   }
   if(p.swing){
-    const s=p.swing,progress=clamp(1-s.time/s.max,0,1),reach=s.wide?146:124,pose=warriorWeaponPose(g,arkAngle(s,progress),s,(reach-12)/160),a=pose.angle;
-    drawWarriorTrail(g,s,a,progress);
-    drawMeleeFrame('ark','closed',2,p.x+Math.cos(a)*12,p.y+Math.sin(a)*12,pose.scale,a+Math.PI/2);
+    const s=p.swing,progress=clamp(1-s.time/s.max,0,1),geometry=arkSwingGeometry(s,progress,p);
+    drawNativeArkTrail(g,s,geometry.angle,progress);
+    drawNativeSwingParticles(g,s,progress);
+    const rotation=geometry.angle+Math.PI/4+(geometry.flip?Math.PI/2:0);
+    if(s.charge>0){
+      const direction=geometry.flip?-1:1,a=geometry.angle;
+      const backX=geometry.draw.x+(Math.cos(a)*56+Math.cos(a-Math.PI/2)*11*direction)*geometry.scale;
+      const backY=geometry.draw.y+(Math.sin(a)*56+Math.sin(a-Math.PI/2)*11*direction)*geometry.scale;
+      drawNativeArkBlade('right',backX,backY,geometry.scale,rotation,geometry.flip,1,[geometry.flip?90:44,86]);
+      drawNativeArkBlade('left',geometry.draw.x,geometry.draw.y,geometry.scale,rotation,geometry.flip);
+    }else drawNativeArkBlade(s.wide?'left':'right',geometry.draw.x,geometry.draw.y,geometry.scale,rotation,geometry.flip);
   }
   if(p.arkThrow){
-    const s=p.arkThrow,ready=!s.returning&&s.age>=.466&&s.age<=1.7475,steps=settings.quality==='low'?4:8;
-    let px=p.x,py=p.y;
-    for(let i=1;i<=steps;i++){
-      const f=i/steps,x=p.x+(s.x-p.x)*f,y=p.y+(s.y-p.y)*f+Math.sin(f*Math.PI)*Math.sin(g.t*6+i)*8;
-      line(px,py,x,y,'#a696e080',1.3);px=x;py=y;
-    }
-    if(s.snapLife){
-      const progress=1-s.snapLife/.22;
+    const s=p.arkThrow,ready=!s.returning&&s.age>=s.max*.25&&s.age<s.max*.75,steps=settings.quality==='low'?4:8;
+    drawNativeConstellation(g,s);
+    drawNativeSnapBurst(g,s);
+    if(nativeArkReady()){
+      drawNativeThrownArk(g,s);
+    }else if(s.snapLife){
+      const progress=1-s.snapLife/(s.snapMax||.22);
       drawMeleeFrame('ark','snap',frameAt('ark','snap',progress),s.x,s.y,.86+progress*.26,aim(g),false,Math.min(1,(1-progress)*4));
     }else{
       const count=meleeFrameCount('ark','spin');
@@ -109,17 +116,13 @@ export function drawWarriorWeapon(g){
   }
   if(p.arkParry){
     const s=p.arkParry,progress=1-s.time/s.max;
-    const pose=warriorWeaponPose(g,s.angle,s,.84),a=pose.angle;
-    drawMeleeFrame('ark','open',frameAt('ark','open',progress),p.x,p.y,pose.scale,a+.5);
-    if(s.success)drawMeleeFrame('ark','impact',frameAt('ark','impact',progress),p.x+Math.cos(s.angle)*60,p.y+Math.sin(s.angle)*60,.85);
+    const geometry=arkParryGeometry(s,p),a=s.angle;
+    if(!drawNativeScissors(geometry.x,geometry.y,a,geometry.opening,geometry.scale))
+      drawMeleeFrame('ark','open',frameAt('ark','open',progress),p.x,p.y,geometry.scale,a+.5);
+    if(s.success)drawNativeArkSpark(p.x+Math.cos(s.angle)*60,p.y+Math.sin(s.angle)*60,1.5,progress*Math.PI,1-progress);
   }
-  if(p.arkRip){
-    const r=p.arkRip,f=r.time/r.max,progress=1-f;
-    ctx.save();ctx.globalAlpha=f;
-    line(r.x,r.y,r.ex,r.ey,'#8a3cb950',42*f);line(r.x,r.y,r.ex,r.ey,'#ecd2ff',3);
-    drawMeleeFrame('ark','rip',frameAt('ark','rip',progress),r.ex,r.ey,.9+progress*.25,r.angle);
-    ctx.restore();
-  }
+  if(p.arkRip)drawNativeBigRip(g,p.arkRip);
+  drawNativeParryRecharge(g);
   if(g.mode!=='dead'){
     const charges=p.arkCharges||0;
     text(charges?'✦ '+charges+' · ПКМ: BIG RIP':p.arkParryCd>0?'PARRY '+p.arkParryCd.toFixed(1)+'с':'ПКМ: PARRY',p.x,p.y+38,10,charges?'#ffe3a4':'#b4d7e9');
@@ -128,13 +131,37 @@ export function drawWarriorWeapon(g){
 }
 
 export function drawWarriorProjectile(s,g){
-  if(!meleeAtlasReady('ark'))return false;
-  if(s.id==='arkStar')return drawMeleeFrame('ark','bolt',Math.floor(g.t*18)%5,s.x,s.y,.27,g.t*3);
-  if(s.id==='arkBeam')return drawMeleeFrame('ark','fire',Math.floor(g.t*18)%2,s.x,s.y,.45,Math.atan2(s.vy,s.vx)+.95);
+  // RendingNeedle (Ark Beam) - native 14x88 texture, scale 2.4f, opacity 0.6f
+  // Rotation: velocity.ToRotation() + PiOver2 (from RendingNeedle.cs)
+  if(s.id==='arkBeam'){
+    if(!meleeAtlasReady('rendingNeedle'))return false;
+    drawNativeProjectileTrail(s);
+    // Native: scale 2.4, opacity 0.6. We use presentation scale adapted from source.
+    // Source scale 2.4 on 14x88 = ~33.6x211.2. Our presentation: scale 0.6 on 14x88 = ~8.4x52.8
+    const angle = Math.atan2(s.vy,s.vx) + Math.PI/2;
+    const scale = 2.4; // Native RendingNeedle scale
+    ctx.save();
+    ctx.globalAlpha *= 0.6; // Source opacity 0.6
+    const result = drawMeleeFrame('rendingNeedle','fly',0,s.x,s.y,scale,angle);
+    ctx.restore();
+    return result;
+  }
+
+  // GalaxiaBolt / EonBolt (Ark Star/homing) - native 22x34 texture
+  // Rotation: velocity.ToRotation() + PiOver2 (from EonBolt.cs)
+  if(s.id==='arkStar'){
+    if(!meleeAtlasReady('galaxiaBolt'))return false;
+    drawNativeProjectileTrail(s);
+    const angle = Math.atan2(s.vy,s.vx) + Math.PI/2;
+    const scale = 1; // Native EonBolt scale
+    drawNativeArkSpark(s.x,s.y,.65,angle);
+    return drawMeleeFrame('galaxiaBolt','fly',0,s.x,s.y,scale,angle);
+  }
+
   return false;
 }
 
 export function drawWarriorImpact(f){
-  if(f.kind!=='melee'||!meleeAtlasReady('ark'))return false;
-  return drawMeleeFrame('ark','impact',frameAt('ark','impact',1-f.life/f.max),f.x,f.y,.42,f.angle,f.angle<0,clamp(f.life/f.max*2,0,1));
+  if(f.kind!=='melee')return false;
+  return drawNativeArkSpark(f.x,f.y,.7,f.angle,clamp(f.life/f.max*2,0,1));
 }

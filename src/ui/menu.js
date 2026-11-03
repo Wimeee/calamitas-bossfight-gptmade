@@ -1,15 +1,15 @@
-import { weapons } from '../classes/registry.js?v=22.1.0';
-import { audio } from '../core/audio.js?v=22.1.0';
-import { VERSION } from '../core/config.js?v=22.1.0';
-import { $, root } from '../core/dom.js?v=22.1.0';
-import { state } from '../core/state.js?v=22.1.0';
-import { settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=22.1.0';
-import { start,togglePause } from '../game/session.js?v=22.1.0';
-import { loop } from '../game/loop.js?v=22.1.0';
-import { setFocusMode } from '../input/fullscreen.js?v=22.1.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=22.1.0';
-import { createMenuBackground } from '../render/menu-background.js?v=22.1.0';
-import { pixelArt } from '../render/sprites.js?v=22.1.0';
+import { weapons } from '../classes/registry.js?v=25.0.0';
+import { audio } from '../core/audio.js?v=25.0.0';
+import { VERSION } from '../core/config.js?v=25.0.0';
+import { $, root } from '../core/dom.js?v=25.0.0';
+import { state } from '../core/state.js?v=25.0.0';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=25.0.0';
+import { start,togglePause } from '../game/session.js?v=25.0.0';
+import { loop } from '../game/loop.js?v=25.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=25.0.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=25.0.0';
+import { createMenuBackground } from '../render/menu-background.js?v=25.0.0';
+import { pixelArt } from '../render/sprites.js?v=25.0.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -46,7 +46,7 @@ function revealGame(){
   model.background?.stop();byId('title-menu').hidden=true;root.hidden=false;
   document.body.classList.remove('menu-open');state.screen='game';
 }
-function effectiveDevice(){return settings.device==='auto'?((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'):settings.device;}
+function effectiveDevice(){if(!MOBILE_CONTROLS_ENABLED)return 'desktop';return settings.device==='auto'?((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'):settings.device;}
 async function launchBattle(){
   if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
   $('class').value=model.selectedClass;$('diff').value=model.difficulty;
@@ -60,12 +60,15 @@ async function resumeBattle(){
   if(!state.raf)state.raf=requestAnimationFrame(loop);
 }
 function syncSettings(){
+  byId('mobile-settings').hidden=!MOBILE_CONTROLS_ENABLED;
+  byId('mobile-settings').disabled=!MOBILE_CONTROLS_ENABLED;
+  byId('setting-device').disabled=!MOBILE_CONTROLS_ENABLED;
   for(const [id,value] of Object.entries({'setting-sfx':settings.sfxVolume*100,'setting-music':settings.musicVolume*100,'setting-quality':settings.quality,'setting-device':settings.device,'setting-touch-scale':settings.touchScale}))byId(id).value=String(value);
   for(const [id,value]of Object.entries({'setting-sfx-enabled':settings.sfxEnabled,'setting-music-enabled':settings.musicEnabled,'setting-shake':settings.screenShake,'setting-doubletap':settings.doubleTapDash,'setting-autoaim':settings.autoAim}))byId(id).checked=value;
   byId('setting-sfx-value').textContent=Math.round(settings.sfxVolume*100)+'%';
   byId('setting-music-value').textContent=Math.round(settings.musicVolume*100)+'%';
   byId('menu-keybindings').innerHTML=Object.entries(bindingLabels).map(([name,label])=>`<div class="binding-row"><span>${label}</span><button class="binding-key ${model.listening===name?'listening':''}" data-binding="${name}">${model.listening===name?'…':keyLabel(settings.bindings[name])}</button></div>`).join('');
-  byId('setup-controls-hint').textContent=controlHint()+'\nНа телефоні: рух стіком, автоатака й кнопки дій.';
+  byId('setup-controls-hint').textContent=controlHint()+(MOBILE_CONTROLS_ENABLED?'\nНа телефоні: рух стіком, автоатака й кнопки дій.':'');
   byId('desktop-control-summary').textContent='ПК: '+controlHint();
   root.dataset.quality=settings.quality;root.style.setProperty?.('--touch-scale',settings.touchScale);
   audio.sfx=settings.sfxEnabled;audio.music=settings.musicEnabled;

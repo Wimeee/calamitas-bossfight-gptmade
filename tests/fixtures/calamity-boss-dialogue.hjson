@@ -1,0 +1,32 @@
+// Original Calamity2.2.4 Boss.hjson extract. Full source SHA256:67610f2d05de171f5aa527fe373713f5f7d414a4643f6069ae7e8beae944b36b
+SCalSummonText: Do you enjoy going through hell?
+SCalSummonTextRematch: If you're looking for some fourth-degree burns, you've got the right person.
+SCalBH2Text: It wasn't too long ago you barely managed to defeat my doppelganger. Quite the failure, wasn't it?
+SCalBH2TextRematch: You'll still have to work hard for this victory.
+SCalBH3Text: You've harnessed great power, but you wield it for no one but yourself.
+SCalBH3TextRematch: I haven't had such an interesting target dummy to test my magic on in a long time.
+SCalPhase2Text: You will suffer greatly.
+SCalPhase2TextRematch: Here we go again.
+SCalBH4Text: It's absurd to even think of trying to get away. As long as you live, you will suffer.
+SCalBH4TextRematch: I wonder if you've seen these in your nightmares since our first battle?
+SCalBH5Text: You have no stake in this battle. No one gave you any say in this matter!
+SCalBH5TextRematch: Isn't this exciting?
+SCalDesparationText1: Just stop!
+SCalDesparationText1Rematch: A terrific display, I concede this match to you.
+SCalDesparationText2: I have no future if I lose here.
+SCalDesparationText2Rematch: No doubt you will face enemies stronger than I.
+SCalDesparationText3: Once you have bested me, you will only have one path forward.
+SCalDesparationText3Rematch: I trust you will not make the same mistakes he did.
+SCalStartText: You should have just died...
+SCalStartTextRematch: When the time comes, would you like to join my creation?
+SCalSepulcher2Text: Once the dust has settled and only one remains, if it is you, what value will this have had?!
+SCalSepulcher2TextRematch: Here comes the crawling tomb, one last time.
+SCalBrothersText: Would you like to meet my family? Horrible, isn't it?
+SCalBrothersTextRematch: Empty shells of their former selves. I doubt even a scrap of their spirits remain.
+SCalSeekerRingText: An upstart who recklessly stole and killed their way to power. I wonder, who does that remind me of...?
+SCalSeekerRingTextRematch: Your skill hasn't faltered in the least.
+SCalDesparationText4: And that path... also has no future.
+SCalDesparationText4Rematch: I can't imagine what your future holds now.
+SCalAcceptanceText1: Even if he has thrown all else away, his power remains.
+SCalAcceptanceText2: I have no more energy left to resent him, or you...
+SCalAcceptanceText3: It will all be in your hands now.

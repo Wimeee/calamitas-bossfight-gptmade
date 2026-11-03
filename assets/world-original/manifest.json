@@ -1,0 +1,94 @@
+{
+  "rawFormatSource": "https://github.com/tModLoader/tModLoader/blob/stable/patches/tModLoader/Terraria/ModLoader/IO/ImageIO.cs",
+  "xnbConverter": "xnb@1.3.0 CDN bundle (header identifies 1.2.1), LGPL-3.0, work-only",
+  "assets": [
+    {
+      "name": "SCalAltar.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Tiles\\Furniture\\CraftingStations\\SCalAltar.rawimg",
+      "version": "CalamityMod 2.2.4",
+      "width": 72,
+      "height": 54,
+      "sourceSha256": "949da323a0d66216936a1d12a387b511da66f6e75a8c4aff9be2db9afc751ce7",
+      "sha256": "44b91571ed6c4b1c6b0124f6d0033236a79802f84b5452d475ea9b68c39e1b0f"
+    },
+    {
+      "name": "SCalAltarLarge.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Tiles\\Furniture\\CraftingStations\\SCalAltarLarge.rawimg",
+      "version": "CalamityMod 2.2.4",
+      "width": 88,
+      "height": 54,
+      "sourceSha256": "f681f425606a96ab71175277b1eb6bcefe0e04a6005a590941b5fe91fc6ed291",
+      "sha256": "58628475876729dfeb6c0ede7765fc7f75e1957629f1d1c1455a393ff78c8eb0"
+    },
+    {
+      "name": "altar-assembled.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Tiles\\Furniture\\CraftingStations\\SCalAltarLarge.rawimg",
+      "sourceSha256": "f681f425606a96ab71175277b1eb6bcefe0e04a6005a590941b5fe91fc6ed291",
+      "sha256": "7ba3bddd07f4f0f245a0869cff3e872866482e1731fdcafa35b3e54cd04bcb80",
+      "width": 80,
+      "height": 48,
+      "transform": "5x3 16px tiles, 18px source stride; remove gutters only"
+    },
+    {
+      "name": "AshenAltar.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Tiles\\Furniture\\CraftingStations\\AshenAltar.rawimg",
+      "version": "CalamityMod 2.2.4",
+      "width": 54,
+      "height": 324,
+      "sourceSha256": "cb52f5134c59c9bc328cbedbb220a213b3e746671677d5daf1ef443f69225fa8",
+      "sha256": "70d8219db6ee98626f2e92593b58f85f7033e7597349c8a8d5a912db1e1a6274"
+    },
+    {
+      "name": "AshenAltarFlame.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Tiles\\Furniture\\CraftingStations\\AshenAltarFlame.rawimg",
+      "version": "CalamityMod 2.2.4",
+      "width": 54,
+      "height": 324,
+      "sourceSha256": "181a80341464e38a9ad8141cb4d9f0bb43f94fbbec67260a736c5062fed5cac7",
+      "sha256": "6139e4176e9bdf99c0beda67dbd337fc2c0bcae27cfdf69dd9a690c1a9cd8690"
+    },
+    {
+      "name": "CeremonialUrn.png",
+      "source": "D:\\Codex\\calamitas-astra\\work\\local-calamity\\CalamityMod-2.2.4\\Items\\SummonItems\\CeremonialUrn.rawimg",
+      "version": "CalamityMod 2.2.4",
+      "width": 34,
+      "height": 54,
+      "sourceSha256": "d719921537310c491a53a9dc0001e47b7825f78e55e1b3f903a564d597290e3c",
+      "sha256": "40830e7552c0552ad3bb14d789d32722a381d0b1ae5119a06f9916b27cb71ba2"
+    },
+    {
+      "name": "Tiles_215.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Tiles_215.xnb",
+      "sourceSha256": "b34f14c0e4d5d86087068125c6271ead60ff30cbc1ef38501712a2d80ef3f443",
+      "sha256": "bf37a1a28dd64b2e4ecc1dd134f016b45b8abef5fca6106392a3ff60740d2735",
+      "width": 864,
+      "height": 324
+    },
+    {
+      "name": "campfire-assembled.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Tiles_215.xnb",
+      "sourceSha256": "b34f14c0e4d5d86087068125c6271ead60ff30cbc1ef38501712a2d80ef3f443",
+      "sha256": "ddd75e37bf19928cee4ec6a25823bfef8a9d8e47612a652de611bacac6c0937c",
+      "width": 48,
+      "height": 256,
+      "transform": "16px tiles, 18px source stride; remove gutters only; style0, eight frames"
+    },
+    {
+      "name": "Tiles_42.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Tiles_42.xnb",
+      "sourceSha256": "dd93c89891ef2d58fd82500fbcdf0feb07fca80ef6db04d36d8fb2780343a5d3",
+      "sha256": "09cfb743e65304f3bc90d93f1a9f353b5346b26085abe9a81cb3febbd779b5ff",
+      "width": 70,
+      "height": 2016
+    },
+    {
+      "name": "heart-lantern-assembled.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Tiles_42.xnb",
+      "sourceSha256": "dd93c89891ef2d58fd82500fbcdf0feb07fca80ef6db04d36d8fb2780343a5d3",
+      "sha256": "f5d7692fb3727ba2c27f69cee9b4e00eef5155b2ac1ebb0987e25fa72d49f072",
+      "width": 16,
+      "height": 32,
+      "transform": "16px tiles, 18px source stride; remove gutters only; style9 lit"
+    }
+  ]
+}
