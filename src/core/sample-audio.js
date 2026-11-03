@@ -1,7 +1,7 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=25.0.0';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=25.0.0';
-import { settings,subscribeSettings } from './settings.js?v=25.0.0';
-import { state } from './state.js?v=25.0.0';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=25.0.1';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=25.0.1';
+import { settings,subscribeSettings } from './settings.js?v=25.0.1';
+import { state } from './state.js?v=25.0.1';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;

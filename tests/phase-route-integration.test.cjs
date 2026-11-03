@@ -249,7 +249,7 @@ test('bossAttack is blocked during cast delay (castDelayState check)', async () 
   assert.equal(shouldRunAfter, true, 'bossAttack should run after cast delay ends');
 });
 
-test('Seekers HP initialized correctly from config.seekerHP (4900) in updateMinions', async () => {
+test('Seekers HP initialized correctly from config.seekerHP (14700) in updateMinions', async () => {
   const {t} = await loadGame();
   const game = t.makeGame('supreme-calamitas');
   t.setGame(game);
@@ -264,8 +264,8 @@ test('Seekers HP initialized correctly from config.seekerHP (4900) in updateMini
   t.updateMinions(1/60);
 
   for (const seeker of g.seekers) {
-    assert.equal(seeker.hp, 4900, `Seeker HP should be 4900 (config.seekerHP), got ${seeker.hp}`);
-    assert.equal(seeker.max, 4900, `Seeker max HP should be 4900, got ${seeker.max}`);
+    assert.equal(seeker.hp, 14700, `Seeker HP should be 14700 (config.seekerHP), got ${seeker.hp}`);
+    assert.equal(seeker.max, 14700, `Seeker max HP should be 14700, got ${seeker.max}`);
     assert.ok(Number.isFinite(seeker.hp), 'Seeker HP should be finite');
     assert.ok(!Number.isNaN(seeker.hp), 'Seeker HP should not be NaN');
     // ai0 and ai2 should be initialized

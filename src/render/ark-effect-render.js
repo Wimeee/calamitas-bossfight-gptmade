@@ -1,7 +1,7 @@
-import {ctx} from '../core/dom.js?v=25.0.0';
-import {settings} from '../core/settings.js?v=25.0.0';
-import {arkParticlePose} from '../systems/ark-effects.js?v=25.0.0';
-import {arkEffectTexture,drawNativeArkSpark,drawNativeRipMask} from './ark-native.js?v=25.0.0';
+import {ctx} from '../core/dom.js?v=25.0.1';
+import {settings} from '../core/settings.js?v=25.0.1';
+import {arkParticlePose} from '../systems/ark-effects.js?v=25.0.1';
+import {arkEffectTexture,drawNativeArkSpark,drawNativeRipMask} from './ark-native.js?v=25.0.1';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;

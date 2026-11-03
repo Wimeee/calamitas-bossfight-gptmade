@@ -1,5 +1,5 @@
-import {ctx} from '../core/dom.js?v=25.0.0';
-import {settings} from '../core/settings.js?v=25.0.0';
+import {ctx} from '../core/dom.js?v=25.0.1';
+import {settings} from '../core/settings.js?v=25.0.1';
 
 const images = new Map();
 let ready = null;

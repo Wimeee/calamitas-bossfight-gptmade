@@ -207,15 +207,15 @@ test('end-to-end: full fight from start to victory with all phase transitions', 
   // ============================================================
   // SEEKERS PHASE - Verify seeker HP bug fix
   // ============================================================
-  // Check initial seeker HP (should be config.seekerHP = 4900, not dropped to 10)
+  // Check initial seeker HP (should be config.seekerHP = 14700, not dropped to 10)
   const initialSeekerHP = g.seekers[0].hp;
-  assert.equal(initialSeekerHP, 4900, 'Seeker HP should be 4900, not dropped to 10');
+  assert.equal(initialSeekerHP, 14700, 'Seeker HP should be 14700, not dropped to 10');
   console.log('✓ Bug fix verified: Seeker HP =', initialSeekerHP, '(not 10)');
 
   // Run one update to ensure HP doesn't drop
   t.update(1/60);
   g = t.getGame();
-  assert.equal(g.seekers[0].hp, 4900, 'Seeker HP should remain 4900 after first update');
+  assert.equal(g.seekers[0].hp, 14700, 'Seeker HP should remain 14700 after first update');
   console.log('✓ Seeker HP stable after first update');
 
   // Destroy all seekers

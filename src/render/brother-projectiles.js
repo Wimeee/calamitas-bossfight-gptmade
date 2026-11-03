@@ -1,6 +1,6 @@
-import {ctx} from '../core/dom.js?v=25.0.0';
-import {paintProjectileFrame,paintProjectileFrameAlt} from './encounter-projectiles-atlas.js?v=25.0.0';
-import {helperTint} from './helper-atlas.js?v=25.0.0';
+import {ctx} from '../core/dom.js?v=25.0.1';
+import {paintProjectileFrame,paintProjectileFrameAlt} from './encounter-projectiles-atlas.js?v=25.0.1';
+import {helperTint} from './helper-atlas.js?v=25.0.1';
 function glow(x,y,w,h,angle,color,alpha){const image=helperTint('largeBloom',color);if(!image)return;ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.globalAlpha=alpha;ctx.globalCompositeOperation='lighter';ctx.drawImage(image,-w/2,-h/2,w,h);ctx.restore();}
 export function drawBrotherProjectile(q){
  const fist=q.kind==='fist',angle=Math.atan2(q.vy,q.vx),facing=q.vx<0?-1:1,rotation=q.vx<0?Math.atan2(-q.vy,-q.vx):angle;
