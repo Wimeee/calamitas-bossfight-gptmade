@@ -1,4 +1,4 @@
-import { settings, subscribeSettings } from '../core/settings.js?v=26.0.1';
+import { settings, subscribeSettings } from '../core/settings.js?v=26.0.2';
 
 function createMenuBackground(canvas) {
   const ctx=canvas.getContext('2d');

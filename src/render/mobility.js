@@ -1,8 +1,8 @@
-import { movementConfig } from '../../config/movement.js?v=26.0.1';
-import { ctx } from '../core/dom.js?v=26.0.1';
-import { state } from '../core/state.js?v=26.0.1';
-import { meleeAtlasReady, drawMeleeFrame, meleeFrameCount } from './melee-atlas.js?v=26.0.1';
-import { warriorPose } from './warrior.js?v=26.0.1';
+import { movementConfig } from '../../config/movement.js?v=26.0.2';
+import { ctx } from '../core/dom.js?v=26.0.2';
+import { state } from '../core/state.js?v=26.0.2';
+import { meleeAtlasReady, drawMeleeFrame, meleeFrameCount } from './melee-atlas.js?v=26.0.2';
+import { warriorPose } from './warrior.js?v=26.0.2';
 
 const wingClocks = new WeakMap();
 

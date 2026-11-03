@@ -1,12 +1,12 @@
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=26.0.1';
-import { beginAttack, kit } from './shared.js?v=26.0.1';
-import { fireChannelWeapon } from '../combat/beams.js?v=26.0.1';
-import { hitTarget } from '../combat/damage.js?v=26.0.1';
-import { possibleTargets } from '../combat/targets.js?v=26.0.1';
-import { audio } from '../core/audio.js?v=26.0.1';
-import { dist, norm } from '../core/math.js?v=26.0.1';
-import { state } from '../core/state.js?v=26.0.1';
-import { weaponAim } from '../render/weapons.js?v=26.0.1';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=26.0.2';
+import { beginAttack, kit } from './shared.js?v=26.0.2';
+import { fireChannelWeapon } from '../combat/beams.js?v=26.0.2';
+import { hitTarget } from '../combat/damage.js?v=26.0.2';
+import { possibleTargets } from '../combat/targets.js?v=26.0.2';
+import { audio } from '../core/audio.js?v=26.0.2';
+import { dist, norm } from '../core/math.js?v=26.0.2';
+import { state } from '../core/state.js?v=26.0.2';
+import { weaponAim } from '../render/weapons.js?v=26.0.2';
 
 
 function activateMage(){

@@ -1,6 +1,6 @@
-import {ctx} from '../core/dom.js?v=26.0.1';
-import {helperImage,helperTint} from './helper-atlas.js?v=26.0.1';
-import {drawHellBall} from './hellball.js?v=26.0.1';
+import {ctx} from '../core/dom.js?v=26.0.2';
+import {helperImage,helperTint} from './helper-atlas.js?v=26.0.2';
+import {drawHellBall} from './hellball.js?v=26.0.2';
 function bloom(x,y,size,alpha,color){const image=helperTint('largeBloom',color);if(!image)return;ctx.save();ctx.globalAlpha=alpha;ctx.globalCompositeOperation=color==='#000000'?'source-over':'lighter';ctx.drawImage(image,x-size/2,y-size/2,size,size);ctx.restore();}
 export function drawNativeMaelstrom(g){
  const m=g.maelstrom,w=g.maelstromWarning;if(!m){if(w&&g.phaseN===4){const progress=Math.max(0,Math.min(1,((g.hellTimers?.ticks||180)-180)/240));bloom(w.x,w.y,522*progress,.5,'#ff004d');bloom(w.x,w.y,486*progress,.4,'#ffffff');}return;}

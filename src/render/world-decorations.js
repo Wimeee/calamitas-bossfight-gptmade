@@ -1,6 +1,6 @@
-import {ctx} from '../core/dom.js?v=26.0.1';
-import {settings} from '../core/settings.js?v=26.0.1';
-import {getTerrain} from '../world/terrain.js?v=26.0.1';
+import {ctx} from '../core/dom.js?v=26.0.2';
+import {settings} from '../core/settings.js?v=26.0.2';
+import {getTerrain} from '../world/terrain.js?v=26.0.2';
 
 const images = new Map();
 let ready = null;

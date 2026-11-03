@@ -1,4 +1,4 @@
 {
-  "version": "26.0.1",
-  "notes": "Cache native combat and HUD text to reduce render submissions"
+  "version": "26.0.2",
+  "notes": "Restore centered Terraria-inspired title menu"
 }
