@@ -1,3 +1,3 @@
-import {drawTerrain} from './terrain.js?v=25.0.1';
-import {drawBackdropBase,drawArenaLayer} from './arena-cache.js?v=25.0.1';
+import {drawTerrain} from './terrain.js?v=26.0.0';
+import {drawBackdropBase,drawArenaLayer} from './arena-cache.js?v=26.0.0';
 export function drawBackdrop(g){drawBackdropBase();drawTerrain(g);drawArenaLayer(g);}

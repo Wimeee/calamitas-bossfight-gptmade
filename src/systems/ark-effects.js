@@ -1,6 +1,6 @@
 // Native Ark particle contracts: pinned SwungBlade/ParryHoldout/BlastAttack and Particles/*.
 // Separate deterministic visual RNG; positions and damping use native px/tick units.
-import {arkSwingGeometry} from '../classes/ark-motion.js?v=25.0.1';
+import {arkSwingGeometry} from '../classes/ark-motion.js?v=26.0.0';
 const LIMIT=640,TAU=Math.PI*2,actions=new WeakMap();
 const clamp=x=>Math.max(0,Math.min(1,x));
 function rand(g){let n=g.arkFxSeed??0x79a45e3;n^=n<<13;n^=n>>>17;n^=n<<5;g.arkFxSeed=n>>>0;return(n>>>0)/4294967296;}

@@ -1,10 +1,10 @@
-import {heartTendrilAnchors} from '../world/arena-state.js?v=25.0.1';
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=25.0.1';
-import {ctx} from '../core/dom.js?v=25.0.1';
-import {settings} from '../core/settings.js?v=25.0.1';
-import {hpMini,pixel,text} from './primitives.js?v=25.0.1';
-import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=25.0.1';
-import {lerp, clamp} from '../core/math.js?v=25.0.1';
+import {heartTendrilAnchors} from '../world/arena-state.js?v=26.0.0';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=26.0.0';
+import {ctx} from '../core/dom.js?v=26.0.0';
+import {settings} from '../core/settings.js?v=26.0.0';
+import {hpMini,pixel,text} from './primitives.js?v=26.0.0';
+import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=26.0.0';
+import {lerp, clamp} from '../core/math.js?v=26.0.0';
 const clocks=new WeakMap();
 const now=g=>g.ritual?g.ritual.ambient:g.t;
 

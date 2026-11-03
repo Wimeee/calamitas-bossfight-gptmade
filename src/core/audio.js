@@ -1,10 +1,10 @@
-import { calamitasSamples } from './sample-audio.js?v=25.0.1';
-import { meleeSamples } from './sample-audio.js?v=25.0.1';
-import { minionAudio } from '../render/minion-audio.js?v=25.0.1';
-import { state } from './state.js?v=25.0.1';
-import { battleMusic } from './battle-music.js?v=25.0.1';
-import { settings,updateSettings,subscribeSettings } from './settings.js?v=25.0.1';
-import { $ } from './dom.js?v=25.0.1';
+import { calamitasSamples } from './sample-audio.js?v=26.0.0';
+import { meleeSamples } from './sample-audio.js?v=26.0.0';
+import { minionAudio } from '../render/minion-audio.js?v=26.0.0';
+import { state } from './state.js?v=26.0.0';
+import { battleMusic } from './battle-music.js?v=26.0.0';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=26.0.0';
+import { $ } from './dom.js?v=26.0.0';
 
 const audio={
   ctx:null,
@@ -224,5 +224,7 @@ const audio={
 
 
 subscribeSettings(()=>{audio.music=settings.musicEnabled;audio.syncMusic();});
+// The encounter update stops on victory and in menus; music fades must keep ticking.
+setInterval(()=>audio.syncMusic(),50);
 
 export { audio };

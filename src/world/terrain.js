@@ -1,5 +1,5 @@
-import { worldConfig } from '../../config/world.js?v=25.0.1';
-import { movementConfig as config } from '../../config/movement.js?v=25.0.1';
+import { worldConfig } from '../../config/world.js?v=26.0.0';
+import { movementConfig as config } from '../../config/movement.js?v=26.0.0';
 
 let cached=null,key='';
 export function getTerrain(){
@@ -15,8 +15,9 @@ export function getTerrain(){
     ];
     for(let y=335-spacing*2;y>bounds.t+100;y-=spacing)platforms.push({id:'high-'+y,l:bounds.l+100,r:bounds.r-100,y});
     for(let y=335+spacing*2;y<floorY-100;y+=spacing)platforms.push({id:'low-'+y,l:bounds.l+80,r:bounds.r-80,y});
-    cached={key,bounds,floorY,altar:{x:500,y:300},platforms,
-      campfire:{x:230,y:558},lantern:{x:750,y:285}};
+    const platform=id=>platforms.find(p=>p.id===id);
+    cached={key,bounds,floorY,altar:{x:500,y:platform('middle').y},platforms,
+      campfire:{x:230,y:platform('lower').y},lantern:{x:750,y:platform('upper').y+16+32}};
 
   }
   return cached;

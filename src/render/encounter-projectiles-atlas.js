@@ -1,4 +1,4 @@
-import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=25.0.1';
+import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=26.0.0';
 
 const images = new Map();
 let ready = null;

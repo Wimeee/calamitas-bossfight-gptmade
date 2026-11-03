@@ -39,7 +39,7 @@ test('dart arc spacing, dash target lock, phase II after brothers, altar and let
  assert.equal(g.dashVector.x,target.x);assert.equal(g.dashVector.y,target.y);
  t.enter('brothers','bros','TEST');g.brothers.forEach(b=>b.hp=0);t.updateBullets(0);
  assert.equal(g.stage,'normal');assert.ok(g.thresholds.has('40'));assert.equal(g.phase2Intro,200/60);
- const terrain=t.getTerrain();assert.equal(terrain.altar.x,500);assert.equal(terrain.altar.y+35,terrain.platforms[1].y);
+ const terrain=t.getTerrain();assert.equal(terrain.altar.x,500);assert.equal(terrain.altar.y,terrain.platforms[1].y);
  const point=t.canvasPointToWorld(200,100,{left:0,top:0,width:1200,height:600},true);
  const zoom=0.765;
  assert.ok(Math.abs(point.x-(g.camera.x-480/zoom))<1e-9);assert.ok(Math.abs(point.y-(g.camera.y-240/zoom))<1e-9);

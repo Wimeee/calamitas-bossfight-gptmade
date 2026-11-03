@@ -1,4 +1,4 @@
-import {calamitasDialogueText} from '../boss/dialogue.js?v=25.0.1';
-import {ctx} from '../core/dom.js?v=25.0.1';
-import {W,H} from '../core/config.js?v=25.0.1';
+import {calamitasDialogueText} from '../boss/dialogue.js?v=26.0.0';
+import {ctx} from '../core/dom.js?v=26.0.0';
+import {W,H} from '../core/config.js?v=26.0.0';
 export function drawCalamitasDialogue(g){if(!g.nativeDialogue||g.dialogT<=0)return;const size=Math.max(14,Math.min(19,W/68)),width=Math.min(W-48,940);ctx.save();ctx.font='600 '+size+'px system-ui';const lines=[];let line='';for(const word of calamitasDialogueText(g).split(/\s+/)){const next=line?line+' '+word:word;if(line&&ctx.measureText(next).width>width){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);const top=H-130-lines.length*(size+6);ctx.globalAlpha=Math.min(1,g.dialogT*2);ctx.textAlign='center';ctx.fillStyle='#f5a9a8';ctx.shadowColor='#000';ctx.shadowBlur=4;ctx.lineWidth=3;ctx.strokeStyle='#000';for(let i=0;i<lines.length;i++){ctx.strokeText(lines[i],W/2,top+i*(size+6));ctx.fillText(lines[i],W/2,top+i*(size+6));}ctx.restore();}

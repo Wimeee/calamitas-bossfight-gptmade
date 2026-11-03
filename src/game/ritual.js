@@ -1,16 +1,16 @@
-import { updateCamera } from '../world/camera.js?v=25.0.1';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=25.0.1';
-import { getTerrain } from '../world/terrain.js?v=25.0.1';
-import { playerConfig } from '../../config/player.js?v=25.0.1';
-import { getEncounter } from '../boss/registry.js?v=25.0.1';
-import { audio } from '../core/audio.js?v=25.0.1';
-import { $ } from '../core/dom.js?v=25.0.1';
-import { state } from '../core/state.js?v=25.0.1';
-import { resetTouchInput } from '../input/mobile.js?v=25.0.1';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=25.0.1';
-import { enter } from './phases.js?v=25.0.1';
+import { updateCamera } from '../world/camera.js?v=26.0.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=26.0.0';
+import { getTerrain } from '../world/terrain.js?v=26.0.0';
+import { playerConfig } from '../../config/player.js?v=26.0.0';
+import { getEncounter } from '../boss/registry.js?v=26.0.0';
+import { audio } from '../core/audio.js?v=26.0.0';
+import { $ } from '../core/dom.js?v=26.0.0';
+import { state } from '../core/state.js?v=26.0.0';
+import { resetTouchInput } from '../input/mobile.js?v=26.0.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=26.0.0';
+import { enter } from './phases.js?v=26.0.0';
 
-export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y;},range:86,duration:6.4,skipAfter:.8});
+export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,duration:6.4,skipAfter:.8});
 
 function clearRitualInput(){
   state.keys={};
@@ -32,7 +32,7 @@ export function syncRitualControls(){
   setControl('ritual-controls','hidden',!r);
   setControl('ritual-summon','hidden',!r||r.phase!=='preparation');
   setControl('ritual-summon','disabled',!active||!nearAltar(g));
-  const label=nearAltar(g)?'Викликати · E / Enter':'Підійди до урни';
+  const label=nearAltar(g)?'Викликати · E / Enter':'Підійди до вівтаря';
   if($('ritual-summon').textContent!==label)$('ritual-summon').textContent=label;
   setControl('ritual-skip','hidden',!r||r.phase!=='summoning');
   setControl('ritual-skip','disabled',!active||r.elapsed<ritualConfig.skipAfter);
@@ -42,7 +42,7 @@ export function prepareRitual(g){
   g.ritual={phase:'preparation',elapsed:0,ambient:0};
   g.stage='preparation';
   g.label='ALTAR OF THE ACCURSED';
-  g.hint='Підійди до урни та натисни E / Enter або кнопку виклику.';
+  g.hint='Підійди до вівтаря та натисни E / Enter або кнопку виклику.';
   syncRitualControls();
 }
 

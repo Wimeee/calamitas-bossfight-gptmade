@@ -1,4 +1,4 @@
-import {localeEntries,localeFragments} from '../../config/localization.js?v=25.0.1';
+import {localeEntries,localeFragments} from '../../config/localization.js?v=26.0.0';
 const KEY='utbg_locale_v1',catalog=new Map(),listeners=new Set();
 const ukOverrides={"LMB: 5 swings and a throw; release to snap • RMB: parry / Big Rip":"ЛКМ: 5 змахів і кидок; відпусти для змикання • ПКМ: парирування / Великий розрив","LMB: heat-building beam • RMB: piercing Exo Shot, vents heat":"ЛКМ: промінь із нагрівом • ПКМ: пробивний екзопостріл зі скиданням нагріву","LMB: 6 Dragonfire beams • RMB: full-resonance Nova, +75 mana":"ЛКМ: 6 променів драконячого полум’я • ПКМ: Нова за повний резонанс, +75 мани","LMB: returning Celestus, double hit • RMB: recall • catches build stealth":"ЛКМ: зворотні клинки Celestus, подвійне влучання • ПКМ: відкликання • ловіння накопичує прихованість"};
 const ukTerms={'SNAP':'ЗМИКАННЯ','Big Rip':'Великий розрив','Exo Shot':'Екзопостріл','Nova':'Нова','Ranger':'Стрілець','Mage':'Маг','Rogue':'Розбійник','Summoner':'Закликач','stealth':'прихованість','ON':'УВІМК','OFF':'ВИМК','DEBUG':'ДЕБАГ'};
