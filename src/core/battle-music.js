@@ -1,4 +1,4 @@
-import { calamitasMusic } from '../../config/calamitas-music.js?v=26.0.3';
+import { calamitasMusic } from '../../config/calamitas-music.js?v=26.0.4';
 
 export function battleMusicPhase(game){
   if(game?.mode==='won')return 'acceptance';

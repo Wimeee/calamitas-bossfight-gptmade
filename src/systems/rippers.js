@@ -1,9 +1,9 @@
-import { updateRipperVisuals } from './ripper-visuals.js?v=26.0.3';
+import { updateRipperVisuals } from './ripper-visuals.js?v=26.0.4';
 export { updateRipperVisuals };
-import { rippersConfig as c } from '../../config/rippers.js?v=26.0.3';
-import { state } from '../core/state.js?v=26.0.3';
-import { audio } from '../core/audio.js?v=26.0.3';
-import { clamp } from '../core/math.js?v=26.0.3';
+import { rippersConfig as c } from '../../config/rippers.js?v=26.0.4';
+import { state } from '../core/state.js?v=26.0.4';
+import { audio } from '../core/audio.js?v=26.0.4';
+import { clamp } from '../core/math.js?v=26.0.4';
 
 export function makeRippers(difficulty){return {enabled:difficulty==='revenge'||difficulty==='death',rage:0,adrenaline:0,rageTime:0,adrenalineTime:0,rageReadyAt:null,adrenalineReadyAt:null,rageSoundCooldown:0,pause:0,combat:0};}
 export function proximityRage(distance){

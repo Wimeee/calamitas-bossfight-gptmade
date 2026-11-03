@@ -1,6 +1,6 @@
-import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.0.3';
-import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.0.3';
-import { ctx } from '../core/dom.js?v=26.0.3';
+import {arkConstellationLayout} from './ark-constellation-layout.js?v=26.0.4';
+import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=26.0.4';
+import { ctx } from '../core/dom.js?v=26.0.4';
 const images={};let loading;
 const vfxNames=['rip-texture','rip-layer','scissors-glow','heavy-smoke','thin-sparkle','light','bloom-line','bloom-cap','slice-line','pulse-ring','parry-bar-back','parry-bar-front'];
 export function initializeNativeArk(){
@@ -8,7 +8,7 @@ export function initializeNativeArk(){
  loading=Promise.all(['left','left-glow','right','right-glow','sparkle','trail-glow','swing-smear','swirl-smoke','projectile-streak','bloom-circle',...vfxNames].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
   const file=['sparkle','swing-smear','swirl-smoke','projectile-streak','bloom-circle'].includes(part)?part:'ark-'+part;
-  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.0.3',import.meta.url).href;
+  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=26.0.4',import.meta.url).href;
  }))).then(()=>nativeArkReady());return loading;
 }
 export function nativeArkReady(){return !!(images.left&&images['left-glow']&&images.right&&images['right-glow']);}
@@ -34,16 +34,32 @@ export function drawNativeArkSpark(x,y,scale=1,angle=0,alpha=1,color='#d8bfff',b
 }
 const effectTints=new Map();
 const lightStamps=new Map();
-function effectColor(hue){return typeof hue==='string'?(hue.startsWith('hsl')?'hsl('+Math.round(parseFloat(hue.slice(4))/15)*15+' 100% 68%)':hue):'hsl('+((Math.round(hue/15)*15)%360+360)%360+' 100% 68%)';}
+const frameTints=new Map();
+const renderCacheWork={tints:0,lights:0,evictions:0};
+const surfacePool=[];let poolPixels=0,tintPixels=0;
+const bitmapJobs=new Set(),pendingBitmaps=new WeakSet(),retiredPending=new WeakSet();
+function retireSurface(canvas){if(pendingBitmaps.has(canvas)){retiredPending.add(canvas);return;}if(typeof canvas.getContext!=='function'){canvas.close?.();return;}const pixels=canvas.width*canvas.height;if(surfacePool.length<8&&poolPixels+pixels<=1048576){surfacePool.push(canvas);poolPixels+=pixels;}}
+function immutableTint(key,canvas,cache=effectTints){if(typeof createImageBitmap!=='function')return;pendingBitmaps.add(canvas);const job=createImageBitmap(canvas).then(bitmap=>{pendingBitmaps.delete(canvas);if(cache.get(key)===canvas)cache.set(key,bitmap);else bitmap.close?.();retiredPending.delete(canvas);retireSurface(canvas);}).catch(()=>{pendingBitmaps.delete(canvas);if(retiredPending.has(canvas)){retiredPending.delete(canvas);retireSurface(canvas);}}).finally(()=>bitmapJobs.delete(job));bitmapJobs.add(job);}
+function acquireSurface(w,h){const i=surfacePool.findIndex(c=>c.width===w&&c.height===h);let canvas;if(i>=0){canvas=surfacePool.splice(i,1)[0];poolPixels-=w*h;}else{canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;}const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.clearRect(0,0,w,h);return canvas;}
+function effectColor(hue){if(typeof hue==='string'&&!hue.startsWith('hsl'))return hue;const value=typeof hue==='string'?parseFloat(hue.slice(4)):hue;return 'hsl('+((Math.round((value||0)/15)*15)%360+360)%360+' 100% 68%)';}
 function effectImage(name,hue){
  const source=images[name];if(!source)return null;
- const color=effectColor(hue),key=name+color;if(effectTints.has(key))return effectTints.get(key);
- const canvas=document.createElement('canvas');canvas.width=source.width;canvas.height=source.height;
+ const color=effectColor(hue),key=name+color;if(effectTints.has(key)){const image=effectTints.get(key);effectTints.delete(key);effectTints.set(key,image);return image;}
+ const pixels=source.width*source.height;
+ while(effectTints.size&&(effectTints.size>=256||tintPixels+pixels>16777216)){const key=effectTints.keys().next().value,old=effectTints.get(key);effectTints.delete(key);tintPixels-=old.width*old.height;retireSurface(old);}
+ const canvas=acquireSurface(source.width,source.height);
+ renderCacheWork.tints++;
  const c=canvas.getContext('2d');c.drawImage(source,0,0);c.globalCompositeOperation='multiply';c.fillStyle=color;c.fillRect(0,0,canvas.width,canvas.height);
  c.globalCompositeOperation='destination-in';c.drawImage(source,0,0);c.globalCompositeOperation='source-over';
- if(effectTints.size>=96)effectTints.delete(effectTints.keys().next().value);effectTints.set(key,canvas);return canvas;
+ effectTints.set(key,canvas);tintPixels+=pixels;immutableTint(key,canvas);return canvas;
 }
 export function arkEffectTexture(name,color='#fff'){return color==='#fff'||color==='#ffffff'?images[name]:effectImage(name,color);}
+export function arkFrameTexture(name,color,frame){
+ const source=images[name];if(!source)return null;const [x,y,w,h]=frame,key=name+'|'+effectColor(color)+'|'+frame.join(',');
+ if(frameTints.has(key)){const image=frameTints.get(key);frameTints.delete(key);frameTints.set(key,image);return image;}
+ if(frameTints.size>=384){const key=frameTints.keys().next().value;retireSurface(frameTints.get(key));frameTints.delete(key);}
+ const canvas=acquireSurface(w,h),c=canvas.getContext('2d');c.drawImage(source,x,y,w,h,0,0,w,h);c.globalCompositeOperation='multiply';c.fillStyle=effectColor(color);c.fillRect(0,0,w,h);c.globalCompositeOperation='destination-in';c.drawImage(source,x,y,w,h,0,0,w,h);c.globalCompositeOperation='source-over';frameTints.set(key,canvas);immutableTint(key,canvas,frameTints);return canvas;
+}
 // Bake opacity BEFORE adding native layers, preserving their bright overlap.
 // 128 opacity steps; bounded 192-entry LRU (~43MB maximum with these native assets).
 export function drawNativeArkLight(x,y,sx,sy,angle,alpha,color){
@@ -52,15 +68,25 @@ export function drawNativeArkLight(x,y,sx,sy,angle,alpha,color){
  const opacity=Math.round(Math.min(1,alpha*(typeof ctx.globalAlpha==='number'?ctx.globalAlpha:1))*128)/128;if(opacity<=0)return true;
  const key=effectColor(color)+'|'+opacity;let stamp=lightStamps.get(key);
  if(stamp){lightStamps.delete(key);lightStamps.set(key,stamp);}else{
+  renderCacheWork.lights++;
   const light=images.light,bloom=arkEffectTexture('bloom-circle',color),tinted=arkEffectTexture('light',color);if(!bloom||!tinted)return false;
   const w=2*Math.ceil(Math.max(bloom.width*144/256,light.width*1.1)/2+2),h=2*Math.ceil(Math.max(bloom.height*144/256,light.height*1.1)/2+2);
-  stamp=document.createElement('canvas');stamp.width=w*2;stamp.height=h*2;const c=stamp.getContext('2d');c.scale(2,2);c.translate(w/2,h/2);c.imageSmoothingEnabled=false;c.globalCompositeOperation='lighter';c.globalAlpha=opacity*.8;
+  if(lightStamps.size>=192){const key=lightStamps.keys().next().value;retireSurface(lightStamps.get(key));lightStamps.delete(key);renderCacheWork.evictions++;}
+  stamp=acquireSurface(w*2,h*2);const c=stamp.getContext('2d');c.scale(2,2);c.translate(w/2,h/2);c.imageSmoothingEnabled=false;c.globalCompositeOperation='lighter';c.globalAlpha=opacity*.8;
   const bw=bloom.width*144/256,bh=bloom.height*144/256;c.drawImage(bloom,-bw/2,-bh/2,bw,bh);c.drawImage(tinted,-light.width*.55,-light.height*.55,light.width*1.1,light.height*1.1);c.globalAlpha=opacity*.9;c.drawImage(light,-light.width/2,-light.height/2);
-  if(lightStamps.size>=192)lightStamps.delete(lightStamps.keys().next().value);lightStamps.set(key,stamp);
+  lightStamps.set(key,stamp);
  }
  ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(sx,sy);ctx.globalAlpha=1;ctx.drawImage(stamp,-stamp.width/4,-stamp.height/4,stamp.width/2,stamp.height/2);ctx.restore();return true;
 }
-export function arkLightCacheStats(){let pixels=0;for(const c of lightStamps.values())pixels+=c.width*c.height;return {entries:lightStamps.size,pixels};}
+export function arkLightCacheStats(){let pixels=0;for(const c of lightStamps.values())pixels+=c.width*c.height;return {entries:lightStamps.size,pixels,tintEntries:effectTints.size,tintPixels,frameEntries:frameTints.size,pooled:surfacePool.length,...renderCacheWork};}
+let warming;
+export function warmNativeArkEffects(){return warming??=(async()=>{await initializeNativeArk();if(!nativeArkReady())return false;let work=0;
+ for(const name of ['light','bloom-circle','thin-sparkle','swing-smear','swirl-smoke','bloom-line','bloom-cap'])for(let hue=0;hue<360;hue+=15){effectImage(name,hue);if(++work%12===0&&typeof setTimeout==='function')await new Promise(resolve=>setTimeout(resolve,0));}
+ for(const color of ['#1e90ff','#7353d1','#c71585','#ffd700','#d2691e','#752420','#d88bf2'])for(let row=0;row<6;row++)for(let col=0;col<7;col++){arkFrameTexture('heavy-smoke',color,[col*80,row*80,col===6?79:80,80]);if(++work%24===0&&typeof setTimeout==='function')await new Promise(resolve=>setTimeout(resolve,0));}
+ for(const color of ['#ff4500','#00ffff','#ff2020','#ffa500','#ffffff']){effectImage('bloom-circle',color);effectImage('light',color);}
+ for(const color of ['#40e0d0','#ff7f50','#d8bfff','#ff69b4','#6495ed'])effectImage('bloom-circle',color);
+ effectImage('swirl-smoke','#d2691e');effectImage('projectile-streak',205);effectImage('projectile-streak',280);await Promise.all([...bitmapJobs]);return true;
+})();}
 export function drawNativeArkTrail(g,s,angle,progress){
  const geometry=arkSwingGeometry(s,progress,g.player),swirl=!!s.wide;
  if(!swirl&&progress*s.max*120>10){

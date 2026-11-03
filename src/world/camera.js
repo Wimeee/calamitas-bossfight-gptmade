@@ -1,7 +1,7 @@
-import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.0.3';
-import { arena } from '../core/arena.js?v=26.0.3';
-import { state } from '../core/state.js?v=26.0.3';
-import { clamp } from '../core/math.js?v=26.0.3';
+import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.0.4';
+import { arena } from '../core/arena.js?v=26.0.4';
+import { state } from '../core/state.js?v=26.0.4';
+import { clamp } from '../core/math.js?v=26.0.4';
 
 function getZoom(g) {
   const z = g?.camera?.zoom;

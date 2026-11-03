@@ -1,0 +1,183 @@
+{
+  "scope": "Headless installed Firefox159, live RAF/continuous primary attack; results varied between runs and are not a visible-user-browser FPS guarantee.",
+  "before": {
+    "engine": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
+    "totalProfileMs": 19383,
+    "scope": "Real Firefox RAF, live game/continuous primary attack, isolated headless profile; not a guarantee on visible user browser",
+    "cold": {
+      "label": "cold-start",
+      "frames": 75,
+      "p50": 16.679999999999836,
+      "p95": 111.07999999999993,
+      "worst": 149.96000000000004,
+      "framesOver25ms": 22,
+      "newCanvases": 202,
+      "maxCanvasPerFrame": 30,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tints": 0,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "idle": {
+      "label": "idle",
+      "frames": 144,
+      "p50": 16.659999999999854,
+      "p95": 22.220000000000255,
+      "worst": 38.840000000000146,
+      "framesOver25ms": 6,
+      "newCanvases": 7,
+      "maxCanvasPerFrame": 2,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tints": 0,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "attack": {
+      "label": "continuous-LMB",
+      "frames": 270,
+      "p50": 22.220000000001164,
+      "p95": 33.31999999999971,
+      "worst": 44.44000000000051,
+      "framesOver25ms": 109,
+      "newCanvases": 269,
+      "maxCanvasPerFrame": 12,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tints": 219,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 94
+    },
+    "warmAttack": {
+      "label": "continued-LMB",
+      "frames": 267,
+      "p50": 22.220000000001164,
+      "p95": 33.31999999999971,
+      "worst": 44.44000000000233,
+      "framesOver25ms": 116,
+      "newCanvases": 200,
+      "maxCanvasPerFrame": 13,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tints": 379,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 103
+    }
+  },
+  "after": {
+    "engine": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0",
+    "preparationMs": 2595,
+    "totalProfileMs": 20272,
+    "scope": "Real Firefox RAF, live game/continuous primary attack, isolated headless profile; not a guarantee on visible user browser",
+    "cold": {
+      "label": "cold-start",
+      "frames": 86,
+      "p50": 16.659999999999854,
+      "p95": 44.460000000000036,
+      "worst": 227.67999999999984,
+      "framesOver25ms": 14,
+      "newCanvases": 20,
+      "maxCanvasPerFrame": 18,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 133,
+        "tintPixels": 2637928,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 133,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "idle": {
+      "label": "idle",
+      "frames": 159,
+      "p50": 16.659999999999854,
+      "p95": 22.199999999999818,
+      "worst": 22.340000000000146,
+      "framesOver25ms": 0,
+      "newCanvases": 5,
+      "maxCanvasPerFrame": 2,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 133,
+        "tintPixels": 2637928,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 133,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "attack": {
+      "label": "continuous-LMB",
+      "frames": 288,
+      "p50": 22.220000000001164,
+      "p95": 27.81999999999971,
+      "worst": 39.280000000000655,
+      "framesOver25ms": 75,
+      "newCanvases": 98,
+      "maxCanvasPerFrame": 9,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 185,
+        "tintPixels": 2832952,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 185,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 84
+    },
+    "warmAttack": {
+      "label": "continued-LMB",
+      "frames": 298,
+      "p50": 22.219999999997526,
+      "p95": 27.80000000000291,
+      "worst": 34.93999999999869,
+      "framesOver25ms": 61,
+      "newCanvases": 46,
+      "maxCanvasPerFrame": 1,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 185,
+        "tintPixels": 2832952,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 185,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 106
+    }
+  },
+  "notes": "Core transparent Canvas retained. Opaque Canvas experiment was slower and rejected. No claim that120FPS or all stutters are resolved."
+}

@@ -1,9 +1,9 @@
-import { kitHint } from '../classes/shared.js?v=26.0.3';
-import { TAU } from '../core/config.js?v=26.0.3';
-import { ctx } from '../core/dom.js?v=26.0.3';
-import { clamp } from '../core/math.js?v=26.0.3';
-import { state } from '../core/state.js?v=26.0.3';
-import { line, pixel, round, text } from './primitives.js?v=26.0.3';
+import { kitHint } from '../classes/shared.js?v=26.0.4';
+import { TAU } from '../core/config.js?v=26.0.4';
+import { ctx } from '../core/dom.js?v=26.0.4';
+import { clamp } from '../core/math.js?v=26.0.4';
+import { state } from '../core/state.js?v=26.0.4';
+import { line, pixel, round, text } from './primitives.js?v=26.0.4';
 
 
 function drawClassKit(g){

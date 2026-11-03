@@ -1,4 +1,4 @@
 {
-  "version": "26.0.3",
-  "notes": "Combat render optimization and optional current/minimum FPS counter"
+  "version": "26.0.4",
+  "notes": "Fix Firefox sword texture churn and prepare assets before battle"
 }

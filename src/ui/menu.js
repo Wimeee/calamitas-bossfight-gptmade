@@ -1,15 +1,16 @@
-import { weapons } from '../classes/registry.js?v=26.0.3';
-import { audio } from '../core/audio.js?v=26.0.3';
-import { VERSION } from '../core/config.js?v=26.0.3';
-import { $, root } from '../core/dom.js?v=26.0.3';
-import { state } from '../core/state.js?v=26.0.3';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.3';
-import { start,togglePause } from '../game/session.js?v=26.0.3';
-import { loop } from '../game/loop.js?v=26.0.3';
-import { setFocusMode } from '../input/fullscreen.js?v=26.0.3';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.3';
-import { createMenuBackground } from '../render/menu-background.js?v=26.0.3';
-import { pixelArt } from '../render/sprites.js?v=26.0.3';
+import { weapons } from '../classes/registry.js?v=26.0.4';
+import { audio } from '../core/audio.js?v=26.0.4';
+import { VERSION } from '../core/config.js?v=26.0.4';
+import { $, root } from '../core/dom.js?v=26.0.4';
+import { state } from '../core/state.js?v=26.0.4';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.4';
+import { start,togglePause } from '../game/session.js?v=26.0.4';
+import { loop } from '../game/loop.js?v=26.0.4';
+import { setFocusMode } from '../input/fullscreen.js?v=26.0.4';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.4';
+import { createMenuBackground } from '../render/menu-background.js?v=26.0.4';
+import { pixelArt } from '../render/sprites.js?v=26.0.4';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=26.0.4';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -48,10 +49,17 @@ function revealGame(){
   document.body.classList.remove('menu-open');state.screen='game';
 }
 function effectiveDevice(){if(!MOBILE_CONTROLS_ENABLED)return 'desktop';return settings.device==='auto'?((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'):settings.device;}
-async function launchBattle(){
-  if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
-  $('class').value=model.selectedClass;$('diff').value=model.difficulty;
-  setDeviceMode(effectiveDevice());revealGame();start({ritual:true});
+let launching=null;
+function launchBattle(){
+  if(launching)return launching;
+  const button=byId('menu-launch'),label=button.innerHTML,panel=model.panel;
+  button.disabled=true;button.textContent='Підготовка…';button.setAttribute('aria-busy','true');
+  launching=(async()=>{try{
+    await prepareBattleAssets();if(model.panel!==panel||state.screen!=='menu')return;
+    if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
+    $('class').value=model.selectedClass;$('diff').value=model.difficulty;
+    setDeviceMode(effectiveDevice());revealGame();start({ritual:true});
+  }finally{button.disabled=false;button.innerHTML=label;button.setAttribute('aria-busy','false');launching=null;}})();return launching;
 }
 async function resumeBattle(){
   if(!state.game||state.game.mode!=='paused')return;

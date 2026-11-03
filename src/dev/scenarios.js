@@ -1,7 +1,7 @@
-import {startCastDelay} from '../boss/phases.js?v=26.0.3';
-import {enterCalamitas} from '../boss/phases.js?v=26.0.3';
-import {spawnMaelstrom} from '../boss/maelstrom.js?v=26.0.3';
-import {arena} from '../core/arena.js?v=26.0.3';
+import {startCastDelay} from '../boss/phases.js?v=26.0.4';
+import {enterCalamitas} from '../boss/phases.js?v=26.0.4';
+import {spawnMaelstrom} from '../boss/maelstrom.js?v=26.0.4';
+import {arena} from '../core/arena.js?v=26.0.4';
 
 // Debug entry points use real production phase setup; always call on a fresh game.
 export function configureDebugScenario(g,id){

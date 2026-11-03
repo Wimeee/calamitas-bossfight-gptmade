@@ -1,11 +1,11 @@
-import {relativeActorDistance} from './motion-collision.js?v=26.0.3';
-import {asgardianConfig as c} from '../../config/asgardian.js?v=26.0.3';
-import {possibleTargets} from './targets.js?v=26.0.3';
-import {hitTarget} from './damage.js?v=26.0.3';
-import {segmentDistance} from '../core/math.js?v=26.0.3';
-import {emitAsgardianImpact,emitAsgardianInferno} from '../systems/asgardian-effects.js?v=26.0.3';
-import {damageSepulcherArea} from './sepulcher-damage.js?v=26.0.3';
-import {getSepulcherBlockers,checkSepulcherCollision} from './sepulcher-blocking.js?v=26.0.3';
+import {relativeActorDistance} from './motion-collision.js?v=26.0.4';
+import {asgardianConfig as c} from '../../config/asgardian.js?v=26.0.4';
+import {possibleTargets} from './targets.js?v=26.0.4';
+import {hitTarget} from './damage.js?v=26.0.4';
+import {segmentDistance} from '../core/math.js?v=26.0.4';
+import {emitAsgardianImpact,emitAsgardianInferno} from '../systems/asgardian-effects.js?v=26.0.4';
+import {damageSepulcherArea} from './sepulcher-damage.js?v=26.0.4';
+import {getSepulcherBlockers,checkSepulcherCollision} from './sepulcher-blocking.js?v=26.0.4';
 function canHit(g,t){return t.hp>0&&possibleTargets().includes(t);}
 export function tryAsgardianSlam(g,target,oldX=target.x,oldY=target.y,swept=false,hitElapsed=g.player.aegisDash?.elapsed){
  const p=g.player,a=p.aegisDash;if(!a||hitElapsed>c.slamWindow+1e-10||g.mode!=='playing'||!canHit(g,target)||(a.hits.get(target)||-Infinity)>g.t)return false;

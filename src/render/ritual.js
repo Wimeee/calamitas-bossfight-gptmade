@@ -1,13 +1,13 @@
-import { drawOfficialCalamitas } from './calamitas.js?v=26.0.3';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.0.3';
-import { drawGlowCircle } from './glow-cache.js?v=26.0.3';
-import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=26.0.3';
-import { settings } from '../core/settings.js?v=26.0.3';
-import { ctx } from '../core/dom.js?v=26.0.3';
-import { W,H,TAU } from '../core/config.js?v=26.0.3';
-import { clamp } from '../core/math.js?v=26.0.3';
-import { nearAltar,ritualConfig } from '../game/ritual.js?v=26.0.3';
-import { line,pixel,round,text } from './primitives.js?v=26.0.3';
+import { drawOfficialCalamitas } from './calamitas.js?v=26.0.4';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=26.0.4';
+import { drawGlowCircle } from './glow-cache.js?v=26.0.4';
+import { drawWarriorBody, drawWarriorIdleWeapon } from './warrior.js?v=26.0.4';
+import { settings } from '../core/settings.js?v=26.0.4';
+import { ctx } from '../core/dom.js?v=26.0.4';
+import { W,H,TAU } from '../core/config.js?v=26.0.4';
+import { clamp } from '../core/math.js?v=26.0.4';
+import { nearAltar,ritualConfig } from '../game/ritual.js?v=26.0.4';
+import { line,pixel,round,text } from './primitives.js?v=26.0.4';
 
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 

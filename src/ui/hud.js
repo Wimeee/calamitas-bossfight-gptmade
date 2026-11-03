@@ -1,8 +1,8 @@
-import { movementConfig } from '../../config/movement.js?v=26.0.3';
-import { weapons } from '../classes/registry.js?v=26.0.3';
-import { milestones } from '../core/config.js?v=26.0.3';
-import { $, root } from '../core/dom.js?v=26.0.3';
-import { state } from '../core/state.js?v=26.0.3';
+import { movementConfig } from '../../config/movement.js?v=26.0.4';
+import { weapons } from '../classes/registry.js?v=26.0.4';
+import { milestones } from '../core/config.js?v=26.0.4';
+import { $, root } from '../core/dom.js?v=26.0.4';
+import { state } from '../core/state.js?v=26.0.4';
 
 function syncFlightHUD(g=state.game){
   if(!g)return;
