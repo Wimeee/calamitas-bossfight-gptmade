@@ -1,15 +1,13 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {loadGame}=require('./helpers/fixture.cjs');
-test('desktop-only build ignores old mobile preferences and coarse-pointer detection',async()=>{
- const {t,el,sandbox}=await loadGame();
- sandbox.navigator.maxTouchPoints=5;sandbox.window.matchMedia=()=>({matches:true});
- sandbox.localStorage.setItem('calamitas_device_mode','mobile');
- t.updateSettings({device:'mobile'});t.setDeviceMode('mobile');
- assert.equal(t.state.deviceMode,'desktop');assert.equal(t.settings.device,'desktop');
- assert.equal(el('scal-game').classList.contains('mobile'),false);assert.equal(el('touchcontrols').hidden,true);
- assert.equal(el('mobile-settings').hidden,true);assert.equal(el('setting-device').disabled,true);
- await t.launchBattle();assert.equal(t.state.deviceMode,'desktop');
- t.state.mobileFire=true;t.state.mobileJump=true;t.setDeviceMode('mobile');
- assert.equal(t.state.mobileFire,false);assert.equal(t.state.mobileJump,false);
- assert.equal(t.gameKey({code:'Space'}),'jump');
+test('coarse-pointer phones launch touch controls and reset held actions on menu return',async()=>{
+ const {t,el,sandbox}=await loadGame();sandbox.navigator.maxTouchPoints=5;sandbox.window.matchMedia=q=>({matches:q==='(pointer:coarse)'});t.updateSettings({device:'auto'});await t.launchBattle();
+ assert.equal(t.state.deviceMode,'mobile');assert.equal(el('touchcontrols').hidden,false);assert.equal(el('mobile-settings').hidden,false);
+ t.takeAction('jump');assert.equal(t.state.mobileJump,true);assert.equal(t.state.mobileFlight,true);t.showMenu();assert.equal(t.state.mobileJump,false);assert.equal(t.state.mobileFlight,false);
+});
+test('fine-pointer desktops keep touch controls hidden even with a touchscreen',async()=>{
+ const {t,el,sandbox}=await loadGame();sandbox.navigator.maxTouchPoints=5;sandbox.window.matchMedia=()=>({matches:false});t.updateSettings({device:'auto'});await t.launchBattle();assert.equal(t.state.deviceMode,'desktop');assert.equal(el('touchcontrols').hidden,true);
+});
+test('brothers get20percent less HP while other encounter health stays unchanged',async()=>{
+ const {t}=await loadGame();t.start();t.enter('brothers','bros');const g=t.getGame();assert.equal(g.brothers.length,2);for(const b of g.brothers){assert.equal(b.max,156000);assert.equal(b.hp,b.max);}assert.equal(t.calamitasConfig.heartHP,32400);assert.equal(t.calamitasConfig.seekerHP,14700);
 });

@@ -1,5 +1,5 @@
 // Temporary desktop-only development build. Flip this flag to restore mobile UI/input.
-const MOBILE_CONTROLS_ENABLED = false;
+const MOBILE_CONTROLS_ENABLED = true;
 const STORAGE_KEY = 'utbg_settings_v1';
 const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ',rage:'KeyC',adrenaline:'KeyV'});
 const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:true,touchScale:1,doubleTapDash:true});

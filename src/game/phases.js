@@ -1,4 +1,4 @@
-import { getEncounter } from '../boss/registry.js?v=26.0.6';
+import { getEncounter } from '../boss/registry.js?v=26.1.0';
 
 export function enter(stage,marker,label){getEncounter().enter(stage,marker,label);}
 

@@ -1,10 +1,10 @@
-import { calamitasSamples } from './sample-audio.js?v=26.0.6';
-import { meleeSamples } from './sample-audio.js?v=26.0.6';
-import { minionAudio } from '../render/minion-audio.js?v=26.0.6';
-import { state } from './state.js?v=26.0.6';
-import { battleMusic } from './battle-music.js?v=26.0.6';
-import { settings,updateSettings,subscribeSettings } from './settings.js?v=26.0.6';
-import { $ } from './dom.js?v=26.0.6';
+import { calamitasSamples } from './sample-audio.js?v=26.1.0';
+import { meleeSamples } from './sample-audio.js?v=26.1.0';
+import { minionAudio } from '../render/minion-audio.js?v=26.1.0';
+import { state } from './state.js?v=26.1.0';
+import { battleMusic } from './battle-music.js?v=26.1.0';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=26.1.0';
+import { $ } from './dom.js?v=26.1.0';
 
 const audio={
   ctx:null,

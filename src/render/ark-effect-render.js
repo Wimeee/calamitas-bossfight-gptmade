@@ -1,8 +1,8 @@
-import {ctx} from '../core/dom.js?v=26.0.6';
-import {circleVisible} from './visibility.js?v=26.0.6';
-import {settings} from '../core/settings.js?v=26.0.6';
-import {arkParticlePose} from '../systems/ark-effects.js?v=26.0.6';
-import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.0.6';
+import {ctx} from '../core/dom.js?v=26.1.0';
+import {circleVisible} from './visibility.js?v=26.1.0';
+import {settings} from '../core/settings.js?v=26.1.0';
+import {arkParticlePose} from '../systems/ark-effects.js?v=26.1.0';
+import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=26.1.0';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=frame?arkFrameTexture(name,color,frame):arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;

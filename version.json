@@ -1,4 +1,4 @@
 {
-  "version": "26.0.6",
-  "notes": "Skip fully offscreen native effects and projectile sprites"
+  "version": "26.1.0",
+  "notes": "Add mobile touch beta and reduce brothers health by20percent"
 }

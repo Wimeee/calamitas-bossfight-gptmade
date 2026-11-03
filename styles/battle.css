@@ -110,6 +110,23 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game.desktop-only #touchcontrols,
 #scal-game.desktop-only .device-controls{display:none!important}
 
+/* Touch beta: primary actions stay under the right thumb; hold jump to fly. */
+#scal-game.focus-mode.mobile .status,#scal-game.focus-mode.mobile .quick{display:none}
+#scal-game.focus-mode.mobile .touch{inset:0}
+#scal-game.focus-mode.mobile .mobile-actions{width:clamp(198px,29vw,246px);right:max(10px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"rage adrenaline auto" "heal regen pause" "target jump dash" "fire fire fire";gap:6px}
+#scal-game.focus-mode.mobile .mobile-actions button{height:44px!important;min-height:44px!important;min-width:0;font-size:9px;line-height:1.12;white-space:normal!important;overflow:hidden;overflow-wrap:anywhere;touch-action:none;user-select:none;-webkit-user-select:none}
+#scal-game.focus-mode.mobile [data-mobile-action="flight"],#scal-game.focus-mode.mobile [data-mobile-action="fullscreen"]{display:none}
+#scal-game.focus-mode.mobile [data-mobile-action="fire"]{grid-area:fire}
+#scal-game.focus-mode.mobile [data-mobile-action="jump"]{grid-area:jump}
+#scal-game.focus-mode.mobile [data-mobile-action="dash"]{grid-area:dash}
+#scal-game.focus-mode.mobile [data-mobile-action="target"]{grid-area:target}
+#scal-game.focus-mode.mobile [data-mobile-action="heal"]{grid-area:heal}
+#scal-game.focus-mode.mobile [data-mobile-action="regen"]{grid-area:regen}
+#scal-game.focus-mode.mobile [data-mobile-action="rage"]{grid-area:rage}
+#scal-game.focus-mode.mobile [data-mobile-action="adrenaline"]{grid-area:adrenaline}
+#scal-game.focus-mode.mobile [data-mobile-action="auto"]{grid-area:auto}
+#scal-game.focus-mode.mobile [data-mobile-action="pause"]{grid-area:pause}
+#scal-game.focus-mode.mobile .stick-area:first-child{left:max(12px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom))}
 /* Native canvas HUD owns HP and MP; legacy DOM values stay available to assistive tools. */
 #scal-game .status>div:not(.number){position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%)}
 #scal-game .status{grid-template-columns:1fr}

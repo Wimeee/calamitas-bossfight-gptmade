@@ -3,7 +3,7 @@ export const calamitasConfig = Object.freeze({
   hp: 750000, radius: 30, spawnX: 500, spawnY: 150,
   // Local helper durability tuning: 3x HP to match the browser build's stronger attacks.
   // This is a pacing adaptation, not an original Calamity NPC stat.
-  heartHP: 32400, brotherHP: 195000, seekerHP: 14700,
+  heartHP: 32400, brotherHP: 156000, seekerHP: 14700,
   thresholds: Object.freeze({hell2: .75, hell3: .50, phase2: .40, maelstrom: .30, seekers: .20, hell5: .10}),
   opening: Object.freeze({stage: 'hell', marker: 'opening', label: 'BULLET HELL I'}),
   attackSequence: Object.freeze(['darts','hellblast','giga2','dash2','dash2','giga2','hellblast','darts','dash2','darts','hellblast','giga2','giga2','hellblast','dash2','darts','giga2','giga2','dash2','dash2','darts','dash2','darts','dash2']),

@@ -1,16 +1,16 @@
-import { weapons } from '../classes/registry.js?v=26.0.6';
-import { audio } from '../core/audio.js?v=26.0.6';
-import { VERSION } from '../core/config.js?v=26.0.6';
-import { $, root } from '../core/dom.js?v=26.0.6';
-import { state } from '../core/state.js?v=26.0.6';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.0.6';
-import { start,togglePause } from '../game/session.js?v=26.0.6';
-import { loop } from '../game/loop.js?v=26.0.6';
-import { setFocusMode } from '../input/fullscreen.js?v=26.0.6';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.0.6';
-import { createMenuBackground } from '../render/menu-background.js?v=26.0.6';
-import { pixelArt } from '../render/sprites.js?v=26.0.6';
-import {prepareBattleAssets} from '../core/battle-assets.js?v=26.0.6';
+import { weapons } from '../classes/registry.js?v=26.1.0';
+import { audio } from '../core/audio.js?v=26.1.0';
+import { VERSION } from '../core/config.js?v=26.1.0';
+import { $, root } from '../core/dom.js?v=26.1.0';
+import { state } from '../core/state.js?v=26.1.0';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey } from '../core/settings.js?v=26.1.0';
+import { start,togglePause } from '../game/session.js?v=26.1.0';
+import { loop } from '../game/loop.js?v=26.1.0';
+import { setFocusMode } from '../input/fullscreen.js?v=26.1.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=26.1.0';
+import { createMenuBackground } from '../render/menu-background.js?v=26.1.0';
+import { pixelArt } from '../render/sprites.js?v=26.1.0';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=26.1.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
@@ -48,7 +48,7 @@ function revealGame(){
   model.background?.stop();byId('title-menu').hidden=true;root.hidden=false;
   document.body.classList.remove('menu-open');state.screen='game';
 }
-function effectiveDevice(){if(!MOBILE_CONTROLS_ENABLED)return 'desktop';return settings.device==='auto'?((window.matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0)?'mobile':'desktop'):settings.device;}
+function effectiveDevice(){if(!MOBILE_CONTROLS_ENABLED)return 'desktop';return settings.device==='auto'?(window.matchMedia('(pointer:coarse)').matches?'mobile':'desktop'):settings.device;}
 let launching=null;
 function launchBattle(){
   if(launching)return launching;

@@ -1,18 +1,18 @@
-import { activateRipper } from '../systems/rippers.js?v=26.0.6';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.0.6';
-import { queueJump } from '../game/movement.js?v=26.0.6';
-import { releaseArk } from '../classes/melee.js?v=26.0.6';
-import { classAbility } from '../classes/shared.js?v=26.0.6';
-import { markCosmicTarget } from '../classes/summoner.js?v=26.0.6';
-import { shoot } from '../combat/attacks.js?v=26.0.6';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.0.6';
-import { possibleTargets } from '../combat/targets.js?v=26.0.6';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=26.0.6';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.0.6';
-import { $, canvas, root } from '../core/dom.js?v=26.0.6';
-import { clamp, norm } from '../core/math.js?v=26.0.6';
-import { state } from '../core/state.js?v=26.0.6';
-import { togglePause } from '../game/session.js?v=26.0.6';
+import { activateRipper } from '../systems/rippers.js?v=26.1.0';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint } from '../core/settings.js?v=26.1.0';
+import { queueJump } from '../game/movement.js?v=26.1.0';
+import { releaseArk } from '../classes/melee.js?v=26.1.0';
+import { classAbility } from '../classes/shared.js?v=26.1.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=26.1.0';
+import { shoot } from '../combat/attacks.js?v=26.1.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=26.1.0';
+import { possibleTargets } from '../combat/targets.js?v=26.1.0';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=26.1.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=26.1.0';
+import { $, canvas, root } from '../core/dom.js?v=26.1.0';
+import { clamp, norm } from '../core/math.js?v=26.1.0';
+import { state } from '../core/state.js?v=26.1.0';
+import { togglePause } from '../game/session.js?v=26.1.0';
 
 let mobileAimTouch=null;
 
@@ -157,7 +157,7 @@ const takeAction=action=>{
   else
   if(action==='menu')$('device').scrollIntoView({block:'start',behavior:'smooth'});
   else
-  if(action==='jump'){state.mobileJump=true;queueJump();}else
+  if(action==='jump'){state.mobileJump=true;state.mobileFlight=true;queueJump();}else
   if(action==='flight'){state.mobileFlight=true;queueJump();}else
   if(action==='dash')dash();else
   if(action==='heal')heal();else
@@ -243,7 +243,7 @@ function initializeMobile(){
       };
       const release=()=>{
         b.classList.remove('held');
-        if(action==='jump')state.mobileJump=false;
+        if(action==='jump'){state.mobileJump=false;state.mobileFlight=false;}
         if(action==='flight')state.mobileFlight=false;
         if(action==='fire'){
           state.mobileFire=false;

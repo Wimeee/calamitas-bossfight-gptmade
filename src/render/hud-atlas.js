@@ -1,5 +1,5 @@
-import {translate} from '../core/localization.js?v=26.0.6';
-import { hudFonts } from '../../config/hud-fonts.js?v=26.0.6';
+import {translate} from '../core/localization.js?v=26.1.0';
+import { hudFonts } from '../../config/hud-fonts.js?v=26.1.0';
 const names=['ragePulse','rageDust','adrenDust','ripperLight','rage','rageBorder','rageFull','adrenaline','adrenalineBorder','adrenalineBorderFull','adrenalineFull','bossMain','bossCombo','bossSeparator','hex','Panel_Left','HP_Panel_Middle','HP_Panel_Right','HP_Fill','MP_Panel_Middle','MP_Panel_Right','MP_Fill'];
 const images=new Map(),tints=new Map();let loading;
 export const hudAssetStatus={state:'idle',loaded:0,failed:0};

@@ -26,9 +26,9 @@ test('settings validate, persist, reset and support real rebinding without movin
   t.resetSettings();assert.equal(t.settings.bindings.dash,'ShiftLeft');assert.equal(t.settings.autoAim,true);assert.equal(t.settings.musicEnabled,true);
 });
 
-test('menu blocks game hotkeys and retained aiming preferences survive desktop-only battle start',async()=>{
+test('menu blocks game hotkeys and retains explicitly selected mobile aiming preferences',async()=>{
   const {t}=await loadGame();t.selectClass('ranger');t.updateSettings({device:'mobile',autoAim:false});await t.launchBattle();
-  assert.equal(t.state.deviceMode,'desktop');assert.equal(t.state.mobileAutoAim,false);
+  assert.equal(t.state.deviceMode,'mobile');assert.equal(t.state.mobileAutoAim,false);
   t.showMenu();const game=t.getGame();t.kd({code:'KeyR',target:{tagName:'BODY'},preventDefault(){throw Error('Menu hotkey was handled by game');}});assert.equal(t.getGame(),game);assert.equal(game.mode,'paused');
 });
 

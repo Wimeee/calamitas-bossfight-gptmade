@@ -1,5 +1,7 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+["ПК і телефон · Українська / English","PC and mobile · Ukrainian / English"],
+["↥ СТРИБОК / ПОЛІТ","↥ JUMP / FLY"],
 ["Підготовка…","Preparing…"],
 ["Найнижчий FPS","Lowest FPS"],
 ["Показувати FPS і найнижчий FPS","Show FPS and lowest FPS"],

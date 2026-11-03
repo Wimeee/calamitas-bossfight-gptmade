@@ -54,7 +54,7 @@ test('double-tap, mouse dash, Space migration and mobile jump keep their separat
   assert.ok(g.player.arkParry);assert.equal(t.getPointer().fire,false,'right click activates ability without holding primary');
   if(t.MOBILE_CONTROLS_ENABLED){
   t.start();g=t.getGame();t.setDeviceMode('mobile');t.takeAction('jump');advance(t,g,.1);assert.ok(g.player.vy<0);
-  advance(t,g,.2);assert.equal(g.player.flightRemaining,6,'jump button does not consume wings');
+  advance(t,g,.2);assert.ok(g.player.flightRemaining<6,'holding jump engages wings');t.resetTouchInput();assert.equal(t.state.mobileFlight,false);
   t.resetTouchInput();assert.equal(t.state.mobileJump,false);t.takeAction('flight');advance(t,g,.1);assert.ok(g.player.flightRemaining<6);
   }
 });
