@@ -1,14 +1,15 @@
-import { updateCamera } from '../world/camera.js?v=26.2.1';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=26.2.1';
-import { getTerrain } from '../world/terrain.js?v=26.2.1';
-import { playerConfig } from '../../config/player.js?v=26.2.1';
-import { getEncounter } from '../boss/registry.js?v=26.2.1';
-import { audio } from '../core/audio.js?v=26.2.1';
-import { $ } from '../core/dom.js?v=26.2.1';
-import { state } from '../core/state.js?v=26.2.1';
-import { resetTouchInput } from '../input/mobile.js?v=26.2.1';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=26.2.1';
-import { enter } from './phases.js?v=26.2.1';
+import { updateCamera } from '../world/camera.js?v=26.3.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=26.3.0';
+import { getTerrain } from '../world/terrain.js?v=26.3.0';
+import { playerConfig } from '../../config/player.js?v=26.3.0';
+import { getEncounter } from '../boss/registry.js?v=26.3.0';
+import { audio } from '../core/audio.js?v=26.3.0';
+import { $ } from '../core/dom.js?v=26.3.0';
+import { state } from '../core/state.js?v=26.3.0';
+import { resetTouchInput } from '../input/mobile.js?v=26.3.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=26.3.0';
+import { enter } from './phases.js?v=26.3.0';
+import {settings,defaults,updateSettings} from '../core/settings.js?v=26.3.0';
 
 export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,duration:6.4,skipAfter:.8});
 
@@ -29,6 +30,11 @@ function setControl(id,property,value){
 
 export function syncRitualControls(){
   const g=state.game,r=g?.ritual,active=!!r&&g.mode==='playing';
+  const adjustable=active&&r.phase==='preparation',zoom=settings[state.deviceMode==='mobile'?'cameraZoomMobile':'cameraZoomDesktop'];
+  setControl('camera-preview','hidden',!adjustable);
+  setControl('camera-zoom','disabled',!adjustable);
+  setControl('camera-zoom','value',String(Math.round(zoom*100)));
+  setControl('camera-zoom-value','textContent',Math.round(zoom*100)+'%');
   setControl('ritual-controls','hidden',!r);
   setControl('ritual-summon','hidden',!r||r.phase!=='preparation');
   setControl('ritual-summon','disabled',!active||!nearAltar(g));
@@ -102,6 +108,11 @@ export function updateRitual(dt){
 }
 
 export function initializeRitual(){
+  const adjust=value=>{if(state.game?.mode!=='playing'||state.game.ritual?.phase!=='preparation')return;const key=state.deviceMode==='mobile'?'cameraZoomMobile':'cameraZoomDesktop';updateSettings({[key]:value});syncRitualControls();};
+  $('camera-zoom').addEventListener('input',e=>adjust(Number($('camera-zoom').value)/100));
+  $('camera-zoom').addEventListener('pointerup',()=>$('camera-zoom').blur?.());
+  $('camera-zoom-reset').addEventListener('click',()=>adjust(defaults[state.deviceMode==='mobile'?'cameraZoomMobile':'cameraZoomDesktop']));
+  $('camera-zoom-reset').addEventListener('keydown',e=>{if(e.code==='Enter'||e.code==='Space')e.stopPropagation();});
   $('ritual-summon').addEventListener('click',beginRitual);
   $('ritual-skip').addEventListener('click',skipRitual);
   syncRitualControls();

@@ -1,12 +1,13 @@
-import {state} from './state.js?v=26.2.1';
+import {state} from './state.js?v=26.3.0';
 // Touch input is available on phones; desktop input remains selected for fine pointers.
 const MOBILE_CONTROLS_ENABLED = true;
 const STORAGE_KEY = 'utbg_settings_v1';
 const defaultBindings = Object.freeze({dash:'ShiftLeft',heal:'KeyH',regen:'KeyB',pause:'KeyP',restart:'KeyR',attack:'KeyJ',rage:'KeyC',adrenaline:'KeyV'});
-const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:false,touchScale:1,doubleTapDash:true});
+const defaults = Object.freeze({sfxVolume:.55,musicVolume:.35,sfxEnabled:true,musicEnabled:true,quality:'high',screenShake:false,showFPS:true,device:MOBILE_CONTROLS_ENABLED?'auto':'desktop',autoAim:false,cameraZoomDesktop:.85,cameraZoomMobile:1.25,touchScale:1,doubleTapDash:true});
 const listeners = new Set();
 function cleanSettings(value = {}) {
   const number = (name, fallback) => typeof value[name] === 'number' && Number.isFinite(value[name]) ? Math.max(0,Math.min(1,value[name])) : fallback;
+  const zoom=name=>typeof value[name]==='number'&&Number.isFinite(value[name])?Math.max(.5,Math.min(1.75,value[name])):defaults[name];
   const bindings = {...defaultBindings};
   for (const name of Object.keys(bindings)){
     const code=value.bindings?.[name];
@@ -34,6 +35,7 @@ function cleanSettings(value = {}) {
     autoAim:typeof value.autoAim==='boolean'?value.autoAim:defaults.autoAim,
     doubleTapDash:typeof value.doubleTapDash==='boolean'?value.doubleTapDash:defaults.doubleTapDash,
     touchScale:[.9,1,1.12].includes(value.touchScale)?value.touchScale:defaults.touchScale,
+    cameraZoomDesktop:zoom('cameraZoomDesktop'),cameraZoomMobile:zoom('cameraZoomMobile'),
     bindings
   };
 }

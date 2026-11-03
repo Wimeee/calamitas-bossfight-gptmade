@@ -95,6 +95,13 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game .battle-heading img{filter:none}
 
 /* v21: keep summon/skip controls above the ground-level altar. */
+#scal-game .ritual-controls{display:flex;flex-direction:column;align-items:center;gap:7px}
+#scal-game .camera-preview{width:min(230px,72vw);padding:5px 10px 7px;background:#100b12b8;border:1px solid #ad825340;border-radius:3px;color:#e5cba8;font:10px system-ui;box-sizing:border-box;touch-action:pan-y}
+#scal-game .camera-preview-title{display:flex;align-items:center;gap:8px}
+#scal-game .camera-preview-title output{margin-left:auto;font-variant-numeric:tabular-nums}
+#scal-game .camera-preview .camera-preview-title button{min-height:28px;height:28px;width:28px;padding:0;font-size:16px;box-shadow:none;border:0;background:transparent}
+#scal-game #camera-zoom{width:100%;height:26px;margin:0;accent-color:#d99c65;touch-action:none;cursor:ew-resize}
+#scal-game .camera-preview-ends{display:flex;justify-content:space-between;font-size:8px;opacity:.6}
 #scal-game .ritual-controls{top:8%;bottom:auto}
 
 /* Game-only view: the arena fills the available viewport without the page artwork. */

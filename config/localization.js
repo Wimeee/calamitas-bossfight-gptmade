@@ -1,5 +1,6 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+["Масштаб камери","Camera zoom"],["Скинути масштаб камери","Reset camera zoom"],["Далі","Farther"],["Ближче","Closer"],
 ["На телефоні графіка автоматично полегшена з ціллю 60 FPS. Вибір якості — для ПК.","Mobile automatically uses lighter graphics targeting 60 FPS. The quality selection applies to PC."],
 ["Лівий стік — рух і політ. Правий — приціл та атака.","Left stick: move and fly. Right stick: aim and attack."],
 ["✥ РУХ · ↑ ПОЛІТ","✥ MOVE · ↑ FLY"],["✦ ПРИЦІЛ / АТАКА","✦ AIM / ATTACK"],

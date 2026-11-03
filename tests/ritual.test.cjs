@@ -5,9 +5,9 @@ const {loadGame}=require('./helpers/fixture.cjs');
 test('idle preparation does not rewrite DOM attributes each frame',async()=>{
   const {t,el}=await loadGame();t.start({ritual:true});
   let writes=0;
-  for(const id of ['ritual-controls','ritual-summon','ritual-skip']){
+  for(const id of ['ritual-controls','ritual-summon','ritual-skip','camera-preview','camera-zoom','camera-zoom-value']){
     const element=el(id);
-    for(const property of ['hidden','disabled','textContent']){
+    for(const property of ['hidden','disabled','textContent','value']){
       let value=element[property];
       Object.defineProperty(element,property,{get:()=>value,set:next=>{writes++;value=next;}});
     }

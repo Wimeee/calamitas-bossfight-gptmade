@@ -1,9 +1,16 @@
-import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.2.1';
-import { arena } from '../core/arena.js?v=26.2.1';
-import { state } from '../core/state.js?v=26.2.1';
-import { clamp } from '../core/math.js?v=26.2.1';
+import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=26.3.0';
+import { arena } from '../core/arena.js?v=26.3.0';
+import { state } from '../core/state.js?v=26.3.0';
+import { clamp } from '../core/math.js?v=26.3.0';
+import {settings,subscribeSettings} from '../core/settings.js?v=26.3.0';
 
-export function defaultCameraZoom(){return ZOOM_DEFAULT*(state.deviceMode==='mobile'?1.25:.85);}
+export function defaultCameraZoom(){return ZOOM_DEFAULT*(state.deviceMode==='mobile'?settings.cameraZoomMobile:settings.cameraZoomDesktop);}
+let previousDesktopZoom=settings.cameraZoomDesktop,previousMobileZoom=settings.cameraZoomMobile;
+subscribeSettings(next=>{
+  const changed=state.deviceMode==='mobile'?next.cameraZoomMobile!==previousMobileZoom:next.cameraZoomDesktop!==previousDesktopZoom;
+  previousDesktopZoom=next.cameraZoomDesktop;previousMobileZoom=next.cameraZoomMobile;
+  if(changed&&state.game?.camera){state.game.camera.zoom=defaultCameraZoom();updateCamera(state.game,0);}
+});
 function getZoom(g) {
   const z = g?.camera?.zoom;
   return Number.isFinite(z) ? clamp(z, ZOOM_MIN, ZOOM_MAX) : defaultCameraZoom();

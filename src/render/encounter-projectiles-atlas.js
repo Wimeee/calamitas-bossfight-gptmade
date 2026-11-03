@@ -1,5 +1,5 @@
-import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=26.2.1';
-import {circleVisible} from './visibility.js?v=26.2.1';
+import { encounterProjectiles as spec } from '../../config/encounter-projectiles.js?v=26.3.0';
+import {circleVisible} from './visibility.js?v=26.3.0';
 
 const images = new Map();
 let ready = null;

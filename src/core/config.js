@@ -1,4 +1,4 @@
-import { calamitasConfig } from '../../config/calamitas.js?v=26.2.1';
+import { calamitasConfig } from '../../config/calamitas.js?v=26.3.0';
 let W=1200;
 
 let H=720;
@@ -30,7 +30,7 @@ const milestones=[
 
 const seq=calamitasConfig.attackSequence;
 
-const VERSION='26.2.1';
+const VERSION='26.3.0';
 
 
 export { W, H, TAU, VIEW_X, VIEW_Y, ARENA_SCALE, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX, milestones, seq, VERSION };

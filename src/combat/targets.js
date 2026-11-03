@@ -1,4 +1,4 @@
-import { state } from '../core/state.js?v=26.2.1';
+import { state } from '../core/state.js?v=26.3.0';
 
 
 function attackTarget(){
