@@ -1,4 +1,4 @@
-import {audio} from '../core/audio.js?v=29.0.1';
+import {audio} from '../core/audio.js?v=29.1.0';
 const LIMIT=256;
 function random(g){let n=g.aegisFxSeed??0x6a7f98d;n^=n<<13;n^=n>>>17;n^=n<<5;g.aegisFxSeed=n>>>0;return(n>>>0)/4294967296;}
 function add(g,p,born=g.t){const list=g.aegisEffects??=[];if(list.length>=LIMIT)list.shift();list.push({vx:0,vy:0,rotation:0,...p,born});}

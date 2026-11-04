@@ -56,7 +56,7 @@ test('ritual natural completion, pause/menu lifecycle and touch controls',async(
   t.showMenu();assert.equal(t.state.screen,'menu');assert.equal(g.mode,'paused');
   await t.resumeBattle();assert.equal(t.state.game,g);assert.equal(g.mode,'playing');
   t.update(1.9);t.draw(g);assert.equal(g.stage,'ritual');
-  t.update(1.2);assert.equal(g.stage,'hell');assert.equal(g.phaseN,1);assert.equal(g.t,0);
+  t.update(t.ritualConfig.duration-g.ritual.elapsed+.01);assert.equal(g.stage,'hell');assert.equal(g.phaseN,1);assert.equal(g.t,0);
   t.update(.02);assert.equal(g.totalTime,.02);
   t.start({ritual:true});t.getGame().player.x=500;
   el('ritual-summon').listeners.click[0]();t.update(1);

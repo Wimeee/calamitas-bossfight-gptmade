@@ -1,12 +1,12 @@
-import { W,H,TAU } from '../core/config.js?v=29.0.1';
-import {summonerImage} from './summoner.js?v=29.0.1';
-import {mageImage} from './mage.js?v=29.0.1';
-import {photoImage} from './ranger.js?v=29.0.1';
-import { ctx } from '../core/dom.js?v=29.0.1';
-import { cameraView } from '../world/camera.js?v=29.0.1';
-import { clamp } from '../core/math.js?v=29.0.1';
-import { settings,keyLabel } from '../core/settings.js?v=29.0.1';
-import { hudImage,paintHUD,nativeText,nativeTextWidth } from './hud-atlas.js?v=29.0.1';
+import { W,H,TAU } from '../core/config.js?v=29.1.0';
+import {summonerImage} from './summoner.js?v=29.1.0';
+import {mageImage} from './mage.js?v=29.1.0';
+import {photoImage} from './ranger.js?v=29.1.0';
+import { ctx } from '../core/dom.js?v=29.1.0';
+import { cameraView } from '../world/camera.js?v=29.1.0';
+import { clamp } from '../core/math.js?v=29.1.0';
+import { settings,keyLabel } from '../core/settings.js?v=29.1.0';
+import { hudImage,paintHUD,nativeText,nativeTextWidth } from './hud-atlas.js?v=29.1.0';
 
 export function battleHUDLayout(){return{hp:{x:W-320,y:15,w:300,h:40},mana:{x:W-320,y:49,w:300,h:40},boss:{x:W-365,y:H-72,w:345,h:54},rage:{x:36,y:20,w:104,h:40},adrenaline:{x:36,y:68,w:104,h:40}};}
 export function playerDebuffPoint(g){const v=cameraView(g),z=v.zoom||1;return{x:clamp((g.player.x-v.x)*z,22,W-22),y:clamp((g.player.y-v.y)*z+40,105,H-110)};}

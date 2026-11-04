@@ -1,10 +1,10 @@
-import {summonerConfig as C} from '../../config/summoner.js?v=29.0.1';
-import {possibleTargets} from '../combat/targets.js?v=29.0.1';
-import {hitTarget} from '../combat/damage.js?v=29.0.1';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.0.1';
-import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=29.0.1';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.0.1';
-import {audio} from '../core/audio.js?v=29.0.1';
+import {summonerConfig as C} from '../../config/summoner.js?v=29.1.0';
+import {possibleTargets} from '../combat/targets.js?v=29.1.0';
+import {hitTarget} from '../combat/damage.js?v=29.1.0';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.1.0';
+import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=29.1.0';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.1.0';
+import {audio} from '../core/audio.js?v=29.1.0';
 export function summonTarget(g,x,y,range,manhattan=false){const targets=possibleTargets().filter(t=>t.hp>0),mark=g.player.cosmicMark;if(mark&&targets.includes(mark)&&Math.hypot(mark.x-x,mark.y-y)<range)return mark;let best=null;for(const t of targets){const d=manhattan?Math.abs(t.x-x)+Math.abs(t.y-y):Math.hypot(t.x-x,t.y-y);if(d<range){range=d;best=t;}}return best;}
 export function summonPulse(k,kind,x,y,r=32){k.pulses.push({kind,x,y,r,at:k.clock,id:++k.effectId});if(k.pulses.length>48)k.pulses.shift();}
 export function summonHit(g,k,q,t,proc=true){

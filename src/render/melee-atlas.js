@@ -1,9 +1,9 @@
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=29.0.1';
-import { ctx } from '../core/dom.js?v=29.0.1';
-import { prepareWarriorTrails } from './warrior-trails.js?v=29.0.1';
-import { initializeNativeArk } from './ark-native.js?v=29.0.1';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=29.1.0';
+import { ctx } from '../core/dom.js?v=29.1.0';
+import { prepareWarriorTrails } from './warrior-trails.js?v=29.1.0';
+import { initializeNativeArk } from './ark-native.js?v=29.1.0';
 
-import { initializeNativeArmor } from './native-armor.js?v=29.0.1';
+import { initializeNativeArmor } from './native-armor.js?v=29.1.0';
 
 const cache={body:null,ark:null,wings:null,rendingNeedle:null,galaxiaBolt:null};
 let loading;
@@ -83,7 +83,7 @@ export function initializeMeleeAtlas(){
       }catch{resolve(false);}
     };
     image.onerror=()=>resolve(false);
-    image.src=new URL('../../assets/'+directory+'/'+name+'?v=29.0.1',import.meta.url).href;
+    image.src=new URL('../../assets/'+directory+'/'+name+'?v=29.1.0',import.meta.url).href;
   });
   loading=Promise.all([
     load('body','armor-source.png','melee'),

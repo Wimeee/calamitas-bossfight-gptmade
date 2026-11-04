@@ -1,17 +1,18 @@
-import { updateCamera } from '../world/camera.js?v=29.0.1';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=29.0.1';
-import { getTerrain } from '../world/terrain.js?v=29.0.1';
-import { playerConfig } from '../../config/player.js?v=29.0.1';
-import { getEncounter } from '../boss/registry.js?v=29.0.1';
-import { audio } from '../core/audio.js?v=29.0.1';
-import { $ } from '../core/dom.js?v=29.0.1';
-import { state } from '../core/state.js?v=29.0.1';
-import { resetTouchInput } from '../input/mobile.js?v=29.0.1';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=29.0.1';
-import { enter } from './phases.js?v=29.0.1';
-import {settings,defaults,updateSettings} from '../core/settings.js?v=29.0.1';
+import { updateCamera } from '../world/camera.js?v=29.1.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=29.1.0';
+import { getTerrain } from '../world/terrain.js?v=29.1.0';
+import { playerConfig } from '../../config/player.js?v=29.1.0';
+import { getEncounter } from '../boss/registry.js?v=29.1.0';
+import { audio } from '../core/audio.js?v=29.1.0';
+import { $ } from '../core/dom.js?v=29.1.0';
+import { state } from '../core/state.js?v=29.1.0';
+import { resetTouchInput } from '../input/mobile.js?v=29.1.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=29.1.0';
+import { enter } from './phases.js?v=29.1.0';
+import {settings,defaults,updateSettings} from '../core/settings.js?v=29.1.0';
+import {infernumIntroState} from './intro-timeline.js?v=29.1.0';
 
-export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,duration:6.4,skipAfter:.8});
+export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,spawnAt:270/60,duration:(270+300)/60,skipAfter:.8});
 
 function clearRitualInput(){
   state.keys={};
@@ -102,6 +103,8 @@ export function updateRitual(dt){
   }else{
     r.elapsed+=dt;
     if(!r.laughPlayed&&r.elapsed>=4.5){r.laughPlayed=true;audio.stopCalamitas('altar');audio.calamitas('laugh',g);}
+    const letters=infernumIntroState(r.elapsed-ritualConfig.spawnAt).letters;
+    if(letters>(r.titleLetters||0)){r.titleLetters=letters;audio.calamitas('introLetter',g);}
     if(r.elapsed>=ritualConfig.duration){completeRitual();return;}
   }
   syncRitualControls();

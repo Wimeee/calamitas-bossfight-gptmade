@@ -1,0 +1,32 @@
+{
+  "infernumCommit": "399342f1d21dba29de5576f251ab95a02eaeb449",
+  "calamityCodeCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "localArtVersion": "2.2.4",
+  "files": [
+    {
+      "file": "intro-0.png",
+      "source": "InfernumMode/Assets/Fonts/BossIntroScreensFont.xnb",
+      "sha256": "2b62b02026ebf16610b9016e229fb7e786a8ba4d8bda6ea78c438cd1f1abeb8d"
+    },
+    {
+      "file": "intro-3.png",
+      "source": "InfernumMode/Assets/Fonts/BossIntroScreensFont.xnb",
+      "sha256": "5caa31902d3732fb3691b1ac7899773ab95098942ca5787d51db71c7282eb5ee"
+    },
+    {
+      "file": "intro-20.png",
+      "source": "InfernumMode/Assets/Fonts/BossIntroScreensFont.xnb",
+      "sha256": "0f1a8ef818068e40fb6ad43aaf9b66456df12a9a5823728974503022bfad0402"
+    },
+    {
+      "file": "cover.png",
+      "source": "NPCs/ExoMechs/Thanatos/THanosAura.rawimg",
+      "sha256": "f11b5be05404feecc0bb1edcef8f59d070ddb4722261a9aef0cd0571f12a3412"
+    },
+    {
+      "file": "perlin.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Misc/Perlin.xnb",
+      "sha256": "cc1f1ae41b1a31b46f4e98856ceb7d2a1fb9ed87d3215178c6d4d0188acc0eeb"
+    }
+  ]
+}

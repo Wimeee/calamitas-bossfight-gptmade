@@ -33,7 +33,7 @@ test('sample sound decodes once, gates overlap, follows SFX settings and refuses
  const ctx={currentTime:0,decodeAudioData:async()=>{decodes++;return {};},createGain(){const node={gain:{value:0,setTargetAtTime(value){this.value=value;}},connect(){},disconnect(){}};gains.push(node);return node;},
  createBufferSource(){return {connect(){},disconnect(){},start(){starts++;},stop(){stops++;this.onended?.();}};}};
  const sample=t.createCalamitasAudio({fetcher:async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(10)})});
- await sample.initialize(ctx,{});assert.equal(decodes,6);await sample.initialize(ctx,{});assert.equal(decodes,6);
+ await sample.initialize(ctx,{});assert.equal(decodes,7);await sample.initialize(ctx,{});assert.equal(decodes,7);
  assert.equal(sample.play('dash',g),true);assert.equal(sample.play('dash',g),true);assert.equal(starts,1);
  ctx.currentTime=.2;sample.play('dash',g);assert.equal(starts,2);
  t.updateSettings({sfxVolume:.3});assert.equal(gains[0].gain.value,.3);

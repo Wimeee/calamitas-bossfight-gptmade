@@ -1,4 +1,4 @@
-import { playerConfig } from './player.js?v=29.0.1';
+import { playerConfig } from './player.js?v=29.1.0';
 
 export const movementConfig=Object.freeze({
   halfWidth:10,halfHeight:18,runSpeed:playerConfig.movementSpeed,acceleration:3400,braking:4200,airBraking:2200,

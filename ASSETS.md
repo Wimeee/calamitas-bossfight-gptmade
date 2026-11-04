@@ -26,3 +26,6 @@ Native selected Calamity2.2.4 RGBA particles/masks in assets/ark-vfx/ and Aegis 
 # Mage / Void Vortex (2026-11-04)
 
 `assets/mage-original/` contains losslessly converted original Calamity Void Vortex item/projectile artwork, Auric Tesla magic head, pulse/bloom textures and AuricBulletHit audio; original Terraria Item20/Item3 sounds, Super Mana Potion and Mana Sickness icons. Owners remain Calamity Mod contributors and Re-Logic. No AI replacement artwork/audio. Source paths, dimensions and SHA256 hashes are in adjacent `provenance.json`. Mechanics reference official Calamity commit `1a8cebd27ec5615316b78f71973446b5528d2b78` (code2.2.2) with installed art2.2.4; see `work/MAGE-V27-RESULT.md` for explicit adaptation boundaries. This remains an unofficial fan project.
+# Infernum-style introduction
+
+Original Infernum Team BossIntroScreensFont bitmap font (three retained pages, UK/EN glyph metrics), reference sequence and letter shader from [InfernumMode](https://github.com/InfernumTeam/InfernumMode/tree/399342f1d21dba29de5576f251ab95a02eaeb449). Original Calamity THanosAura cover, Terraria Perlin and Item100 PCM; hashes/source paths in assets/intro-original/provenance.json. Canvas shader/particles are browser adaptations. Infernum Team supplied original resources and reference, not authorship of this unofficial fan game.

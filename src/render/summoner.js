@@ -1,13 +1,13 @@
-import {ctx} from '../core/dom.js?v=29.0.1';
-import {renderQuality} from '../core/settings.js?v=29.0.1';
-import {circleVisible} from './visibility.js?v=29.0.1';
-import {nativeWhipPoints} from '../classes/whip-motion.js?v=29.0.1';
+import {ctx} from '../core/dom.js?v=29.1.0';
+import {renderQuality} from '../core/settings.js?v=29.1.0';
+import {circleVisible} from './visibility.js?v=29.1.0';
+import {nativeWhipPoints} from '../classes/whip-motion.js?v=29.1.0';
 const images={},tints={},frames={cosmic:1,bolt:4,star:1,draconid:10,fireball:5,apparatus:10,nucleogenesis:10};let loading;
 export const summonAtlasFrames=frames;
 export function summonerImage(name){return images[name];}
 export function initializeSummonerAtlas(){if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  loading=Promise.all([...Object.keys(frames),'cosmic-staff','kindle-staff','cosmic-buff','draconid-buff','kaleidoscope','whip','papyrus','scroll','sparkle'].map(name=>new Promise(resolve=>{
-  const im=new Image();im.onload=()=>{images[name]=im;if(['cosmic','bolt','star','whip','sparkle'].includes(name)){tints[name]=[];for(let hue=0;hue<12;hue++){const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const x=c.getContext('2d');x.drawImage(im,0,0);const h=hue/2,sector=Math.floor(h),f=h-sector,parts=[[1,f,0],[1-f,1,0],[0,1,f],[0,1-f,1],[f,0,1],[1,0,1-f]],color=parts[sector];try{const p=x.getImageData(0,0,c.width,c.height);for(let i=0;i<p.data.length;i+=4)for(let j=0;j<3;j++)p.data[i+j]*=color[j];x.putImageData(p,0,0);}catch{}tints[name].push(c);}}resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/'+(name==='sparkle'?'melee-original/':'summoner-original/')+name+'.png?v=29.0.1',import.meta.url).href;
+  const im=new Image();im.onload=()=>{images[name]=im;if(['cosmic','bolt','star','whip','sparkle'].includes(name)){tints[name]=[];for(let hue=0;hue<12;hue++){const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const x=c.getContext('2d');x.drawImage(im,0,0);const h=hue/2,sector=Math.floor(h),f=h-sector,parts=[[1,f,0],[1-f,1,0],[0,1,f],[0,1-f,1],[f,0,1],[1,0,1-f]],color=parts[sector];try{const p=x.getImageData(0,0,c.width,c.height);for(let i=0;i<p.data.length;i+=4)for(let j=0;j<3;j++)p.data[i+j]*=color[j];x.putImageData(p,0,0);}catch{}tints[name].push(c);}}resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/'+(name==='sparkle'?'melee-original/':'summoner-original/')+name+'.png?v=29.1.0',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 function sprite(name,x,y,frame=0,angle=0,flip=false,alpha=1,scale=1,hue=null){const im=hue!==null?tints[name]?.[hue%12]||images[name]:images[name];if(!im)return;const h=im.height/(frames[name]||1),f=Math.max(0,Math.floor(frame))%(frames[name]||1);ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(flip?-scale:scale,scale);ctx.globalAlpha*=alpha;ctx.drawImage(im,0,f*h,im.width,h,-im.width/2,-h/2,im.width,h);ctx.restore();}
