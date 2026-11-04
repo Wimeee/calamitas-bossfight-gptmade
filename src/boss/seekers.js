@@ -1,6 +1,6 @@
-import {enemyBullet} from '../combat/projectiles.js?v=29.1.0';
-import {audio} from '../core/audio.js?v=29.1.0';
-import {emitSeekerMagic} from '../systems/summon-effects.js?v=29.1.0';
+import {enemyBullet} from '../combat/projectiles.js?v=29.1.1';
+import {audio} from '../core/audio.js?v=29.1.1';
+import {emitSeekerMagic} from '../systems/summon-effects.js?v=29.1.1';
 export function initializeSeekers(g){for(let i=0;i<g.seekers.length;i++){const s=g.seekers[i];Object.assign(s,{initialized:true,degree:i*36,nativeTimer:0,nativeTicks:0,nativeFrame:i%6,frameOffset:i%6,r:20,warning:false});s.x=g.boss.x-Math.cos(s.degree*Math.PI/180)*225;s.y=g.boss.y-Math.sin(s.degree*Math.PI/180)*225;}g.seekerStepRemainder=0;}
 export function updateSeekers(dt,g){if(g.stage!=='seekers'||g.mode!=='playing')return;if(g.seekers[0]&&!g.seekers[0].initialized)initializeSeekers(g);g.seekerStepRemainder=(g.seekerStepRemainder||0)+dt;
  while(g.seekerStepRemainder+1e-10>=1/60){g.seekerStepRemainder=Math.max(0,g.seekerStepRemainder-1/60);for(const [i,s]of g.seekers.entries()){

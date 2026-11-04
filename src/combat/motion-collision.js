@@ -1,4 +1,4 @@
-import {segmentDistance} from '../core/math.js?v=29.1.0';
+import {segmentDistance} from '../core/math.js?v=29.1.1';
 
 // Keep this snapshot local to one combat update; pause/restart cannot reuse a path.
 export function beginCombatMotion(g,dt){return{duration:dt,points:[{time:0,x:g.player.x,y:g.player.y}],projectiles:new Set(g.projectiles)};}

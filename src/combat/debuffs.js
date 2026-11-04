@@ -1,4 +1,4 @@
-import { finish } from '../game/session.js?v=29.1.0';
+import { finish } from '../game/session.js?v=29.1.1';
 export function projectileHexDuration(q){if(q.nativeSeeker||q.kind==='sepulcherDart'&&q.ai0===0)return 3;if(!q.sourceCalamitas)return 0;return q.kind==='giga'?5:q.kind==='fire'||q.kind==='scalfireblast'?4:q.kind==='wave'||q.kind==='skull'?2:['dart','hellblast','hellblast2'].includes(q.kind)?3:0;}
 export function applyPlayerHex(g,duration){if(!duration||g.mode!=='playing')return;const p=g.player;p.debuffs??={};const old=p.debuffs.hex;if(!old||duration>old.remaining)p.debuffs.hex={remaining:duration,max:duration,carry:old?.carry||0};}
 export function updatePlayerDebuffs(g,dt){if(g.mode!=='playing'||g.ritual)return 0;const hex=g.player.debuffs?.hex;if(!hex)return 0;

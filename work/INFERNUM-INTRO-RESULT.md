@@ -9,3 +9,6 @@ Original font decoded using installed ReLogic DynamicSpriteFontReader IL; retain
 This is a browser presentation adaptation, not a verified pixel-identical GPU port. Deterministic dust replaces native random particles; screen shake honors existing setting. Existing battle remains paused until title finishes, unlike the independent native overlay. Does not enable Infernum AI/difficulty or change class/boss balance. UK translation and smaller viewport fit added. Existing skip/pause/menu/restart maintained; sounds emitted by update, never draw. No combat RNG consumed by presentation.
 
 Validation:18focused ritual/title/music/media tests passed; structural check. Actual English/UK browser contact sheets viewed, no JS errors. No original game video newly watched, no physical-phone/audio-listening claim.
+
+## v29.1.1 user correction
+Title now always English: THE BRIMSTONE WITCH / CALAMITAS. Original full-height uppercase glyphs replace the dot-only lowercase i; tracking reduced from10 to2 source pixels, without the extra9pixel i offset. Other UI locale is unchanged. Four focused tests pass; final English title actually viewed with Ukrainian UI selected. Supersedes the translated title described above.

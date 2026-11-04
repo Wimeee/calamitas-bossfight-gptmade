@@ -1,11 +1,11 @@
-import {introFont} from '../../config/intro-font.js?v=29.1.0';
-import {ctx} from '../core/dom.js?v=29.1.0';
-import {W,H} from '../core/config.js?v=29.1.0';
-import {infernumIntroText,infernumIntroState} from '../game/intro-timeline.js?v=29.1.0';
+import {introFont} from '../../config/intro-font.js?v=29.1.1';
+import {ctx} from '../core/dom.js?v=29.1.1';
+import {W,H} from '../core/config.js?v=29.1.1';
+import {infernumIntroText,infernumIntroState} from '../game/intro-timeline.js?v=29.1.1';
 const images={},letters=new Map();let loading,noise,cover;
 export function initializeIntroAtlas(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
- return loading=Promise.all([...introFont.pages.map(p=>'intro-'+p),'cover','perlin'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[name]=im;resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/intro-original/'+name+'.png?v=29.1.0',import.meta.url).href;}))).then(results=>{
+ return loading=Promise.all([...introFont.pages.map(p=>'intro-'+p),'cover','perlin'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[name]=im;resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/intro-original/'+name+'.png?v=29.1.1',import.meta.url).href;}))).then(results=>{
   if(!results.every(Boolean))return false;
   const make=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c;};
   const n=make(images.perlin.width,images.perlin.height),nc=n.getContext('2d',{willReadFrequently:true});nc.drawImage(images.perlin,0,0);noise=nc.getImageData(0,0,n.width,n.height);
@@ -15,7 +15,8 @@ export function initializeIntroAtlas(){
  });
 }
 function nativeWidth(g){return Math.max(0,g.kern.x)+g.kern.y+Math.max(0,g.kern.z);}
-function advance(char){const g=introFont.glyphs[char]||introFont.glyphs['?'];return nativeWidth(g)+(char.toLowerCase()==='i'?9:0)+10;}
+export function introLetterAdvance(char){const g=introFont.glyphs[char]||introFont.glyphs['?'];return nativeWidth(g)+2;}
+const advance=introLetterAdvance;
 // CPU equivalent of the original SCalIntroLetterShader; only visible glyphs,
 // warmed reusable surfaces and24Hz updates. Never touches combat randomness.
 function shade(letter,time,ratio){

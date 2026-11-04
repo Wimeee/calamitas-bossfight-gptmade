@@ -1,4 +1,4 @@
-import {state} from '../core/state.js?v=29.1.0';
+import {state} from '../core/state.js?v=29.1.1';
 // Native holdout origin85x33, player offset28; primary55/-10, light108/+6.
 // One geometry authority keeps the image, arms and actual projectiles aligned.
 const pausedPoses=new WeakMap();
