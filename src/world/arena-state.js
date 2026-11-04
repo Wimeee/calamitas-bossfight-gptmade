@@ -1,4 +1,4 @@
-import { arena } from '../core/arena.js?v=28.0.1';
+import { arena } from '../core/arena.js?v=28.1.0';
 // SupremeCalamitas.GetArenaSize: Vector4 is up/right/down/left, in native pixels.
 export function arenaTarget(g){
  let up=g.difficulty==='death'?1000:1250,right=up,down=up,left=up;

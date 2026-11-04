@@ -1,12 +1,13 @@
-import { arkAngle } from '../classes/ark-motion.js?v=28.0.1';
-import { ctx } from '../core/dom.js?v=28.0.1';
-import {state} from '../core/state.js?v=28.0.1';
+import {photoGeometry} from '../classes/photo-geometry.js?v=28.1.0';
+import { arkAngle } from '../classes/ark-motion.js?v=28.1.0';
+import { ctx } from '../core/dom.js?v=28.1.0';
+import {state} from '../core/state.js?v=28.1.0';
 const images={};let loading;
 export function initializeNativeArmor(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  loading=Promise.all(['body','back','legs','melee-head','magic-head','ranged-head'].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
-  image.src=new URL('../../assets/'+(part==='magic-head'?'mage-original/':part==='ranged-head'?'ranger-original/':'melee-original/')+'auric-'+part+'.png?v=28.0.1',import.meta.url).href;
+  image.src=new URL('../../assets/'+(part==='magic-head'?'mage-original/':part==='ranged-head'?'ranger-original/':'melee-original/')+'auric-'+part+'.png?v=28.1.0',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 export function nativeArmorReady(){return ['body','back','legs','melee-head'].every(p=>images[p]);}
@@ -19,7 +20,7 @@ export function nativeArmorCells(g,pose){
  const cycle=Math.floor(time*12),swing=p.swing?Math.min(3,Math.floor((1-p.swing.time/p.swing.max)*4)):null;
  let armColumn=swing!==null?3+swing:airborne?2:walking?3+cycle%4:2;
  if(p.swing||p.arkParry||p.weapon===2||p.weapon===1&&p.kit?.photo?.active){
-   let angle=(p.weapon===2||p.weapon===1)?Math.atan2(state.pointer.y-p.y,state.pointer.x-p.x):p.swing?arkAngle(p.swing,1-p.swing.time/p.swing.max):p.arkParry.angle;
+   let angle=p.weapon===1?photoGeometry(g).a:p.weapon===2?Math.atan2(state.pointer.y-p.y,state.pointer.x-p.x):p.swing?arkAngle(p.swing,1-p.swing.time/p.swing.max):p.arkParry.angle;
    if(pose.flip)angle=Math.PI-angle;
    angle=Math.atan2(Math.sin(angle),Math.cos(angle));
    armColumn=angle<-Math.PI/2?3:angle<-Math.PI/6?4:angle<Math.PI/6?5:6;

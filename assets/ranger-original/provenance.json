@@ -80,6 +80,13 @@
       "file": "ricochet.ogg",
       "source": "Sounds/Item/DeadSunRicochet.ogg",
       "sha256": "0c8f076bd2412228d97c321a582d1fbe966f866d6bca9166aa1781d7559c2582"
+    },
+    {
+      "file": "backpack.png",
+      "source": "CalPlayer/DrawLayers/Backpack_Photoviscerator.rawimg",
+      "width": 38,
+      "height": 46,
+      "sha256": "1ee1aabc53695aeed2899267333b0692990eaafafa3955498bd6e7b26e4f0912"
     }
   ]
 }
