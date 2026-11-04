@@ -1,4 +1,4 @@
 {
-  "version": "27.1.0",
-  "notes": "Correct native Bullet Hell speed, hitboxes and spawn origins; mage -10% and correct mana-potion icon"
+  "version": "27.1.1",
+  "notes": "Fix native mage sphere collision and electrical debuff types, clocks and damage"
 }

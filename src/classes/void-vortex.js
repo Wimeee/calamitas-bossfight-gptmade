@@ -1,11 +1,12 @@
-import {mageConfig as C} from '../../config/mage.js?v=27.1.0';
-import {kit} from './shared.js?v=27.1.0';
-import {state} from '../core/state.js?v=27.1.0';
-import {audio} from '../core/audio.js?v=27.1.0';
-import {possibleTargets} from '../combat/targets.js?v=27.1.0';
-import {hitTarget} from '../combat/damage.js?v=27.1.0';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=27.1.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=27.1.0';
+import {mageConfig as C} from '../../config/mage.js?v=27.1.1';
+import {kit} from './shared.js?v=27.1.1';
+import {state} from '../core/state.js?v=27.1.1';
+import {audio} from '../core/audio.js?v=27.1.1';
+import {possibleTargets} from '../combat/targets.js?v=27.1.1';
+import {hitTarget} from '../combat/damage.js?v=27.1.1';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=27.1.1';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=27.1.1';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=27.1.1';
 
 export function initializeMage(g){const p=g.player;if(p.weapon!==2)return;p.maxMana=p.mana=C.maxMana;p.manaPotions=C.manaPotions;p.manaSickness=0;p.manaRegenDelay=0;p.manaMagnet=true;}
 export function mageState(){const k=kit();k.vortexOrbs??=[];k.vortexBeams??=[];k.vortexPulses??=[];k.vortexStep??=0;return k;}
@@ -28,7 +29,7 @@ export function attackMage(){
 }
 function orb(kind,x,y,vx,vy,damage,delay=0,spin=1){return {kind,x,y,vx,vy,damage,delay,spin,time:0,left:kind==='seek'?500:90,scale:kind==='seek'?.35+Math.random()*.2:1,turnAt:20+Math.floor(Math.random()*21),turn:Math.random()<.5?-1:1,hits:new Set(),trail:[]};}
 function nearest(x,y){let best=null,distance=1000;for(const t of possibleTargets())if(t.hp>0){const d=Math.hypot(t.x-x,t.y-y);if(d<distance){best=t;distance=d;}}return best;}
-function hit(g,q,t){hitTarget(t,q.damage*(Math.random()<C.critChance?2:1),t.x,t.y,'#9affff','mage',false);t.auricRebuke=Math.max(t.auricRebuke||0,3);}
+function hit(g,q,t,beam=false){hitTarget(t,q.damage*(Math.random()<C.critChance?2:1),t.x,t.y,'#9affff','mage',false);const status=beam?'electrified':'auricRebuke';t[status]=Math.max(t[status]||0,beam?1.5:3);}
 function beam(g,k,q){
  const target=nearest(q.x,q.y);if(!target)return false;
  const a=Math.atan2(target.y-q.y,target.x-q.x);
@@ -53,8 +54,9 @@ function stepOrb(g,k,q,blockers){
  }
  const x=q.x,y=q.y;q.x+=q.vx;q.y+=q.vy;
  if(q.kind==='seek'&&q.time>=20){
-  const block=checkSepulcherCollision(x,y,q.x,q.y,19*q.scale,blockers);let end=block.hit?block.t:Infinity,first=null;
-  for(const t of possibleTargets()){if(t.hp<=0||q.hits.has(t))continue;const c=checkSepulcherCollision(x,y,q.x,q.y,19*q.scale,[{x:t.x,y:t.y,radius:t.r}]);if(c.hit&&c.t<end){end=c.t;first=t;}}
+  // Projectile.scale changes drawing only; native width/height stay38x38.
+  const block=checkSepulcherCollision(x,y,q.x,q.y,19,blockers);let end=block.hit?block.t:Infinity,first=null;
+  for(const t of possibleTargets()){if(t.hp<=0||q.hits.has(t))continue;const c=checkSepulcherCollision(x,y,q.x,q.y,19,[{x:t.x,y:t.y,radius:t.r}]);if(c.hit&&c.t<end){end=c.t;first=t;}}
   if(first){hit(g,q,first);q.hits.add(first);q.left=1;}else if(block.hit){q.x=block.point.x;q.y=block.point.y;q.left=1;}
  }
  if(q.kind==='seek'&&q.time%3===0){q.trail.push({x:q.x,y:q.y});if(q.trail.length>15)q.trail.shift();}
@@ -68,8 +70,10 @@ export function updateMage(dt){
 export function updateMageCombat(dt){
  const g=state.game,p=g.player;if(p.weapon!==2||g.mode!=='playing'||g.ritual)return;
  const k=mageState();k.vortexStep+=dt*180;
+ const hosts=[...new Set([g.boss,...g.hearts,...g.brothers,...g.seekers])],vulnerable=new Set(possibleTargets());
  while(k.vortexStep+1e-9>=1){
   k.vortexStep=Math.max(0,k.vortexStep-1);const blockers=getSepulcherBlockers(g),count=k.vortexOrbs.length;
+  updateMageDebuffs(1/180,g,hosts,vulnerable);
   for(let i=0;i<count;i++)stepOrb(g,k,k.vortexOrbs[i],blockers);
   k.vortexOrbs=k.vortexOrbs.filter(q=>q.left>0);
   for(const b of k.vortexBeams){
@@ -78,13 +82,9 @@ export function updateMageCombat(dt){
    const block=checkSepulcherCollision(x,y,nx,ny,2,blockers);let end=block.hit?block.t:1,first=null;
    for(const t of possibleTargets()){if(t.hp<=0)continue;const c=checkSepulcherCollision(x,y,nx,ny,2,[{x:t.x,y:t.y,radius:t.r}]);if(c.hit&&c.t<end){end=c.t;first=t;}}
    b.ex=x+(nx-x)*end;b.ey=y+(ny-y)*end;b.travel=Math.hypot(b.ex-b.x,b.ey-b.y);
-   if(first||block.hit){if(first)hit(g,b,first);b.resolved=true;b.life=Math.min(b.life,.1);}
+   if(first||block.hit){if(first)hit(g,b,first,true);b.resolved=true;b.life=Math.min(b.life,.1);}
   }
   k.vortexBeams=k.vortexBeams.filter(b=>b.life>0);
   for(const pulse of k.vortexPulses)pulse.age+=1/180;k.vortexPulses=k.vortexPulses.filter(q=>q.age<q.life);
-  // Native regen-loss200 is100HP/s; aggregate at projectile substep frequency.
-  for(const t of possibleTargets())if(t.auricRebuke>0){const tick=Math.min(1/180,t.auricRebuke);t.auricRebuke-=tick;t.auricPending=(t.auricPending||0)+tick;
-   if(t.auricPending>=.25-1e-9||t.auricRebuke<=0){hitTarget(t,100*t.auricPending,t.x,t.y,'#9affff','mage',false);t.auricPending=0;}
-  }
  }
 }
