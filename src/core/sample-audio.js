@@ -1,9 +1,9 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=28.0.0';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=28.0.0';
-import {rangerAudio} from '../../config/ranger-audio.js?v=28.0.0';
-import {mageAudio} from '../../config/mage-audio.js?v=28.0.0';
-import { settings,subscribeSettings } from './settings.js?v=28.0.0';
-import { state } from './state.js?v=28.0.0';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=28.0.1';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=28.0.1';
+import {rangerAudio} from '../../config/ranger-audio.js?v=28.0.1';
+import {mageAudio} from '../../config/mage-audio.js?v=28.0.1';
+import { settings,subscribeSettings } from './settings.js?v=28.0.1';
+import { state } from './state.js?v=28.0.1';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;
@@ -54,7 +54,7 @@ export const calamitasSamples=createCalamitasAudio();
 // Melee audio (Ark of the Cosmos)
 export function createMeleeAudio({fetcher=(...args)=>fetch(...args),clips=meleeClips,directory='melee-original'}={}){
   let context=null,bus=null,loading=null;
-  const buffers=new Map(),voices=new Set(),last=new Map(),variants=new Map();
+  const buffers=new Map(),voices=new Set(),last=new Map(),variants=new Map(),pitches=new Map();
   const status={state:'idle',loaded:0,failed:0};
   function stop(tag){
     for(const voice of [...voices])if(!tag||voice.tag===tag){
@@ -96,7 +96,7 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args),clips=meleeC
     const selected=group[(variants.get(tag)||0)%group.length];variants.set(tag,(variants.get(tag)||0)+1);
     for(const buffer of [selected,...(group.layers||[])]){
       const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;gain.gain.value=clip.gain;
-      if(source.playbackRate)source.playbackRate.value=Math.pow(2,clip.pitch||0);
+      if(source.playbackRate)source.playbackRate.value=Math.pow(2,pitches.get(tag)??clip.pitch??0);
       source.connect(gain);gain.connect(bus);
       const voice={tag,source,gain};voices.add(voice);
       source.onended=()=>{voices.delete(voice);source.disconnect?.();gain.disconnect?.();};
@@ -105,7 +105,10 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args),clips=meleeC
     return true;
   }
   subscribeSettings(sync);
-  return {initialize,play,stop,sync,status,get activeVoices(){return voices.size;}};
+  function setPitch(tag,pitch){
+    pitches.set(tag,pitch);for(const v of voices)if(v.tag===tag&&v.source.playbackRate){const rate=Math.pow(2,pitch);if(v.source.playbackRate.setTargetAtTime)v.source.playbackRate.setTargetAtTime(rate,context.currentTime,.015);else v.source.playbackRate.value=rate;}
+  }
+  return {initialize,play,stop,setPitch,sync,status,get activeVoices(){return voices.size;}};
 }
 export const meleeSamples=createMeleeAudio();
 

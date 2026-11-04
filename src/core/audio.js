@@ -1,12 +1,12 @@
-import { calamitasSamples } from './sample-audio.js?v=28.0.0';
-import {rangerSamples} from './sample-audio.js?v=28.0.0';
-import {mageSamples} from './sample-audio.js?v=28.0.0';
-import { meleeSamples } from './sample-audio.js?v=28.0.0';
-import { minionAudio } from '../render/minion-audio.js?v=28.0.0';
-import { state } from './state.js?v=28.0.0';
-import { battleMusic } from './battle-music.js?v=28.0.0';
-import { settings,updateSettings,subscribeSettings } from './settings.js?v=28.0.0';
-import { $ } from './dom.js?v=28.0.0';
+import { calamitasSamples } from './sample-audio.js?v=28.0.1';
+import {rangerSamples} from './sample-audio.js?v=28.0.1';
+import {mageSamples} from './sample-audio.js?v=28.0.1';
+import { meleeSamples } from './sample-audio.js?v=28.0.1';
+import { minionAudio } from '../render/minion-audio.js?v=28.0.1';
+import { state } from './state.js?v=28.0.1';
+import { battleMusic } from './battle-music.js?v=28.0.1';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=28.0.1';
+import { $ } from './dom.js?v=28.0.1';
 
 const audio={
   ctx:null,
@@ -55,7 +55,8 @@ const audio={
     if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
     minionAudio.play(name,game,options);
   },
-  stopRanger(){rangerSamples.stop();},
+  stopRanger(){rangerSamples.stop('photoUse');},
+  pitchRanger(timer){rangerSamples.setPitch('photoUse',-Math.max(0,timer)*.002);},
   stopMinion(tag){minionAudio.stop(tag);},
   vol(v){
     updateSettings({sfxVolume:v});

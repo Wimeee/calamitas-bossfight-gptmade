@@ -1,22 +1,23 @@
-import {rangerConfig as C} from '../../config/ranger.js?v=28.0.0';
-import {state} from '../core/state.js?v=28.0.0';
-import {kit} from './shared.js?v=28.0.0';
-import {audio} from '../core/audio.js?v=28.0.0';
-import {possibleTargets} from '../combat/targets.js?v=28.0.0';
-import {hitTarget} from '../combat/damage.js?v=28.0.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=28.0.0';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=28.0.0';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=28.0.0';
-import {getTerrain} from '../world/terrain.js?v=28.0.0';
+import {rangerConfig as C} from '../../config/ranger.js?v=28.0.1';
+import {state} from '../core/state.js?v=28.0.1';
+import {kit} from './shared.js?v=28.0.1';
+import {audio} from '../core/audio.js?v=28.0.1';
+import {possibleTargets} from '../combat/targets.js?v=28.0.1';
+import {hitTarget} from '../combat/damage.js?v=28.0.1';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=28.0.1';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=28.0.1';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=28.0.1';
+import {getTerrain} from '../world/terrain.js?v=28.0.1';
 export function initializeRanger(g){if(g.player.weapon===1)g.player.gel=C.gel;}
-export function rangerState(){const k=kit();return k.photo??={clock:0,step:0,ticks:0,active:false,photoTimer:0,flames:[],lights:[],clusters:[],pulses:[],fireHits:new Map(),fireFrames:0,emittedLights:0,altUntil:0,forced:0};}
+export function rangerState(){const k=kit();return k.photo??={clock:0,step:0,ticks:0,active:false,photoTimer:0,flames:[],lights:[],clusters:[],pulses:[],effects:[],effectId:0,fireHits:new Map(),fireFrames:0,emittedLights:0,altUntil:0,forced:0};}
+function effect(k,kind,x,y,r=1,angle=0){k.effects.push({kind,x,y,r,angle,at:k.clock,id:++k.effectId});if(k.effects.length>48)k.effects.shift();}
 const aim=g=>Math.atan2(state.pointer.y-g.player.y,state.pointer.x-g.player.x);
 function origin(g,reach=55){const a=aim(g),dx=Math.cos(a),dy=Math.sin(a),side=dx<0?-1:1;return{x:g.player.x+dx*reach+dy*10*side,y:g.player.y+dy*reach-dx*10*side,dx,dy,a};}
 function ammo(g,secondary=false){if(!(g.player.gel>0))return false;if(Math.random()<(secondary?C.secondaryAmmoChance:C.primaryAmmoChance))g.player.gel--;return true;}
-function hit(g,q,t,duration=20){hitTarget(t,q.damage*(Math.random()<C.crit?2:1),t.x,t.y,'#a7ffcf','ranger',false);t.miracleBlight=Math.max(t.miracleBlight||0,duration);audio.fx('photoHit');}
+function hit(g,q,t,duration=20){hitTarget(t,q.damage*(Math.random()<C.crit?2:1),t.x,t.y,'#a7ffcf','ranger',false);t.miracleBlight=Math.max(t.miracleBlight||0,duration);const k=g.player.kit.photo;if(k){if(q.kind!=='light'&&k.clock>=(k.hitAudioUntil??0)){audio.fx('photoHit');k.hitAudioUntil=k.clock+(q.kind==='cluster'?10:16)/60;}effect(k,'hit',t.x,t.y,q.kind==='cluster'?1.8:1);}}
 function activate(k){if(!k.active){k.active=true;k.age=0;k.fireFrames=0;}}
 function primary(g,k){
- if(!ammo(g))return false;const o=origin(g),damage=C.damage*C.damageBonus*Math.max(0,1-k.photoTimer/59.9);
+ if(!ammo(g))return false;const o=origin(g);if(k.photoTimer===1){effect(k,'warm',o.x,o.y,1,o.a);audio.fx('photoWarm');}audio.pitchRanger?.(k.photoTimer);const damage=C.damage*C.damageBonus*Math.max(0,1-k.photoTimer/59.9);
  k.flames.push({...o,front:0,age:0,damage,life:240/(180*60)});k.visual={...o,range:0,age:0};k.fireFrames++;
  if(k.age===0||k.age%55===0)audio.fx('photoUse');
  if(k.fireFrames>=C.lightGate&&k.photoTimer===0){k.fireFrames=0;const t=nearest(o.x,o.y,25000),s=origin(g,108);
@@ -25,10 +26,10 @@ function primary(g,k){
  return true;
 }
 export function attackRanger(){const g=state.game,k=rangerState();if(g.player.weapon!==1||!(g.player.gel>0)||state.pointer.altFire)return;kit().lastFire=g.t;g.player.fireCd=1/60;if(!k.active){activate(k);primary(g,k);k.skipFirst=true;}}
-export function activateRanger(){const g=state.game,k=rangerState();if(g.player.weapon!==1||g.mode!=='playing'||g.ritual||k.clock<k.altUntil-1e-8||!ammo(g,true))return;activate(k);const o=origin(g);k.clusters.push({...o,kind:'cluster',vx:o.dx*6*2.5*120,vy:o.dy*6*2.5*120,damage:C.damage*C.damageBonus*C.secondaryDamage,left:420,hits:new Map(),pierce:5,trail:[]});k.altUntil=k.clock+C.secondaryCooldown;k.forced=25;kit().abilityCd=C.secondaryCooldown;audio.fx('photoAlt');}
+export function activateRanger(){const g=state.game,k=rangerState();if(g.player.weapon!==1||g.mode!=='playing'||g.ritual||k.clock<k.altUntil-1e-8||!ammo(g,true))return;activate(k);const o=origin(g);k.clusters.push({...o,kind:'cluster',vx:o.dx*6*2.5*120,vy:o.dy*6*2.5*120,damage:C.damage*C.damageBonus*C.secondaryDamage,left:420,hits:new Map(),pierce:5,trail:[]});k.altUntil=k.clock+C.secondaryCooldown;k.forced=25;kit().abilityCd=C.secondaryCooldown;audio.stopRanger?.();effect(k,'alternate',o.x,o.y,1,o.a);audio.fx('photoAlt');}
 export function updateRanger(){}
 function nearest(x,y,range=600){let best=null;for(const t of possibleTargets()){if(t.hp<=0)continue;const d=Math.hypot(t.x-x,t.y-y);if(d<range){range=d;best=t;}}return best;}
-function burst(g,k,q,timeout){const radius=65*(timeout?3.4+Math.random()*.8:.8+Math.random()*.8);for(const t of possibleTargets())if(t.hp>0&&Math.hypot(t.x-q.x,t.y-q.y)<radius+t.r)hit(g,q,t,6);damageSepulcherArea(g,q.x,q.y,radius,q.damage);k.pulses.push({x:q.x,y:q.y,r:radius,life:.3,max:.3});audio.fx('photoExplosion');}
+function burst(g,k,q,timeout){const radius=65*(timeout?3.4+Math.random()*.8:.8+Math.random()*.8);for(const t of possibleTargets())if(t.hp>0&&Math.hypot(t.x-q.x,t.y-q.y)<radius+t.r)hit(g,q,t,6);damageSepulcherArea(g,q.x,q.y,radius,q.damage);k.pulses.push({x:q.x,y:q.y,r:radius,life:.3,max:.3});effect(k,'burst',q.x,q.y,radius);audio.fx('photoExplosion');}
 function collisions(g,k,q,x,y,nx,ny,r,blockers){
  const wall=checkSepulcherCollision(x,y,nx,ny,r,blockers),end=wall.hit?wall.t:1,targets=[];
  for(const t of possibleTargets()){if(t.hp<=0)continue;const h=checkSepulcherCollision(x,y,nx,ny,r,[{x:t.x,y:t.y,radius:t.r}]);if(h.hit&&h.t<=end)targets.push({t,at:h.t});}
@@ -54,17 +55,18 @@ function projectiles(g,k,blockers){
   for(const {t,at}of h.targets)if((q.hits.get(t)??-Infinity)<=k.clock+1e-9){hit(g,q,t);q.hits.set(t,k.clock+22/120);q.pierce--;if(q.pierce<=0){q.x=x+(q.x-x)*at;q.y=y+(q.y-y)*at;break;}}
   if(h.wall.hit)q.left=0;
   // Existing world floor/platforms stand in for native solid tiles, not arena forcefields.
-  if(!q.hits.size&&q.vy>0){const terrain=getTerrain();let floor=terrain.floorY;for(const p of terrain.platforms)if(x>=p.l&&x<=p.r&&y+25<=p.y&&q.y+25>=p.y)floor=Math.min(floor,p.y);if(y+25<=floor&&q.y+25>=floor){q.y=floor-25;q.vy=-q.vy;}}
+  if(!q.hits.size&&q.vy>0){const terrain=getTerrain();let floor=terrain.floorY;for(const p of terrain.platforms)if(x>=p.l&&x<=p.r&&y+25<=p.y&&q.y+25>=p.y)floor=Math.min(floor,p.y);if(y+25<=floor&&q.y+25>=floor){q.y=floor-25;q.vy=-q.vy;effect(k,'bounce',q.x,q.y);audio.fx('photoBounce');}}
   q.left--;q.trail.push({x:q.x,y:q.y});if(q.trail.length>24)q.trail.shift();
  }k.clusters=k.clusters.filter(q=>q.left>0&&q.pierce>0);
  for(const p of k.pulses)p.life-=1/120;k.pulses=k.pulses.filter(p=>p.life>0).slice(-24);
+ k.effects=k.effects.filter(e=>k.clock-e.at<1);
  if(visual)k.visual=visual;else if(k.visual)k.visual.age+=1/120;
 }
 export function updateRangerCombat(dt){
  const g=state.game;if(g.player.weapon!==1||g.mode!=='playing'||g.ritual)return;const k=rangerState();k.step+=dt*120;const hosts=[...new Set([g.boss,...g.hearts,...g.brothers,...g.seekers])],vulnerable=new Set(possibleTargets());
  while(k.step+1e-9>=1){k.step=Math.max(0,k.step-1);k.clock+=1/120;updateMageDebuffs(1/120,g,hosts,vulnerable);
   if(Math.round(k.clock*120)%2===0){k.ticks++;const alt=!!state.pointer.altFire,primaryHeld=!alt&&(state.pointer.fire||state.mobileFire||state.aimHeld||state.keys.j);
-   if((primaryHeld||alt)&&g.player.gel>0){activate(k);if(k.photoTimer>0)k.photoTimer--;if(alt){if(k.clock>=k.altUntil-1e-9)activateRanger();}else if(k.skipFirst)k.skipFirst=false;else primary(g,k);k.age++;}
+   if((primaryHeld||alt)&&g.player.gel>0){activate(k);if(k.photoTimer>0)k.photoTimer--;if(alt){audio.stopRanger?.();if(k.clock>=k.altUntil-1e-9)activateRanger();}else if(k.skipFirst)k.skipFirst=false;else primary(g,k);k.age++;}
    else if(k.forced>0){k.forced--;if(k.photoTimer>0)k.photoTimer--;}
    else if(k.active){k.active=false;k.photoTimer=90;audio.stopRanger?.();}
   }

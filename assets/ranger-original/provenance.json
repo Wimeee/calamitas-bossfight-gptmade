@@ -70,6 +70,16 @@
       "width": 16,
       "height": 14,
       "sha256": "5ac6b4af094c914e1e32e23ad432f28803551a48a5e33a40358c2673b41d845d"
+    },
+    {
+      "file": "warmup.ogg",
+      "source": "Sounds/Item/DeadSunShot.ogg",
+      "sha256": "e4ce28ec7b508af8202fe3a82447ad27e34cfdae20794607845ed52aca226807"
+    },
+    {
+      "file": "ricochet.ogg",
+      "source": "Sounds/Item/DeadSunRicochet.ogg",
+      "sha256": "0c8f076bd2412228d97c321a582d1fbe966f866d6bca9166aa1781d7559c2582"
     }
   ]
 }
