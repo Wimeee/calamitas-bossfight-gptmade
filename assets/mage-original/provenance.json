@@ -1,0 +1,74 @@
+{
+  "codeCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "codeVersion": "2.2.2",
+  "artVersion": "2.2.4",
+  "conversion": "Original RGBA lossless PNG; original PCM lossless WAV. No generated art/audio.",
+  "files": [
+    {
+      "file": "void-vortex.png",
+      "source": "Items/Weapons/Magic/VoidVortex.rawimg",
+      "width": 130,
+      "height": 130,
+      "sha256": "b0a8796a49e27deca9e1b26185a5f3bdfc976ad87cc5cd2070cf03865743af40"
+    },
+    {
+      "file": "void-orb.png",
+      "source": "Projectiles/Magic/VoidVortexProj.rawimg",
+      "width": 38,
+      "height": 200,
+      "sha256": "33f70538ff2f789f084db687d895fb9b7eb7682e4d7e94b5f892b0fa0f8579c2"
+    },
+    {
+      "file": "auric-magic-head.png",
+      "source": "Items/Armor/Auric/AuricTeslaHeadMagic_Head.rawimg",
+      "width": 40,
+      "height": 1120,
+      "sha256": "ba51849060d0f6feb66b068839c81bc36d4d0324c1fb2f3796d8861a1909ea90"
+    },
+    {
+      "file": "pulse.png",
+      "source": "Particles/HighResFoggyCircleHardEdge.rawimg",
+      "width": 2048,
+      "height": 2048,
+      "sha256": "292ffb98f2afa5d67fad5e95742f458ff7a970d00235c3bba2afe1d51f4b599b"
+    },
+    {
+      "file": "bloom.png",
+      "source": "Particles/LargeBloom.rawimg",
+      "width": 360,
+      "height": 360,
+      "sha256": "28510a6af9c09cb43aa406b9f542566fd3dfdf11172ab0394a3040f8e42bbc67"
+    },
+    {
+      "file": "auric-bullet-hit.ogg",
+      "source": "D:/Codex/calamitas-astra/work/local-calamity/CalamityMod-2.2.4/Sounds/Item/AuricBulletHit.ogg",
+      "sha256": "79f6d1dbeeb0e8cd4835cde813bc3c04e8052fd6b1f2db479c5d6953d5ab6c46"
+    },
+    {
+      "file": "vanilla-item-20.wav",
+      "source": "Terraria Content/Sounds/Item_20.xnb",
+      "conversion": "lossless PCM WAV",
+      "sha256": "77106b0e24e4618808646ac556fb9e949a22a332eddb4b5d3bb39264be78c7b8"
+    },
+    {
+      "file": "vanilla-item-3.wav",
+      "source": "Terraria Content/Sounds/Item_3.xnb",
+      "conversion": "lossless PCM WAV",
+      "sha256": "d1ce3e2576368053a605ca4038765da89498eb82468286df225e45293bff8503"
+    },
+    {
+      "file": "mana-sickness.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Buff_94.xnb",
+      "width": 32,
+      "height": 32,
+      "sha256": "98fce5a6d06ed2bafeb0e26ac81a6e412d221038486deaa3adf833bec8cb044d"
+    },
+    {
+      "file": "mana-potion.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_3540.xnb",
+      "width": 32,
+      "height": 54,
+      "sha256": "3c15e84ad82d2691fffc12fcfd89fef5df311cc43f89af5e3c87feb8c831cd4b"
+    }
+  ]
+}

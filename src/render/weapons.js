@@ -1,11 +1,12 @@
-import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=26.3.0';
-import { weapons } from '../classes/registry.js?v=26.3.0';
-import { TAU } from '../core/config.js?v=26.3.0';
-import { ctx } from '../core/dom.js?v=26.3.0';
-import { clamp } from '../core/math.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
-import { drawArkPair } from './melee.js?v=26.3.0';
-import { line, pixel, round } from './primitives.js?v=26.3.0';
+import {drawMageHeld} from './mage.js?v=27.0.0';
+import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=27.0.0';
+import { weapons } from '../classes/registry.js?v=27.0.0';
+import { TAU } from '../core/config.js?v=27.0.0';
+import { ctx } from '../core/dom.js?v=27.0.0';
+import { clamp } from '../core/math.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
+import { drawArkPair } from './melee.js?v=27.0.0';
+import { line, pixel, round } from './primitives.js?v=27.0.0';
 
 
 function drawPixelWhip(g){
@@ -35,6 +36,7 @@ function muzzlePoint(p,a,reach){
 
 function drawHeldWeapon(g){
   const p=g.player,w=weapons[p.weapon],a=weaponAim(g),kick=p.weaponKick||0;
+  if(w.id==='mage'){drawMageHeld(g,a);return;}
   if(w.id==='melee'){
     if(drawWarriorIdleWeapon(g))return;
     if(!p.swing&&!p.arkThrow&&!p.arkParry&&!p.arkRip)drawArkPair(p.x,p.y,a,72,.12);

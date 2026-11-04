@@ -1,15 +1,15 @@
-import { updateCamera } from '../world/camera.js?v=26.3.0';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=26.3.0';
-import { getTerrain } from '../world/terrain.js?v=26.3.0';
-import { playerConfig } from '../../config/player.js?v=26.3.0';
-import { getEncounter } from '../boss/registry.js?v=26.3.0';
-import { audio } from '../core/audio.js?v=26.3.0';
-import { $ } from '../core/dom.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
-import { resetTouchInput } from '../input/mobile.js?v=26.3.0';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=26.3.0';
-import { enter } from './phases.js?v=26.3.0';
-import {settings,defaults,updateSettings} from '../core/settings.js?v=26.3.0';
+import { updateCamera } from '../world/camera.js?v=27.0.0';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=27.0.0';
+import { getTerrain } from '../world/terrain.js?v=27.0.0';
+import { playerConfig } from '../../config/player.js?v=27.0.0';
+import { getEncounter } from '../boss/registry.js?v=27.0.0';
+import { audio } from '../core/audio.js?v=27.0.0';
+import { $ } from '../core/dom.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
+import { resetTouchInput } from '../input/mobile.js?v=27.0.0';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=27.0.0';
+import { enter } from './phases.js?v=27.0.0';
+import {settings,defaults,updateSettings} from '../core/settings.js?v=27.0.0';
 
 export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,duration:6.4,skipAfter:.8});
 

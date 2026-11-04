@@ -1,4 +1,4 @@
-import { ctx } from '../core/dom.js?v=26.3.0';
+import { ctx } from '../core/dom.js?v=27.0.0';
 
 const stamps=new Map();
 const MAX_STAMPS=96;

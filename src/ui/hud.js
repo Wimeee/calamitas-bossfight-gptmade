@@ -1,8 +1,8 @@
-import { movementConfig } from '../../config/movement.js?v=26.3.0';
-import { weapons } from '../classes/registry.js?v=26.3.0';
-import { milestones } from '../core/config.js?v=26.3.0';
-import { $, root } from '../core/dom.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
+import { movementConfig } from '../../config/movement.js?v=27.0.0';
+import { weapons } from '../classes/registry.js?v=27.0.0';
+import { milestones } from '../core/config.js?v=27.0.0';
+import { $, root } from '../core/dom.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
 
 function syncFlightHUD(g=state.game){
   if(!g)return;
@@ -39,8 +39,8 @@ const ui=()=>{
   if(healButton)healButton.textContent=p.potionCd>0?'❤️ '+Math.ceil(p.potionCd)+'с':'❤️ ×'+p.potions;
   if(regenButton)regenButton.textContent=p.regenPotionT>0?'🌿 '+Math.ceil(p.regenPotionT)+'с':'🌿 ×'+p.regenPotions;
   if(targetButton){
-    targetButton.hidden=false;
-    targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):p.weapon===1?'⚡ EXO SHOT':p.weapon===2?'✧ NOVA':p.weapon===3?'🎯 ЗАЛП':'↩ КЛИНКИ';
+    targetButton.hidden=p.weapon===2;
+    targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):p.weapon===1?'⚡ EXO SHOT':p.weapon===2?'✧ VOID VORTEX':p.weapon===3?'🎯 ЗАЛП':'↩ КЛИНКИ';
   }
   root.querySelectorAll('[data-weapon]').forEach(e=>{
       e.classList.toggle('on',Number(e.dataset.weapon)===p.weapon);

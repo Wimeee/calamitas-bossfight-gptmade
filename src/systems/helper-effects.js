@@ -1,5 +1,5 @@
-import {minionImage} from '../render/minion-atlas.js?v=26.3.0';
-import {minionSprites} from '../../config/minion-sprites.js?v=26.3.0';
+import {minionImage} from '../render/minion-atlas.js?v=27.0.0';
+import {minionSprites} from '../../config/minion-sprites.js?v=27.0.0';
 const pixels=new Map();
 function visualRandom(g){let n=g.helperVisualSeed??=193377;n^=n<<13;n^=n>>>17;n^=n<<5;g.helperVisualSeed=n>>>0;return(g.helperVisualSeed>>>0)/4294967296;}
 function ashPixels(br){const kind=br.kind===0?'cataclysm':'catastrophe',s=minionSprites[kind],frame=br.nativeFrame||0,key=kind+frame;if(pixels.has(key))return pixels.get(key);const image=minionImage(kind);if(!image)return[];try{

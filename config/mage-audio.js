@@ -1,0 +1,1 @@
+export const mageAudio=Object.freeze({mageCast:{file:'vanilla-item-20.wav',gain:.65,interval:.12},magePotion:{file:'vanilla-item-3.wav',gain:.8,interval:.12},mageExplosion:{file:'auric-bullet-hit.ogg',gain:.4,interval:.09}});

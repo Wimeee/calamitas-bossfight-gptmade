@@ -1,31 +1,31 @@
-import {resolveCalamitasContact} from '../combat/boss-contact.js?v=26.3.0';
-import {updateAsgardianCollisions,updateAsgardianInferno} from '../combat/asgardian.js?v=26.3.0';
-import {updateAsgardianEffects} from '../systems/asgardian-effects.js?v=26.3.0';
-import {updateArkEffects} from '../systems/ark-effects.js?v=26.3.0';
-import {beginCombatMotion} from '../combat/motion-collision.js?v=26.3.0';
-import {updateCalamitasEffects} from '../systems/calamitas-effects.js?v=26.3.0';
-import {updateHelperEffects} from '../systems/helper-effects.js?v=26.3.0';
-import { updateArenaState } from '../world/arena-state.js?v=26.3.0';
-import { updatePlayerDebuffs } from '../combat/debuffs.js?v=26.3.0';
-import { updatePickups } from './pickups.js?v=26.3.0';
-import { updateCamera } from '../world/camera.js?v=26.3.0';
-import { getTerrain } from '../world/terrain.js?v=26.3.0';
-import { updatePlayerMovement } from './movement.js?v=26.3.0';
-import { updateRitual } from './ritual.js?v=26.3.0';
-import { playerConfig } from '../../config/player.js?v=26.3.0';
-import { getEncounter } from '../boss/registry.js?v=26.3.0';
-import { classRegistry, weapons } from '../classes/registry.js?v=26.3.0';
-import { updateClassKit } from '../classes/shared.js?v=26.3.0';
-import { shoot } from '../combat/attacks.js?v=26.3.0';
-import { updateBullets } from '../combat/projectiles.js?v=26.3.0';
-import { possibleTargets } from '../combat/targets.js?v=26.3.0';
-import { arena } from '../core/arena.js?v=26.3.0';
-import { audio } from '../core/audio.js?v=26.3.0';
-import { TAU } from '../core/config.js?v=26.3.0';
-import { clamp, rnd } from '../core/math.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
-import { updateSystems } from '../systems/index.js?v=26.3.0';
-import { ui } from '../ui/hud.js?v=26.3.0';
+import {resolveCalamitasContact} from '../combat/boss-contact.js?v=27.0.0';
+import {updateAsgardianCollisions,updateAsgardianInferno} from '../combat/asgardian.js?v=27.0.0';
+import {updateAsgardianEffects} from '../systems/asgardian-effects.js?v=27.0.0';
+import {updateArkEffects} from '../systems/ark-effects.js?v=27.0.0';
+import {beginCombatMotion} from '../combat/motion-collision.js?v=27.0.0';
+import {updateCalamitasEffects} from '../systems/calamitas-effects.js?v=27.0.0';
+import {updateHelperEffects} from '../systems/helper-effects.js?v=27.0.0';
+import { updateArenaState } from '../world/arena-state.js?v=27.0.0';
+import { updatePlayerDebuffs } from '../combat/debuffs.js?v=27.0.0';
+import { updatePickups } from './pickups.js?v=27.0.0';
+import { updateCamera } from '../world/camera.js?v=27.0.0';
+import { getTerrain } from '../world/terrain.js?v=27.0.0';
+import { updatePlayerMovement } from './movement.js?v=27.0.0';
+import { updateRitual } from './ritual.js?v=27.0.0';
+import { playerConfig } from '../../config/player.js?v=27.0.0';
+import { getEncounter } from '../boss/registry.js?v=27.0.0';
+import { classRegistry, weapons } from '../classes/registry.js?v=27.0.0';
+import { updateClassKit } from '../classes/shared.js?v=27.0.0';
+import { shoot } from '../combat/attacks.js?v=27.0.0';
+import { updateBullets } from '../combat/projectiles.js?v=27.0.0';
+import { possibleTargets } from '../combat/targets.js?v=27.0.0';
+import { arena } from '../core/arena.js?v=27.0.0';
+import { audio } from '../core/audio.js?v=27.0.0';
+import { TAU } from '../core/config.js?v=27.0.0';
+import { clamp, rnd } from '../core/math.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
+import { updateSystems } from '../systems/index.js?v=27.0.0';
+import { ui } from '../ui/hud.js?v=27.0.0';
 
 
 function update(dt){
@@ -58,7 +58,7 @@ function update(dt){
   p.dashCd=Math.max(0,p.dashCd-dt);
   p.contactGuard=Math.max(0,p.contactGuard-dt);
   p.potionCd=Math.max(0,p.potionCd-dt);
-  p.mana=Math.min(p.maxMana,p.mana+playerConfig.manaRegeneration*dt);
+  if(p.weapon!==2)p.mana=Math.min(p.maxMana,p.mana+playerConfig.manaRegeneration*dt);
   updateClassKit(dt);
   p.regenPotionT=Math.max(0,p.regenPotionT-dt);
   // Natural healing builds while not recently hit, with local Terraria-inspired buffs.

@@ -23,3 +23,7 @@ Original Calamity HollowCircleHardEdge and AdrenDust textures, original Terraria
 
 ### Ark and Asgardian polish (2026-11-03)
 Native selected Calamity2.2.4 RGBA particles/masks in assets/ark-vfx/ and Aegis shield/ProvidenceMarkParticle/DetailedExplosion in assets/asgardian-original/. Adjacent provenance JSON records original file paths, dimensions and SHA256. The Aegis strip is20equipment poses, not an idle animation. Native DevourerSegmentBreak1.ogg and losslessly wrapped Terraria Item62 PCM provide the two explosion layers. Pinned Calamity source1a8cebd reports2.2.2; revision gap retained. Canvas adapts the native BigRip mask/layer; no AI art. Original authors retain rights; private local use.
+# Mage / Void Vortex (2026-11-04)
+
+`assets/mage-original/` contains losslessly converted original Calamity Void Vortex item/projectile artwork, Auric Tesla magic head, pulse/bloom textures and AuricBulletHit audio; original Terraria Item20/Item3 sounds, Super Mana Potion and Mana Sickness icons. Owners remain Calamity Mod contributors and Re-Logic. No AI replacement artwork/audio. Source paths, dimensions and SHA256 hashes are in adjacent `provenance.json`. Mechanics reference official Calamity commit `1a8cebd27ec5615316b78f71973446b5528d2b78` (code2.2.2) with installed art2.2.4; see `work/MAGE-V27-RESULT.md` for explicit adaptation boundaries. This remains an unofficial fan project.
+

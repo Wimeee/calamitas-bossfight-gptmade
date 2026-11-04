@@ -5,7 +5,7 @@ export const calamitasMusic = Object.freeze({
   artist: 'DM DOKURO',
   authorUrl: 'https://dmdokuro.bandcamp.com/track/stained-brutal-calamity',
   tracks: Object.freeze(Object.fromEntries(['grief','lament','epiphany','acceptance'].map(phase=>[phase,Object.freeze({
-    url:new URL('../assets/calamitas/music/'+phase+'.ogg?v=26.3.0',import.meta.url).href,
+    url:new URL('../assets/calamitas/music/'+phase+'.ogg?v=27.0.0',import.meta.url).href,
     loop:true
   })])))
 });

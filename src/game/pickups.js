@@ -1,7 +1,7 @@
-import { getTerrain } from '../world/terrain.js?v=26.3.0';
-import { movementConfig } from '../../config/movement.js?v=26.3.0';
-import { audio } from '../core/audio.js?v=26.3.0';
-import { weapons } from '../classes/registry.js?v=26.3.0';
+import { getTerrain } from '../world/terrain.js?v=27.0.0';
+import { movementConfig } from '../../config/movement.js?v=27.0.0';
+import { audio } from '../core/audio.js?v=27.0.0';
+import { weapons } from '../classes/registry.js?v=27.0.0';
 
 // Native 60 Hz item-style motion, adapted to the game's one-way platforms.
 // Player.defaultItemGrabRange=42; no Heartreach/Celestial Magnet equipment.
@@ -28,7 +28,8 @@ function tick(game){
   for(let i=game.pickups.length-1;i>=0;i--){
     const d=game.pickups[i];d.vx??=0;d.vy??=0;d.life??=3600;d.life-=STEP;
     if(d.life<=0){game.pickups.splice(i,1);continue;}
-    const pull=needs(p,d)&&Math.abs(d.x-p.x)<GRAB_RANGE+movementConfig.halfWidth+RADIUS&&Math.abs(d.y-p.y)<GRAB_RANGE+movementConfig.halfHeight+RADIUS;
+    const grab=GRAB_RANGE+(d.kind==='star'&&isManaUser(p)&&p.manaMagnet?400:0);
+    const pull=needs(p,d)&&Math.abs(d.x-p.x)<grab+movementConfig.halfWidth+RADIUS&&Math.abs(d.y-p.y)<grab+movementConfig.halfHeight+RADIUS;
     if(pull){
       const dx=p.x-d.x,dy=p.y-d.y,len=Math.hypot(dx,dy)||1;
       const approach=(v,target)=>v+Math.max(-PULL_ACCEL*STEP,Math.min(PULL_ACCEL*STEP,target-v));

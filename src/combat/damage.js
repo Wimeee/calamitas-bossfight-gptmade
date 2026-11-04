@@ -1,11 +1,11 @@
-import {warriorBalance} from '../../config/warrior-balance.js?v=26.3.0';
-import { applyPlayerHex } from './debuffs.js?v=26.3.0';
-import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=26.3.0';
-import { audio } from '../core/audio.js?v=26.3.0';
-import { rnd } from '../core/math.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
-import { finish } from '../game/session.js?v=26.3.0';
-import { weaponImpact } from '../render/effects.js?v=26.3.0';
+import {warriorBalance} from '../../config/warrior-balance.js?v=27.0.0';
+import { applyPlayerHex } from './debuffs.js?v=27.0.0';
+import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=27.0.0';
+import { audio } from '../core/audio.js?v=27.0.0';
+import { rnd } from '../core/math.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
+import { finish } from '../game/session.js?v=27.0.0';
+import { weaponImpact } from '../render/effects.js?v=27.0.0';
 
 
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){
@@ -21,7 +21,7 @@ function hitTarget(t,amount,x,y,color,attack='melee',visual=true){
   if(inflicted&&g.floaters.length<140)g.floaters.push({x,y:y-12,life:.85,text:String(inflicted),col:'#fff1b5'});
   t.hitFlash=g.t+.115;
   if(g.brothers?.includes(t))audio.minion('brotherHurt',g);
-  audio.fx(g.player.weapon===0?'arkHit':'swordhit');
+  if(attack!=='mage')audio.fx(g.player.weapon===0?'arkHit':'swordhit');
   for(let i=0;i<(visual?4:0);i++)g.sparks.push({x,y,vx:rnd(-90,90),vy:rnd(-90,90),life:.29,max:.29,c:color});
 }
 

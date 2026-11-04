@@ -1,4 +1,4 @@
-import {state} from './state.js?v=26.3.0';
+import {state} from './state.js?v=27.0.0';
 // Touch input is available on phones; desktop input remains selected for fine pointers.
 const MOBILE_CONTROLS_ENABLED = true;
 const STORAGE_KEY = 'utbg_settings_v1';

@@ -1,25 +1,26 @@
-import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=26.3.0';
-import { resetArenaState } from '../world/arena-state.js?v=26.3.0';
-import { resizeViewport } from '../world/viewport.js?v=26.3.0';
-import { makeRippers } from '../systems/rippers.js?v=26.3.0';
-import { updateCamera } from '../world/camera.js?v=26.3.0';
-import { spawnNearAltar } from './movement.js?v=26.3.0';
-import { prepareRitual, syncRitualControls } from './ritual.js?v=26.3.0';
-import { settings } from '../core/settings.js?v=26.3.0';
-import { playerConfig } from '../../config/player.js?v=26.3.0';
-import { getDifficulty } from '../../config/difficulty.js?v=26.3.0';
-import { getEncounter } from '../boss/registry.js?v=26.3.0';
-import { weapons } from '../classes/registry.js?v=26.3.0';
-import { summonSquad } from '../classes/summoner.js?v=26.3.0';
-import { configureArena } from '../core/arena.js?v=26.3.0';
-import { audio } from '../core/audio.js?v=26.3.0';
-import { $ } from '../core/dom.js?v=26.3.0';
-import { state } from '../core/state.js?v=26.3.0';
-import { loop } from './loop.js?v=26.3.0';
-import { enter } from './phases.js?v=26.3.0';
-import { setFocusMode } from '../input/fullscreen.js?v=26.3.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=26.3.0';
-import { showOverlay, ui } from '../ui/hud.js?v=26.3.0';
+import {initializeMage} from '../classes/mage.js?v=27.0.0';
+import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=27.0.0';
+import { resetArenaState } from '../world/arena-state.js?v=27.0.0';
+import { resizeViewport } from '../world/viewport.js?v=27.0.0';
+import { makeRippers } from '../systems/rippers.js?v=27.0.0';
+import { updateCamera } from '../world/camera.js?v=27.0.0';
+import { spawnNearAltar } from './movement.js?v=27.0.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=27.0.0';
+import { settings } from '../core/settings.js?v=27.0.0';
+import { playerConfig } from '../../config/player.js?v=27.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=27.0.0';
+import { getEncounter } from '../boss/registry.js?v=27.0.0';
+import { weapons } from '../classes/registry.js?v=27.0.0';
+import { summonSquad } from '../classes/summoner.js?v=27.0.0';
+import { configureArena } from '../core/arena.js?v=27.0.0';
+import { audio } from '../core/audio.js?v=27.0.0';
+import { $ } from '../core/dom.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.0.0';
+import { loop } from './loop.js?v=27.0.0';
+import { enter } from './phases.js?v=27.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=27.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=27.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=27.0.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -125,6 +126,7 @@ function start(options={}){
   resetTouchInput();
   if(state.deviceMode==='mobile')state.mobileAutoAim=settings.autoAim;
   state.game=makeGame();
+  initializeMage(state.game);
   configureArena(state.game.difficulty);
   resetArenaState(state.game,true);
   setFocusMode(true);resizeViewport();

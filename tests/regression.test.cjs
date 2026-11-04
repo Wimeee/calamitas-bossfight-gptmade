@@ -42,7 +42,7 @@ for(const weapon of ['melee','ranger','mage','summon','rogue']){
  g.player.x=500;g.player.y=340;g.player.iframes=999;g.boss.x=620;g.boss.y=340;g.attackTimer=999;g.patternTimer=999;t.setPointer({x:620,y:340});
  const hp=g.boss.hp;t.shoot();let matchingImpact=g.impacts.some(f=>f.kind===weapon);
  for(let i=0;i<20;i++){t.update(1/60);matchingImpact ||= g.impacts.some(f=>f.kind===weapon);t.draw(g);}
- check(g.boss.hp<hp,weapon+' damages boss');check(matchingImpact,weapon+' matching hit art');
+ check(g.boss.hp<hp,weapon+' damages boss');check(weapon==='mage'?g.player.kit.vortexBeams.some(b=>b.resolved):matchingImpact,weapon+' matching native attack state');
  check(g.player.mana>=0&&g.player.mana<=g.player.maxMana,'mana bounds '+weapon);
 }
 // Beam collision is real, stops at the nearest target and respects the arena wall.
@@ -55,7 +55,8 @@ const near={x:620,y:300,r:16,hp:1000,max:1000},far={x:780,y:300,r:16,hp:1000,max
 let ray=t.traceWeaponBeam(500,300,0,4);check(ray.hit===near&&Math.abs(ray.ex-600)<1e-9,'beam stops at nearest target');
 ray=t.traceWeaponBeam(500,300,Math.PI,4);check(!ray.hit&&Math.abs(ray.ex-t.arena.l)<1e-9,'beam ignores targets behind');
 bg.hearts=[{...near,y:400}];ray=t.traceWeaponBeam(500,300,0,4);check(!ray.hit&&Math.abs(ray.ex-t.arena.r)<1e-9,'off-axis miss and arena endpoint');
-for(const id of ['ranger','mage']){
+// Native Void Vortex lifecycle/damage is tested in void-vortex.test.cjs.
+for(const id of ['ranger']){
  el('class').value=id;t.start();t.enter('normal','opening','BEAM DAMAGE');bg=t.getGame();bg.player.x=500;bg.player.y=300;bg.player.channelCharge=1;bg.boss.x=720;bg.boss.y=300;bg.attackTimer=999;bg.patternTimer=999;bg.player.iframes=999;t.setPointer({x:720,y:300});
  const hp=bg.boss.hp,mana=bg.player.mana,w=t.weapons[bg.player.weapon];t.shoot();
  check(Math.abs((hp-bg.boss.hp)-(id==='mage'?w.dmg*1.65:w.dmg*1.0225)*.72)<1e-6,'preserved damage budget '+id);

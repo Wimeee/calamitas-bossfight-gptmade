@@ -25,12 +25,12 @@ export const weapons=[
   },
   {
     id:'mage',
-    name:"Yharim's Crystal",
+    name:'Void Vortex',
     label:'3 ✧ Mage',
-    desc:'ЛКМ: 6 Dragonfire-променів • ПКМ: Nova за повний резонанс, +75 мани',
-    mana:4.5,
-    cool:.065,
-    dmg:300,
+    desc:'ЛКМ: вихор біля курсора → промені → вибух і самонавідні сфери • Автозілля мани',
+    mana:50,
+    cool:49/60,
+    dmg:210,
     speed:1160,
     rad:8,
     col:'#d991ff'

@@ -1,7 +1,8 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=26.3.0';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=26.3.0';
-import { settings,subscribeSettings } from './settings.js?v=26.3.0';
-import { state } from './state.js?v=26.3.0';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=27.0.0';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=27.0.0';
+import {mageAudio} from '../../config/mage-audio.js?v=27.0.0';
+import { settings,subscribeSettings } from './settings.js?v=27.0.0';
+import { state } from './state.js?v=27.0.0';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;
@@ -50,7 +51,7 @@ export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
 export const calamitasSamples=createCalamitasAudio();
 
 // Melee audio (Ark of the Cosmos)
-export function createMeleeAudio({fetcher=(...args)=>fetch(...args)}={}){
+export function createMeleeAudio({fetcher=(...args)=>fetch(...args),clips=meleeClips,directory='melee-original'}={}){
   let context=null,bus=null,loading=null;
   const buffers=new Map(),voices=new Set(),last=new Map(),variants=new Map();
   const status={state:'idle',loaded:0,failed:0};
@@ -69,15 +70,15 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args)}={}){
     context=ctx;if(!ctx||!master)return;
     bus=ctx.createGain();bus.gain.value=settings.sfxEnabled?settings.sfxVolume:0;bus.connect(master);
     status.state='loading';
-    loading=Promise.all(Object.entries(meleeClips).map(async([name,clip])=>{
+    loading=Promise.all(Object.entries(clips).map(async([name,clip])=>{
       try{
         const group=await Promise.all((clip.files||[clip.file]).map(async file=>{
-          const response=await fetcher(new URL('../../assets/melee-original/'+file,import.meta.url).href);
+          const response=await fetcher(new URL('../../assets/'+directory+'/'+file,import.meta.url).href);
           if(!response.ok)throw Error('Missing audio');
           return ctx.decodeAudioData(await response.arrayBuffer());
         }));
         group.layers=await Promise.all((clip.layers||[]).map(async file=>{
-          const response=await fetcher(new URL('../../assets/melee-original/'+file,import.meta.url).href);
+          const response=await fetcher(new URL('../../assets/'+directory+'/'+file,import.meta.url).href);
           if(!response.ok)throw Error('Missingaudio');return ctx.decodeAudioData(await response.arrayBuffer());
         }));
         buffers.set(name,group);status.loaded++;
@@ -87,7 +88,7 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args)}={}){
   }
   function play(tag,game=state.game){
     if(!context||!bus||!settings.sfxEnabled||settings.sfxVolume<=0||game?.mode!=='playing'||state.screen!=='game')return false;
-    const clip=meleeClips[tag],group=buffers.get(tag);if(!clip||!group?.length)return false;
+    const clip=clips[tag],group=buffers.get(tag);if(!clip||!group?.length)return false;
     const now=context.currentTime;if(now-(last.get(tag)??-Infinity)<clip.interval)return true;
     if(voices.size>=10){const oldest=voices.values().next().value;stop(oldest.tag);}
     last.set(tag,now);
@@ -106,3 +107,5 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args)}={}){
   return {initialize,play,stop,sync,status,get activeVoices(){return voices.size;}};
 }
 export const meleeSamples=createMeleeAudio();
+
+export const mageSamples=createMeleeAudio({clips:mageAudio,directory:'mage-original'});
