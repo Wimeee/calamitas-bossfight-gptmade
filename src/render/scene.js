@@ -1,35 +1,36 @@
-import {drawPhotoEffects,drawPhotoBackpack} from './ranger.js?v=28.1.0';
-import {drawMageEffects} from './mage.js?v=28.1.0';
-import {renderQuality} from '../core/settings.js?v=28.1.0';
-import {drawAsgardianShield,drawAsgardianEffects} from './asgardian.js?v=28.1.0';
-import {drawArkEffects} from './ark-effect-render.js?v=28.1.0';
-import {drawCalamitasDialogue} from './dialogue.js?v=28.1.0';
-import {drawArenaDebris} from './arena-debris.js?v=28.1.0';
-import { drawRipperPlayerEffects } from './ripper-effects.js?v=28.1.0';
-import { drawBattleHUD } from './battle-hud.js?v=28.1.0';
-import { nativeText } from './hud-atlas.js?v=28.1.0';
-import { paintWorldDecoration } from './world-decorations.js?v=28.1.0';
-import { cameraView } from '../world/camera.js?v=28.1.0';
-import { drawWorldHUD } from './world-hud.js?v=28.1.0';
-import { getTerrain } from '../world/terrain.js?v=28.1.0';
-import { drawFlightWings,drawFlightGauge } from './mobility.js?v=28.1.0';
-import { drawEnemyProjectiles } from './projectiles.js?v=28.1.0';
-import { drawWarriorBody } from './warrior.js?v=28.1.0';
-import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=28.1.0';
-import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=28.1.0';
-import { getEncounter } from '../boss/registry.js?v=28.1.0';
-import { possibleTargets } from '../combat/targets.js?v=28.1.0';
-import { arena } from '../core/arena.js?v=28.1.0';
-import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=28.1.0';
-import { ctx,canvas } from '../core/dom.js?v=28.1.0';
-import { clamp, norm } from '../core/math.js?v=28.1.0';
-import { state } from '../core/state.js?v=28.1.0';
-import { drawBackdrop } from './background.js?v=28.1.0';
-import { drawClassKit } from './class-effects.js?v=28.1.0';
-import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=28.1.0';
-import { drawSword } from './melee.js?v=28.1.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=28.1.0';
-import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=28.1.0';
+import {drawNativeSummons,drawSummonerProjectiles} from './summoner.js?v=29.0.0';
+import {drawPhotoEffects,drawPhotoBackpack} from './ranger.js?v=29.0.0';
+import {drawMageEffects} from './mage.js?v=29.0.0';
+import {renderQuality} from '../core/settings.js?v=29.0.0';
+import {drawAsgardianShield,drawAsgardianEffects} from './asgardian.js?v=29.0.0';
+import {drawArkEffects} from './ark-effect-render.js?v=29.0.0';
+import {drawCalamitasDialogue} from './dialogue.js?v=29.0.0';
+import {drawArenaDebris} from './arena-debris.js?v=29.0.0';
+import { drawRipperPlayerEffects } from './ripper-effects.js?v=29.0.0';
+import { drawBattleHUD } from './battle-hud.js?v=29.0.0';
+import { nativeText } from './hud-atlas.js?v=29.0.0';
+import { paintWorldDecoration } from './world-decorations.js?v=29.0.0';
+import { cameraView } from '../world/camera.js?v=29.0.0';
+import { drawWorldHUD } from './world-hud.js?v=29.0.0';
+import { getTerrain } from '../world/terrain.js?v=29.0.0';
+import { drawFlightWings,drawFlightGauge } from './mobility.js?v=29.0.0';
+import { drawEnemyProjectiles } from './projectiles.js?v=29.0.0';
+import { drawWarriorBody } from './warrior.js?v=29.0.0';
+import { drawRitualWorld, drawRitualOverlay } from './ritual.js?v=29.0.0';
+import { settings,shakeOffset,keyLabel } from '../core/settings.js?v=29.0.0';
+import { getEncounter } from '../boss/registry.js?v=29.0.0';
+import { possibleTargets } from '../combat/targets.js?v=29.0.0';
+import { arena } from '../core/arena.js?v=29.0.0';
+import { H, TAU, VIEW_X, VIEW_Y, W } from '../core/config.js?v=29.0.0';
+import { ctx,canvas } from '../core/dom.js?v=29.0.0';
+import { clamp, norm } from '../core/math.js?v=29.0.0';
+import { state } from '../core/state.js?v=29.0.0';
+import { drawBackdrop } from './background.js?v=29.0.0';
+import { drawClassKit } from './class-effects.js?v=29.0.0';
+import { drawPatternWarnings, drawWeaponImpacts } from './effects.js?v=29.0.0';
+import { drawSword } from './melee.js?v=29.0.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=29.0.0';
+import { drawChannelBeam, drawHeldWeapon, drawPixelWhip, drawPlayerShot } from './weapons.js?v=29.0.0';
 
 
 function draw(g){
@@ -71,13 +72,13 @@ function drawScene(g){
   getEncounter(g).draw(g);
   drawEnemyProjectiles(g);
   drawChannelBeam(g);
-  drawMageEffects(g);drawPhotoEffects(g);
+  drawMageEffects(g);drawPhotoEffects(g);drawSummonerProjectiles(g);drawNativeSummons(g);
   for(const s of g.shots)drawPlayerShot(s,g);
   drawFlightWings(g);drawPhotoBackpack(g);
   drawArkEffects(g,'smoke');
   drawSword(g);
   if(Array.isArray(p.cosmic)&&p.cosmic.length){
-    p.cosmic.forEach((m,i)=>pixel('spirit'+i,m.x,m.y,1.05,Math.sin(g.t*3+i)*.12));
+    // Native summoned entities are rendered by drawNativeSummons.
     const targets=possibleTargets();
     if(p.cosmicMark&&targets.includes(p.cosmicMark)){
       const t=p.cosmicMark,r=t.r+18;
@@ -88,7 +89,7 @@ function drawScene(g){
       ctx.arc(t.x,t.y,r+Math.sin(g.t*11)*2,0,TAU);
       ctx.stroke();
       ctx.setLineDash([]);
-      if(t.whipMarkedUntil>g.t)text('✴ +35%',t.x,t.y-r-10,11,'#ffe3a3');
+      if(t.whipMarkedUntil>g.t)text('✴ +8 · 10%',t.x,t.y-r-10,11,'#ffe3a3');
     }
   }
   drawPixelWhip(g);

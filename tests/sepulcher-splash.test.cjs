@@ -12,7 +12,7 @@ test('Ark snap is a real area hit once; ordinary blade sweep does not repeat per
 });
 test('Rogue recall shares hit IDs across blades; summon whip applies1 without retargeting summons',async()=>{
  {const {t,g,w}=await fixture();g.player.weapon=4;const k=t.kit();k.blades=[0,1].map(()=>({x:100,y:100,returning:false,returnHits:new Set()}));t.activateRogue();assert.equal(w.hp,299997);t.activateRogue();assert.equal(w.hp,299997);}
- {const {t,g,w}=await fixture();g.player.weapon=3;g.player.x=100;g.player.y=100;t.setPointer({x:1000,y:100});t.lashWhip();assert.equal(w.hp,299996);assert.ok(!t.possibleTargets().includes(w));}
+ {const {t,g,w}=await fixture();g.player.weapon=3;g.player.x=100;g.player.y=100;t.summonSquad();for(const m of g.player.cosmic)Object.assign(m,{x:-1900,y:100,vx:0,vy:0});t.setPointer({x:1000,y:100});t.lashWhip();assert.equal(w.hp,300000,'native whip has no instantaneous cone');for(let i=0;i<60;i++){g.t+=1/120;t.updateCosmic(1/120);}assert.equal(w.hp,299996,'each touched native part receives1 over the real sweep');assert.ok(!t.possibleTargets().includes(w));}
 });
 test('DR follows the original formula rather than forcibly clamping every possible hit to1; segment cooldowns remain independent',async()=>{
  const {t,g,w,sandbox}=await fixture();w.nodes=[];assert.equal(t.damageSepulcherArea(g,100,100,0,2000000),2);

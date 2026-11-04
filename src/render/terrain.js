@@ -1,9 +1,9 @@
-import {arenaImage} from './arena-atlas.js?v=28.1.0';
-import { arena } from '../core/arena.js?v=28.1.0';
-import { ctx } from '../core/dom.js?v=28.1.0';
-import { getTerrain } from '../world/terrain.js?v=28.1.0';
-import { cameraView } from '../world/camera.js?v=28.1.0';
-import { drawWorldDecorations, initializeWorldDecorationAtlas } from './world-decorations.js?v=28.1.0';
+import {arenaImage} from './arena-atlas.js?v=29.0.0';
+import { arena } from '../core/arena.js?v=29.0.0';
+import { ctx } from '../core/dom.js?v=29.0.0';
+import { getTerrain } from '../world/terrain.js?v=29.0.0';
+import { cameraView } from '../world/camera.js?v=29.0.0';
+import { drawWorldDecorations, initializeWorldDecorationAtlas } from './world-decorations.js?v=29.0.0';
 
 let key='',strips=new Map();
 function strip(width,ground=false){

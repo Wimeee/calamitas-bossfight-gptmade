@@ -835,7 +835,7 @@ test('persistent summon entities and equipment unaffected by worm absorption', a
 
   // Save array reference and each entity reference
   const cosmicArray = g.player.cosmic;
-  assert.ok(Array.isArray(cosmicArray) && cosmicArray.length === 4, 'cosmic array has 4 entities');
+  assert.ok(Array.isArray(cosmicArray) && cosmicArray.length === 2, 'cosmic array has 2 native entities');
   const entityRefs = [...cosmicArray]; // copy of entity references
 
   // Save weapon and kit object references
@@ -858,8 +858,8 @@ test('persistent summon entities and equipment unaffected by worm absorption', a
 
   // Assert player.cosmic is SAME array with SAME 4 objects
   assert.strictEqual(g.player.cosmic, cosmicArray, 'player.cosmic is same array reference');
-  assert.equal(g.player.cosmic.length, 4, 'player.cosmic still has 4 entities');
-  for (let i = 0; i < 4; i++) {
+  assert.equal(g.player.cosmic.length, 2, 'player.cosmic still has 2 native entities');
+  for (let i = 0; i < entityRefs.length; i++) {
     assert.strictEqual(g.player.cosmic[i], entityRefs[i], `cosmic entity ${i} is same object reference`);
   }
 

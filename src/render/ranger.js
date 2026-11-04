@@ -1,7 +1,7 @@
-import {photoGeometry} from '../classes/photo-geometry.js?v=28.1.0';
-import {ctx} from '../core/dom.js?v=28.1.0';
-import {renderQuality} from '../core/settings.js?v=28.1.0';
-import {circleVisible} from './visibility.js?v=28.1.0';
+import {photoGeometry} from '../classes/photo-geometry.js?v=29.0.0';
+import {ctx} from '../core/dom.js?v=29.0.0';
+import {renderQuality} from '../core/settings.js?v=29.0.0';
+import {circleVisible} from './visibility.js?v=29.0.0';
 const images={},tints=[],colors=[[255,69,0],[64,224,208],[255,165,0],[124,252,0]];let loading;
 // Original rate=t*8: interpolate during the first half of each color interval,
 // then hold the destination color. No combat RNG or per-frame tint canvases.
@@ -11,7 +11,7 @@ export function photoImage(name){return images[name];}
 export function initializePhotoAtlas(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  loading=Promise.all(['holdout','holdout-glow','bloom','pulse','gel','backpack'].map(name=>new Promise(resolve=>{
-  const im=new Image();im.onload=()=>{images[name]=im;if(name==='bloom')for(let index=0;index<32;index++){const a=colors[Math.floor(index/8)],b=colors[(Math.floor(index/8)+1)%4],color=a.map((v,i)=>v+(b[i]-v)*(index%8)/7),c=document.createElement('canvas');c.width=c.height=96;const x=c.getContext('2d');x.drawImage(im,0,0,96,96);try{const p=x.getImageData(0,0,96,96);for(let i=0;i<p.data.length;i+=4)for(let j=0;j<3;j++)p.data[i+j]*=color[j]/255;x.putImageData(p,0,0);}catch{}tints.push(c);}resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/ranger-original/'+name+'.png?v=28.1.0',import.meta.url).href;
+  const im=new Image();im.onload=()=>{images[name]=im;if(name==='bloom')for(let index=0;index<32;index++){const a=colors[Math.floor(index/8)],b=colors[(Math.floor(index/8)+1)%4],color=a.map((v,i)=>v+(b[i]-v)*(index%8)/7),c=document.createElement('canvas');c.width=c.height=96;const x=c.getContext('2d');x.drawImage(im,0,0,96,96);try{const p=x.getImageData(0,0,96,96);for(let i=0;i<p.data.length;i+=4)for(let j=0;j<3;j++)p.data[i+j]*=color[j]/255;x.putImageData(p,0,0);}catch{}tints.push(c);}resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/ranger-original/'+name+'.png?v=29.0.0',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 export function drawPhotoHeld(g,a){

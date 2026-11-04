@@ -1,14 +1,14 @@
-import {photoGeometry} from './photo-geometry.js?v=28.1.0';
-import {rangerConfig as C} from '../../config/ranger.js?v=28.1.0';
-import {state} from '../core/state.js?v=28.1.0';
-import {kit} from './shared.js?v=28.1.0';
-import {audio} from '../core/audio.js?v=28.1.0';
-import {possibleTargets} from '../combat/targets.js?v=28.1.0';
-import {hitTarget} from '../combat/damage.js?v=28.1.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=28.1.0';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=28.1.0';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=28.1.0';
-import {getTerrain} from '../world/terrain.js?v=28.1.0';
+import {photoGeometry} from './photo-geometry.js?v=29.0.0';
+import {rangerConfig as C} from '../../config/ranger.js?v=29.0.0';
+import {state} from '../core/state.js?v=29.0.0';
+import {kit} from './shared.js?v=29.0.0';
+import {audio} from '../core/audio.js?v=29.0.0';
+import {possibleTargets} from '../combat/targets.js?v=29.0.0';
+import {hitTarget} from '../combat/damage.js?v=29.0.0';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.0.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=29.0.0';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.0.0';
+import {getTerrain} from '../world/terrain.js?v=29.0.0';
 export function initializeRanger(g){if(g.player.weapon===1)g.player.gel=C.gel;}
 export function rangerState(){const k=kit();return k.photo??={clock:0,step:0,ticks:0,active:false,photoTimer:0,flames:[],lights:[],clusters:[],pulses:[],effects:[],effectId:0,fireHits:new Map(),fireFrames:0,emittedLights:0,altUntil:0,forced:0};}
 function effect(k,kind,x,y,r=1,angle=0){k.effects.push({kind,x,y,r,angle,at:k.clock,id:++k.effectId});if(k.effects.length>48)k.effects.shift();}

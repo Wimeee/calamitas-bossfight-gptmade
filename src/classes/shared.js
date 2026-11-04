@@ -1,5 +1,5 @@
-import { classRegistry, weapons } from './registry.js?v=28.1.0';
-import { state } from '../core/state.js?v=28.1.0';
+import { classRegistry, weapons } from './registry.js?v=29.0.0';
+import { state } from '../core/state.js?v=29.0.0';
 
 
 function kit(){
@@ -30,7 +30,7 @@ function kitHint(){
   if(!state.game)return '';
   const p=state.game.player,k=kit();
   if(k.abilityCd>0)return 'ПКМ · '+k.abilityCd.toFixed(1)+'с';
-  return p.weapon===1?'ЛКМ · ПОЛУМ’Я / ПКМ · ЗАРЯД':p.weapon===2?'ЛКМ · VOID VORTEX':p.weapon===3?'ПКМ · МІТКА + ЗАЛП':p.weapon===4?'ПКМ · ПОВЕРНЕННЯ':'';
+  return p.weapon===1?'ЛКМ · ПОЛУМ’Я / ПКМ · ЗАРЯД':p.weapon===2?'ЛКМ · VOID VORTEX':p.weapon===3?'ПКМ · МІТКА':p.weapon===4?'ПКМ · ПОВЕРНЕННЯ':'';
 }
 
 

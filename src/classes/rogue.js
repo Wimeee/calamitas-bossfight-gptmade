@@ -1,13 +1,13 @@
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=28.1.0';
-import { beginAttack, kit } from './shared.js?v=28.1.0';
-import { hitTarget } from '../combat/damage.js?v=28.1.0';
-import { possibleTargets } from '../combat/targets.js?v=28.1.0';
-import { arena } from '../core/arena.js?v=28.1.0';
-import { audio } from '../core/audio.js?v=28.1.0';
-import { dist, lerp, norm, segmentDistance } from '../core/math.js?v=28.1.0';
-import { state } from '../core/state.js?v=28.1.0';
-import { muzzlePoint, weaponAim } from '../render/weapons.js?v=28.1.0';
-import { getSepulcherBlockers, checkSepulcherCollision } from '../combat/sepulcher-blocking.js?v=28.1.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=29.0.0';
+import { beginAttack, kit } from './shared.js?v=29.0.0';
+import { hitTarget } from '../combat/damage.js?v=29.0.0';
+import { possibleTargets } from '../combat/targets.js?v=29.0.0';
+import { arena } from '../core/arena.js?v=29.0.0';
+import { audio } from '../core/audio.js?v=29.0.0';
+import { dist, lerp, norm, segmentDistance } from '../core/math.js?v=29.0.0';
+import { state } from '../core/state.js?v=29.0.0';
+import { muzzlePoint, weaponAim } from '../render/weapons.js?v=29.0.0';
+import { getSepulcherBlockers, checkSepulcherCollision } from '../combat/sepulcher-blocking.js?v=29.0.0';
 
 
 function throwCelestus(w,a){

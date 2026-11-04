@@ -1,0 +1,185 @@
+{
+  "codeCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "codeVersion": "2.2.2",
+  "artVersion": "2.2.4",
+  "conversion": "Original RGBA losslessPNG and original PCM losslessWAV/OGG. No generated art/audio.",
+  "files": [
+    {
+      "file": "cosmic.png",
+      "source": "Projectiles/Summon/CosmicEnergySpiral.rawimg",
+      "width": 78,
+      "height": 78,
+      "frames": 1,
+      "sha256": "072792eab774cd0f55212718a961afac6b6821251c4a30a4bde0467c14ff520b"
+    },
+    {
+      "file": "bolt.png",
+      "source": "Projectiles/Summon/CosmicBlast.rawimg",
+      "width": 18,
+      "height": 176,
+      "frames": 4,
+      "sha256": "0cdfa61c77eff270501d029e84659ed97830d8c7c915eaa8ae2a1bf210d67758"
+    },
+    {
+      "file": "star.png",
+      "source": "Projectiles/Summon/CosmicBlastBig.rawimg",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "sha256": "91ea774e26396657ee5b10715c9c6b2c49c808b6eb2fa4fb49340eb4a5325720"
+    },
+    {
+      "file": "draconid.png",
+      "source": "Projectiles/Summon/FieryDraconid.rawimg",
+      "width": 206,
+      "height": 1760,
+      "frames": 10,
+      "sha256": "4293edd40a8194e11fd02d1e65d1783ee4d3519c3ff57730620cd695dbba19f2"
+    },
+    {
+      "file": "fireball.png",
+      "source": "Projectiles/Boss/YharonFireball.rawimg",
+      "width": 34,
+      "height": 460,
+      "frames": 5,
+      "sha256": "46c37f99c9fd6797b8edb15006f38255541dd8d12cef847326c77dc7f3fb4e4a"
+    },
+    {
+      "file": "apparatus.png",
+      "source": "Projectiles/Summon/ApparatusExplosion.rawimg",
+      "width": 42,
+      "height": 440,
+      "frames": 10,
+      "sha256": "73d5cff27b5dfd4428f760ffe27dbcd89c4400f99d4190037040844e18f93c4c"
+    },
+    {
+      "file": "auric-summon-head.png",
+      "source": "Items/Armor/Auric/AuricTeslaHeadSummon_Head.rawimg",
+      "width": 40,
+      "height": 1120,
+      "frames": 20,
+      "sha256": "06a315773694d97ddf280e957cb593ca8adb6d8748d73d0a5581a5c6987231e2"
+    },
+    {
+      "file": "cosmic-staff.png",
+      "source": "Items/Weapons/Summon/CosmicImmaterializer.rawimg",
+      "width": 170,
+      "height": 164,
+      "frames": 1,
+      "sha256": "84fb509bace3df71c6f8178718558cd2ee5e71d9af9fef83ee579dad59d3c11c"
+    },
+    {
+      "file": "kindle-staff.png",
+      "source": "Items/Weapons/Summon/YharonsKindleStaff.rawimg",
+      "width": 80,
+      "height": 74,
+      "frames": 1,
+      "sha256": "6db129ddf28688cb1ad47858cfd009e779143a3e938b86ae739d0ea226cea533"
+    },
+    {
+      "file": "cosmic-buff.png",
+      "source": "Buffs/Summon/CosmicEnergy.rawimg",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "sha256": "72c0030afd3619ddb0dd258c213e5949fdf8c463dfc50dd035ff53b0846ceb87"
+    },
+    {
+      "file": "draconid-buff.png",
+      "source": "Buffs/Summon/FieryDraconidBuff.rawimg",
+      "width": 32,
+      "height": 32,
+      "frames": 1,
+      "sha256": "597e3e16184b1df64aacb01190dbac321131d661fc915eaac9857f800b058a01"
+    },
+    {
+      "file": "nucleogenesis.png",
+      "source": "Items/Accessories/Nucleogenesis.rawimg",
+      "width": 50,
+      "height": 540,
+      "frames": 10,
+      "sha256": "89136fb54c2b10f9d2b42cc5aabbe811bd9207f26a211668ea6670debbb47ef4"
+    },
+    {
+      "file": "flare.ogg",
+      "source": "Sounds/Item/FlareSound.ogg",
+      "sha256": "866dc41aca2eef1107d0f0d3d6ccae9ba6b37eec03618bfff88b56ba464871b9"
+    },
+    {
+      "file": "kaleidoscope.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_4914.xnb",
+      "width": 42,
+      "height": 44,
+      "sha256": "fdfabbc9e7068059817532483348b7e6d19c83a9dc3129237c3216f48d157449"
+    },
+    {
+      "file": "whip.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Projectile_915.xnb",
+      "width": 22,
+      "height": 160,
+      "sha256": "16d18d53c0b403356cc879f7f64382daa8fdc42a9f21669a49a346564ff8ef44"
+    },
+    {
+      "file": "papyrus.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_1864.xnb",
+      "width": 36,
+      "height": 36,
+      "sha256": "42e5bcba196ba22ea7230606249c16d3a807e2827e5e073cce04e7f790eb7b25"
+    },
+    {
+      "file": "scroll.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_1845.xnb",
+      "width": 36,
+      "height": 36,
+      "sha256": "4e3d49a261d6569dc4b5d0b318fcab6dc38072dc2d77ae0e557e0783a7e370ea"
+    },
+    {
+      "file": "vanilla-item-105.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_105.xnb",
+      "format": "lossless original PCM",
+      "sha256": "b707509560e26c5a87f791b141b155415b1ad8f7b8ebc237bcdfcaf1d33bf0a5"
+    },
+    {
+      "file": "vanilla-item-152.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_152.xnb",
+      "format": "lossless original PCM",
+      "sha256": "6d3c3881af71158907e3d0f50d0b03af38d3e63453db31266d2966e7d5d270c3"
+    },
+    {
+      "file": "vanilla-item-153.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_153.xnb",
+      "format": "lossless original PCM",
+      "sha256": "f3767b2c498704d1381726d6278eabf6aabbe79de28cd7e8386d3a018839e1a1"
+    },
+    {
+      "file": "vanilla-item-60.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_60.xnb",
+      "format": "lossless original PCM",
+      "sha256": "16428cc9d7e067967a2a583fa5daa60e29f2ae5305775835ad62ec88f144d7f6"
+    },
+    {
+      "file": "vanilla-item-73.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_73.xnb",
+      "format": "lossless original PCM",
+      "sha256": "d7e207f9d778f43f13f127a99bc0022d6a8df0309d23e1db9de90054745bfd53"
+    },
+    {
+      "file": "vanilla-item-74.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_74.xnb",
+      "format": "lossless original PCM",
+      "sha256": "0144b822d349a47cbcdc4912e0da6b3317bd85db060fd1c15d4344ae51805123"
+    },
+    {
+      "file": "vanilla-item-9.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Item_9.xnb",
+      "format": "lossless original PCM",
+      "sha256": "b89da587dcbada1ab05c93e00270a9d0cf5aaddf5dbe7cba88393b7eaf853b9d"
+    },
+    {
+      "file": "vanilla-zombie-103.wav",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Sounds/Zombie_103.xnb",
+      "format": "lossless original PCM",
+      "sha256": "284916596f38dd2127ffa23a859d1fac2e6c7682445bfb26e124c8ad1d9ece9f"
+    }
+  ]
+}

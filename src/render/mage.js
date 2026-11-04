@@ -1,6 +1,6 @@
-import {ctx} from '../core/dom.js?v=28.1.0';
-import {renderQuality} from '../core/settings.js?v=28.1.0';
-import {circleVisible} from './visibility.js?v=28.1.0';
+import {ctx} from '../core/dom.js?v=29.0.0';
+import {renderQuality} from '../core/settings.js?v=29.0.0';
+import {circleVisible} from './visibility.js?v=29.0.0';
 const images={};let loading;
 export function initializeMageAtlas(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
@@ -13,7 +13,7 @@ export function initializeMageAtlas(){
     // Tint RGB once while retaining its original alpha/black background.
     try{const pixels=x.getImageData(0,0,c.width,c.height);if(pixels?.data){for(let i=0;i<pixels.data.length;i+=4)pixels.data[i]*=120/255;x.putImageData(pixels,0,0);images[name]=c;}else images[name]=image;}catch{images[name]=image;}
    }else images[name]=image;resolve(true);
-  };image.onerror=()=>resolve(false);image.src=new URL('../../assets/mage-original/'+name+'.png?v=28.1.0',import.meta.url).href;
+  };image.onerror=()=>resolve(false);image.src=new URL('../../assets/mage-original/'+name+'.png?v=29.0.0',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 export function mageImage(name){return images[name];}

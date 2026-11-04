@@ -1,16 +1,18 @@
-import {drawPhotoHeld} from './ranger.js?v=28.1.0';
-import {drawMageHeld} from './mage.js?v=28.1.0';
-import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=28.1.0';
-import { weapons } from '../classes/registry.js?v=28.1.0';
-import { TAU } from '../core/config.js?v=28.1.0';
-import { ctx } from '../core/dom.js?v=28.1.0';
-import { clamp } from '../core/math.js?v=28.1.0';
-import { state } from '../core/state.js?v=28.1.0';
-import { drawArkPair } from './melee.js?v=28.1.0';
-import { line, pixel, round } from './primitives.js?v=28.1.0';
+import {drawNativeWhip} from './summoner.js?v=29.0.0';
+import {drawPhotoHeld} from './ranger.js?v=29.0.0';
+import {drawMageHeld} from './mage.js?v=29.0.0';
+import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=29.0.0';
+import { weapons } from '../classes/registry.js?v=29.0.0';
+import { TAU } from '../core/config.js?v=29.0.0';
+import { ctx } from '../core/dom.js?v=29.0.0';
+import { clamp } from '../core/math.js?v=29.0.0';
+import { state } from '../core/state.js?v=29.0.0';
+import { drawArkPair } from './melee.js?v=29.0.0';
+import { line, pixel, round } from './primitives.js?v=29.0.0';
 
 
 function drawPixelWhip(g){
+  if(g.player.weapon===3){drawNativeWhip(g);return;}
   const p=g.player,w=p.whip;
   if(!w||w.time<=0)return;
   const pr=1-w.time/w.max,len=w.range*Math.sin(pr*Math.PI*.95),a=w.angle,side=Math.sin(pr*TAU)*48;
@@ -37,6 +39,7 @@ function muzzlePoint(p,a,reach){
 
 function drawHeldWeapon(g){
   const p=g.player,w=weapons[p.weapon],a=weaponAim(g),kick=p.weaponKick||0;
+  if(w.id==='summon')return;
   if(w.id==='ranger'){drawPhotoHeld(g,a);return;}
   if(w.id==='mage'){drawMageHeld(g,a);return;}
   if(w.id==='melee'){

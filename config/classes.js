@@ -39,7 +39,7 @@ export const weapons=[
     id:'summon',
     name:'Cosmic Immaterializer',
     label:'4 ☄ Summon',
-    desc:'4 міньйони + хлист (+35%) • ПКМ: мітка та командний залп кожні 4 с',
+    desc:'Kaleidoscope • Cosmic Energy + малий Ярон • 15 слотів • ПКМ: мітка цілі',
     mana:10,
     cool:.4,
     dmg:560,

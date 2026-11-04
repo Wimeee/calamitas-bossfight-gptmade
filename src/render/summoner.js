@@ -1,0 +1,23 @@
+import {ctx} from '../core/dom.js?v=29.0.0';
+import {renderQuality} from '../core/settings.js?v=29.0.0';
+import {circleVisible} from './visibility.js?v=29.0.0';
+import {nativeWhipPoints} from '../classes/whip-motion.js?v=29.0.0';
+const images={},tints={},frames={cosmic:1,bolt:4,star:1,draconid:10,fireball:5,apparatus:10,nucleogenesis:10};let loading;
+export const summonAtlasFrames=frames;
+export function summonerImage(name){return images[name];}
+export function initializeSummonerAtlas(){if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
+ loading=Promise.all([...Object.keys(frames),'cosmic-staff','kindle-staff','cosmic-buff','draconid-buff','kaleidoscope','whip','papyrus','scroll','sparkle'].map(name=>new Promise(resolve=>{
+  const im=new Image();im.onload=()=>{images[name]=im;if(['cosmic','bolt','star','whip','sparkle'].includes(name)){tints[name]=[];for(let hue=0;hue<12;hue++){const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const x=c.getContext('2d');x.drawImage(im,0,0);const h=hue/2,sector=Math.floor(h),f=h-sector,parts=[[1,f,0],[1-f,1,0],[0,1,f],[0,1-f,1],[f,0,1],[1,0,1-f]],color=parts[sector];try{const p=x.getImageData(0,0,c.width,c.height);for(let i=0;i<p.data.length;i+=4)for(let j=0;j<3;j++)p.data[i+j]*=color[j];x.putImageData(p,0,0);}catch{}tints[name].push(c);}}resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/'+(name==='sparkle'?'melee-original/':'summoner-original/')+name+'.png?v=29.0.0',import.meta.url).href;
+ }))).then(r=>r.every(Boolean));return loading;
+}
+function sprite(name,x,y,frame=0,angle=0,flip=false,alpha=1,scale=1,hue=null){const im=hue!==null?tints[name]?.[hue%12]||images[name]:images[name];if(!im)return;const h=im.height/(frames[name]||1),f=Math.max(0,Math.floor(frame))%(frames[name]||1);ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(flip?-scale:scale,scale);ctx.globalAlpha*=alpha;ctx.drawImage(im,0,f*h,im.width,h,-im.width/2,-h/2,im.width,h);ctx.restore();}
+export function drawNativeSummons(g){if(g.player.weapon!==3||g.mode==='dead'||g.mode==='won')return;ctx.save();ctx.imageSmoothingEnabled=false;const hue=Math.floor(g.t*2)%12;for(const m of g.player.cosmic||[]){if(!circleVisible(ctx,m.x,m.y,140))continue;if(m.kind==='cosmic')sprite('cosmic',m.x,m.y,0,m.rotation,false,1,1,hue);else if(m.kind==='draconid')sprite('draconid',m.x,m.y,m.frame,0,m.side===-1);}ctx.restore();}
+export function drawNativeWhip(g){const w=g.player.whip;if(g.player.weapon!==3||!w||!images.whip||g.mode==='dead'||g.mode==='won')return;const points=w.points||nativeWhipPoints(g,w),im=images.whip,h=im.height/5-2;ctx.save();ctx.imageSmoothingEnabled=false;
+ for(let i=0;i<points.length-1;i++){const p=points[i],q=points[i+1],a=Math.atan2(q.y-p.y,q.x-p.x);ctx.strokeStyle='#d3b4eb';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();if(i!==0&&i!==39&&i%2)continue;const frame=i===0?0:i===39?4:1+i%3,hue=(Math.floor(g.t*2)+Math.floor(i*.6))%12,tex=tints.whip?.[hue]||im;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(a-Math.PI/2);ctx.drawImage(tex,0,frame*32,im.width,h,-im.width/2,-h/2+(i===0?4:0),im.width,h);ctx.restore();}ctx.restore();
+}
+export function drawSummonerProjectiles(g){const k=g.player.summonState;if(g.player.weapon!==3||!k||g.mode==='dead'||g.mode==='won')return;const low=renderQuality()==='low',hue=Math.floor(g.t*2)%12;ctx.save();ctx.imageSmoothingEnabled=false;
+ for(const q of k.shots){if(!circleVisible(ctx,q.x,q.y,80))continue;const name=q.kind==='apparatus'?'apparatus':q.kind==='fireball'?'fireball':q.kind==='bolt'?'bolt':'star',frame=q.kind==='apparatus'?Math.floor(q.age/6):Math.floor(q.age/5);if(q.kind==='fireball')for(let i=0;i<(q.trail?.length||0);i+=low?4:2){const p=q.trail[i];sprite(name,p.x,p.y,frame,q.rotation,false,.15*(i+1)/q.trail.length);}sprite(name,q.x,q.y,frame,q.rotation||0,false,q.kind==='fireball'?Math.min(1,q.age*.075):1,1,name==='bolt'||name==='star'?hue:null);}
+ for(const e of k.pulses){const age=k.clock-e.at,fade=Math.max(0,1-age/.6);if(!fade||!circleVisible(ctx,e.x,e.y,e.r+80))continue;const fiery=e.kind==='fire'||e.kind==='ram';for(let i=0;i<(low?5:12);i++){const a=i*Math.PI*2/(low?5:12),radius=e.r*age*2;xSpark(e.x+Math.cos(a)*radius,e.y+Math.sin(a)*radius,fiery?'#ffae42':'#d4a4ff',fade);}if(e.kind==='star'){ctx.globalAlpha=fade*.7;ctx.strokeStyle='#dcc3ff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(e.x,e.y,e.r*age*2,0,Math.PI*2);ctx.stroke();}}
+ ctx.restore();
+}
+function xSpark(x,y,color,alpha){const im=tints.sparkle?.[color==='#ffae42'?1:9]||images.sparkle;if(!im)return;ctx.globalAlpha=alpha;ctx.drawImage(im,x-5,y-5,10,10);}
