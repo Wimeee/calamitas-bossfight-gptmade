@@ -1,9 +1,9 @@
-import { kitHint } from '../classes/shared.js?v=27.1.1';
-import { TAU } from '../core/config.js?v=27.1.1';
-import { ctx } from '../core/dom.js?v=27.1.1';
-import { clamp } from '../core/math.js?v=27.1.1';
-import { state } from '../core/state.js?v=27.1.1';
-import { line, pixel, round, text } from './primitives.js?v=27.1.1';
+import { kitHint } from '../classes/shared.js?v=28.0.0';
+import { TAU } from '../core/config.js?v=28.0.0';
+import { ctx } from '../core/dom.js?v=28.0.0';
+import { clamp } from '../core/math.js?v=28.0.0';
+import { state } from '../core/state.js?v=28.0.0';
+import { line, pixel, round, text } from './primitives.js?v=28.0.0';
 
 
 function drawClassKit(g){
@@ -46,7 +46,7 @@ function drawClassKit(g){
     pixel('weapon-rogue',s.x,s.y,s.charged?1.05:.8,g.t*(s.returning?-19:19));
     ctx.restore();
   }
-  if(p.weapon===0||p.weapon===2)return;
+  if(p.weapon===0||p.weapon===1||p.weapon===2)return;
   const value=p.weapon===1?k.heat:p.weapon===2?k.resonance:p.weapon===4?p.stealth:1-k.abilityCd/4;
   const color=p.weapon===1?'#ffc470':p.weapon===2?'#d2a6ff':p.weapon===3?'#b8f49a':'#efb6fb';
   ctx.fillStyle='#160e22';

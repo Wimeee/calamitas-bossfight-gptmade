@@ -64,6 +64,7 @@ async function loadGame(options = {}) {
     const main = getModule(path.join(root, 'src/main.js'));
     await main.link(linker);
     await main.evaluate();
+    const beams=getModule(path.join(root,'src/combat/beams.js'));if(beams.status==='unlinked')await beams.link(linker);if(beams.status!=='evaluated')await beams.evaluate();
     t = {};
     for (const mod of modules.values()) Object.assign(t, mod.namespace);
     const state = t.state;

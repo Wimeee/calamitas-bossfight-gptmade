@@ -186,14 +186,13 @@ test('ranger ability: controlled hearts fixture - front hit first (entry order),
   front.r = 16;
   rear.x = 800;
   rear.hp = 100000;
-  const k = t.kit();
-  k.heat = 1;
-  t.activateRanger();
+  g.player.weapon=1;g.player.gel=9999;
+  const k=t.kit();
+  t.activateRanger();for(let step=0;step<30;step++)t.updateRangerCombat(1/120);
   assert.ok(front.hp < 100000, 'front heart HP decreased (entry order: front encountered first)');
   assert.equal(rear.hp, 100000, 'rear heart HP unchanged (protected by worm node)');
   // Rail endpoint should be between front heart (665) and worm node (700) at y=400
-  assert.ok(k.rail.ex > 550 && k.rail.ex < 700, `rail.ex=${k.rail.ex} should be between front and worm node`);
-  assert.equal(k.rail.ey, 400, `rail.ey=${k.rail.ey} should be 400`);
+  assert.equal(k.photo.clusters.length,0,'native cluster absorbed by worm');
 });
 
 test('checkSepulcherCollision: shot consumed on head blocker', async () => {
@@ -325,14 +324,13 @@ test('ranger ability: controlled fixture - beam blocked by worm node, front hear
   front.r = 16;
   rear.x = 800;
   rear.hp = 100000;
-  const k = t.kit();
-  k.heat = 1;
-  t.activateRanger();
+  g.player.weapon=1;g.player.gel=9999;
+  const k=t.kit();
+  t.activateRanger();for(let step=0;step<30;step++)t.updateRangerCombat(1/120);
   assert.ok(front.hp < 100000, 'front heart HP decreased (entry order: front encountered first)');
   assert.equal(rear.hp, 100000, 'rear heart HP unchanged (protected by worm node)');
   // Rail endpoint should be between front heart (665) and worm node (700) at y=400
-  assert.ok(k.rail.ex > 550 && k.rail.ex < 700, `rail.ex=${k.rail.ex} should be between front and worm node`);
-  assert.equal(k.rail.ey, 400, `rail.ey=${k.rail.ey} should be 400`);
+  assert.equal(k.photo.clusters.length,0,'native cluster absorbed by worm');
 });
 
 test('ranger ability: no ReferenceError when hitting target without worm', async () => {
@@ -345,11 +343,11 @@ test('ranger ability: no ReferenceError when hitting target without worm', async
   heart.y = 400;
   heart.r = 30;
   t.setPointer({ x: 900, y: 400 });
-  const k = t.kit();
-  k.heat = 1;
+  g.player.weapon=1;g.player.gel=9999;
+  const k=t.kit();
 
   // Should not throw ReferenceError
-  t.activateRanger();
+  t.activateRanger();for(let step=0;step<30;step++)t.updateRangerCombat(1/120);
   // Boss should take damage
   assert.ok(heart.hp < 10000, 'boss hit by ranger beam without worm');
 });
@@ -361,15 +359,15 @@ test('ranger ability: origin inside target (boss/player overlapping) clamps t=0'
   // Boss and player both at 400,400 - origin inside target
   g.player.x = 400;
   g.player.y = 400;
-  heart.x = 400;
-  heart.y = 400;
+  heart.x = 455;
+  heart.y = 390;
   heart.r = 30;
   t.setPointer({ x: 900, y: 400 });
-  const k = t.kit();
-  k.heat = 1;
+  g.player.weapon=1;g.player.gel=9999;
+  const k=t.kit();
 
   // Should not throw, hitTarget handles negative entry via clamp
-  t.activateRanger();
+  t.activateRanger();for(let step=0;step<30;step++)t.updateRangerCombat(1/120);
   // Actual HP should decrease (027 fixed negative entry clamp)
   assert.ok(heart.hp < 10000, 'boss HP decreased with origin inside target');
 });

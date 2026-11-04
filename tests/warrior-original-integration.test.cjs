@@ -20,7 +20,7 @@ test('native armor uses bounded original composite parts and same aligned origin
  for(const {image,args:[x,y,w,h,dx,dy]}of native){assert.ok(x>=0&&y>=0&&x+w<=image.width&&y+h<=image.height);assert.equal(dx,-20);assert.equal(dy,-28);}
  }
  t.setPointer({x:g.player.x-100,y:g.player.y});draws.length=0;t.drawWarriorBody(g);assert.deepEqual(scales.at(-1),[-1,1]);
- g.player.weapon=1;assert.equal(t.drawWarriorBody(g),false);
+ g.player.weapon=1;draws.length=0;assert.equal(t.drawWarriorBody(g),true);assert.ok(draws.some(d=>d.image.srcUrl?.includes('ranged-head')));
 });
 test('all Ark states use original blade images and left-facing aim mirrors once',async()=>{
  const {t,g,draws,scales}=await nativeGame();const p=g.player;

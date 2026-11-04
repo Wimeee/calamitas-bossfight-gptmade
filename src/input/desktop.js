@@ -1,20 +1,20 @@
-import { activateRipper } from '../systems/rippers.js?v=27.1.1';
-import { cameraView } from '../world/camera.js?v=27.1.1';
-import { beginRitual, skipRitual } from '../game/ritual.js?v=27.1.1';
-import { queueJump } from '../game/movement.js?v=27.1.1';
-import { directionTap } from './dash-gesture.js?v=27.1.1';
-import { resolveGameKey } from '../core/settings.js?v=27.1.1';
-import { releaseArk } from '../classes/melee.js?v=27.1.1';
-import { classAbility } from '../classes/shared.js?v=27.1.1';
-import { shoot } from '../combat/attacks.js?v=27.1.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=27.1.1';
-import { arena, canvasPointToWorld } from '../core/arena.js?v=27.1.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=27.1.1';
-import { canvas, root } from '../core/dom.js?v=27.1.1';
-import { clamp } from '../core/math.js?v=27.1.1';
-import { state } from '../core/state.js?v=27.1.1';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=27.1.1';
-import { resetTouchInput } from './mobile.js?v=27.1.1';
+import { activateRipper } from '../systems/rippers.js?v=28.0.0';
+import { cameraView } from '../world/camera.js?v=28.0.0';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=28.0.0';
+import { queueJump } from '../game/movement.js?v=28.0.0';
+import { directionTap } from './dash-gesture.js?v=28.0.0';
+import { resolveGameKey } from '../core/settings.js?v=28.0.0';
+import { releaseArk } from '../classes/melee.js?v=28.0.0';
+import { classAbility } from '../classes/shared.js?v=28.0.0';
+import { shoot } from '../combat/attacks.js?v=28.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=28.0.0';
+import { arena, canvasPointToWorld } from '../core/arena.js?v=28.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=28.0.0';
+import { canvas, root } from '../core/dom.js?v=28.0.0';
+import { clamp } from '../core/math.js?v=28.0.0';
+import { state } from '../core/state.js?v=28.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=28.0.0';
+import { resetTouchInput } from './mobile.js?v=28.0.0';
 
 
 function eventPos(e){
@@ -24,6 +24,7 @@ function eventPos(e){
 }
 
 const mouseRelease=e=>{
+  if(e.button===2){state.pointer.altFire=false;return;}
   if(e.button!==0)return;
   state.pointer.fire=false;
   releaseArk();
@@ -99,6 +100,7 @@ function initializeDesktop(){
       eventPos(e);
       state.pointer.inside=true;
       if(e.button===2){
+        if(state.game?.player.weapon===1)state.pointer.altFire=true;
         classAbility();
         return;
       }
@@ -112,11 +114,11 @@ function initializeDesktop(){
   canvas.addEventListener('pointerup',mouseRelease);
   window.addEventListener('pointerup',mouseRelease);
   canvas.addEventListener('pointercancel',()=>{
-      state.pointer.fire=false;
+      state.pointer.fire=false;state.pointer.altFire=false;
       if(state.game?.player.arkThrow)state.game.player.arkThrow.returning=true;
   });
   canvas.addEventListener('lostpointercapture',()=>{
-      state.pointer.fire=false;
+      state.pointer.fire=false;state.pointer.altFire=false;
   });
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
   canvas.addEventListener('auxclick',e=>{
@@ -131,7 +133,7 @@ function initializeDesktop(){
   });
   window.addEventListener('blur',()=>{
       state.keys={};
-      state.pointer.fire=false;
+      state.pointer.fire=false;state.pointer.altFire=false;
       resetTouchInput();
       if(state.game&&state.game.mode==='playing')togglePause()
   });

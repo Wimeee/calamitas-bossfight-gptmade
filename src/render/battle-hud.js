@@ -1,10 +1,11 @@
-import { W,H,TAU } from '../core/config.js?v=27.1.1';
-import {mageImage} from './mage.js?v=27.1.1';
-import { ctx } from '../core/dom.js?v=27.1.1';
-import { cameraView } from '../world/camera.js?v=27.1.1';
-import { clamp } from '../core/math.js?v=27.1.1';
-import { settings,keyLabel } from '../core/settings.js?v=27.1.1';
-import { hudImage,paintHUD,nativeText,nativeTextWidth } from './hud-atlas.js?v=27.1.1';
+import { W,H,TAU } from '../core/config.js?v=28.0.0';
+import {mageImage} from './mage.js?v=28.0.0';
+import {photoImage} from './ranger.js?v=28.0.0';
+import { ctx } from '../core/dom.js?v=28.0.0';
+import { cameraView } from '../world/camera.js?v=28.0.0';
+import { clamp } from '../core/math.js?v=28.0.0';
+import { settings,keyLabel } from '../core/settings.js?v=28.0.0';
+import { hudImage,paintHUD,nativeText,nativeTextWidth } from './hud-atlas.js?v=28.0.0';
 
 export function battleHUDLayout(){return{hp:{x:W-320,y:15,w:300,h:40},mana:{x:W-320,y:49,w:300,h:40},boss:{x:W-365,y:H-72,w:345,h:54},rage:{x:36,y:20,w:104,h:40},adrenaline:{x:36,y:68,w:104,h:40}};}
 export function playerDebuffPoint(g){const v=cameraView(g),z=v.zoom||1;return{x:clamp((g.player.x-v.x)*z,22,W-22),y:clamp((g.player.y-v.y)*z+40,105,H-110)};}
@@ -52,6 +53,7 @@ export function drawPlayerDebuffs(g){const hex=g.player.debuffs?.hex;if(!hex||he
 }
 export function drawBattleHUD(g){if(!g||g.ritual)return;const b=battleHUDLayout(g);ctx.save();ctx.imageSmoothingEnabled=false;
  resource('HP',g.player.hp,g.player.maxHp,b.hp);if(g.player.weapon===2)resource('MP',g.player.mana,g.player.maxMana,b.mana);
+ if(g.player.weapon===1){const im=photoImage('gel');if(im)ctx.drawImage(im,W-105,65,im.width,im.height);nativeText(ctx,'x'+g.player.gel,W-75,72,{scale:.65,color:'#b4ffd9'});}
  if(g.player.weapon===2){
   const p=g.player,y=95,im=mageImage('mana-potion');if(im)ctx.drawImage(im,W-115+(20-im.width)/2,y+(28-im.height)/2,im.width,im.height);
   nativeText(ctx,'x'+p.manaPotions,W-89,y+12,{scale:.6,color:'#c6e5ff'});

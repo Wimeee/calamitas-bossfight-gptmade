@@ -1,0 +1,1 @@
+export const rangerAudio=Object.freeze({photoUse:{file:'photo-use.ogg',gain:.35,interval:.8},photoHit:{file:'photo-hit.ogg',gain:.4,interval:.26},photoAlt:{file:'alt-shot.ogg',gain:.4,interval:.2},photoLight:{file:'light-shot.ogg',gain:.5,interval:.2},photoExplosion:{file:'explosion.ogg',gain:.7,interval:.12}});

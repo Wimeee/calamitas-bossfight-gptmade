@@ -1,8 +1,9 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=27.1.1';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=27.1.1';
-import {mageAudio} from '../../config/mage-audio.js?v=27.1.1';
-import { settings,subscribeSettings } from './settings.js?v=27.1.1';
-import { state } from './state.js?v=27.1.1';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=28.0.0';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=28.0.0';
+import {rangerAudio} from '../../config/ranger-audio.js?v=28.0.0';
+import {mageAudio} from '../../config/mage-audio.js?v=28.0.0';
+import { settings,subscribeSettings } from './settings.js?v=28.0.0';
+import { state } from './state.js?v=28.0.0';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;
@@ -109,3 +110,5 @@ export function createMeleeAudio({fetcher=(...args)=>fetch(...args),clips=meleeC
 export const meleeSamples=createMeleeAudio();
 
 export const mageSamples=createMeleeAudio({clips:mageAudio,directory:'mage-original'});
+
+export const rangerSamples=createMeleeAudio({clips:rangerAudio,directory:'ranger-original'});

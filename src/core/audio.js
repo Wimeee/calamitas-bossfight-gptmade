@@ -1,11 +1,12 @@
-import { calamitasSamples } from './sample-audio.js?v=27.1.1';
-import {mageSamples} from './sample-audio.js?v=27.1.1';
-import { meleeSamples } from './sample-audio.js?v=27.1.1';
-import { minionAudio } from '../render/minion-audio.js?v=27.1.1';
-import { state } from './state.js?v=27.1.1';
-import { battleMusic } from './battle-music.js?v=27.1.1';
-import { settings,updateSettings,subscribeSettings } from './settings.js?v=27.1.1';
-import { $ } from './dom.js?v=27.1.1';
+import { calamitasSamples } from './sample-audio.js?v=28.0.0';
+import {rangerSamples} from './sample-audio.js?v=28.0.0';
+import {mageSamples} from './sample-audio.js?v=28.0.0';
+import { meleeSamples } from './sample-audio.js?v=28.0.0';
+import { minionAudio } from '../render/minion-audio.js?v=28.0.0';
+import { state } from './state.js?v=28.0.0';
+import { battleMusic } from './battle-music.js?v=28.0.0';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=28.0.0';
+import { $ } from './dom.js?v=28.0.0';
 
 const audio={
   ctx:null,
@@ -34,7 +35,7 @@ const audio={
         this.noise=b;
         calamitasSamples.initialize(this.ctx,this.master);
         meleeSamples.initialize(this.ctx,this.master);
-        mageSamples.initialize(this.ctx,this.master);
+        mageSamples.initialize(this.ctx,this.master);rangerSamples.initialize(this.ctx,this.master);
         minionAudio.initialize(this.ctx,this.master);
       }catch(e){
         this.supported=false;
@@ -49,11 +50,12 @@ const audio={
     if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
     if(!calamitasSamples.play(name,game))this.fx(({altar:'phase',laugh:'phase',dash:'dash',bigCast:'big',cast:'enemy',hellblast:'enemy'})[name]||'enemy');
   },
-  stopCalamitas(tag){calamitasSamples.stop(tag);meleeSamples.stop(tag);mageSamples.stop(tag);if(!tag)minionAudio.stop();},
+  stopCalamitas(tag){calamitasSamples.stop(tag);meleeSamples.stop(tag);mageSamples.stop(tag);rangerSamples.stop(tag);if(!tag)minionAudio.stop();},
   minion(name,game=state.game,options){
     if(!this.sfx||!this.ctx||game?.mode!=='playing'||state.screen!=='game')return;
     minionAudio.play(name,game,options);
   },
+  stopRanger(){rangerSamples.stop();},
   stopMinion(tag){minionAudio.stop(tag);},
   vol(v){
     updateSettings({sfxVolume:v});
@@ -108,6 +110,7 @@ const audio={
   fx(name){
     if(!this.sfx||!this.ctx)return;
     if(name==='damage'&&meleeSamples.play('playerHurt'))return;
+    if(name.startsWith('photo')){rangerSamples.play(name);return;}
     if(name.startsWith('mage')){mageSamples.play(name);return;}
     // Try to play original melee OGG samples first
     const meleeMap={

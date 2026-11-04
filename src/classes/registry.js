@@ -1,14 +1,14 @@
-import { activateMage, attackMage, updateMage, updateMageCombat } from './mage.js?v=27.1.1';
-import { arkAbility, attackMelee, updateSword } from './melee.js?v=27.1.1';
-import { activateRanger, attackRanger, updateRanger } from './ranger.js?v=27.1.1';
-import { activateRogue, attackRogue, updateRogue } from './rogue.js?v=27.1.1';
-import { activateSummoner, attackSummoner, updateCosmic } from './summoner.js?v=27.1.1';
+import { activateMage, attackMage, updateMage, updateMageCombat } from './mage.js?v=28.0.0';
+import { arkAbility, attackMelee, updateSword } from './melee.js?v=28.0.0';
+import { activateRanger, attackRanger, updateRanger, updateRangerCombat } from './ranger.js?v=28.0.0';
+import { activateRogue, attackRogue, updateRogue } from './rogue.js?v=28.0.0';
+import { activateSummoner, attackSummoner, updateCosmic } from './summoner.js?v=28.0.0';
 
-import { weapons } from '../../config/classes.js?v=27.1.1';
+import { weapons } from '../../config/classes.js?v=28.0.0';
 
 const classRegistry={
   melee:{attack:attackMelee,activate:arkAbility,updateCombat:updateSword},
-  ranger:{attack:attackRanger,activate:activateRanger,update:updateRanger},
+  ranger:{attack:attackRanger,activate:activateRanger,update:updateRanger,updateCombat:updateRangerCombat},
   mage:{attack:attackMage,activate:activateMage,update:updateMage,updateCombat:updateMageCombat},
   summon:{attack:attackSummoner,activate:activateSummoner,updateCombat:updateCosmic},
   rogue:{attack:attackRogue,activate:activateRogue,update:updateRogue}

@@ -42,30 +42,18 @@ for(const weapon of ['melee','ranger','mage','summon','rogue']){
  g.player.x=500;g.player.y=340;g.player.iframes=999;g.boss.x=620;g.boss.y=340;g.attackTimer=999;g.patternTimer=999;t.setPointer({x:620,y:340});
  const hp=g.boss.hp;t.shoot();let matchingImpact=g.impacts.some(f=>f.kind===weapon);
  for(let i=0;i<20;i++){t.update(1/60);matchingImpact ||= g.impacts.some(f=>f.kind===weapon);t.draw(g);}
- check(g.boss.hp<hp,weapon+' damages boss');check(weapon==='mage'?g.player.kit.vortexBeams.some(b=>b.resolved):matchingImpact,weapon+' matching native attack state');
+ check(g.boss.hp<hp,weapon+' damages boss');check(weapon==='mage'?g.player.kit.vortexBeams.some(b=>b.resolved):weapon==='ranger'?!!g.player.kit.photo?.visual:matchingImpact,weapon+' matching native attack state');
  check(g.player.mana>=0&&g.player.mana<=g.player.maxMana,'mana bounds '+weapon);
 }
 // Beam collision is real, stops at the nearest target and respects the arena wall.
 t.setDeviceMode('desktop');el('class').value='ranger';t.start();
 for(const listener of el('game').listeners.pointerdown)listener({clientX:600,clientY:300,button:0,pointerId:1,preventDefault:noop});
 for(const listener of el('game').listeners.pointerup)listener({pointerId:1,button:0});
-check(!!t.getGame().player.beamPulse,'quick desktop click fires before next frame');
+check(!t.getGame().ritual||!t.getGame().player.kit?.photo?.active,'ritual cannot fire ranger holdout');
 t.setDeviceMode('desktop');t.start();t.enter('hearts','opening','BEAM TEST');let bg=t.getGame();
 const near={x:620,y:300,r:16,hp:1000,max:1000},far={x:780,y:300,r:16,hp:1000,max:1000};bg.hearts=[far,near];
 let ray=t.traceWeaponBeam(500,300,0,4);check(ray.hit===near&&Math.abs(ray.ex-600)<1e-9,'beam stops at nearest target');
 ray=t.traceWeaponBeam(500,300,Math.PI,4);check(!ray.hit&&Math.abs(ray.ex-t.arena.l)<1e-9,'beam ignores targets behind');
 bg.hearts=[{...near,y:400}];ray=t.traceWeaponBeam(500,300,0,4);check(!ray.hit&&Math.abs(ray.ex-t.arena.r)<1e-9,'off-axis miss and arena endpoint');
-// Native Void Vortex lifecycle/damage is tested in void-vortex.test.cjs.
-for(const id of ['ranger']){
- el('class').value=id;t.start();t.enter('normal','opening','BEAM DAMAGE');bg=t.getGame();bg.player.x=500;bg.player.y=300;bg.player.channelCharge=1;bg.boss.x=720;bg.boss.y=300;bg.attackTimer=999;bg.patternTimer=999;bg.player.iframes=999;t.setPointer({x:720,y:300});
- const hp=bg.boss.hp,mana=bg.player.mana,w=t.weapons[bg.player.weapon];t.shoot();
- check(Math.abs((hp-bg.boss.hp)-(id==='mage'?w.dmg*1.65:w.dmg*1.0225)*.72)<1e-6,'preserved damage budget '+id);
- check(bg.player.mana===mana-w.mana,'preserved mana cost '+id);
- check(bg.player.beamPulse.rays.length===(id==='mage'?6:1),'visible real beam count '+id);
- check(bg.shots.length===0,'beam does not create fake bullets '+id);
- check(bg.impacts.length===1,'one impact per target per tick '+id);
- t.setKeys({});for(let i=0;i<20;i++)t.update(1/60);check(!bg.player.beamPulse,'beam stops after release '+id);
- t.fireChannelWeapon(w,0);t.enter('hell','h75','NEXT');check(!bg.player.beamPulse,'phase clears beam '+id);
-}
-
+// Native Ranger and Mage lifecycle are covered by their production-controller tests.
 });

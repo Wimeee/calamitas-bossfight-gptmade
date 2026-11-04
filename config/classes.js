@@ -15,10 +15,10 @@ export const weapons=[
     id:'ranger',
     name:'Photoviscerator',
     label:'2 🔫 Ranger',
-    desc:'ЛКМ: промінь з нагрівом • ПКМ: пробивний Exo Shot, скидання нагріву',
+    desc:'ЛКМ: утримуй екзополум’я • ПКМ: самонавідний заряд • Гель замість мани',
     mana:0,
-    cool:.085,
-    dmg:470,
+    cool:1/60,
+    dmg:495,
     speed:1050,
     rad:5,
     col:'#ffbc5c'

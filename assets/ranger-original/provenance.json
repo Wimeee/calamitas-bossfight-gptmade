@@ -1,0 +1,75 @@
+{
+  "codeCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "codeVersion": "2.2.2",
+  "artVersion": "2.2.4",
+  "conversion": "Lossless native RGBA to PNG; original OGG unchanged.",
+  "files": [
+    {
+      "file": "holdout.png",
+      "source": "Projectiles/Ranged/PhotovisceratorHoldout.rawimg",
+      "width": 170,
+      "height": 66,
+      "sha256": "dbe0debe1d045e990392678b8ff9005fb9f16725fb8483977b9a62eaa63edd4c"
+    },
+    {
+      "file": "holdout-glow.png",
+      "source": "Projectiles/Ranged/PhotovisceratorHoldoutGlow.rawimg",
+      "width": 170,
+      "height": 66,
+      "sha256": "7da6bca63d7407d226f2408ef802c8014736ca50a93fc50b22153f387a0215ec"
+    },
+    {
+      "file": "auric-ranged-head.png",
+      "source": "Items/Armor/Auric/AuricTeslaHeadRanged_Head.rawimg",
+      "width": 40,
+      "height": 1120,
+      "sha256": "c4334d4a9157904f379d4aca7644ad2fdaaced63108cff2b49fb24bc6a975d43"
+    },
+    {
+      "file": "bloom.png",
+      "source": "Particles/SmallBloom.rawimg",
+      "width": 400,
+      "height": 400,
+      "sha256": "a9fc81e1487fdf8ceafbc6b63e022bc022255a1f49d2bfa07bc31d60bddab62f"
+    },
+    {
+      "file": "pulse.png",
+      "source": "Particles/BloomCircle.rawimg",
+      "width": 200,
+      "height": 200,
+      "sha256": "44a81e3373298a0767b2420932a580325a69dd760791e550f4cd1622662df97c"
+    },
+    {
+      "file": "photo-use.ogg",
+      "source": "Sounds/Item/PhotoUseSound.ogg",
+      "sha256": "e21ab9fde587dd87249a7ed6bbdfed5867a40f0d74b2b43f0b3a135773034d1f"
+    },
+    {
+      "file": "photo-hit.ogg",
+      "source": "Sounds/Item/PhotoHitSound.ogg",
+      "sha256": "bf03b29bbc4dac87e68f1abd5059671c69e5a8db67b2f110730b8b00b2241f12"
+    },
+    {
+      "file": "alt-shot.ogg",
+      "source": "Sounds/Item/HalleysInfernoShoot.ogg",
+      "sha256": "92b15f593a8733d9a56a87dd93728745a2c0030eb35ddd6892982cc2e60e19db"
+    },
+    {
+      "file": "light-shot.ogg",
+      "source": "Sounds/Item/HalleysInfernoHit.ogg",
+      "sha256": "69f6579d48d07e9f54deb931ade836a0a8090f13a41e8253b715ebc1bb3a4eb3"
+    },
+    {
+      "file": "explosion.ogg",
+      "source": "Sounds/Item/DeadSunExplosion.ogg",
+      "sha256": "f46419682946c425673471c750f1ae0a4cee5e75bed42430db2c368a5b04b833"
+    },
+    {
+      "file": "gel.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_23.xnb",
+      "width": 16,
+      "height": 14,
+      "sha256": "5ac6b4af094c914e1e32e23ad432f28803551a48a5e33a40358c2673b41d845d"
+    }
+  ]
+}

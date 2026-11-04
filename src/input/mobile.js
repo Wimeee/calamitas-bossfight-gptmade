@@ -1,19 +1,19 @@
-import {resizeViewport} from '../world/viewport.js?v=27.1.1';
-import { activateRipper } from '../systems/rippers.js?v=27.1.1';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint,renderQuality } from '../core/settings.js?v=27.1.1';
-import { queueJump } from '../game/movement.js?v=27.1.1';
-import { releaseArk } from '../classes/melee.js?v=27.1.1';
-import { classAbility } from '../classes/shared.js?v=27.1.1';
-import { markCosmicTarget } from '../classes/summoner.js?v=27.1.1';
-import { shoot } from '../combat/attacks.js?v=27.1.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=27.1.1';
-import { possibleTargets } from '../combat/targets.js?v=27.1.1';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=27.1.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=27.1.1';
-import { $, canvas, root } from '../core/dom.js?v=27.1.1';
-import { clamp, norm } from '../core/math.js?v=27.1.1';
-import { state } from '../core/state.js?v=27.1.1';
-import { togglePause } from '../game/session.js?v=27.1.1';
+import {resizeViewport} from '../world/viewport.js?v=28.0.0';
+import { activateRipper } from '../systems/rippers.js?v=28.0.0';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint,renderQuality } from '../core/settings.js?v=28.0.0';
+import { queueJump } from '../game/movement.js?v=28.0.0';
+import { releaseArk } from '../classes/melee.js?v=28.0.0';
+import { classAbility } from '../classes/shared.js?v=28.0.0';
+import { markCosmicTarget } from '../classes/summoner.js?v=28.0.0';
+import { shoot } from '../combat/attacks.js?v=28.0.0';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=28.0.0';
+import { possibleTargets } from '../combat/targets.js?v=28.0.0';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=28.0.0';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=28.0.0';
+import { $, canvas, root } from '../core/dom.js?v=28.0.0';
+import { clamp, norm } from '../core/math.js?v=28.0.0';
+import { state } from '../core/state.js?v=28.0.0';
+import { togglePause } from '../game/session.js?v=28.0.0';
 
 let mobileAimTouch=null;
 
@@ -36,7 +36,7 @@ function resetTouchInput(){
   state.mobileFire=false;
   state.mobileJump=false;state.mobileFlight=false;
   if(state.game?.player){state.game.player.dashTapDirection=0;state.game.player.dashTapAt=-Infinity;}
-  state.pointer.fire=false;
+  state.pointer.fire=false;state.pointer.altFire=false;
   for(const obj of sticks){
     obj.id=null;
     obj.touchId=null;
@@ -240,6 +240,7 @@ function initializeMobile(){
         handledPress=true;
         b.classList.add('held');
         feedback(b.textContent.trim());
+        if(action==='target'&&state.game?.player.weapon===1)state.pointer.altFire=true;
         if(action==='fire'){
           state.mobileFire=true;
           // Immediate first shot, not only on the following animation frame.
@@ -249,6 +250,7 @@ function initializeMobile(){
       };
       const release=()=>{
         b.classList.remove('held');
+        if(action==='target')state.pointer.altFire=false;
         if(action==='jump'){state.mobileJump=false;state.mobileFlight=false;}
         if(action==='flight')state.mobileFlight=false;
         if(action==='fire'){
