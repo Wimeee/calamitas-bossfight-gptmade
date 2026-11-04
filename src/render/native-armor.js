@@ -1,13 +1,13 @@
-import {photoGeometry} from '../classes/photo-geometry.js?v=29.0.0';
-import { arkAngle } from '../classes/ark-motion.js?v=29.0.0';
-import { ctx } from '../core/dom.js?v=29.0.0';
-import {state} from '../core/state.js?v=29.0.0';
+import {photoGeometry} from '../classes/photo-geometry.js?v=29.0.1';
+import { arkAngle } from '../classes/ark-motion.js?v=29.0.1';
+import { ctx } from '../core/dom.js?v=29.0.1';
+import {state} from '../core/state.js?v=29.0.1';
 const images={};let loading;
 export function initializeNativeArmor(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  loading=Promise.all(['body','back','legs','melee-head','magic-head','ranged-head','summon-head'].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
-  image.src=new URL('../../assets/'+(part==='summon-head'?'summoner-original/':part==='magic-head'?'mage-original/':part==='ranged-head'?'ranger-original/':'melee-original/')+'auric-'+part+'.png?v=29.0.0',import.meta.url).href;
+  image.src=new URL('../../assets/'+(part==='summon-head'?'summoner-original/':part==='magic-head'?'mage-original/':part==='ranged-head'?'ranger-original/':'melee-original/')+'auric-'+part+'.png?v=29.0.1',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 export function nativeArmorReady(){return ['body','back','legs','melee-head'].every(p=>images[p]);}

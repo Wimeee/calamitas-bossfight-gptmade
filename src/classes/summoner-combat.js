@@ -1,14 +1,14 @@
-import {summonerConfig as C} from '../../config/summoner.js?v=29.0.0';
-import {possibleTargets} from '../combat/targets.js?v=29.0.0';
-import {hitTarget} from '../combat/damage.js?v=29.0.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.0.0';
-import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=29.0.0';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.0.0';
-import {audio} from '../core/audio.js?v=29.0.0';
+import {summonerConfig as C} from '../../config/summoner.js?v=29.0.1';
+import {possibleTargets} from '../combat/targets.js?v=29.0.1';
+import {hitTarget} from '../combat/damage.js?v=29.0.1';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.0.1';
+import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=29.0.1';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.0.1';
+import {audio} from '../core/audio.js?v=29.0.1';
 export function summonTarget(g,x,y,range,manhattan=false){const targets=possibleTargets().filter(t=>t.hp>0),mark=g.player.cosmicMark;if(mark&&targets.includes(mark)&&Math.hypot(mark.x-x,mark.y-y)<range)return mark;let best=null;for(const t of targets){const d=manhattan?Math.abs(t.x-x)+Math.abs(t.y-y):Math.hypot(t.x-x,t.y-y);if(d<range){range=d;best=t;}}return best;}
 export function summonPulse(k,kind,x,y,r=32){k.pulses.push({kind,x,y,r,at:k.clock,id:++k.effectId});if(k.pulses.length>48)k.pulses.shift();}
 export function summonHit(g,k,q,t,proc=true){
- const tag=(t.summonTagUntil??0)>k.clock&&q.kind!=='whip',damage=(q.damage+(tag?C.tagDamage:0))*(tag&&Math.random()<C.tagCrit?2:1);hitTarget(t,damage,t.x,t.y,'#e4d7ff','summon',false);
+ const tag=(t.summonTagUntil??0)>k.clock&&q.kind!=='whip',damage=(q.damage+(tag?C.tagDamage:0))*(tag&&Math.random()<C.tagCrit?2:1)*C.outgoingMultiplier;hitTarget(t,damage,t.x,t.y,'#e4d7ff','summon',false);
  if(q.kind==='bolt'||q.kind==='star')t.miracleBlight=Math.max(t.miracleBlight||0,q.kind==='star'?5:3);
  const d=t.summonAilments??={};if(q.kind==='fireball'||q.kind==='draconid')d.dragon=Math.max(d.dragon||0,q.kind==='draconid'?3:2);
  if(q.kind!=='whip'){d.shadow=3;d.static=1;d.astral=3;d.irradiated=3;
@@ -39,9 +39,9 @@ export function updateSummonShots(g,k){
  }k.shots=k.shots.filter(q=>!q.dead).slice(-128);
 }
 export function updateSummonDebuffs(g,k,dt){
- const hosts=[...new Set([g.boss,...g.hearts,...g.brothers,...g.seekers])],vulnerable=new Set(possibleTargets());updateMageDebuffs(dt,g,hosts,vulnerable);
+ const hosts=[...new Set([g.boss,...g.hearts,...g.brothers,...g.seekers])],vulnerable=new Set(possibleTargets());updateMageDebuffs(dt,g,hosts,vulnerable,C.outgoingMultiplier);
  for(const t of hosts){const d=t.summonAilments;if(!d)continue;let loss=0;for(const [name,dps]of [['dragon',480*(t.heatDamageScale??1)],['shadow',15],['astral',37.5],['static',2.5*(t.vx?4:1)*(t.electricDamageScale??1)],['irradiated',0]]){const active=Math.min(dt,Math.max(0,d[name]||0));d[name]=Math.max(0,(d[name]||0)-dt);loss+=active*dps;}
-  if(t.hp>0&&vulnerable.has(t)){d.carry=(d.carry||0)+loss;const n=Math.floor(d.carry+1e-8);d.carry=Math.max(0,d.carry-n);const old=t.hp;t.hp=Math.max(t===g.boss?1:0,t.hp-n);d.shown=(d.shown||0)+old-t.hp;}
+  if(t.hp>0&&vulnerable.has(t)){d.carry=(d.carry||0)+loss*C.outgoingMultiplier;const n=Math.floor(d.carry+1e-8);d.carry=Math.max(0,d.carry-n);const old=t.hp;t.hp=Math.max(t===g.boss?1:0,t.hp-n);d.shown=(d.shown||0)+old-t.hp;}
   d.textTime=(d.textTime||0)+dt;if(d.shown>0&&d.textTime>=.25){if(g.floaters.length<140)g.floaters.push({x:t.x,y:t.y-12,life:.6,text:String(Math.ceil(d.shown)),col:'#ffa476',dot:true});d.shown=0;d.textTime=0;}
   if(['dragon','shadow','astral','static','irradiated'].every(name=>(d[name]||0)<=1e-8))delete t.summonAilments;
  }

@@ -1,10 +1,10 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=29.0.0';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=29.0.0';
-import {summonerAudio} from '../../config/summoner-audio.js?v=29.0.0';
-import {rangerAudio} from '../../config/ranger-audio.js?v=29.0.0';
-import {mageAudio} from '../../config/mage-audio.js?v=29.0.0';
-import { settings,subscribeSettings } from './settings.js?v=29.0.0';
-import { state } from './state.js?v=29.0.0';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=29.0.1';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=29.0.1';
+import {summonerAudio} from '../../config/summoner-audio.js?v=29.0.1';
+import {rangerAudio} from '../../config/ranger-audio.js?v=29.0.1';
+import {mageAudio} from '../../config/mage-audio.js?v=29.0.1';
+import { settings,subscribeSettings } from './settings.js?v=29.0.1';
+import { state } from './state.js?v=29.0.1';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;

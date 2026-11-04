@@ -1,8 +1,8 @@
-import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=29.0.0';
-import { arena } from '../core/arena.js?v=29.0.0';
-import { state } from '../core/state.js?v=29.0.0';
-import { clamp } from '../core/math.js?v=29.0.0';
-import {settings,subscribeSettings} from '../core/settings.js?v=29.0.0';
+import { W,H, ZOOM_DEFAULT, ZOOM_MIN, ZOOM_MAX } from '../core/config.js?v=29.0.1';
+import { arena } from '../core/arena.js?v=29.0.1';
+import { state } from '../core/state.js?v=29.0.1';
+import { clamp } from '../core/math.js?v=29.0.1';
+import {settings,subscribeSettings} from '../core/settings.js?v=29.0.1';
 
 export function defaultCameraZoom(){return ZOOM_DEFAULT*(state.deviceMode==='mobile'?settings.cameraZoomMobile:settings.cameraZoomDesktop);}
 let previousDesktopZoom=settings.cameraZoomDesktop,previousMobileZoom=settings.cameraZoomMobile;
