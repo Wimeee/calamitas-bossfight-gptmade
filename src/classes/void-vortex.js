@@ -1,11 +1,11 @@
-import {mageConfig as C} from '../../config/mage.js?v=27.0.0';
-import {kit} from './shared.js?v=27.0.0';
-import {state} from '../core/state.js?v=27.0.0';
-import {audio} from '../core/audio.js?v=27.0.0';
-import {possibleTargets} from '../combat/targets.js?v=27.0.0';
-import {hitTarget} from '../combat/damage.js?v=27.0.0';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=27.0.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=27.0.0';
+import {mageConfig as C} from '../../config/mage.js?v=27.1.0';
+import {kit} from './shared.js?v=27.1.0';
+import {state} from '../core/state.js?v=27.1.0';
+import {audio} from '../core/audio.js?v=27.1.0';
+import {possibleTargets} from '../combat/targets.js?v=27.1.0';
+import {hitTarget} from '../combat/damage.js?v=27.1.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=27.1.0';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=27.1.0';
 
 export function initializeMage(g){const p=g.player;if(p.weapon!==2)return;p.maxMana=p.mana=C.maxMana;p.manaPotions=C.manaPotions;p.manaSickness=0;p.manaRegenDelay=0;p.manaMagnet=true;}
 export function mageState(){const k=kit();k.vortexOrbs??=[];k.vortexBeams??=[];k.vortexPulses??=[];k.vortexStep??=0;return k;}
@@ -22,7 +22,7 @@ export function attackMage(){
  if(!Number.isFinite(x)||!Number.isFinite(y))return;
  if(p.mana<cost&&!drinkMagePotion(g))return;if(p.mana<cost)return;
  p.mana-=cost;p.fireCd=C.useTime;p.weaponKick=.12;p.manaRegenDelay=C.regenDelay;k.lastFire=g.t;
- const damage=C.damage*C.damageBonus*(1-.25*(p.manaSickness||0)/10),spin=Math.random()<.5?-1:1,start=Math.random()*Math.PI*2;
+ const damage=C.damage*C.damageBonus*C.outgoingMultiplier*(1-.25*(p.manaSickness||0)/10),spin=Math.random()<.5?-1:1,start=Math.random()*Math.PI*2;
  for(let i=0;i<12;i++){const a=start+i*Math.PI/6,v=a+spin*Math.PI/2;k.vortexOrbs.push(orb('orbit',x+Math.cos(a)*90,y+Math.sin(a)*90,Math.cos(v)*4,Math.sin(v)*4,damage,i*4,spin));}
  k.vortexOrbs.push(orb('core',x,y,0,0,damage*4,0,spin));audio.fx('mageCast');
 }

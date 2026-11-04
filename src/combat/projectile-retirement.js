@@ -8,7 +8,9 @@ export function retireBulletHellProjectiles(g){
       q.life=q.nativeLife/60;
       // Render frames can precede the first60Hz physics tick; never retain full-opacity contact.
       q.opacity=Math.min(1,q.nativeLife/60);
-    }else if(q.kind==='hellblast2'||q.kind==='skull'||q.kind==='sepulcherDart'||q.kind==='dart'){
+    }else if(q.kind==='hellblast2'){
+      q.life=Math.min(q.life,60/120); // Native60projectile updates, extraUpdates1.
+    }else if(q.kind==='skull'||q.kind==='sepulcherDart'||q.kind==='dart'){
       q.life=Math.min(q.life,1);
     }
   }

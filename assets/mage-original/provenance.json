@@ -65,10 +65,10 @@
     },
     {
       "file": "mana-potion.png",
-      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_3540.xnb",
-      "width": 32,
-      "height": 54,
-      "sha256": "3c15e84ad82d2691fffc12fcfd89fef5df311cc43f89af5e3c87feb8c831cd4b"
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Item_2209.xnb",
+      "width": 20,
+      "height": 30,
+      "sha256": "aff17bd9dfe3e15a9df81267a61a3b5dd7984545895024c70be1459e0a339d77"
     }
   ]
 }

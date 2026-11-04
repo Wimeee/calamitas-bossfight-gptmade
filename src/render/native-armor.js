@@ -1,12 +1,12 @@
-import { arkAngle } from '../classes/ark-motion.js?v=27.0.0';
-import { ctx } from '../core/dom.js?v=27.0.0';
-import {state} from '../core/state.js?v=27.0.0';
+import { arkAngle } from '../classes/ark-motion.js?v=27.1.0';
+import { ctx } from '../core/dom.js?v=27.1.0';
+import {state} from '../core/state.js?v=27.1.0';
 const images={};let loading;
 export function initializeNativeArmor(){
  if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);
  loading=Promise.all(['body','back','legs','melee-head','magic-head'].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
-  image.src=new URL('../../assets/'+(part==='magic-head'?'mage-original/':'melee-original/')+'auric-'+part+'.png?v=27.0.0',import.meta.url).href;
+  image.src=new URL('../../assets/'+(part==='magic-head'?'mage-original/':'melee-original/')+'auric-'+part+'.png?v=27.1.0',import.meta.url).href;
  }))).then(r=>r.every(Boolean));return loading;
 }
 export function nativeArmorReady(){return ['body','back','legs','melee-head'].every(p=>images[p]);}

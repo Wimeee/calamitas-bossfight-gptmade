@@ -1,11 +1,12 @@
-import {retireBulletHellProjectiles} from '../combat/projectile-retirement.js?v=27.0.0';
-import {spawnMaelstrom} from './maelstrom.js?v=27.0.0';
-import { enemyBullet } from '../combat/projectiles.js?v=27.0.0';
-import { arena } from '../core/arena.js?v=27.0.0';
-import { rnd } from '../core/math.js?v=27.0.0';
-import { state } from '../core/state.js?v=27.0.0';
-import { enter } from '../game/phases.js?v=27.0.0';
-import { startCastDelay } from './phases.js?v=27.0.0';
+import {retireBulletHellProjectiles} from '../combat/projectile-retirement.js?v=27.1.0';
+import {spawnMaelstrom} from './maelstrom.js?v=27.1.0';
+import { enemyBullet } from '../combat/projectiles.js?v=27.1.0';
+import { arena } from '../core/arena.js?v=27.1.0';
+import { rnd } from '../core/math.js?v=27.1.0';
+import { state } from '../core/state.js?v=27.1.0';
+import { enter } from '../game/phases.js?v=27.1.0';
+import { startCastDelay } from './phases.js?v=27.1.0';
+import {movementConfig} from '../../config/movement.js?v=27.1.0';
 
 // SupremeCalamitas.cs 939-1644. The end counters 900/1800/... are cumulative:
 // all five Bullet Hells last 900 ticks, not 15/30/45/60/75 seconds.
@@ -17,11 +18,13 @@ const hellDirections = [
   [['down'], ['right','left'], ['down','right','left']]
 ];
 const hellSymbols = {up:'↑',down:'↓',right:'→',left:'←'};
+// Source spawns relative to player.position (top-left), not player.Center.
+const hellOrigin=g=>({x:g.player.x-movementConfig.halfWidth,y:g.player.y-movementConfig.halfHeight});
 
 function hellPlan(g, upcoming) {
   const segment = Math.min(2, Math.floor(g.stageT / 5));
   const dirs = hellDirections[g.phaseN - 1][segment], slots = [];
-  const p = g.player;
+  const p = hellOrigin(g);
   // Preview uses a stable hash; actual emissions below use combat RNG.
   for (let i=0;i<dirs.length;i++) {
     const side=dirs[i], hash=Math.sin((upcoming+1)*127.1+g.phaseN*311.7+i*74.7)*43758.5453;
@@ -32,10 +35,12 @@ function hellPlan(g, upcoming) {
 }
 
 function edge(g, side, speed, kind='hellblast2', damage=35, offset) {
-  const p=g.player, vertical=side==='up'||side==='down', random=offset??rnd(-1000,1000);
+  const p=hellOrigin(g), vertical=side==='up'||side==='down', random=offset??Math.floor(rnd(-1000,1001));
   const dx=side==='right'?1:side==='left'?-1:0, dy=side==='down'?1:side==='up'?-1:0;
-  const q=enemyBullet(p.x+(vertical?random:-dx*1000),p.y+(vertical?-dy*1000:random),dx,dy,speed,kind==='giga'?25:kind==='fire'?18:kind==='skull'?15:6.3,kind,damage);
-  if(q){q.sourceCalamitas=true;q.straight=kind==='hellblast2';q.life=kind==='hellblast2'?25:kind==='skull'?20:kind==='fire'?2.5:2;q.opacity=kind==='giga'?1:0;q.waveIndex=g.hellWave;}
+  // BrimstoneHellblast2.extraUpdates=1: public velocities are world px/sec,
+  // while the native4/3.5/3px velocities advance twice each60Hz world tick.
+  const q=enemyBullet(p.x+(vertical?random:-dx*1000),p.y+(vertical?-dy*1000:random),dx,dy,speed*(kind==='hellblast2'?2:1),kind==='giga'?25:kind==='fire'?18:kind==='skull'?15:20,kind,damage);
+  if(q){q.sourceCalamitas=true;q.straight=kind==='hellblast2';q.life=kind==='hellblast2'?1500/120:kind==='skull'?20:kind==='fire'?2.5:2;q.opacity=kind==='giga'?1:0;q.waveIndex=g.hellWave;}
   return q;
 }
 
@@ -65,7 +70,7 @@ function bulletHell(dt) {
     timers.remainder=Math.max(0,timers.remainder-1/60);timers.ticks++;timers.passedVar=timers.ticks;
     const absolute=(n-1)*900+timers.ticks, segment=Math.min(2,Math.floor(timers.ticks/300));
     g.hellSegment=segment;
-    g.hellField={l:g.player.x-1000,r:g.player.x+1000,t:g.player.y-1000,b:g.player.y+1000};
+    const origin=hellOrigin(g);g.hellField={l:origin.x-1000,r:origin.x+1000,t:origin.y-1000,b:origin.y+1000};
     if(n>=2&&absolute%(n===5?240:180)===0){
       edge(g,n===2&&segment===1?'left':'down',300,'fire',38);
     }
@@ -75,7 +80,7 @@ function bulletHell(dt) {
       spawnMaelstrom(g,(arena.l+arena.r)/2,(arena.t+arena.b)/2);g.maelstromWarning=null;g.maelstromSpawned=true;
     }
     if(n===5&&absolute%30===0){
-      const random=rnd(-500,500);
+      const random=Math.floor(rnd(-500,501));
       edge(g,'left',300,'skull',43,random);edge(g,'right',300,'skull',43,-random);
     }
     timers.edgeHellblast++;

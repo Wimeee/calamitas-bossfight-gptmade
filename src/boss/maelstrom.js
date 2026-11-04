@@ -1,8 +1,8 @@
-import {state} from '../core/state.js?v=27.0.0';
-import {audio} from '../core/audio.js?v=27.0.0';
-import {applyPlayerHex} from '../combat/debuffs.js?v=27.0.0';
-import {finish} from '../game/session.js?v=27.0.0';
-import {movementConfig} from '../../config/movement.js?v=27.0.0';
+import {state} from '../core/state.js?v=27.1.0';
+import {audio} from '../core/audio.js?v=27.1.0';
+import {applyPlayerHex} from '../combat/debuffs.js?v=27.1.0';
+import {finish} from '../game/session.js?v=27.1.0';
+import {movementConfig} from '../../config/movement.js?v=27.1.0';
 const clamp01=n=>Math.max(0,Math.min(1,n));
 export function spawnMaelstrom(g,x,y){return g.maelstrom={x,y,vx:0,vy:0,r:17,scale:Math.fround(.1),opacity:0,age:0,ticks:0,sitStill:90,speedAdd:0,speedLimit:23,timeLeft:36000,remainder:0};}
 function step(g,m){

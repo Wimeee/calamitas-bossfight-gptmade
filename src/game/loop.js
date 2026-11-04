@@ -1,7 +1,7 @@
-import { state } from '../core/state.js?v=27.0.0';
-import { update } from './update.js?v=27.0.0';
-import { draw } from '../render/scene.js?v=27.0.0';
-import { updateFPSCounter } from '../ui/fps.js?v=27.0.0';
+import { state } from '../core/state.js?v=27.1.0';
+import { update } from './update.js?v=27.1.0';
+import { draw } from '../render/scene.js?v=27.1.0';
+import { updateFPSCounter } from '../ui/fps.js?v=27.1.0';
 
 
 let lastMobilePaint=null,paintOwner=null;

@@ -1,23 +1,23 @@
-import {emitArkProjectileSmoke} from '../systems/ark-effects.js?v=27.0.0';
-import {movingPlayerDistance,projectileMotionPosition} from './motion-collision.js?v=27.0.0';
-import {emitProjectileMagic} from '../systems/projectile-effects.js?v=27.0.0';
-import {emitSeekerDeath} from '../systems/summon-effects.js?v=27.0.0';
-import {emitBrotherDeath} from '../systems/helper-effects.js?v=27.0.0';
-import {updateBrotherProjectile} from './brother-projectiles.js?v=27.0.0';
-import {breakHeartTendrils} from '../world/arena-state.js?v=27.0.0';
-import { projectileHexDuration } from './debuffs.js?v=27.0.0';
-import { spawnPickup } from '../game/pickups.js?v=27.0.0';
-import { encounterBalance as c } from '../../config/encounter-balance.js?v=27.0.0';
-import { cosmicStarBurst } from '../classes/summoner.js?v=27.0.0';
-import { hitTarget, hurt } from './damage.js?v=27.0.0';
-import { nearestForHoming, possibleTargets } from './targets.js?v=27.0.0';
-import { arena } from '../core/arena.js?v=27.0.0';
-import { audio } from '../core/audio.js?v=27.0.0';
-import { TAU } from '../core/config.js?v=27.0.0';
-import { clamp, lerp, norm, rnd, segmentDistance } from '../core/math.js?v=27.0.0';
-import { state } from '../core/state.js?v=27.0.0';
-import { enter } from '../game/phases.js?v=27.0.0';
-import { getSepulcherBlockers, checkSepulcherCollision } from './sepulcher-blocking.js?v=27.0.0';
+import {emitArkProjectileSmoke} from '../systems/ark-effects.js?v=27.1.0';
+import {movingPlayerDistance,projectileMotionPosition} from './motion-collision.js?v=27.1.0';
+import {emitProjectileMagic} from '../systems/projectile-effects.js?v=27.1.0';
+import {emitSeekerDeath} from '../systems/summon-effects.js?v=27.1.0';
+import {emitBrotherDeath} from '../systems/helper-effects.js?v=27.1.0';
+import {updateBrotherProjectile} from './brother-projectiles.js?v=27.1.0';
+import {breakHeartTendrils} from '../world/arena-state.js?v=27.1.0';
+import { projectileHexDuration } from './debuffs.js?v=27.1.0';
+import { spawnPickup } from '../game/pickups.js?v=27.1.0';
+import { encounterBalance as c } from '../../config/encounter-balance.js?v=27.1.0';
+import { cosmicStarBurst } from '../classes/summoner.js?v=27.1.0';
+import { hitTarget, hurt } from './damage.js?v=27.1.0';
+import { nearestForHoming, possibleTargets } from './targets.js?v=27.1.0';
+import { arena } from '../core/arena.js?v=27.1.0';
+import { audio } from '../core/audio.js?v=27.1.0';
+import { TAU } from '../core/config.js?v=27.1.0';
+import { clamp, lerp, norm, rnd, segmentDistance } from '../core/math.js?v=27.1.0';
+import { state } from '../core/state.js?v=27.1.0';
+import { enter } from '../game/phases.js?v=27.1.0';
+import { getSepulcherBlockers, checkSepulcherCollision } from './sepulcher-blocking.js?v=27.1.0';
 
 
 
@@ -189,17 +189,18 @@ function updateBullets(dt,motion=null){
     else if(nativeExplosive){
       if(updateNativeExplosive(q,dt,g,p)){g.projectiles.splice(i,1);explosion(q);continue;}
     }else if(nativeSkull){
+      const step=q.kind==='hellblast2'?1/120:1/60;
       q.stepRemainder=(q.stepRemainder||0)+dt;
-      while(q.stepRemainder+1e-10>=1/60){
-        q.stepRemainder=Math.max(0,q.stepRemainder-1/60);q.sourceTicks=(q.sourceTicks||0)+1;
-        q.nativeTrail??=[];q.nativeTrail.unshift({x:q.x,y:q.y});if(q.nativeTrail.length>2)q.nativeTrail.pop();
+      while(q.stepRemainder+1e-10>=step){
+        q.stepRemainder=Math.max(0,q.stepRemainder-step);q.sourceTicks=(q.sourceTicks||0)+1;
         if(q.kind==='hellblast'){
+          q.nativeTrail??=[];q.nativeTrail.unshift({x:q.x,y:q.y});if(q.nativeTrail.length>2)q.nativeTrail.pop();
           emitProjectileMagic(g,q,'skull');
           const speed=Math.hypot(q.vx,q.vy),next=Math.min(q.maxSpeed||1080,speed*1.03);
           if(speed>0&&speed<1080){q.vx*=next/speed;q.vy*=next/speed;}
           q.opacity=q.sourceTicks>204?Math.max(0,1-(q.sourceTicks-204)*.02):1;
-        }else q.opacity=q.life<1?Math.max(0,q.life):clamp(q.sourceTicks/60,0,1);
-        q.frame=Math.floor(q.sourceTicks/10)%4;q.x+=q.vx/60;q.y+=q.vy/60;q.t+=1/60;q.life-=1/60;
+        }else q.opacity=q.life<.5?clamp(q.life*2,0,1):clamp((q.sourceTicks-1)/60,0,1);
+        q.frame=Math.floor(q.sourceTicks/10)%4;q.x+=q.vx*step;q.y+=q.vy*step;q.t+=step;q.life-=step;
       }
     }else if(q.sourceCalamitas&&q.kind==='skull'){
 

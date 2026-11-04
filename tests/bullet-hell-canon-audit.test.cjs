@@ -11,20 +11,20 @@ test('Expert BH streams start at native 9/10/13/15/17 tick gates; Revengeance an
   t.bulletHell(1/60);assert.equal(g.projectiles.filter(q=>q.kind==='hellblast2').length,1,`${difficulty} BH${n} at gate`);
  }
 });
-test('BH3 final horizontal streams retain native 210px/s, independently of frame rate',async()=>{
+test('BH3 final horizontal streams retain native 420px/s, independently of frame rate',async()=>{
  for(const hz of [30,60,120]){
   const {t,g}=await setup(3,'revenge');let seen=0,late=[];
   for(let i=1;i<=hz*11;i++){g.stageT=i/hz;t.bulletHell(1/hz);const added=g.projectiles.slice(seen);seen=g.projectiles.length;
-   if(i/hz>10+1/hz)late.push(...added.filter(q=>q.kind==='hellblast2'&&Math.abs(q.vx)!==240));
+   if(i/hz>10+1/hz)late.push(...added.filter(q=>q.kind==='hellblast2'&&Math.abs(q.vx)!==480));
   }
-  assert.ok(late.length>0);assert.ok(late.every(q=>Math.hypot(q.vx,q.vy)===210),`${hz}Hz late horizontal speed`);
+  assert.ok(late.length>0);assert.ok(late.every(q=>Math.hypot(q.vx,q.vy)===420),`${hz}Hz late horizontal speed`);
  }
 });
 test('BH5 paired native waves enter within 500px vertically from the player',async()=>{
  const {t,g}=await setup(5);let seen=0;const waves=[];
  for(let tick=1;tick<=840;tick++){g.stageT=tick/60;t.bulletHell(1/60);waves.push(...g.projectiles.slice(seen).filter(q=>q.kind==='skull'));seen=g.projectiles.length;}
  assert.equal(waves.length,56);
- for(let i=0;i<waves.length;i+=2){const a=waves[i],b=waves[i+1];assert.ok(Math.abs(a.y-g.player.y)<=500);assert.ok(Math.abs(b.y-g.player.y)<=500);assert.equal(a.y+b.y,2*g.player.y);}
+ for(let i=0;i<waves.length;i+=2){const a=waves[i],b=waves[i+1];assert.ok(Math.abs(a.y-(g.player.y-18))<=500);assert.ok(Math.abs(b.y-(g.player.y-18))<=500);assert.equal(a.y+b.y,2*(g.player.y-18));}
 });
 test('Revengeance shared edge counter survives BH1 and cast, making BH2 first stream tick5 rather than tick9',async()=>{
  for(const hz of [30,60,120]){

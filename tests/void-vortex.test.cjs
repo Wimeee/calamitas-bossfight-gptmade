@@ -28,3 +28,15 @@ test('mage uses the real magic helmet and native body cells without changing war
  for(const c of calls){const b=fs.readFileSync(fileURLToPath(c.url));assert.ok(c.args[0]>=0&&c.args[1]>=0&&c.args[0]+c.args[2]<=b.readUInt32BE(16)&&c.args[1]+c.args[3]<=b.readUInt32BE(20));}
  calls.length=0;g.player.weapon=0;t.drawNativeArmor(g,{flip:false});assert.ok(calls.some(c=>c.url.includes('/auric-melee-head.png')));
 });
+test('local mage nerf preserves native item base and projectile ratios while reducing cast damage by10percent',async()=>{
+ const {t,g}=await setup();t.shoot();const orbs=g.player.kit.vortexOrbs;assert.equal(t.weapons[2].dmg,210);assert.ok(Math.abs(orbs[0].damage-210*1.65*.9)<1e-8);assert.equal(orbs.find(q=>q.kind==='core').damage,orbs[0].damage*4);assert.equal(g.player.mana,310);
+});
+test('installed2.2.4 policy: initial ring and visible core cannot contact-hit; homing children arm after20updates',async()=>{
+ const {t,g}=await setup(),k=t.mageState(),hp=g.boss.hp;
+ const q={kind:'orbit',x:g.boss.x,y:g.boss.y,vx:0,vy:0,damage:100,delay:-40,fired:true,spin:1,time:30,left:90,scale:1,turnAt:20,turn:1,hits:new Set(),trail:[]};
+ k.vortexOrbs=[q,{...q,kind:'core',hits:new Set()}];t.updateMageCombat(1/180);assert.equal(g.boss.hp,hp,'neither initial sphere may inflict contact damage');
+ k.vortexOrbs=[{...q,kind:'seek',time:19,left:500,scale:.5,hits:new Set(),trail:[]}];t.updateMageCombat(1/180);assert.equal(g.boss.hp,hp,'child not armed at update19');t.updateMageCombat(1/180);assert.ok(g.boss.hp<hp,'child can contact-hit at update20');
+});
+test('potion asset provenance uses Terraria SuperManaPotion2209, not Phantasm3540',()=>{
+ const fs=require('fs'),path=require('path'),m=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/mage-original/provenance.json'))),entries=m.files.filter(f=>f.file==='mana-potion.png');assert.equal(entries.length,1);assert.ok(entries[0].source.endsWith('/Item_2209.xnb'));
+});

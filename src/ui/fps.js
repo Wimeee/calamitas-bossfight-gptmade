@@ -1,8 +1,8 @@
-import {createFrameMeter} from '../core/frame-meter.js?v=27.0.0';
-import {settings,subscribeSettings} from '../core/settings.js?v=27.0.0';
-import {translate,subscribeLocale} from '../core/localization.js?v=27.0.0';
-import {state} from '../core/state.js?v=27.0.0';
-import {$} from '../core/dom.js?v=27.0.0';
+import {createFrameMeter} from '../core/frame-meter.js?v=27.1.0';
+import {settings,subscribeSettings} from '../core/settings.js?v=27.1.0';
+import {translate,subscribeLocale} from '../core/localization.js?v=27.1.0';
+import {state} from '../core/state.js?v=27.1.0';
+import {$} from '../core/dom.js?v=27.1.0';
 const meter=createFrameMeter();let owner=null,lastPaint=-Infinity;
 export function updateFPSCounter(now){
  const game=state.game;if(game!==owner){owner=game;meter.reset();lastPaint=-Infinity;}

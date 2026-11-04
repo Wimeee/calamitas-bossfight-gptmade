@@ -5,8 +5,8 @@ function bh(t,g,seconds,hz=60){for(let i=0;i<Math.round(seconds*hz);i++){g.t+=1/
 test('BH1 opens with only top shots at native gate/speed and adds the guaranteed side shot every sixth gate',async()=>{
  for(const hz of [30,60,120]){
   const {t,g}=await setup();bh(t,g,1,hz);
-  assert.equal(g.projectiles.length,7);assert.equal(g.projectiles.filter(q=>q.vy===240).length,6);
-  const side=g.projectiles.filter(q=>q.vy===0);assert.equal(side.length,1);assert.equal(Math.abs(side[0].vx),240);
+  assert.equal(g.projectiles.length,7);assert.equal(g.projectiles.filter(q=>q.vy===480).length,6);
+  const side=g.projectiles.filter(q=>q.vy===0);assert.equal(side.length,1);assert.equal(Math.abs(side[0].vx),480);
  }
 });
 test('BH5 wave emits a mirrored pair every half second and never creates a second Maelstrom',async()=>{

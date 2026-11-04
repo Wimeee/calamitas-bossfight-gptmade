@@ -4,9 +4,9 @@ async function setup(n=1){const {t}=await loadGame();t.start();const g=t.getGame
 test('all five BH endings retain native shots for their bounded fade instead of deleting them',async()=>{
  for(let n=1;n<=5;n++){
   const {t,g}=await setup(n),q=t.enemyBullet(g.player.x+100,g.player.y,1,0,60,6,'hellblast2',35);Object.assign(q,{sourceCalamitas:true,opacity:1,sourceTicks:100,life:20});
-  t.bulletHell(0);assert.ok(g.projectiles.includes(q),`BH${n}`);assert.equal(q.life,1);
-  t.updateBullets(.5);assert.ok(g.projectiles.includes(q));assert.ok(q.opacity>0&&q.opacity<1);
-  t.updateBullets(.6);assert.ok(!g.projectiles.includes(q));
+  t.bulletHell(0);assert.ok(g.projectiles.includes(q),`BH${n}`);assert.equal(q.life,.5);
+  t.updateBullets(.25);assert.ok(g.projectiles.includes(q));assert.ok(q.opacity>0&&q.opacity<1);
+  t.updateBullets(.3);assert.ok(!g.projectiles.includes(q));
  }
 });
 test('retiring fire and giga spheres fade within15ticks without damage, warning blooms or radial bursts at30/60/120Hz',async()=>{

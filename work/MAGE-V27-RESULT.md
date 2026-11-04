@@ -1,5 +1,7 @@
 # Mage / Void Vortex —2026-11-04
 
+Follow-up correction: v27.0.0 mistakenly used bowItem3540 as potion art. Corrected to verified SuperManaPotion2209, with native dimensions and source regression. User's latest318sec fight feedback leads to10%local mage damage nerf. Initial-orb contact policy verified against actual installed2.2.4DLL, unchanged. See BULLET-HELL-CLOCK-RESULT.md; do not repeat the original asset claim without this correction.
+
 User-approved scope: only Void Vortex; no post-Calamitas Vehemence or weapon switching. Replace the old simplified Yharim's Crystal/Nova class. Keep existing encounter, warrior, common Wings of Rebirth/Aegis, controls and per-device camera settings.
 
 ## Implemented
