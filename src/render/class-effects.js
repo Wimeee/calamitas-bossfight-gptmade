@@ -1,14 +1,16 @@
-import { kitHint } from '../classes/shared.js?v=29.1.1';
-import { TAU } from '../core/config.js?v=29.1.1';
-import { ctx } from '../core/dom.js?v=29.1.1';
-import { clamp } from '../core/math.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
-import { line, pixel, round, text } from './primitives.js?v=29.1.1';
+import { kitHint } from '../classes/shared.js?v=30.0.0';
+import {drawNativeRogue} from './rogue.js?v=30.0.0';
+import { TAU } from '../core/config.js?v=30.0.0';
+import { ctx } from '../core/dom.js?v=30.0.0';
+import { clamp } from '../core/math.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
+import { line, pixel, round, text } from './primitives.js?v=30.0.0';
 
 
 function drawClassKit(g){
   const p=g.player,k=p.kit;
   if(!k)return;
+  if(p.weapon===4){drawNativeRogue(g);return;}
   if(k.rail){
     const s=k.rail,f=s.time/s.max;
     ctx.save();

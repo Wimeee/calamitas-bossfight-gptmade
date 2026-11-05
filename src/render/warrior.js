@@ -1,17 +1,17 @@
-import {photoGeometry} from '../classes/photo-geometry.js?v=29.1.1';
-import {renderQuality} from '../core/settings.js?v=29.1.1';
-import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=29.1.1';
-import { playerConfig } from '../../config/player.js?v=29.1.1';
-import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=29.1.1';
-import { ctx } from '../core/dom.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
-import { settings } from '../core/settings.js?v=29.1.1';
-import { clamp } from '../core/math.js?v=29.1.1';
-import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=29.1.1';
-import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=29.1.1';
-import { line,round,text } from './primitives.js?v=29.1.1';
-import { drawNativeArmor } from './native-armor.js?v=29.1.1';
-import { drawWarriorTrail } from './warrior-trails.js?v=29.1.1';
+import {photoGeometry} from '../classes/photo-geometry.js?v=30.0.0';
+import {renderQuality} from '../core/settings.js?v=30.0.0';
+import { meleeSpriteConfig } from '../../config/melee-sprites.js?v=30.0.0';
+import { playerConfig } from '../../config/player.js?v=30.0.0';
+import { arkAngle, arkSwingGeometry, arkParryGeometry } from '../classes/ark-motion.js?v=30.0.0';
+import { ctx } from '../core/dom.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
+import { settings } from '../core/settings.js?v=30.0.0';
+import { clamp } from '../core/math.js?v=30.0.0';
+import { drawMeleeFrame, meleeAtlasReady, meleeFrameCount } from './melee-atlas.js?v=30.0.0';
+import { drawNativeArkBlade, nativeArkReady, drawNativeScissors, drawNativeArkSpark, drawNativeArkTrail, drawNativeProjectileTrail, drawNativeThrownArk, drawNativeSwingParticles, drawNativeConstellation, drawNativeSnapBurst,drawNativeBigRip,drawNativeParryRecharge } from './ark-native.js?v=30.0.0';
+import { line,round,text } from './primitives.js?v=30.0.0';
+import { drawNativeArmor } from './native-armor.js?v=30.0.0';
+import { drawWarriorTrail } from './warrior-trails.js?v=30.0.0';
 
 const deathClocks=new WeakMap();
 const poseClocks=new WeakMap();
@@ -66,6 +66,7 @@ export function warriorWeaponPose(g,target,action,scale){
 }
 
 export function drawWarriorBody(g,x=g.player.x,y=g.player.y,ghost=false,fade=1){
+  if(g.player.weapon===4)return drawNativeArmor(g,warriorPose(g),x,y,(ghost?.3*fade:1)*(1-.9*Math.max(0,Math.min(1,g.player.stealth||0))));
   if(g.player.weapon===3){const pose=warriorPose(g);return drawNativeArmor(g,{...pose,flip:g.player.whip?g.player.whip.side<0:pose.flip},x,y,ghost?.3*fade:1);}
   if(g.player.weapon===2||g.player.weapon===1)return drawNativeArmor(g,{flip:g.player.weapon===1?photoGeometry(g).flip:state.pointer.x<g.player.x},x,y,ghost?.3*fade:1);
   if(g.player.weapon!==0||!meleeAtlasReady('body'))return false;

@@ -1,15 +1,15 @@
-import {heartSpawnPositions} from '../world/heart-layout.js?v=29.1.1';
-import {updateSummonCast} from '../systems/summon-effects.js?v=29.1.1';
-import {initializeSeekers} from './seekers.js?v=29.1.1';
-import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=29.1.1';
-import {beginAcceptance} from './acceptance.js?v=29.1.1';
-import { getTerrain } from '../world/terrain.js?v=29.1.1';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=29.1.1';
-import { arena } from '../core/arena.js?v=29.1.1';
-import { audio } from '../core/audio.js?v=29.1.1';
-import { TAU } from '../core/config.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
-import { rnd } from '../core/math.js?v=29.1.1';
+import {heartSpawnPositions} from '../world/heart-layout.js?v=30.0.0';
+import {updateSummonCast} from '../systems/summon-effects.js?v=30.0.0';
+import {initializeSeekers} from './seekers.js?v=30.0.0';
+import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=30.0.0';
+import {beginAcceptance} from './acceptance.js?v=30.0.0';
+import { getTerrain } from '../world/terrain.js?v=30.0.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=30.0.0';
+import { arena } from '../core/arena.js?v=30.0.0';
+import { audio } from '../core/audio.js?v=30.0.0';
+import { TAU } from '../core/config.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
+import { rnd } from '../core/math.js?v=30.0.0';
 
 // Source: SupremeCalamitas.cs phase transitions
 // sepulcherSpawnCastTime = 75 ticks (1.25s)
@@ -40,6 +40,7 @@ function enterCalamitas(stage, marker, label) {
   g.player.combo = 0;
   if (g.player.kit) {
     g.player.kit.blades = [];
+    if(g.player.kit.rogue){const r=g.player.kit.rogue;r.shots=[];r.heals=[];r.effects=[];r.sparkHits.clear();r.step=0;}
     g.player.kit.zones = [];
     g.player.kit.rail = null;
     g.player.kit.heat = 0;

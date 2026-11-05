@@ -42,7 +42,7 @@ for(const weapon of ['melee','ranger','mage','summon','rogue']){
  g.player.x=500;g.player.y=340;g.player.iframes=999;g.boss.x=620;g.boss.y=340;g.attackTimer=999;g.patternTimer=999;t.setPointer({x:620,y:340});
  const hp=g.boss.hp;t.shoot();let matchingImpact=g.impacts.some(f=>f.kind===weapon);
  for(let i=0;i<(weapon==='summon'?65:20);i++){t.update(1/60);matchingImpact ||= g.impacts.some(f=>f.kind===weapon);t.draw(g);}
- check(g.boss.hp<hp,weapon+' damages boss');check(weapon==='mage'?g.player.kit.vortexBeams.some(b=>b.resolved):weapon==='ranger'?!!g.player.kit.photo?.visual:weapon==='summon'?g.player.summonState.pulses.length>0:matchingImpact,weapon+' matching native attack state');
+ check(g.boss.hp<hp,weapon+' damages boss');check(weapon==='mage'?g.player.kit.vortexBeams.some(b=>b.resolved):weapon==='ranger'?!!g.player.kit.photo?.visual:weapon==='summon'?g.player.summonState.pulses.length>0:weapon==='rogue'?g.player.kit.rogue.minisSpawned>0&&g.player.kit.rogue.effects.length>0:matchingImpact,weapon+' matching native attack state');
  check(g.player.mana>=0&&g.player.mana<=g.player.maxMana,'mana bounds '+weapon);
 }
 // Beam collision is real, stops at the nearest target and respects the arena wall.

@@ -51,12 +51,12 @@ export const weapons=[
     id:'rogue',
     name:'Celestus',
     label:'5 ✦ Rogue',
-    desc:'ЛКМ: поворотні Celestus, подвійне влучання • ПКМ: відкликання • ловіння заряджає stealth',
+    desc:'ЛКМ: Celestus • Пауза між атаками накопичує stealth • ПКМ: звичайні / заряджені кидки',
     mana:0,
-    cool:.28,
-    dmg:950,
-    speed:880,
-    rad:9,
+    cool:22/60,
+    dmg:280,
+    speed:6900,
+    rad:66,
     col:'#f7b3eb'
   }
 ];

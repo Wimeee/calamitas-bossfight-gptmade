@@ -66,3 +66,4 @@ localeEntries.push(...[["HTML · CSS · JavaScript · Canvas · Web Audio","HTML
 localeEntries.push(['Kaleidoscope • Cosmic Energy + малий Ярон • 15 слотів • ПКМ: мітка цілі','Kaleidoscope • Cosmic Energy + Fiery Draconid • 15 slots • RMB: focus target'],['ПКМ · МІТКА','RMB · FOCUS'],['🎯 МІТКА','🎯 FOCUS']);
 
 localeEntries.push(['Дякуємо за шрифт і референс вступу Каламітас.','Thank you for the font and Calamitas introduction reference.']);
+localeEntries.push(['ЛКМ: Celestus • Пауза між атаками накопичує stealth • ПКМ: звичайні / заряджені кидки','LMB: Celestus • Pausing attacks builds stealth • RMB: normal / charged throws'],['ПКМ · ЗАРЯДЖЕНІ','RMB · CHARGED'],['ПКМ · ЗВИЧАЙНІ','RMB · NORMAL']);

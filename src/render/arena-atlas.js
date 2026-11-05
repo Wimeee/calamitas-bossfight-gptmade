@@ -1,4 +1,4 @@
-import {arenaColors} from '../world/arena-state.js?v=29.1.1';
+import {arenaColors} from '../world/arena-state.js?v=30.0.0';
 const images=new Map(),tints=new Map();let promise;
 export function arenaImage(name){return images.get(name);}
 export function arenaTexture(name,phase){return tints.get(name+phase);}

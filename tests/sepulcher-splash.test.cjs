@@ -10,8 +10,8 @@ test('Ark snap is a real area hit once; ordinary blade sweep does not repeat per
  {const {t,g,w}=await fixture();g.player.arkThrow={x:100,y:100,age:1,max:2,boost:1,returning:false};t.releaseArk(true);assert.equal(w.hp,299997);t.releaseArk(true);assert.equal(w.hp,299997);}
  for(const fps of [30,60,120]){const {t,g,w}=await fixture();Object.assign(g.player,{x:100,y:100});w.nodes=[];t.setPointer({x:1000,y:100});t.fireArk(t.weapons[0]);assert.ok(g.player.swing);for(let i=0;i<fps;i++){g.t+=1/fps;t.updateSword(1/fps);}assert.equal(w.hp,299999,'normal swing hits a segment once at'+fps);}
 });
-test('Rogue recall shares hit IDs across blades; summon whip applies1 without retargeting summons',async()=>{
- {const {t,g,w}=await fixture();g.player.weapon=4;const k=t.kit();k.blades=[0,1].map(()=>({x:100,y:100,returning:false,returnHits:new Set()}));t.activateRogue();assert.equal(w.hp,299997);t.activateRogue();assert.equal(w.hp,299997);}
+test('Rogue charge preference cannot conjure splash damage; summon whip applies1 without retargeting summons',async()=>{
+ {const {t,g,w}=await fixture();g.player.weapon=4;t.activateRogue();assert.equal(w.hp,300000);t.activateRogue();assert.equal(w.hp,300000);}
  {const {t,g,w}=await fixture();g.player.weapon=3;g.player.x=100;g.player.y=100;t.summonSquad();for(const m of g.player.cosmic)Object.assign(m,{x:-1900,y:100,vx:0,vy:0});t.setPointer({x:1000,y:100});t.lashWhip();assert.equal(w.hp,300000,'native whip has no instantaneous cone');for(let i=0;i<60;i++){g.t+=1/120;t.updateCosmic(1/120);}assert.equal(w.hp,299996,'each touched native part receives1 over the real sweep');assert.ok(!t.possibleTargets().includes(w));}
 });
 test('DR follows the original formula rather than forcibly clamping every possible hit to1; segment cooldowns remain independent',async()=>{

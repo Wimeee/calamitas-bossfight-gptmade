@@ -1,8 +1,8 @@
-import {renderQuality} from '../core/settings.js?v=29.1.1';
-import {arkConstellationLayout} from './ark-constellation-layout.js?v=29.1.1';
-import {circleVisible} from './visibility.js?v=29.1.1';
-import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=29.1.1';
-import { ctx } from '../core/dom.js?v=29.1.1';
+import {renderQuality} from '../core/settings.js?v=30.0.0';
+import {arkConstellationLayout} from './ark-constellation-layout.js?v=30.0.0';
+import {circleVisible} from './visibility.js?v=30.0.0';
+import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=30.0.0';
+import { ctx } from '../core/dom.js?v=30.0.0';
 const images={};let loading;
 const vfxNames=['rip-texture','rip-layer','scissors-glow','heavy-smoke','thin-sparkle','light','bloom-line','bloom-cap','slice-line','pulse-ring','parry-bar-back','parry-bar-front'];
 export function initializeNativeArk(){
@@ -10,7 +10,7 @@ export function initializeNativeArk(){
  loading=Promise.all(['left','left-glow','right','right-glow','sparkle','trail-glow','swing-smear','swirl-smoke','projectile-streak','bloom-circle',...vfxNames].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
   const file=['sparkle','swing-smear','swirl-smoke','projectile-streak','bloom-circle'].includes(part)?part:'ark-'+part;
-  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=29.1.1',import.meta.url).href;
+  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=30.0.0',import.meta.url).href;
  }))).then(()=>nativeArkReady());return loading;
 }
 export function nativeArkReady(){return !!(images.left&&images['left-glow']&&images.right&&images['right-glow']);}

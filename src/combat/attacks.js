@@ -1,6 +1,6 @@
-import { classRegistry, weapons } from '../classes/registry.js?v=29.1.1';
-import { rnd } from '../core/math.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
+import { classRegistry, weapons } from '../classes/registry.js?v=30.0.0';
+import { rnd } from '../core/math.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
 
 
 function addShot(x,y,dx,dy,w,boost=1){
@@ -27,7 +27,7 @@ function addShot(x,y,dx,dy,w,boost=1){
 function shoot(){
   if(!state.game)return;
   const g=state.game,p=g.player,w=weapons[p.weapon];
-  if(g.ritual||p.fireCd>0||g.mode!=='playing'||g.stage==='accept')return;
+  if(g.ritual||p.fireCd>(p.weapon===4?1e-9:0)||g.mode!=='playing'||g.stage==='accept')return;
   classRegistry[w.id].attack(w);
 }
 

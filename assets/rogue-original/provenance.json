@@ -1,0 +1,120 @@
+{
+  "codeCommit": "1a8cebd27ec5615316b78f71973446b5528d2b78",
+  "codeVersion": "2.2.2",
+  "artVersion": "2.2.4",
+  "files": [
+    {
+      "file": "celestus.png",
+      "source": "Projectiles/Rogue/CelestusProj.rawimg",
+      "width": 132,
+      "height": 132,
+      "sha256": "2333b9be1f97ce0ce5366e0657b7ec3d73eec8cc05b6345697bd8cf069760142"
+    },
+    {
+      "file": "celestus-glow.png",
+      "source": "Projectiles/Rogue/CelestusProjGlow.rawimg",
+      "width": 132,
+      "height": 132,
+      "sha256": "b5bcb8c2796724f7433f72014031604edd29918cd42d9a36f41f6b3eb63f8a4d"
+    },
+    {
+      "file": "mini.png",
+      "source": "Projectiles/Rogue/CelestusMiniScythe.rawimg",
+      "width": 48,
+      "height": 50,
+      "sha256": "7d0477d23884e6ac826addb49247e62281e231b9b933262b5e6af19a2e9e8455"
+    },
+    {
+      "file": "nano.png",
+      "source": "Projectiles/Typeless/Nanotech.rawimg",
+      "width": 26,
+      "height": 26,
+      "sha256": "470355c10c0e3b18a688d1897aefbb2237c44cf4c8932d241be55ef418a35885"
+    },
+    {
+      "file": "auric-rogue-head.png",
+      "source": "Items/Armor/Auric/AuricTeslaHeadRogue_Head.rawimg",
+      "width": 40,
+      "height": 1120,
+      "sha256": "1b548c1ab43c5ef9d5b6e1b77edbdfaa54abed3c45a555487e3ecff264270b32"
+    },
+    {
+      "file": "item.png",
+      "source": "Items/Weapons/Rogue/Celestus.rawimg",
+      "width": 150,
+      "height": 132,
+      "sha256": "78183a2853c4af829af129e724c80feb52bf30919ceffcd0bd925efd106f8cac"
+    },
+    {
+      "file": "item-glow.png",
+      "source": "Items/Weapons/Rogue/CelestusGlow.rawimg",
+      "width": 150,
+      "height": 132,
+      "sha256": "f62a5a58a0d7b268315172963d5a8e564ffdd1d933e63e7e4ab0fb386906cb2b"
+    },
+    {
+      "file": "nanotech.png",
+      "source": "Items/Accessories/Nanotech.rawimg",
+      "width": 46,
+      "height": 46,
+      "sha256": "71d6715f11697d6bd8b1d533fb0889c28c95cc7d6a22602d8a691ab9b60b8e1b"
+    },
+    {
+      "file": "sheath.png",
+      "source": "Items/Accessories/DarkMatterSheath.rawimg",
+      "width": 48,
+      "height": 62,
+      "sha256": "e3b10a297398e9682df73a4f0008bf5f9b6b3a24bb8a7d654584d58cf6460d05"
+    },
+    {
+      "file": "emblem.png",
+      "source": "Items/Accessories/RogueEmblem.rawimg",
+      "width": 28,
+      "height": 28,
+      "sha256": "ad172b347845309e197253257b5e1f9faba81094570cb59cce54dfcf3faa9075"
+    },
+    {
+      "file": "stealth-border.png",
+      "source": "UI/MiscTextures/StealthMeter.rawimg",
+      "width": 52,
+      "height": 26,
+      "sha256": "672b220bb86d70e4df3b3984d23a98cf72e4ef26b277d79b729fdcfe5f9e762c"
+    },
+    {
+      "file": "stealth-fill.png",
+      "source": "UI/MiscTextures/StealthMeterBar.rawimg",
+      "width": 36,
+      "height": 26,
+      "sha256": "db587e2fef862bc71cb44bc504453d40608c1c38a02632bbcb31179a30f80a3f"
+    },
+    {
+      "file": "stealth-full.png",
+      "source": "UI/MiscTextures/StealthMeterBarFull.rawimg",
+      "width": 36,
+      "height": 26,
+      "sha256": "b9e4ad2af448895c70d9c1b42bc84ed026c1c7121f75b9ce972f95095d99ada7"
+    },
+    {
+      "file": "stealth-strike.png",
+      "source": "UI/MiscTextures/StealthMeterStrikeIndicator.rawimg",
+      "width": 52,
+      "height": 26,
+      "sha256": "103170307a4ee943bf05451c9f7fa1cb0d1d989243079d9369bb05799ecdbac9"
+    },
+    {
+      "file": "stealth-ready.ogg",
+      "source": "Sounds/Custom/RogueStealth.ogg",
+      "sha256": "de90cec460338a32636efffe3e752b581caf0627b5f320a3a4892635689a4b44"
+    },
+    {
+      "file": "raider-hit.ogg",
+      "source": "Sounds/Custom/RaidersTalismanStealthHit.ogg",
+      "sha256": "fe585700a73d409c5748f38d3b187e28e5b1409046ca5d5a5ebcce7a10c071cc"
+    },
+    {
+      "file": "heal.png",
+      "source": "D:/SteamLibrary/steamapps/common/Terraria/Content/Images/Projectile_305.xnb",
+      "sha256": "43739c566e26fd7cb88f69d3864ea34740372f5ee99acac169e090beffbce5c6"
+    }
+  ]
+}

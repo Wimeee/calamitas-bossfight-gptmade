@@ -1,9 +1,9 @@
-import { initializeRitual } from '../game/ritual.js?v=29.1.1';
-import { weapons } from '../classes/registry.js?v=29.1.1';
-import { audio } from '../core/audio.js?v=29.1.1';
-import { $, root } from '../core/dom.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
-import { changeWeapon, start, togglePause } from '../game/session.js?v=29.1.1';
+import { initializeRitual } from '../game/ritual.js?v=30.0.0';
+import { weapons } from '../classes/registry.js?v=30.0.0';
+import { audio } from '../core/audio.js?v=30.0.0';
+import { $, root } from '../core/dom.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
+import { changeWeapon, start, togglePause } from '../game/session.js?v=30.0.0';
 
 
 function initializeControls(){

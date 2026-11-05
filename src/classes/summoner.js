@@ -1,10 +1,10 @@
 // Generic legacy cosmicStar shots retain their existing absorption utility.
-import {state} from '../core/state.js?v=29.1.1';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=29.1.1';
-import {hitTarget} from '../combat/damage.js?v=29.1.1';
-import {possibleTargets} from '../combat/targets.js?v=29.1.1';
-import {audio} from '../core/audio.js?v=29.1.1';
-export {summonSquad,lashWhip,commandVolley,markCosmicTarget,updateCosmic,attackSummoner,activateSummoner} from './native-summoner.js?v=29.1.1';
+import {state} from '../core/state.js?v=30.0.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=30.0.0';
+import {hitTarget} from '../combat/damage.js?v=30.0.0';
+import {possibleTargets} from '../combat/targets.js?v=30.0.0';
+import {audio} from '../core/audio.js?v=30.0.0';
+export {summonSquad,lashWhip,commandVolley,markCosmicTarget,updateCosmic,attackSummoner,activateSummoner} from './native-summoner.js?v=30.0.0';
 function cosmicStarBurst(s,hit){
   const g=state.game;
   damageSepulcherArea(g,s.x,s.y,90,s.dmg*.48);

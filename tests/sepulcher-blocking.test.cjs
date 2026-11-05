@@ -381,18 +381,18 @@ test('rogue blades: absorbed by worm on outward path, front target hit first', a
   g.hearts = [rear];
   rear.x = 800; // crossing test position
 
-  g.player.stealth = 0; // isolate uncharged blade (no charged splash)
-  t.throwCelestus(t.weapons[1], 0);
+  g.player.weapon=4;t.initializeRogue(g);g.player.stealth = 0; // native uncharged blade
+  t.throwCelestus(t.weapons[4], 0);
 
   const k = t.kit();
   const blade = k.blades[0];
   assert.ok(blade, 'blade created');
 
   // Set blade at controlled start state
-  blade.x = 450; blade.y = 400; blade.vx = 13500; blade.vy = 0; blade.age = 0; blade.returning = false;
+  blade.x = 450; blade.y = 400; blade.vx = 400; blade.vy = 0; blade.age = 0; blade.returning = false;
 
-  // One update: homing blend advances enough to cross front(550)/body(700)/rear(800)
-  t.updateRogue(1/30);
+  // One update: native substeps advance enough to cross front(550)/body(700)/rear(800)
+  t.updateRogueCombat(1/30);
 
   // Blade should be consumed (removed from array), not just returning
   assert.equal(k.blades.length, 0, 'blade consumed by worm (removed from array)');
@@ -406,18 +406,18 @@ test('rogue blades: front target hit before worm blocker', async () => {
   const { front, rear } = createControlledHeartsFixture(t, g);
   rear.x = 800; // crossing test position
 
-  g.player.stealth = 0; // isolate uncharged blade
-  t.throwCelestus(t.weapons[1], 0);
+  g.player.weapon=4;t.initializeRogue(g);g.player.stealth = 0; // native uncharged blade
+  t.throwCelestus(t.weapons[4], 0);
 
   const k = t.kit();
   const blade = k.blades[0];
   assert.ok(blade, 'blade created');
 
   // Set blade at controlled start state
-  blade.x = 450; blade.y = 400; blade.vx = 13500; blade.vy = 0; blade.age = 0; blade.returning = false;
+  blade.x = 450; blade.y = 400; blade.vx = 400; blade.vy = 0; blade.age = 0; blade.returning = false;
 
-  // One update: homing blend advances enough to cross front(550)/body(700)/rear(800)
-  t.updateRogue(1/30);
+  // One update: native substeps advance enough to cross front(550)/body(700)/rear(800)
+  t.updateRogueCombat(1/30);
 
   // Front heart should be hit, rear protected, blade removed same step
   assert.ok(front.hp < 100000, 'front heart HP decreased');

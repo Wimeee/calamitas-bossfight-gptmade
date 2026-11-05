@@ -1,7 +1,7 @@
-import { settings } from '../core/settings.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
-import { dash } from '../combat/player.js?v=29.1.1';
-import { movementConfig } from '../../config/movement.js?v=29.1.1';
+import { settings } from '../core/settings.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
+import { dash } from '../combat/player.js?v=30.0.0';
+import { movementConfig } from '../../config/movement.js?v=30.0.0';
 
 export function directionTap(key,now=performance.now()){
   const g=state.game;if(!g||g.mode!=='playing'||g.ritual?.phase==='summoning'||!settings.doubleTapDash)return;

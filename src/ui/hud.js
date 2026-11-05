@@ -1,8 +1,8 @@
-import { movementConfig } from '../../config/movement.js?v=29.1.1';
-import { weapons } from '../classes/registry.js?v=29.1.1';
-import { milestones } from '../core/config.js?v=29.1.1';
-import { $, root } from '../core/dom.js?v=29.1.1';
-import { state } from '../core/state.js?v=29.1.1';
+import { movementConfig } from '../../config/movement.js?v=30.0.0';
+import { weapons } from '../classes/registry.js?v=30.0.0';
+import { milestones } from '../core/config.js?v=30.0.0';
+import { $, root } from '../core/dom.js?v=30.0.0';
+import { state } from '../core/state.js?v=30.0.0';
 
 function syncFlightHUD(g=state.game){
   if(!g)return;
@@ -40,7 +40,7 @@ const ui=()=>{
   if(regenButton)regenButton.textContent=p.regenPotionT>0?'🌿 '+Math.ceil(p.regenPotionT)+'с':'🌿 ×'+p.regenPotions;
   if(targetButton){
     targetButton.hidden=p.weapon===2;
-    targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):p.weapon===1?'✦ ЗАРЯД':p.weapon===2?'✧ VOID VORTEX':p.weapon===3?'🎯 МІТКА':'↩ КЛИНКИ';
+    targetButton.textContent=p.weapon===0?(p.arkCharges?'✦ BIG RIP':'✂ PARRY'):p.weapon===1?'✦ ЗАРЯД':p.weapon===2?'✧ VOID VORTEX':p.weapon===3?'🎯 МІТКА':(p.kit?.rogue?.chargeMode?'✦ STEALTH':'✦ AUTO');
   }
   root.querySelectorAll('[data-weapon]').forEach(e=>{
       e.classList.toggle('on',Number(e.dataset.weapon)===p.weapon);

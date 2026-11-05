@@ -29,3 +29,6 @@ Native selected Calamity2.2.4 RGBA particles/masks in assets/ark-vfx/ and Aegis 
 # Infernum-style introduction
 
 Original Infernum Team BossIntroScreensFont bitmap font (three retained pages, UK/EN glyph metrics), reference sequence and letter shader from [InfernumMode](https://github.com/InfernumTeam/InfernumMode/tree/399342f1d21dba29de5576f251ab95a02eaeb449). Original Calamity THanosAura cover, Terraria Perlin and Item100 PCM; hashes/source paths in assets/intro-original/provenance.json. Canvas shader/particles are browser adaptations. Infernum Team supplied original resources and reference, not authorship of this unofficial fan game.
+# Native rogue pack
+
+Original Celestus/projectile/glow/mini scythe, Auric Tesla rogue head, Nanotech/Dark Matter Sheath/Rogue Emblem and stealth meter artwork extracted from installed Calamity2.2.4. Original RogueStealth/RaidersTalismanStealthHit OGG and lossless Terraria Item1/7/122/14 PCM; native VampireHeal305 reference. Source hashes and paths: assets/rogue-original/provenance.json. Behaviors grounded in official [Calamity source](https://github.com/CalamityTeam/CalamityModPublic/tree/1a8cebd27ec5615316b78f71973446b5528d2b78), with the2.2.2 code/2.2.4 art gap explicit. No generated replacement art/audio.

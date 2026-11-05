@@ -1,10 +1,11 @@
-import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=29.1.1';
-import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=29.1.1';
-import {summonerAudio} from '../../config/summoner-audio.js?v=29.1.1';
-import {rangerAudio} from '../../config/ranger-audio.js?v=29.1.1';
-import {mageAudio} from '../../config/mage-audio.js?v=29.1.1';
-import { settings,subscribeSettings } from './settings.js?v=29.1.1';
-import { state } from './state.js?v=29.1.1';
+import { calamitasAudio as clips } from '../../config/calamitas-audio.js?v=30.0.0';
+import { meleeAudio as meleeClips } from '../../config/calamitas-audio.js?v=30.0.0';
+import {summonerAudio} from '../../config/summoner-audio.js?v=30.0.0';
+import {rogueAudio} from '../../config/rogue-audio.js?v=30.0.0';
+import {rangerAudio} from '../../config/ranger-audio.js?v=30.0.0';
+import {mageAudio} from '../../config/mage-audio.js?v=30.0.0';
+import { settings,subscribeSettings } from './settings.js?v=30.0.0';
+import { state } from './state.js?v=30.0.0';
 
 export function createCalamitasAudio({fetcher=(...args)=>fetch(...args)}={}){
   let context=null,bus=null,loading=null;
@@ -118,3 +119,4 @@ export const mageSamples=createMeleeAudio({clips:mageAudio,directory:'mage-origi
 export const rangerSamples=createMeleeAudio({clips:rangerAudio,directory:'ranger-original'});
 
 export const summonerSamples=createMeleeAudio({clips:summonerAudio,directory:'summoner-original'});
+export const rogueSamples=createMeleeAudio({clips:rogueAudio,directory:'rogue-original'});

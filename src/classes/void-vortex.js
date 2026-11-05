@@ -1,12 +1,12 @@
-import {mageConfig as C} from '../../config/mage.js?v=29.1.1';
-import {kit} from './shared.js?v=29.1.1';
-import {state} from '../core/state.js?v=29.1.1';
-import {audio} from '../core/audio.js?v=29.1.1';
-import {possibleTargets} from '../combat/targets.js?v=29.1.1';
-import {hitTarget} from '../combat/damage.js?v=29.1.1';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=29.1.1';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=29.1.1';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=29.1.1';
+import {mageConfig as C} from '../../config/mage.js?v=30.0.0';
+import {kit} from './shared.js?v=30.0.0';
+import {state} from '../core/state.js?v=30.0.0';
+import {audio} from '../core/audio.js?v=30.0.0';
+import {possibleTargets} from '../combat/targets.js?v=30.0.0';
+import {hitTarget} from '../combat/damage.js?v=30.0.0';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=30.0.0';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=30.0.0';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=30.0.0';
 
 export function initializeMage(g){const p=g.player;if(p.weapon!==2)return;p.maxMana=p.mana=C.maxMana;p.manaPotions=C.manaPotions;p.manaSickness=0;p.manaRegenDelay=0;p.manaMagnet=true;}
 export function mageState(){const k=kit();k.vortexOrbs??=[];k.vortexBeams??=[];k.vortexPulses??=[];k.vortexStep??=0;return k;}
