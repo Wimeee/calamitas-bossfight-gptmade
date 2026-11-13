@@ -1,1 +1,1 @@
-export {initializeRogue,rogueState,rogueStrikeAvailable,rogueThrowDamage,throwCelestus,activateRogue,updateRogue,updateRogueCombat,attackRogue} from './native-rogue.js?v=30.1.0';
+export {initializeRogue,rogueState,rogueStrikeAvailable,rogueThrowDamage,throwCelestus,activateRogue,updateRogue,updateRogueCombat,attackRogue} from './native-rogue.js?v=30.2.0';

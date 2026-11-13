@@ -1,12 +1,12 @@
-import {retireBulletHellProjectiles} from '../combat/projectile-retirement.js?v=30.1.0';
-import {spawnMaelstrom} from './maelstrom.js?v=30.1.0';
-import { enemyBullet } from '../combat/projectiles.js?v=30.1.0';
-import { arena } from '../core/arena.js?v=30.1.0';
-import { rnd } from '../core/math.js?v=30.1.0';
-import { state } from '../core/state.js?v=30.1.0';
-import { enter } from '../game/phases.js?v=30.1.0';
-import { startCastDelay } from './phases.js?v=30.1.0';
-import {movementConfig} from '../../config/movement.js?v=30.1.0';
+import {retireBulletHellProjectiles} from '../combat/projectile-retirement.js?v=30.2.0';
+import {spawnMaelstrom} from './maelstrom.js?v=30.2.0';
+import { enemyBullet } from '../combat/projectiles.js?v=30.2.0';
+import { arena } from '../core/arena.js?v=30.2.0';
+import { rnd } from '../core/math.js?v=30.2.0';
+import { state } from '../core/state.js?v=30.2.0';
+import { enter } from '../game/phases.js?v=30.2.0';
+import { startCastDelay } from './phases.js?v=30.2.0';
+import {movementConfig} from '../../config/movement.js?v=30.2.0';
 
 // SupremeCalamitas.cs 939-1644. The end counters 900/1800/... are cumulative:
 // all five Bullet Hells last 900 ticks, not 15/30/45/60/75 seconds.

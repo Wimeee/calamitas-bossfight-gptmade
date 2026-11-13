@@ -1,7 +1,7 @@
-import { getTerrain } from '../world/terrain.js?v=30.1.0';
-import { movementConfig } from '../../config/movement.js?v=30.1.0';
-import { audio } from '../core/audio.js?v=30.1.0';
-import { weapons } from '../classes/registry.js?v=30.1.0';
+import { getTerrain } from '../world/terrain.js?v=30.2.0';
+import { movementConfig } from '../../config/movement.js?v=30.2.0';
+import { audio } from '../core/audio.js?v=30.2.0';
+import { weapons } from '../classes/registry.js?v=30.2.0';
 
 // Native 60 Hz item-style motion, adapted to the game's one-way platforms.
 // Player.defaultItemGrabRange=42; no Heartreach/Celestial Magnet equipment.
