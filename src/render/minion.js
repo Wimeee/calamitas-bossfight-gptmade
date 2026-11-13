@@ -1,11 +1,11 @@
-import {renderQuality} from '../core/settings.js?v=30.0.0';
-import {heartTendrilAnchors} from '../world/arena-state.js?v=30.0.0';
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=30.0.0';
-import {ctx} from '../core/dom.js?v=30.0.0';
-import {settings} from '../core/settings.js?v=30.0.0';
-import {hpMini,pixel,text} from './primitives.js?v=30.0.0';
-import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=30.0.0';
-import {lerp, clamp} from '../core/math.js?v=30.0.0';
+import {renderQuality} from '../core/settings.js?v=30.0.1';
+import {heartTendrilAnchors} from '../world/arena-state.js?v=30.0.1';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=30.0.1';
+import {ctx} from '../core/dom.js?v=30.0.1';
+import {settings} from '../core/settings.js?v=30.0.1';
+import {hpMini,pixel,text} from './primitives.js?v=30.0.1';
+import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=30.0.1';
+import {lerp, clamp} from '../core/math.js?v=30.0.1';
 const clocks=new WeakMap();
 const now=g=>g.ritual?g.ritual.ambient:g.t;
 
@@ -21,6 +21,12 @@ export function brotherPoseState(br,g){
 }
 
 export function drawBrother(br,g){
+ const remainder=g.stage==='brothers'&&!g.castDelayState?g.brotherStepRemainder||0:0;
+ if(!remainder){drawBrotherAtTick(br,g);return;}
+ ctx.save();ctx.translate((br.vx||0)*remainder,(br.vy||0)*remainder);
+ try{drawBrotherAtTick(br,g);}finally{ctx.restore();}
+}
+function drawBrotherAtTick(br,g){
  const p=brotherPoseState(br,g);
  if(renderQuality()!=='low')for(let i=p.trail.length-1;i>0;i--)paintMinionFrame(ctx,p.specKind,p.clip,p.frame,p.trail[i].x,p.trail[i].y,1,.08*(4-i),p.facing,0);
  if(!paintMinionFrame(ctx,p.specKind,p.clip,p.frame,br.x,br.y,1,1,p.facing,0))pixel('brother'+br.kind,br.x,br.y,1.6,0,br.x>g.player.x);

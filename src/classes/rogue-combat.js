@@ -1,10 +1,10 @@
-import {rogueConfig as C} from '../../config/rogue.js?v=30.0.0';
-import {possibleTargets} from '../combat/targets.js?v=30.0.0';
-import {hitTarget} from '../combat/damage.js?v=30.0.0';
-import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=30.0.0';
-import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=30.0.0';
-import {audio} from '../core/audio.js?v=30.0.0';
-import {cameraView} from '../world/camera.js?v=30.0.0';
+import {rogueConfig as C} from '../../config/rogue.js?v=30.0.1';
+import {possibleTargets} from '../combat/targets.js?v=30.0.1';
+import {hitTarget} from '../combat/damage.js?v=30.0.1';
+import {getSepulcherBlockers,checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=30.0.1';
+import {damageSepulcherArea} from '../combat/sepulcher-damage.js?v=30.0.1';
+import {audio} from '../core/audio.js?v=30.0.1';
+import {cameraView} from '../world/camera.js?v=30.0.1';
 export function rogueEffect(k,kind,x,y){k.effects.push({kind,x,y,time:k.clock});if(k.effects.length>64)k.effects.shift();}
 export function rogueHoming(q,range,speed,inertia){let target=null;for(const t of possibleTargets()){const d=Math.hypot(t.x-q.x,t.y-q.y);if(t.hp>0&&d<range){range=d;target=t;}}if(target){const dx=target.x-q.x,dy=target.y-q.y,d=Math.hypot(dx,dy)||1;q.vx=(q.vx*inertia+dx/d*speed)/(inertia+1);q.vy=(q.vy*inertia+dy/d*speed)/(inertia+1);}}
 export function hitRogueTarget(g,k,q,t){

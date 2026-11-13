@@ -1,11 +1,11 @@
-import {rogueConfig as C} from '../../config/rogue.js?v=30.0.0';
-import {kit,beginAttack} from './shared.js?v=30.0.0';
-import {state} from '../core/state.js?v=30.0.0';
-import {audio} from '../core/audio.js?v=30.0.0';
-import {getSepulcherBlockers} from '../combat/sepulcher-blocking.js?v=30.0.0';
-import {possibleTargets} from '../combat/targets.js?v=30.0.0';
-import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=30.0.0';
-import {rogueHoming,rogueSweep,updateRogueAuxiliary} from './rogue-combat.js?v=30.0.0';
+import {rogueConfig as C} from '../../config/rogue.js?v=30.0.1';
+import {kit,beginAttack} from './shared.js?v=30.0.1';
+import {state} from '../core/state.js?v=30.0.1';
+import {audio} from '../core/audio.js?v=30.0.1';
+import {getSepulcherBlockers} from '../combat/sepulcher-blocking.js?v=30.0.1';
+import {possibleTargets} from '../combat/targets.js?v=30.0.1';
+import {updateMageDebuffs} from '../combat/mage-debuffs.js?v=30.0.1';
+import {rogueHoming,rogueSweep,updateRogueAuxiliary} from './rogue-combat.js?v=30.0.1';
 export function rogueState(){return kit().rogue??={clock:0,ticks:0,step:0,stealthStep:0,itemTicks:0,acceleration:1,shots:[],heals:[],effects:[],sparkHits:new Map(),chargeMode:false,ready:false,raiderUntil:0,flareUntil:0,minisSpawned:0,lifeSteal:C.lifeStealCap};}
 export function initializeRogue(g){if(g.player.weapon!==4)return;g.player.stealth=0;rogueState();}
 export function rogueStrikeAvailable(){return state.game.player.stealth+1e-9>=C.strikeCost;}

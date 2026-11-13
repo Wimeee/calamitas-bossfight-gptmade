@@ -1,5 +1,5 @@
-import {translate} from '../core/localization.js?v=30.0.0';
-import { hudFonts } from '../../config/hud-fonts.js?v=30.0.0';
+import {translate} from '../core/localization.js?v=30.0.1';
+import { hudFonts } from '../../config/hud-fonts.js?v=30.0.1';
 const names=['ragePulse','rageDust','adrenDust','ripperLight','rage','rageBorder','rageFull','adrenaline','adrenalineBorder','adrenalineBorderFull','adrenalineFull','bossMain','bossCombo','bossSeparator','hex','Panel_Left','HP_Panel_Middle','HP_Panel_Right','HP_Fill','MP_Panel_Middle','MP_Panel_Right','MP_Fill'];
 const images=new Map(),tints=new Map();let loading;
 export const hudAssetStatus={state:'idle',loaded:0,failed:0};
@@ -26,6 +26,7 @@ export function nativeText(ctx,value,x,y,{scale=.6,font='mouse',color='#ffffff',
  const str=translate(value),f=hudFonts[font],width=nativeTextWidth(str,scale,font);
  const options={scale,font,color,outline},key=JSON.stringify([str,scale,font,color,outline]);
  let cached=labels.get(key);
+ if(cached){labels.delete(key);labels.set(key,cached);}
  if(!cached){
   let pen=0,minX=0,minY=0,maxX=width,maxY=0,loaded=true;
   for(const ch of str){const g=f.glyphs[ch]||f.glyphs[f.fallback];if(!g)continue;
@@ -35,9 +36,15 @@ export function nativeText(ctx,value,x,y,{scale=.6,font='mouse',color='#ffffff',
   }
   const pad=outline?2:1,left=Math.floor(minX)-pad,top=Math.floor(minY)-pad,w=Math.ceil(maxX)-left+pad,h=Math.ceil(maxY)-top+pad;
   if(!loaded||!str||w*h>262144||!Number.isFinite(w*h)||w<=0||h<=0)return paintNativeText(ctx,str,x,y,{...options,align});
-  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  // Recycle the least-used label instead of allocating a new GPU surface for
+  // every changing HP value or damage number after the cache fills.
+  let canvas;
+  if(labels.size>=128){const oldest=labels.keys().next().value;canvas=labels.get(oldest).canvas;labels.delete(oldest);}
+  else canvas=document.createElement('canvas');
+  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+  else canvas.getContext('2d').clearRect(0,0,w,h);
   paintNativeText(canvas.getContext('2d'),str,-left,-top,options);
-  cached={canvas,left,top};if(labels.size>=128)labels.delete(labels.keys().next().value);labels.set(key,cached);
+  cached={canvas,left,top};labels.set(key,cached);
  }
  const pen=x-(align==='right'?width:align==='center'?width/2:0);
  ctx.imageSmoothingEnabled=false;ctx.drawImage(cached.canvas,pen+cached.left,y+cached.top);return width;

@@ -1,11 +1,12 @@
-import {renderQuality} from '../core/settings.js?v=30.0.0';
-import {drawBrotherProjectile} from './brother-projectiles.js?v=30.0.0';
-import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=30.0.0';
-import {ctx} from '../core/dom.js?v=30.0.0';
-import {settings} from '../core/settings.js?v=30.0.0';
-import {line} from './primitives.js?v=30.0.0';
-import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=30.0.0';
-import {TAU} from '../core/config.js?v=30.0.0';
+import {renderQuality} from '../core/settings.js?v=30.0.1';
+import {projectileMotionPosition} from '../combat/motion-collision.js?v=30.0.1';
+import {drawBrotherProjectile} from './brother-projectiles.js?v=30.0.1';
+import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=30.0.1';
+import {ctx} from '../core/dom.js?v=30.0.1';
+import {settings} from '../core/settings.js?v=30.0.1';
+import {line} from './primitives.js?v=30.0.1';
+import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=30.0.1';
+import {TAU} from '../core/config.js?v=30.0.1';
 
 // Source-accurate projectile kind mapping:
 // - 'dart' → 'barrage' (BrimstoneBarrage.cs) - used by Sepulcher, seekers, fireblast/gigablast explosions
@@ -129,6 +130,11 @@ export function drawEnemyProjectiles(g){
       ctx.restore();
       continue;
     }
+    // Match the fractional position already used by swept player collisions.
+    const position=projectileMotionPosition(q),dx=position.x-q.x,dy=position.y-q.y;
+    const moving=dx!==0||dy!==0;
+    if(moving){ctx.save();ctx.translate(dx,dy);}
+    try{
     if(q.detonating&&!q.sourceCalamitas){
       ctx.strokeStyle='#ffe9b2';
       ctx.lineWidth=2;
@@ -177,6 +183,7 @@ export function drawEnemyProjectiles(g){
         }
         break;
     }
+    }finally{if(moving)ctx.restore();}
   }
 }
 export function triggerProjectileImpact(){}

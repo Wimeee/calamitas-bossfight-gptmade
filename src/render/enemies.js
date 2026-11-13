@@ -1,14 +1,23 @@
-import {drawNativeMaelstrom} from './maelstrom.js?v=30.0.0';
-import {minionImage} from './minion-atlas.js?v=30.0.0';
-import { calamitasImage } from './calamitas-atlas.js?v=30.0.0';
-import { drawOfficialCalamitas } from './calamitas.js?v=30.0.0';
-import { TAU } from '../core/config.js?v=30.0.0';
-import { ctx } from '../core/dom.js?v=30.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=30.0.0';
-import { drawBrother, drawSepulcher, drawSeeker, drawHeart, triggerSepulcherSegmentHit, triggerHeartHit } from './minion.js?v=30.0.0';
+import {drawNativeMaelstrom} from './maelstrom.js?v=30.0.1';
+import {minionImage} from './minion-atlas.js?v=30.0.1';
+import { calamitasImage } from './calamitas-atlas.js?v=30.0.1';
+import { drawOfficialCalamitas } from './calamitas.js?v=30.0.1';
+import { TAU } from '../core/config.js?v=30.0.1';
+import { ctx } from '../core/dom.js?v=30.0.1';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=30.0.1';
+import { drawBrother, drawSepulcher, drawSeeker, drawHeart, triggerSepulcherSegmentHit, triggerHeartHit } from './minion.js?v=30.0.1';
 
 
 function drawCalamitas(g){
+  const ai=g.calamitasAI;
+  const remainder=ai&&ai.stage===g.stage&&ai.marker===g.marker&&ai.index===g.attackIndex&&!g.castDelayState&&!(g.phase2Intro>0)?ai.remainder:0;
+  if(!remainder){drawCalamitasAtTick(g);return;}
+  ctx.save();
+  ctx.translate((g.boss.vx||0)*remainder,(g.boss.vy||0)*remainder);
+  try{drawCalamitasAtTick(g);}finally{ctx.restore();}
+}
+
+function drawCalamitasAtTick(g){
   const b=g.boss,inv=g.stage!=='normal';
   if(inv&&!calamitasImage('shield')){
     ctx.save();
