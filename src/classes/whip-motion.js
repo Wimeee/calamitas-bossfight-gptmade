@@ -1,4 +1,4 @@
-import {summonerConfig as C} from '../../config/summoner.js?v=30.0.1';
+import {summonerConfig as C} from '../../config/summoner.js?v=30.1.0';
 // Translation of the installed Terraria1.4.4 FillWhipControlPoints IL.
 // Keep these exact points for BOTH rendering and swept collision.
 export function nativeWhipPoints(g,w){

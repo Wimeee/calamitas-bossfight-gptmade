@@ -1,8 +1,8 @@
-import {renderQuality} from '../core/settings.js?v=30.0.1';
-import {arkConstellationLayout} from './ark-constellation-layout.js?v=30.0.1';
-import {circleVisible} from './visibility.js?v=30.0.1';
-import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=30.0.1';
-import { ctx } from '../core/dom.js?v=30.0.1';
+import {renderQuality} from '../core/settings.js?v=30.1.0';
+import {arkConstellationLayout} from './ark-constellation-layout.js?v=30.1.0';
+import {circleVisible} from './visibility.js?v=30.1.0';
+import { arkSwingGeometry, arkSwingRatio } from '../classes/ark-motion.js?v=30.1.0';
+import { ctx } from '../core/dom.js?v=30.1.0';
 const images={};let loading;
 const vfxNames=['rip-texture','rip-layer','scissors-glow','heavy-smoke','thin-sparkle','light','bloom-line','bloom-cap','slice-line','pulse-ring','parry-bar-back','parry-bar-front'];
 export function initializeNativeArk(){
@@ -10,7 +10,7 @@ export function initializeNativeArk(){
  loading=Promise.all(['left','left-glow','right','right-glow','sparkle','trail-glow','swing-smear','swirl-smoke','projectile-streak','bloom-circle',...vfxNames].map(part=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>{images[part]=image;resolve(true);};image.onerror=()=>resolve(false);
   const file=['sparkle','swing-smear','swirl-smoke','projectile-streak','bloom-circle'].includes(part)?part:'ark-'+part;
-  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=30.0.1',import.meta.url).href;
+  image.src=new URL((vfxNames.includes(part)?'../../assets/ark-vfx/'+part:'../../assets/melee-original/'+file)+'.png?v=30.1.0',import.meta.url).href;
  }))).then(()=>nativeArkReady());return loading;
 }
 export function nativeArkReady(){return !!(images.left&&images['left-glow']&&images.right&&images['right-glow']);}
@@ -90,7 +90,9 @@ export function warmNativeArkEffects(){return warming??=(async()=>{await initial
  for(const color of ['#1e90ff','#7353d1','#c71585','#ffd700','#d2691e','#752420','#d88bf2'])for(let row=0;row<6;row++)for(let col=0;col<7;col++){arkFrameTexture('heavy-smoke',color,[col*80,row*80,col===6?79:80,80]);if(++work%24===0&&typeof setTimeout==='function')await new Promise(resolve=>setTimeout(resolve,0));}
  for(const color of ['#ff4500','#00ffff','#ff2020','#ffa500','#ffffff']){effectImage('bloom-circle',color);effectImage('light',color);}
  for(const color of ['#40e0d0','#ff7f50','#d8bfff','#ff69b4','#6495ed'])effectImage('bloom-circle',color);
- effectImage('swirl-smoke','#d2691e');effectImage('projectile-streak',205);effectImage('projectile-streak',280);await Promise.all([...bitmapJobs]);return true;
+ effectImage('swirl-smoke','#d2691e');effectImage('projectile-streak',205);effectImage('projectile-streak',280);
+ effectImage('right','#00bfff');effectImage('left','#ff6347');prepareRipMask();
+ await Promise.all([...bitmapJobs]);return true;
 })();}
 export function drawNativeArkTrail(g,s,angle,progress){
  const geometry=arkSwingGeometry(s,progress,g.player),swirl=!!s.wide;
@@ -161,17 +163,27 @@ export function drawNativeConstellation(g,s){
 
 export function drawNativeSnapBurst(){}
 
-let ripMask,ripFill;
+let ripMask,ripFill,ripGlow;
+const ripLength=3.2*242,ripWidth=ripLength*618/1622*.25,ripPadding=8;
 function prepareRipMask(){
- if(ripMask&&ripFill)return true;const mask=images['rip-texture'],layer=images['rip-layer'];if(!mask||!layer)return false;
+ if(ripMask&&ripFill&&ripGlow)return true;const mask=images['rip-texture'],layer=images['rip-layer'];if(!mask||!layer)return false;
  ripMask=document.createElement('canvas');ripMask.width=mask.width;ripMask.height=mask.height;const c=ripMask.getContext('2d');c.drawImage(mask,0,0);const data=c.getImageData(0,0,mask.width,mask.height);if(!data?.data){ripMask=null;return false;}
  for(let i=0;i<data.data.length;i+=4){data.data[i+3]=data.data[i];data.data[i]=239;data.data[i+1]=111;data.data[i+2]=85;}c.putImageData(data,0,0);
- ripFill=document.createElement('canvas');ripFill.width=mask.width;ripFill.height=mask.height;const f=ripFill.getContext('2d');f.fillStyle=f.createPattern(layer,'repeat');f.fillRect(0,0,mask.width,mask.height);f.globalCompositeOperation='destination-in';f.drawImage(ripMask,0,0);return true;
+ ripFill=document.createElement('canvas');ripFill.width=mask.width;ripFill.height=mask.height;const f=ripFill.getContext('2d');f.fillStyle=f.createPattern(layer,'repeat');f.fillRect(0,0,mask.width,mask.height);f.globalCompositeOperation='destination-in';f.drawImage(ripMask,0,0);
+ // Keep2x world resolution; the original618px-wide mask is drawn only~74px wide.
+ const fill=document.createElement('canvas');fill.width=Math.ceil(ripWidth*2);fill.height=Math.ceil(ripLength*2);
+ fill.getContext('2d').drawImage(ripFill,0,0,fill.width,fill.height);ripFill=fill;
+ // Bake the native glow at its normal world size, outside the combat frame.
+ ripGlow=document.createElement('canvas');ripGlow.width=Math.ceil(ripWidth+2+ripPadding*2);ripGlow.height=Math.ceil(ripLength+2+ripPadding*2);
+ const glow=ripGlow.getContext('2d');glow.shadowColor='#ef6f55';glow.shadowBlur=3;
+ glow.drawImage(ripMask,ripPadding,ripPadding,ripWidth+2,ripLength+2);return true;
 }
 export function drawNativeRipMask(r,widthRatio=1,alpha=1){
  if(!prepareRipMask()||widthRatio<=0)return false;const dx=r.ex-r.x,dy=r.ey-r.y,len=Math.hypot(dx,dy),width=len*618/1622*.25*widthRatio;
  ctx.save();ctx.translate((r.x+r.ex)/2,(r.y+r.ey)/2);ctx.rotate(Math.atan2(dy,dx)+Math.PI/2);ctx.globalAlpha*=alpha;
- ctx.save();ctx.globalCompositeOperation='lighter';ctx.shadowColor='#ef6f55';ctx.shadowBlur=3;ctx.globalAlpha*=.5;ctx.drawImage(ripMask,-width/2-1,-len/2-1,width+2,len+2);ctx.restore();
+ const sx=(width+2)/(ripWidth+2),sy=(len+2)/(ripLength+2);
+ ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha*=.5;
+ ctx.drawImage(ripGlow,-width/2-1-ripPadding*sx,-len/2-1-ripPadding*sy,ripGlow.width*sx,ripGlow.height*sy);ctx.restore();
  ctx.drawImage(ripFill,-width/2,-len/2,width,len);ctx.restore();return true;
 }
 export function nativeRipPose(r){

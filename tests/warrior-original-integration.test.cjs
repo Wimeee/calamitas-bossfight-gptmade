@@ -27,10 +27,11 @@ test('all Ark states use original blade images and left-facing aim mirrors once'
  const {t,g,draws,scales}=await nativeGame();const p=g.player;
  t.setPointer({x:p.x-200,y:p.y});draws.length=0;t.drawWarriorIdleWeapon(g);
  assert.equal(draws.length,0,'no idle holdout in the original');
+ const ripBlades=[t.arkEffectTexture('right','#00bfff'),t.arkEffectTexture('left','#ff6347')];
  const states=[['swing',{time:.1,max:.25,angle:0,arc:2.45,wide:false,id:0}],['arkThrow',{x:p.x+150,y:p.y,angle:1,age:.9,max:2.33}],['arkParry',{angle:0,time:.15,max:.25}],['arkRip',{x:p.x,y:p.y,ex:p.x+300,ey:p.y,angle:0,time:.3,max:.65}]];
  for(const [name,value]of states){
  p.swing=p.arkThrow=p.arkParry=p.arkRip=null;p[name]=value;draws.length=0;t.drawWarriorWeapon(g);
- assert.ok(draws.some(d=>/ark-(left|right)\.png/.test(d.image.srcUrl||'')),name+' originalblade');
+ assert.ok(draws.some(d=>/ark-(left|right)\.png/.test(d.image.srcUrl||'')||name==='arkRip'&&ripBlades.includes(d.image)),name+' original blade or its prepared native tint');
  assert.equal(draws.some(d=>d.image.srcUrl?.includes('ark-source.png')),false);
  }
 });

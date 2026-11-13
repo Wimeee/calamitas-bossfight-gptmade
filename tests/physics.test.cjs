@@ -27,9 +27,9 @@ test('ground, variable jump, one-way platforms and drop-through',async()=>{
 test('wings are finite, refill only on landing, fast fall is faster and pause freezes movement',async()=>{
   const {t}=await loadGame();t.start();const g=t.getGame(),p=g.player;
   Object.assign(p,{x:t.arena.l+25,y:t.arena.t+40,grounded:false,jumpGrace:0});
-  t.setKeys({jump:true});advance(t,g,.5);assert.ok(p.flightRemaining<5.6&&p.flightRemaining>5.4);assert.equal(p.flying,true);
-  advance(t,g,5.55);assert.equal(p.flightRemaining,0);assert.equal(p.grounded,false);
-  t.setKeys({});advance(t,g,5);assert.equal(p.grounded,true);assert.equal(p.flightRemaining,6);
+  t.setKeys({jump:true});advance(t,g,.5);assert.ok(p.flightRemaining<6.2&&p.flightRemaining>6);assert.equal(p.flying,true);
+  advance(t,g,6.15);assert.equal(p.flightRemaining,0);assert.equal(p.grounded,false);
+  t.setKeys({});advance(t,g,5);assert.equal(p.grounded,true);assert.equal(p.flightRemaining,6.6);
   Object.assign(p,{y:t.arena.t+90,vy:0,grounded:false});advance(t,g,.2);const normal=p.vy;
   Object.assign(p,{y:t.arena.t+90,vy:0,grounded:false});t.setKeys({s:true});advance(t,g,.2);assert.ok(p.vy>normal);
   const before=[p.x,p.y,p.vx,p.vy,p.flightRemaining];g.mode='paused';advance(t,g,.2);assert.deepEqual([p.x,p.y,p.vx,p.vy,p.flightRemaining],before);
@@ -54,8 +54,8 @@ test('double-tap, mouse dash, Space migration and mobile jump keep their separat
   assert.ok(g.player.arkParry);assert.equal(t.getPointer().fire,false,'right click activates ability without holding primary');
   if(t.MOBILE_CONTROLS_ENABLED){
   t.start();g=t.getGame();t.setDeviceMode('mobile');t.takeAction('jump');advance(t,g,.1);assert.ok(g.player.vy<0);
-  advance(t,g,.2);assert.ok(g.player.flightRemaining<6,'holding jump engages wings');t.resetTouchInput();assert.equal(t.state.mobileFlight,false);
-  t.resetTouchInput();assert.equal(t.state.mobileJump,false);t.takeAction('flight');advance(t,g,.1);assert.ok(g.player.flightRemaining<6);
+  advance(t,g,.2);assert.ok(g.player.flightRemaining<6.6,'holding jump engages wings');t.resetTouchInput();assert.equal(t.state.mobileFlight,false);
+  t.resetTouchInput();assert.equal(t.state.mobileJump,false);t.takeAction('flight');advance(t,g,.1);assert.ok(g.player.flightRemaining<6.6);
   }
 });
 
@@ -65,5 +65,5 @@ test('Maelstrom displacement respects the floor and the ritual uses the same phy
   assert.ok(p.x>430);assert.equal(p.grounded,true);assert.equal(g.totalTime,total);assert.equal(t.nearAltar(),true);
   t.resetMovement(g);t.movePlayerWithTerrain(g,0,1000);assert.equal(p.y,Math.min(t.getTerrain().floorY,t.arena.b)-18);t.spawnNearAltar(g,500);
   assert.equal(t.beginRitual(),true);const position=[p.x,p.y];t.update(1);assert.deepEqual([p.x,p.y],position);
-  t.skipRitual();assert.equal(p.grounded,true);assert.equal(p.flightRemaining,6);assert.equal(g.stage,'hell');
+  t.skipRitual();assert.equal(p.grounded,true);assert.equal(p.flightRemaining,6.6);assert.equal(g.stage,'hell');
 });
