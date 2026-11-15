@@ -1,15 +1,16 @@
-import {heartSpawnPositions} from '../world/heart-layout.js?v=30.2.0';
-import {updateSummonCast} from '../systems/summon-effects.js?v=30.2.0';
-import {initializeSeekers} from './seekers.js?v=30.2.0';
-import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=30.2.0';
-import {beginAcceptance} from './acceptance.js?v=30.2.0';
-import { getTerrain } from '../world/terrain.js?v=30.2.0';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=30.2.0';
-import { arena } from '../core/arena.js?v=30.2.0';
-import { audio } from '../core/audio.js?v=30.2.0';
-import { TAU } from '../core/config.js?v=30.2.0';
-import { state } from '../core/state.js?v=30.2.0';
-import { rnd } from '../core/math.js?v=30.2.0';
+import {heartSpawnPositions} from '../world/heart-layout.js?v=31.0.0';
+import {finish} from '../game/session.js?v=31.0.0';
+import {updateSummonCast} from '../systems/summon-effects.js?v=31.0.0';
+import {initializeSeekers} from './seekers.js?v=31.0.0';
+import {sayCalamitas,updateDesperationDialogue} from './dialogue.js?v=31.0.0';
+import {beginAcceptance} from './acceptance.js?v=31.0.0';
+import { getTerrain } from '../world/terrain.js?v=31.0.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=31.0.0';
+import { arena } from '../core/arena.js?v=31.0.0';
+import { audio } from '../core/audio.js?v=31.0.0';
+import { TAU } from '../core/config.js?v=31.0.0';
+import { state } from '../core/state.js?v=31.0.0';
+import { rnd } from '../core/math.js?v=31.0.0';
 
 // Source: SupremeCalamitas.cs phase transitions
 // sepulcherSpawnCastTime = 75 ticks (1.25s)
@@ -18,6 +19,7 @@ import { rnd } from '../core/math.js?v=30.2.0';
 // Particles: DirectionalPulseRing (red/cyan), Dust (60/114), Sound: BulletHellEndSound, DD2_DarkMageCastHeal
 
 function enterCalamitas(stage, marker, label) {
+  if(state.game?.practice&&stage!==state.game.stage){finish(true);return;}
   if (state.game && state.game.t > 0.4) {
     if (marker === 'h40') audio.calamitas('laugh', state.game);
     else audio.fx(marker === 'h30' ? 'maelstrom' : 'phase');
@@ -146,6 +148,7 @@ function enterCalamitas(stage, marker, label) {
 // Cast delay state is stored in g.castDelayState (per-battle)
 
 function startCastDelay(g, stage, marker, label, castTime, type) {
+  if(g.practice&&stage!==g.stage){finish(true);return;}
   if(type==='brothers')g.brotherSummonOrigin={x:g.boss.x,y:g.boss.y};
   g.attackCastDelay = castTime;
   g.label = label;

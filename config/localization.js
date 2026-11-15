@@ -1,5 +1,11 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+['Тренування','Practice'],['Режим бою','Battle mode'],['Повний бій','Full fight'],['Фаза','Phase'],['Атака','Attack'],['Тренувати фазу','Train this phase'],
+['Безсмертя з підрахунком влучань','Immortality with hit counting'],['Одна фаза або атака. R — повторити. Тренування не зараховується як перемога.','One phase or attack. R retries. Practice does not count as a victory.'],
+['Усі атаки фази','All phase attacks'],['Віяло снарядів','Projectile fan'],['Черепи навпроти гравця','Side-tracking skulls'],['Великі вогняні кулі','Fireblast and Gigablast'],['Серія ривків','Charge sequence'],
+['Бойова фаза I','Combat phase I'],['Бойова фаза II','Combat phase II'],['Останні 9% HP','Final 9% HP'],['Фінальний діалог','Final dialogue'],
+['↻ Повторити фазу','↻ Retry phase'],['↻ Повторити','↻ Retry'],['Вибір фази','Phase selection'],['Фазу пройдено','Phase cleared'],['Тренування завершено','Practice ended'],
+['Безсмертя','Immortality'],['Звичайна шкода','Normal damage'],['Влучань по гравцю:','Player hits:'],['Влучань:','Hits:'],['Час:','Time:'],
 ["Масштаб камери","Camera zoom"],["Скинути масштаб камери","Reset camera zoom"],["Далі","Farther"],["Ближче","Closer"],
 ["На телефоні графіка автоматично полегшена з ціллю 60 FPS. Вибір якості — для ПК.","Mobile automatically uses lighter graphics targeting 60 FPS. The quality selection applies to PC."],
 ["Лівий стік — рух і політ. Правий — приціл та атака.","Left stick: move and fly. Right stick: aim and attack."],

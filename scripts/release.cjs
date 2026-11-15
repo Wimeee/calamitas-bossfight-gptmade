@@ -34,5 +34,11 @@ const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 pkg.version = version;
 fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2) + '\n');
 updatePreloads(root, version);
+// Keep the optional developer entry compatible with the current menu and HUD.
+const debugPath=path.join(root,'debug.html');
+if(fs.existsSync(debugPath)){
+  const current=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  fs.writeFileSync(debugPath,current.replace('</body>',`<script type="module" src="./src/dev/panel.js?v=${version}"></script>\n</body>`));
+}
 console.log('Prepared version ' + version + '. Run npm run check and npm test before publishing.');
 

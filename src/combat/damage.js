@@ -1,11 +1,11 @@
-import {warriorBalance} from '../../config/warrior-balance.js?v=30.2.0';
-import { applyPlayerHex } from './debuffs.js?v=30.2.0';
-import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=30.2.0';
-import { audio } from '../core/audio.js?v=30.2.0';
-import { rnd } from '../core/math.js?v=30.2.0';
-import { state } from '../core/state.js?v=30.2.0';
-import { finish } from '../game/session.js?v=30.2.0';
-import { weaponImpact } from '../render/effects.js?v=30.2.0';
+import {warriorBalance} from '../../config/warrior-balance.js?v=31.0.0';
+import { applyPlayerHex } from './debuffs.js?v=31.0.0';
+import { ripperDamage,ripperHit,ripperCombat } from '../systems/rippers.js?v=31.0.0';
+import { audio } from '../core/audio.js?v=31.0.0';
+import { rnd } from '../core/math.js?v=31.0.0';
+import { state } from '../core/state.js?v=31.0.0';
+import { finish } from '../game/session.js?v=31.0.0';
+import { weaponImpact } from '../render/effects.js?v=31.0.0';
 
 
 function hitTarget(t,amount,x,y,color,attack='melee',visual=true){
@@ -32,7 +32,7 @@ function hurt(dmg,source='projectile',cause='Brimstone projectile',hexDuration=0
   if(source==='contact'&&(p.dashT>0&&!p.aegisDash||p.contactGuard>0))return;
   if(p.iframes>0||g.mode!=='playing')return;
   const actual=ripperHit(g,Math.round(dmg*g.scale));
-  p.hp=Math.max(0,p.hp-actual);
+  p.hp=Math.max(g.practice?.invincible?1:0,p.hp-actual);
   g.lastCause=cause;
   if(actual>0)applyPlayerHex(g,hexDuration);
   p.hits++;

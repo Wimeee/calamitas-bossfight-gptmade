@@ -1,19 +1,20 @@
-import { weapons } from '../classes/registry.js?v=30.2.0';
-import { audio } from '../core/audio.js?v=30.2.0';
-import { VERSION } from '../core/config.js?v=30.2.0';
-import { $, root } from '../core/dom.js?v=30.2.0';
-import { state } from '../core/state.js?v=30.2.0';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey,renderQuality } from '../core/settings.js?v=30.2.0';
-import { start,togglePause } from '../game/session.js?v=30.2.0';
-import { loop } from '../game/loop.js?v=30.2.0';
-import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=30.2.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=30.2.0';
-import { createMenuBackground } from '../render/menu-background.js?v=30.2.0';
-import { pixelArt } from '../render/sprites.js?v=30.2.0';
-import {prepareBattleAssets} from '../core/battle-assets.js?v=30.2.0';
+import { weapons } from '../classes/registry.js?v=31.0.0';
+import { audio } from '../core/audio.js?v=31.0.0';
+import { VERSION } from '../core/config.js?v=31.0.0';
+import { $, root } from '../core/dom.js?v=31.0.0';
+import { state } from '../core/state.js?v=31.0.0';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey,renderQuality } from '../core/settings.js?v=31.0.0';
+import { start,restartBattle,togglePause } from '../game/session.js?v=31.0.0';
+import {practicePhases,practiceAttacks} from '../../config/practice.js?v=31.0.0';
+import { loop } from '../game/loop.js?v=31.0.0';
+import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=31.0.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=31.0.0';
+import { createMenuBackground } from '../render/menu-background.js?v=31.0.0';
+import { pixelArt } from '../render/sprites.js?v=31.0.0';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=31.0.0';
 
 const byId=id=>document.getElementById(id);
-const model={panel:'home',selectedClass:'melee',difficulty:'revenge',listening:null,background:null};
+const model={panel:'home',selectedClass:'melee',difficulty:'revenge',battleMode:'trial',practicePhase:'bh1',practiceAttack:null,practiceInvincible:false,listening:null,background:null};
 const bindingLabels={dash:'Ривок · клавіша / миша',heal:'Лікування',regen:'Регенерація',pause:'Пауза',restart:'Новий бій',attack:'Атака з клавіатури',rage:'Rage / Лють',adrenaline:'Adrenaline'};
 const classNames={melee:'Melee',ranger:'Ranger',mage:'Mage',summon:'Summoner',rogue:'Rogue'};
 const classSymbols={melee:'⚔',ranger:'⌖',mage:'✧',summon:'☄',rogue:'✦'};
@@ -23,7 +24,18 @@ function renderSelection(){
   byId('menu-class-description').textContent=weapon.name+' — '+weapon.desc;
   byId('title-menu').querySelectorAll('[data-menu-class]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.menuClass===model.selectedClass)));
   byId('title-menu').querySelectorAll('[data-difficulty]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.difficulty===model.difficulty)));
+  const practicing=model.battleMode==='practice';
+  byId('title-menu').querySelectorAll('[data-battle-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.battleMode===model.battleMode)));
+  byId('practice-options').hidden=!practicing;
+  byId('practice-phase').value=model.practicePhase;
+  byId('practice-attack').value=model.practiceAttack===null?'all':String(model.practiceAttack);
+  byId('practice-invincible').checked=model.practiceInvincible;
+  byId('practice-attack-options').hidden=practicePhases.find(p=>p.id===model.practicePhase)?.stage!=='normal';
+  byId('menu-launch').textContent=practicing?'Тренувати фазу':'ENTER THE TRIAL →';
 }
+function selectBattleMode(mode){if(!['trial','practice'].includes(mode))return false;model.battleMode=mode;renderSelection();return true;}
+function selectPracticePhase(id){if(!practicePhases.some(p=>p.id===id))return false;model.practicePhase=id;model.practiceAttack=null;renderSelection();return true;}
+function selectPracticeAttack(index){if(!practiceAttacks.some(a=>a.index===index))return false;model.practiceAttack=index;renderSelection();return true;}
 function selectClass(id){if(!weapons.some(w=>w.id===id))return false;model.selectedClass=id;renderSelection();return true;}
 function selectDifficulty(id){if(!['normal','revenge','death'].includes(id))return false;model.difficulty=id;renderSelection();return true;}
 function showPanel(name){
@@ -60,7 +72,9 @@ function launchBattle(){
     await prepareBattleAssets();if(model.panel!==panel||state.screen!=='menu')return;
     if(document.fullscreenElement===byId('title-menu'))await document.exitFullscreen?.();
     $('class').value=model.selectedClass;$('diff').value=model.difficulty;
-    setDeviceMode(device);revealGame();start({ritual:true});
+    setDeviceMode(device);revealGame();
+    if(model.battleMode==='practice')start({practice:{id:model.practicePhase,attackIndex:model.practiceAttack,invincible:model.practiceInvincible}});
+    else start({ritual:true});
   }finally{button.disabled=false;button.innerHTML=label;button.setAttribute('aria-busy','false');launching=null;}})();return launching;
 }
 async function resumeBattle(){
@@ -99,10 +113,25 @@ function initializeMenu(){
   const portrait=byId('menu-boss-preview').getContext('2d');portrait.imageSmoothingEnabled=false;
   const witch=pixelArt.witch0;if(witch)portrait.drawImage(witch,42,28,96,128);
   const menu=byId('title-menu');
+  byId('practice-phase').innerHTML=practicePhases.map(p=>`<option value="${p.id}">${p.label}</option>`).join('');
+  byId('practice-attack').innerHTML=practiceAttacks.map(a=>`<option value="${a.index===null?'all':a.index}">${a.label}</option>`).join('');
+  menu.querySelectorAll('[data-battle-mode]').forEach(b=>b.addEventListener('click',()=>selectBattleMode(b.dataset.battleMode)));
+  byId('practice-phase').addEventListener('change',e=>selectPracticePhase(e.target.value));
+  byId('practice-attack').addEventListener('change',e=>selectPracticeAttack(e.target.value==='all'?null:Number(e.target.value)));
+  byId('practice-invincible').addEventListener('change',e=>{model.practiceInvincible=e.target.checked;});
+  byId('menu-practice').addEventListener('click',()=>{audio.init();audio.fx('menu');selectBattleMode('practice');showPanel('setup');});
+  byId('practice-retry').addEventListener('click',restartBattle);
+  byId('practice-choose').addEventListener('click',()=>{
+    const g=state.game;if(!g?.practice)return;
+    model.battleMode='practice';model.practicePhase=g.practice.id;
+    model.practiceAttack=g.practice.attackIndex;model.practiceInvincible=g.practice.invincible;
+    model.selectedClass=weapons[g.player.weapon].id;model.difficulty=g.difficulty;
+    showMenu('setup');
+  });
   menu.querySelectorAll('[data-menu-target]').forEach(b=>b.addEventListener('click',()=>{audio.init();audio.fx('menu');showPanel(b.dataset.menuTarget);}));
   menu.querySelectorAll('[data-menu-class]').forEach(b=>b.addEventListener('click',()=>{audio.fx('menu');selectClass(b.dataset.menuClass);}));
   menu.querySelectorAll('[data-difficulty]').forEach(b=>b.addEventListener('click',()=>{audio.fx('menu');selectDifficulty(b.dataset.difficulty);}));
-  byId('choose-calamitas').addEventListener('click',()=>{audio.fx('menu');showPanel('setup');});
+  byId('choose-calamitas').addEventListener('click',()=>{audio.fx('menu');selectBattleMode('trial');showPanel('setup');});
   byId('menu-launch').addEventListener('click',launchBattle);byId('menu-resume').addEventListener('click',resumeBattle);
   byId('return-menu').addEventListener('click',()=>showMenu());
   const values={'setting-sfx':['sfxVolume',v=>Number(v)/100],'setting-music':['musicVolume',v=>Number(v)/100],'setting-quality':['quality',String],'setting-device':['device',String],'setting-touch-scale':['touchScale',Number]};
@@ -138,4 +167,4 @@ function initializeMenu(){
   if(!audio.supported)for(const id of ['setting-sfx-enabled','setting-music-enabled','setting-sfx','setting-music'])byId(id).disabled=true;
   subscribeSettings(syncSettings);syncSettings();showMenu();
 }
-export {initializeMenu,showMenu,showPanel,launchBattle,resumeBattle,selectClass,selectDifficulty,model};
+export {initializeMenu,showMenu,showPanel,launchBattle,resumeBattle,selectClass,selectDifficulty,selectBattleMode,selectPracticePhase,selectPracticeAttack,model};

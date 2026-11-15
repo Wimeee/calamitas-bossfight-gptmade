@@ -1,8 +1,8 @@
-import {state} from '../core/state.js?v=30.2.0';
-import {audio} from '../core/audio.js?v=30.2.0';
-import {applyPlayerHex} from '../combat/debuffs.js?v=30.2.0';
-import {finish} from '../game/session.js?v=30.2.0';
-import {movementConfig} from '../../config/movement.js?v=30.2.0';
+import {state} from '../core/state.js?v=31.0.0';
+import {audio} from '../core/audio.js?v=31.0.0';
+import {applyPlayerHex} from '../combat/debuffs.js?v=31.0.0';
+import {finish} from '../game/session.js?v=31.0.0';
+import {movementConfig} from '../../config/movement.js?v=31.0.0';
 const clamp01=n=>Math.max(0,Math.min(1,n));
 export function spawnMaelstrom(g,x,y){return g.maelstrom={x,y,vx:0,vy:0,r:17,scale:Math.fround(.1),opacity:0,age:0,ticks:0,sitStill:90,speedAdd:0,speedLimit:23,timeLeft:36000,remainder:0};}
 function step(g,m){
@@ -27,7 +27,7 @@ function step(g,m){
   const x=Math.max(0,Math.abs(m.x-p.x)-movementConfig.halfWidth),y=Math.max(0,Math.abs(m.y-p.y)-movementConfig.halfHeight);
   if(x*x+y*y<=m.r*m.r){
    const radiusRatio=((m.x-p.x)**2+(m.y-p.y)**2)/(m.r*m.r),speedRatio=((p.vx||0)**2+(p.vy||0)**2)/(1500*1500);
-   const loss=Math.max(4,Math.trunc(14-10*Math.max(radiusRatio,speedRatio))),actual=Math.min(p.hp,loss);p.hp=Math.max(0,p.hp-loss);p.lastHit=g.t;g.lastCause='Whispering Maelstrom';applyPlayerHex(g,6);
+   const loss=Math.max(4,Math.trunc(14-10*Math.max(radiusRatio,speedRatio))),actual=Math.min(p.hp,loss);p.hp=Math.max(g.practice?.invincible?1:0,p.hp-loss);p.lastHit=g.t;g.lastCause='Whispering Maelstrom';applyPlayerHex(g,6);
    if(g.rippers)g.rippers.adrenaline*=.96;
    if(g.floaters.length<140)g.floaters.push({x:p.x,y:p.y-12,life:.6,text:'-'+actual,col:'#e56d83',dot:true});
    if(m.ticks%6===0)audio.minion('maelstromBurn',g,{volume:.25,pitch:.4});

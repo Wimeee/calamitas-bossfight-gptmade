@@ -1,7 +1,7 @@
 // Source-based charge shield geometry and presentation interpolation only.
 // Source: SupremeCalamitas.cs DrawShield, DrawForcefield, Calamity NPC frame logic
 
-import { calamitasConfig as cfg } from '../../config/calamitas.js?v=30.2.0';
+import { calamitasConfig as cfg } from '../../config/calamitas.js?v=31.0.0';
 
 /**
  * Compute charge shield geometry matching source exactly

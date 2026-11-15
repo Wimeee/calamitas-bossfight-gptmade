@@ -1,28 +1,29 @@
-import {initializeRanger} from '../classes/ranger.js?v=30.2.0';
-import {initializeRogue} from '../classes/rogue.js?v=30.2.0';
-import {initializeMage} from '../classes/mage.js?v=30.2.0';
-import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=30.2.0';
-import { resetArenaState } from '../world/arena-state.js?v=30.2.0';
-import { resizeViewport } from '../world/viewport.js?v=30.2.0';
-import { makeRippers } from '../systems/rippers.js?v=30.2.0';
-import { updateCamera } from '../world/camera.js?v=30.2.0';
-import { spawnNearAltar } from './movement.js?v=30.2.0';
-import { prepareRitual, syncRitualControls } from './ritual.js?v=30.2.0';
-import { settings } from '../core/settings.js?v=30.2.0';
-import { playerConfig } from '../../config/player.js?v=30.2.0';
-import { getDifficulty } from '../../config/difficulty.js?v=30.2.0';
-import { getEncounter } from '../boss/registry.js?v=30.2.0';
-import { weapons } from '../classes/registry.js?v=30.2.0';
-import { summonSquad } from '../classes/summoner.js?v=30.2.0';
-import { configureArena } from '../core/arena.js?v=30.2.0';
-import { audio } from '../core/audio.js?v=30.2.0';
-import { $ } from '../core/dom.js?v=30.2.0';
-import { state } from '../core/state.js?v=30.2.0';
-import { loop } from './loop.js?v=30.2.0';
-import { enter } from './phases.js?v=30.2.0';
-import { setFocusMode } from '../input/fullscreen.js?v=30.2.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=30.2.0';
-import { showOverlay, ui } from '../ui/hud.js?v=30.2.0';
+import {initializeRanger} from '../classes/ranger.js?v=31.0.0';
+import {configurePractice} from './practice.js?v=31.0.0';
+import {initializeRogue} from '../classes/rogue.js?v=31.0.0';
+import {initializeMage} from '../classes/mage.js?v=31.0.0';
+import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=31.0.0';
+import { resetArenaState } from '../world/arena-state.js?v=31.0.0';
+import { resizeViewport } from '../world/viewport.js?v=31.0.0';
+import { makeRippers } from '../systems/rippers.js?v=31.0.0';
+import { updateCamera } from '../world/camera.js?v=31.0.0';
+import { spawnNearAltar } from './movement.js?v=31.0.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=31.0.0';
+import { settings } from '../core/settings.js?v=31.0.0';
+import { playerConfig } from '../../config/player.js?v=31.0.0';
+import { getDifficulty } from '../../config/difficulty.js?v=31.0.0';
+import { getEncounter } from '../boss/registry.js?v=31.0.0';
+import { weapons } from '../classes/registry.js?v=31.0.0';
+import { summonSquad } from '../classes/summoner.js?v=31.0.0';
+import { configureArena } from '../core/arena.js?v=31.0.0';
+import { audio } from '../core/audio.js?v=31.0.0';
+import { $ } from '../core/dom.js?v=31.0.0';
+import { state } from '../core/state.js?v=31.0.0';
+import { loop } from './loop.js?v=31.0.0';
+import { enter } from './phases.js?v=31.0.0';
+import { setFocusMode } from '../input/fullscreen.js?v=31.0.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=31.0.0';
+import { showOverlay, ui } from '../ui/hud.js?v=31.0.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -136,13 +137,16 @@ function start(options={}){
   delete state.pointer.viewX;delete state.pointer.viewY;delete state.pointer.u;delete state.pointer.v;
   updateCamera(state.game,0,true);
   const opening=getEncounter().config.opening;
-  if(options.ritual)prepareRitual(state.game);
-  else enter(opening.stage,opening.marker,opening.label);
+  if(!configurePractice(state.game,options.practice)){
+    if(options.ritual)prepareRitual(state.game);
+    else enter(opening.stage,opening.marker,opening.label);
+  }
+  updateCamera(state.game,0,true);
   syncRitualControls();
   $('diff').disabled=true;
   $('class').disabled=true;
   $('overlay').hidden=true;
-  $('start').textContent='↻ Новий бій';
+  $('start').textContent=state.game.practice?'↻ Повторити фазу':'↻ Новий бій';
   state.pointer.fire=false;
   if(state.game.player.weapon===3)summonSquad();
   ui();
@@ -154,7 +158,27 @@ function start(options={}){
 }
 
 
+function finishPractice(win){
+  const g=state.game;if(g.mode!=='playing')return;
+  g.mode=win?'won':'dead';g.practice.completed=win;
+  audio.stopMusic();audio.stopCalamitas();audio.fx(win?'menu':'death');
+  resetTouchInput();state.pointer.fire=false;g.player.debuffs={};
+  $('diff').disabled=false;$('class').disabled=false;
+  const assistance=g.practice.invincible?'Безсмертя':'Звичайна шкода';
+  showOverlay('PRACTICE',win?'Фазу пройдено':'Тренування завершено',`${g.practice.label} · Час: ${g.totalTime.toFixed(1)} с · Влучань по гравцю: ${g.player.hits} · ${assistance}`,'↻ Повторити фазу');
+  ui();
+}
+
+function restartBattle(){
+  const g=state.game;
+  if(g?.practice){
+    $('class').value=weapons[g.player.weapon].id;$('diff').value=g.difficulty;
+    start({practice:{...g.practice}});
+  }else start({ritual:true});
+}
+
 function finish(win){
+  if(state.game?.practice){finishPractice(win);return;}
   if(!win)audio.stopMusic();
   audio.stopCalamitas();
   resetTouchInput();
@@ -193,4 +217,4 @@ function togglePause(){
 }
 
 
-export { makeGame, start, finish, changeWeapon, togglePause };
+export { makeGame, start, restartBattle, finish, changeWeapon, togglePause };

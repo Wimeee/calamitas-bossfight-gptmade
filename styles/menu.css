@@ -55,3 +55,14 @@ html,body{min-height:100%;background:#0c080b}body.menu-open{overflow:hidden}butt
 @media(max-height:740px) and (min-width:751px){.menu-home{padding:54px 20px 45px}.menu-brand{width:min(620px,75vw)}.menu-logo{max-height:24svh}.menu-brand .brand-rule{margin-top:10px}.home-tagline{margin:12px 0 14px}.menu-action{min-height:42px;font-size:22px;padding:6px 30px}.menu-action.play-action{min-height:49px;font-size:28px}.resume-action{font-size:17px}.menu-whisper{margin-top:17px}}
 
 .menu-confirm:disabled{cursor:wait;opacity:.65;transform:none}
+.battle-mode-choices{display:flex;gap:10px;margin-bottom:16px}
+.battle-mode-choices button{flex:1;padding:12px;border:1px solid #80615b;background:#1b1118;color:#e9cbb8;font:inherit;cursor:pointer}
+.battle-mode-choices button[aria-pressed="true"]{border-color:#efb376;background:#713145;color:#fff1d4}
+.practice-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;padding:16px;border:1px solid #ae796a66;background:#160f17bd;margin-bottom:18px}
+.practice-options[hidden],#practice-attack-options[hidden]{display:none}
+.practice-options label:not(.practice-assist){display:block;margin:0 0 6px;color:#e4c8b3}
+.practice-options select{display:block;box-sizing:border-box;width:100%;padding:10px;margin-bottom:14px;background:#24151e;color:#ffeed5;border:1px solid #996659;font:inherit}
+.practice-assist{display:flex;align-items:center;gap:9px;cursor:pointer;grid-column:1/-1}
+.practice-options>.setup-note{grid-column:1/-1}
+.practice-assist input{width:18px;height:18px;accent-color:#d07181}
+@media(max-width:640px){.practice-options{grid-template-columns:1fr}}

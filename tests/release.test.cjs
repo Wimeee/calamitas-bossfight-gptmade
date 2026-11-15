@@ -11,11 +11,14 @@ test('release command updates cache versions and remains consistent for the next
   const temporary = fs.mkdtempSync(path.join(parent, 'calamitas-release-'));
   try {
     const root = path.resolve(__dirname, '..');
-    for (const name of ['index.html', 'version.json', 'package.json', 'src', 'config', 'styles', 'scripts', 'assets']) fs.cpSync(path.join(root, name), path.join(temporary, name), {recursive: true});
+    for (const name of ['index.html', 'debug.html', 'version.json', 'package.json', 'src', 'config', 'styles', 'scripts', 'assets']) fs.cpSync(path.join(root, name), path.join(temporary, name), {recursive: true});
     const result = spawnSync(process.execPath, ['scripts/release.cjs', '99.0.1', 'Release test'], {cwd: temporary, encoding: 'utf8'});
     assert.equal(result.status, 0, result.stderr);
     const checked = await checkProject(temporary);
     assert.equal(checked.version, '99.0.1');
+    const debug=fs.readFileSync(path.join(temporary,'debug.html'),'utf8');
+    assert.ok(debug.includes('id="practice-toolbar"'),'debug entry retains current menu markup');
+    assert.ok(debug.includes('src="./src/dev/panel.js?v=99.0.1"'),'debug panel follows the released module version');
     assert.ok(checked.assets > 3);
     assert.equal(JSON.parse(fs.readFileSync(path.join(temporary, 'version.json'), 'utf8')).notes, 'Release test');
   } finally {
