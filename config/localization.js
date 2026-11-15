@@ -1,5 +1,12 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+['Рекорди','Records'],['Особисті рекорди','Personal records'],['Підсумок бою','Battle results'],['← Назад','← Back'],
+['Зберігаються лише в цьому браузері. Тренування й дебаг не зараховуються.','Saved in this browser only. Practice and debug runs do not count.'],
+['Останні 20 спроб','Last 20 attempts'],['Час бою','Fight time'],['Отримано влучань','Hits taken'],['Ривків','Dashes'],
+['Лікувальні зілля','Healing potions'],['Зілля регенерації','Regeneration potions'],['Залишилось HP боса','Boss HP left'],
+['Найкращий час','Best time'],['Найменше влучань','Fewest hits'],['Перемог','Wins'],['Перемога','Victory'],['Поразка','Defeat'],
+['Рекордів ще немає. Здолай Каламітас у повному бою.','No records yet. Defeat Calamitas in a full fight.'],['Завершені спроби з’являться тут.','Completed attempts will appear here.'],
+['Новий особистий рекорд','New personal best'],['Результат збережено','Result saved'],['Не вдалося зберегти результат у браузері','Could not save this result in the browser'],['Дебаг — без рекордів','Debug — no records'],
 ['Тренування','Practice'],['Режим бою','Battle mode'],['Повний бій','Full fight'],['Фаза','Phase'],['Атака','Attack'],['Тренувати фазу','Train this phase'],
 ['Безсмертя з підрахунком влучань','Immortality with hit counting'],['Одна фаза або атака. R — повторити. Тренування не зараховується як перемога.','One phase or attack. R retries. Practice does not count as a victory.'],
 ['Усі атаки фази','All phase attacks'],['Віяло снарядів','Projectile fan'],['Черепи навпроти гравця','Side-tracking skulls'],['Великі вогняні кулі','Fireblast and Gigablast'],['Серія ривків','Charge sequence'],

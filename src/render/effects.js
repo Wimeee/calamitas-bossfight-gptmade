@@ -1,10 +1,10 @@
-import { drawWarriorImpact } from './warrior.js?v=31.0.0';
-import { arena } from '../core/arena.js?v=31.0.0';
-import { TAU } from '../core/config.js?v=31.0.0';
-import { ctx } from '../core/dom.js?v=31.0.0';
-import { clamp, rnd } from '../core/math.js?v=31.0.0';
-import { state } from '../core/state.js?v=31.0.0';
-import { line, pixel, text } from './primitives.js?v=31.0.0';
+import { drawWarriorImpact } from './warrior.js?v=31.1.0';
+import { arena } from '../core/arena.js?v=31.1.0';
+import { TAU } from '../core/config.js?v=31.1.0';
+import { ctx } from '../core/dom.js?v=31.1.0';
+import { clamp, rnd } from '../core/math.js?v=31.1.0';
+import { state } from '../core/state.js?v=31.1.0';
+import { line, pixel, text } from './primitives.js?v=31.1.0';
 
 
 function drawPatternWarnings(g){

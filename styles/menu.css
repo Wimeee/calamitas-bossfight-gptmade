@@ -66,3 +66,13 @@ html,body{min-height:100%;background:#0c080b}body.menu-open{overflow:hidden}butt
 .practice-options>.setup-note{grid-column:1/-1}
 .practice-assist input{width:18px;height:18px;accent-color:#d07181}
 @media(max-width:640px){.practice-options{grid-template-columns:1fr}}
+.records-page h2{font-size:clamp(28px,4vw,42px);font-weight:400;margin:12px 0}
+.records-note,.records-empty{font:13px/1.6 system-ui;color:var(--menu-muted)}
+.records-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0 36px}
+.record-card{padding:18px;background:#160f17df;border:1px solid #b57b6659}
+.record-card h3{margin:0 0 17px;color:#f5d0a0;font-size:21px;font-weight:400}
+.record-card h3 small{display:block;margin-top:6px;color:#c09b8a;font:11px system-ui}
+.record-card dl{margin:0;font:12px/1.6 system-ui}.record-card dl div{display:flex;justify-content:space-between;gap:8px;margin:5px 0}.record-card dt{color:#b9a49b}.record-card dd{margin:0;color:#f5dfbd;font-variant-numeric:tabular-nums}
+.records-history{padding:0;list-style:none;display:grid;gap:8px}.record-run{display:grid;grid-template-columns:90px 1fr auto;gap:8px 14px;padding:14px 16px;border:1px solid #ae796a40;background:#130e16df;font:12px/1.5 system-ui}.record-run>span:last-child{grid-column:2/-1;color:#b8a49a}.record-run strong{font-variant-numeric:tabular-nums}.run-outcome.won{color:#d3df9c}.run-outcome.dead{color:#ed9e9c}
+@media(max-width:700px){.records-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.records-grid{grid-template-columns:1fr}.record-run{grid-template-columns:1fr auto}.record-run>span:nth-child(2){grid-column:1/-1;grid-row:2}.record-run>span:last-child{grid-column:1/-1}.record-run strong{grid-column:2;grid-row:1}}

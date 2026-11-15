@@ -1,11 +1,11 @@
-import {updateSeekers} from './seekers.js?v=31.0.0';
-import {updateBrothers} from './brothers.js?v=31.0.0';
-import { enemyBullet } from '../combat/projectiles.js?v=31.0.0';
-import { arena } from '../core/arena.js?v=31.0.0';
-import { TAU } from '../core/config.js?v=31.0.0';
-import { clamp, lerp, norm } from '../core/math.js?v=31.0.0';
-import { state } from '../core/state.js?v=31.0.0';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=31.0.0';
+import {updateSeekers} from './seekers.js?v=31.1.0';
+import {updateBrothers} from './brothers.js?v=31.1.0';
+import { enemyBullet } from '../combat/projectiles.js?v=31.1.0';
+import { arena } from '../core/arena.js?v=31.1.0';
+import { TAU } from '../core/config.js?v=31.1.0';
+import { clamp, lerp, norm } from '../core/math.js?v=31.1.0';
+import { state } from '../core/state.js?v=31.1.0';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=31.1.0';
 
 // Sepulcher constants from source (SepulcherHead.cs, SepulcherBody.cs, SepulcherBodyEnergyBall.cs, SepulcherArm.cs)
 const SEPULCHER = {

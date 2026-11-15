@@ -59,6 +59,18 @@ body:not(.menu-open) #site-version-tag{display:none}
 #scal-game .overlay .subtitle{font:9px system-ui;letter-spacing:4px;color:#bf8b70}
 #scal-game .overlay p{font:12px/1.8 system-ui;color:#b8a293;max-width:470px}
 #scal-game .overlay button{border-radius:0;background:#42231f;border-color:#c190626e;color:#f4d3a8;font:12px Georgia,serif;letter-spacing:1px;padding:13px 28px}
+#scal-game .battle-results{width:min(520px,100%);flex-shrink:0}
+#scal-game .battle-results[hidden]{display:none}
+#scal-game .result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#scal-game .result-stat{padding:11px 8px;border:1px solid #b58b6550;background:#1f1119}
+#scal-game .result-stat span{display:block;font:10px/1.5 system-ui;color:#bca69b}
+#scal-game .result-stat strong{display:block;margin-top:4px;font:22px Georgia,serif;font-variant-numeric:tabular-nums;color:#f4d6ad}
+#scal-game .overlay .result-loadout{margin:0 0 10px;color:#d9b794;font:12px system-ui}
+#scal-game .overlay .result-save{margin:10px 0 0;color:#d9b794;font:11px/1.5 system-ui}
+#scal-game .overlay:has(.battle-results:not([hidden])){overflow-y:auto;justify-content:flex-start;padding:28px 20px;box-sizing:border-box;gap:12px}
+#scal-game .overlay:has(.battle-results:not([hidden])) #overlaytag{margin-top:auto}
+#scal-game .overlay:has(.battle-results:not([hidden])) #overlaybtn{margin-bottom:auto;flex-shrink:0}
+@media(max-width:540px){#scal-game .result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#scal-game .result-stat strong{font-size:19px}}
 #scal-game .ritual-controls button{border-radius:0;background:#190e14ed;border-color:#b77d5566;color:#e7c295;font-weight:400;font-size:11px;box-shadow:0 0 25px #0005}
 #scal-game:fullscreen{padding:12px 24px;background:#0e080d}
 #scal-game:fullscreen .shell{min-height:0}

@@ -1,10 +1,10 @@
-import { W,H,TAU } from '../core/config.js?v=31.0.0';
-import { ctx } from '../core/dom.js?v=31.0.0';
-import { arena } from '../core/arena.js?v=31.0.0';
-import { cameraView } from '../world/camera.js?v=31.0.0';
-import { settings,keyLabel } from '../core/settings.js?v=31.0.0';
-import { clamp } from '../core/math.js?v=31.0.0';
-import { text,line,round } from './primitives.js?v=31.0.0';
+import { W,H,TAU } from '../core/config.js?v=31.1.0';
+import { ctx } from '../core/dom.js?v=31.1.0';
+import { arena } from '../core/arena.js?v=31.1.0';
+import { cameraView } from '../world/camera.js?v=31.1.0';
+import { settings,keyLabel } from '../core/settings.js?v=31.1.0';
+import { clamp } from '../core/math.js?v=31.1.0';
+import { text,line,round } from './primitives.js?v=31.1.0';
 
 export function edgePoint(x,y,g,padding=28){
   const v=cameraView(g);

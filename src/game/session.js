@@ -1,29 +1,31 @@
-import {initializeRanger} from '../classes/ranger.js?v=31.0.0';
-import {configurePractice} from './practice.js?v=31.0.0';
-import {initializeRogue} from '../classes/rogue.js?v=31.0.0';
-import {initializeMage} from '../classes/mage.js?v=31.0.0';
-import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=31.0.0';
-import { resetArenaState } from '../world/arena-state.js?v=31.0.0';
-import { resizeViewport } from '../world/viewport.js?v=31.0.0';
-import { makeRippers } from '../systems/rippers.js?v=31.0.0';
-import { updateCamera } from '../world/camera.js?v=31.0.0';
-import { spawnNearAltar } from './movement.js?v=31.0.0';
-import { prepareRitual, syncRitualControls } from './ritual.js?v=31.0.0';
-import { settings } from '../core/settings.js?v=31.0.0';
-import { playerConfig } from '../../config/player.js?v=31.0.0';
-import { getDifficulty } from '../../config/difficulty.js?v=31.0.0';
-import { getEncounter } from '../boss/registry.js?v=31.0.0';
-import { weapons } from '../classes/registry.js?v=31.0.0';
-import { summonSquad } from '../classes/summoner.js?v=31.0.0';
-import { configureArena } from '../core/arena.js?v=31.0.0';
-import { audio } from '../core/audio.js?v=31.0.0';
-import { $ } from '../core/dom.js?v=31.0.0';
-import { state } from '../core/state.js?v=31.0.0';
-import { loop } from './loop.js?v=31.0.0';
-import { enter } from './phases.js?v=31.0.0';
-import { setFocusMode } from '../input/fullscreen.js?v=31.0.0';
-import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=31.0.0';
-import { showOverlay, ui } from '../ui/hud.js?v=31.0.0';
+import {initializeRanger} from '../classes/ranger.js?v=31.1.0';
+import {recordBattleResult} from '../core/battle-records.js?v=31.1.0';
+import {renderBattleResult} from '../ui/battle-results.js?v=31.1.0';
+import {configurePractice} from './practice.js?v=31.1.0';
+import {initializeRogue} from '../classes/rogue.js?v=31.1.0';
+import {initializeMage} from '../classes/mage.js?v=31.1.0';
+import {hasDefeatedCalamitas,rememberCalamitasVictory} from '../core/progress.js?v=31.1.0';
+import { resetArenaState } from '../world/arena-state.js?v=31.1.0';
+import { resizeViewport } from '../world/viewport.js?v=31.1.0';
+import { makeRippers } from '../systems/rippers.js?v=31.1.0';
+import { updateCamera } from '../world/camera.js?v=31.1.0';
+import { spawnNearAltar } from './movement.js?v=31.1.0';
+import { prepareRitual, syncRitualControls } from './ritual.js?v=31.1.0';
+import { settings } from '../core/settings.js?v=31.1.0';
+import { playerConfig } from '../../config/player.js?v=31.1.0';
+import { getDifficulty } from '../../config/difficulty.js?v=31.1.0';
+import { getEncounter } from '../boss/registry.js?v=31.1.0';
+import { weapons } from '../classes/registry.js?v=31.1.0';
+import { summonSquad } from '../classes/summoner.js?v=31.1.0';
+import { configureArena } from '../core/arena.js?v=31.1.0';
+import { audio } from '../core/audio.js?v=31.1.0';
+import { $ } from '../core/dom.js?v=31.1.0';
+import { state } from '../core/state.js?v=31.1.0';
+import { loop } from './loop.js?v=31.1.0';
+import { enter } from './phases.js?v=31.1.0';
+import { setFocusMode } from '../input/fullscreen.js?v=31.1.0';
+import { resetTouchInput, updateMobileLabels } from '../input/mobile.js?v=31.1.0';
+import { showOverlay, ui } from '../ui/hud.js?v=31.1.0';
 
 
 function makeGame(encounterId='supreme-calamitas'){
@@ -129,6 +131,7 @@ function start(options={}){
   resetTouchInput();
   if(state.deviceMode==='mobile')state.mobileAutoAim=settings.autoAim;
   state.game=makeGame();
+  renderBattleResult();
   initializeMage(state.game);initializeRanger(state.game);initializeRogue(state.game);
   configureArena(state.game.difficulty);
   resetArenaState(state.game,true);
@@ -178,6 +181,7 @@ function restartBattle(){
 }
 
 function finish(win){
+  if(!state.game||state.game.mode!=='playing')return;
   if(state.game?.practice){finishPractice(win);return;}
   if(!win)audio.stopMusic();
   audio.stopCalamitas();
@@ -185,6 +189,7 @@ function finish(win){
   audio.fx(win?'victory':'death');
   let g=state.game;
   g.mode=win?'won':'dead';
+  recordBattleResult(g,win);
   if(win)audio.syncMusic();
   if(win)rememberCalamitasVictory(g);
   g.player.debuffs={};
@@ -192,7 +197,7 @@ function finish(win){
   $('diff').disabled=false;
   $('class').disabled=false;
   showOverlay(win?'THE BRIMSTONE WITCH':'YOU WERE SLAIN',win?'CALAMITAS ПЕРЕМОЖЕНА!':'ТИ ЗАГИНУВ',win?`Перемога! Час: ${Math.floor(g.totalTime)} с · Отримано ударів: ${g.player.hits}. Всі п'ять Bullet Hell пройдені.`:`Здоров'я боса: ${(g.boss.hp/g.boss.max*100).toFixed(1)}%. Останній удар: ${g.lastCause||'невідомо'}. Отримано ударів: ${g.player.hits}.`, '↻ ЩЕ ОДНА СПРОБА');
-  ui()
+  renderBattleResult();ui()
 }
 
 

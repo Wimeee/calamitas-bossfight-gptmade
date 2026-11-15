@@ -1,11 +1,11 @@
-import {drawNativeMaelstrom} from './maelstrom.js?v=31.0.0';
-import {minionImage} from './minion-atlas.js?v=31.0.0';
-import { calamitasImage } from './calamitas-atlas.js?v=31.0.0';
-import { drawOfficialCalamitas } from './calamitas.js?v=31.0.0';
-import { TAU } from '../core/config.js?v=31.0.0';
-import { ctx } from '../core/dom.js?v=31.0.0';
-import { hpMini, line, pixel, round, text } from './primitives.js?v=31.0.0';
-import { drawBrother, drawSepulcher, drawSeeker, drawHeart, triggerSepulcherSegmentHit, triggerHeartHit } from './minion.js?v=31.0.0';
+import {drawNativeMaelstrom} from './maelstrom.js?v=31.1.0';
+import {minionImage} from './minion-atlas.js?v=31.1.0';
+import { calamitasImage } from './calamitas-atlas.js?v=31.1.0';
+import { drawOfficialCalamitas } from './calamitas.js?v=31.1.0';
+import { TAU } from '../core/config.js?v=31.1.0';
+import { ctx } from '../core/dom.js?v=31.1.0';
+import { hpMini, line, pixel, round, text } from './primitives.js?v=31.1.0';
+import { drawBrother, drawSepulcher, drawSeeker, drawHeart, triggerSepulcherSegmentHit, triggerHeartHit } from './minion.js?v=31.1.0';
 
 
 function drawCalamitas(g){

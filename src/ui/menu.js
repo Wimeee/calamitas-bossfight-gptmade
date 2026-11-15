@@ -1,17 +1,18 @@
-import { weapons } from '../classes/registry.js?v=31.0.0';
-import { audio } from '../core/audio.js?v=31.0.0';
-import { VERSION } from '../core/config.js?v=31.0.0';
-import { $, root } from '../core/dom.js?v=31.0.0';
-import { state } from '../core/state.js?v=31.0.0';
-import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey,renderQuality } from '../core/settings.js?v=31.0.0';
-import { start,restartBattle,togglePause } from '../game/session.js?v=31.0.0';
-import {practicePhases,practiceAttacks} from '../../config/practice.js?v=31.0.0';
-import { loop } from '../game/loop.js?v=31.0.0';
-import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=31.0.0';
-import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=31.0.0';
-import { createMenuBackground } from '../render/menu-background.js?v=31.0.0';
-import { pixelArt } from '../render/sprites.js?v=31.0.0';
-import {prepareBattleAssets} from '../core/battle-assets.js?v=31.0.0';
+import { weapons } from '../classes/registry.js?v=31.1.0';
+import {renderBattleRecords} from './battle-results.js?v=31.1.0';
+import { audio } from '../core/audio.js?v=31.1.0';
+import { VERSION } from '../core/config.js?v=31.1.0';
+import { $, root } from '../core/dom.js?v=31.1.0';
+import { state } from '../core/state.js?v=31.1.0';
+import { MOBILE_CONTROLS_ENABLED,settings,updateSettings,resetSettings,subscribeSettings,keyLabel,controlHint,bindKey,renderQuality } from '../core/settings.js?v=31.1.0';
+import { start,restartBattle,togglePause } from '../game/session.js?v=31.1.0';
+import {practicePhases,practiceAttacks} from '../../config/practice.js?v=31.1.0';
+import { loop } from '../game/loop.js?v=31.1.0';
+import { setFocusMode,requestMobileFullscreen } from '../input/fullscreen.js?v=31.1.0';
+import { resetTouchInput,setDeviceMode } from '../input/mobile.js?v=31.1.0';
+import { createMenuBackground } from '../render/menu-background.js?v=31.1.0';
+import { pixelArt } from '../render/sprites.js?v=31.1.0';
+import {prepareBattleAssets} from '../core/battle-assets.js?v=31.1.0';
 
 const byId=id=>document.getElementById(id);
 const model={panel:'home',selectedClass:'melee',difficulty:'revenge',battleMode:'trial',practicePhase:'bh1',practiceAttack:null,practiceInvincible:false,listening:null,background:null};
@@ -39,7 +40,7 @@ function selectPracticeAttack(index){if(!practiceAttacks.some(a=>a.index===index
 function selectClass(id){if(!weapons.some(w=>w.id===id))return false;model.selectedClass=id;renderSelection();return true;}
 function selectDifficulty(id){if(!['normal','revenge','death'].includes(id))return false;model.difficulty=id;renderSelection();return true;}
 function showPanel(name){
-  if(!['home','bosses','setup','settings','credits','thanks'].includes(name))return;
+  if(!['home','bosses','setup','settings','credits','thanks','records'].includes(name))return;
   model.panel=name;model.listening=null;
   byId('title-menu').querySelectorAll('[data-menu-panel]').forEach(panel=>panel.hidden=panel.dataset.menuPanel!==name);
   byId('menu-resume').hidden=!(state.game?.mode==='paused');
@@ -47,6 +48,7 @@ function showPanel(name){
   byId('keybinding-status').textContent='';
   renderSelection();
   if(name==='settings')syncSettings();
+  if(name==='records')renderBattleRecords();
 }
 function showMenu(panel='home'){
   if(state.game?.mode==='playing')togglePause();

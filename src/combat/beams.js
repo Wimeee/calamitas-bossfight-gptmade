@@ -1,11 +1,11 @@
-import { kit } from '../classes/shared.js?v=31.0.0';
-import { hitTarget } from './damage.js?v=31.0.0';
-import { possibleTargets } from './targets.js?v=31.0.0';
-import { arena } from '../core/arena.js?v=31.0.0';
-import { clamp } from '../core/math.js?v=31.0.0';
-import { state } from '../core/state.js?v=31.0.0';
-import { muzzlePoint } from '../render/weapons.js?v=31.0.0';
-import { getSepulcherBlockers, traceSepulcherBeam } from './sepulcher-blocking.js?v=31.0.0';
+import { kit } from '../classes/shared.js?v=31.1.0';
+import { hitTarget } from './damage.js?v=31.1.0';
+import { possibleTargets } from './targets.js?v=31.1.0';
+import { arena } from '../core/arena.js?v=31.1.0';
+import { clamp } from '../core/math.js?v=31.1.0';
+import { state } from '../core/state.js?v=31.1.0';
+import { muzzlePoint } from '../render/weapons.js?v=31.1.0';
+import { getSepulcherBlockers, traceSepulcherBeam } from './sepulcher-blocking.js?v=31.1.0';
 
 
 function beamWallDistance(x,y,dx,dy){
