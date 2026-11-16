@@ -1,0 +1,930 @@
+{
+  "scope": "Controlled isolated headless Firefox, not physical-display smoothness. Full-frame timing remains noisy; only source-draw CPU cost reliably decreased.",
+  "movement": {
+    "groundReverseBeforeMs": 166.6667,
+    "groundReverseAfterMs": 58.3333,
+    "topRunSpeed": 555.552,
+    "airAndWingsUnchanged": true
+  },
+  "backdropABA": {
+    "source": "1556x1556",
+    "results": [
+      {
+        "mode": "canvas",
+        "p50": 41,
+        "p95": 74,
+        "sourceMsPerFrame": 9.457142857142857
+      },
+      {
+        "mode": "pixel-aligned",
+        "p50": 39,
+        "p95": 167,
+        "sourceMsPerFrame": 4.057142857142857
+      },
+      {
+        "mode": "canvas",
+        "p50": 45,
+        "p95": 52,
+        "sourceMsPerFrame": 10.714285714285714
+      }
+    ],
+    "changedPixels": 93021,
+    "scope": "Frozen loaded Firefox scene ABA; bitmap experiment, not physical FPS"
+  },
+  "liveBefore": {
+    "engine": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:160.0) Gecko/20100101 Firefox/160.0",
+    "context": {
+      "alpha": true,
+      "colorSpace": "srgb",
+      "desynchronized": false,
+      "willReadFrequently": false
+    },
+    "preparationMs": 8205,
+    "totalProfileMs": 20087,
+    "scope": "Real Firefox RAF, live game/continuous primary attack, isolated headless profile; not a guarantee on visible user browser",
+    "cold": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 17,
+            "ms": 149
+          }
+        ],
+        [
+          "1x6",
+          {
+            "calls": 17,
+            "ms": 11
+          }
+        ],
+        [
+          "120x1302",
+          {
+            "calls": 17,
+            "ms": 7
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 34,
+            "ms": 7
+          }
+        ],
+        [
+          "3890x18",
+          {
+            "calls": 17,
+            "ms": 6
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 2,
+            "ms": 6
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 714,
+            "ms": 5
+          }
+        ],
+        [
+          "3840x18",
+          {
+            "calls": 17,
+            "ms": 4
+          }
+        ],
+        [
+          "180x174",
+          {
+            "calls": 17,
+            "ms": 4
+          }
+        ],
+        [
+          "40x1120",
+          {
+            "calls": 36,
+            "ms": 4
+          }
+        ],
+        [
+          "3860x18",
+          {
+            "calls": 17,
+            "ms": 3
+          }
+        ],
+        [
+          "12x12",
+          {
+            "calls": 340,
+            "ms": 3
+          }
+        ]
+      ],
+      "label": "cold-start",
+      "frames": 17,
+      "p50": 33.419999999998254,
+      "p95": 283.34000000000015,
+      "worst": 283.34000000000015,
+      "framesOver25ms": 14,
+      "newCanvases": 24,
+      "maxCanvasPerFrame": 20,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 188,
+        "tintPixels": 2922144,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 188,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "idle": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 22,
+            "ms": 342
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 22,
+            "ms": 67
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 44,
+            "ms": 18
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 924,
+            "ms": 8
+          }
+        ],
+        [
+          "3890x18",
+          {
+            "calls": 22,
+            "ms": 7
+          }
+        ],
+        [
+          "360x224",
+          {
+            "calls": 40,
+            "ms": 7
+          }
+        ],
+        [
+          "3730x18",
+          {
+            "calls": 22,
+            "ms": 5
+          }
+        ],
+        [
+          "3820x18",
+          {
+            "calls": 22,
+            "ms": 5
+          }
+        ],
+        [
+          "120x1302",
+          {
+            "calls": 22,
+            "ms": 5
+          }
+        ],
+        [
+          "80x48",
+          {
+            "calls": 22,
+            "ms": 4
+          }
+        ],
+        [
+          "6x24",
+          {
+            "calls": 22,
+            "ms": 4
+          }
+        ],
+        [
+          "12x24",
+          {
+            "calls": 440,
+            "ms": 4
+          }
+        ]
+      ],
+      "label": "idle",
+      "frames": 22,
+      "p50": 55.539999999999054,
+      "p95": 144.40000000000146,
+      "worst": 277.71999999999935,
+      "framesOver25ms": 21,
+      "newCanvases": 0,
+      "maxCanvasPerFrame": 0,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 188,
+        "tintPixels": 2922144,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 188,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "attack": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 78,
+            "ms": 785
+          }
+        ],
+        [
+          "80x80",
+          {
+            "calls": 3516,
+            "ms": 207
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 78,
+            "ms": 167
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 1166,
+            "ms": 59
+          }
+        ],
+        [
+          "156x156",
+          {
+            "calls": 69,
+            "ms": 52
+          }
+        ],
+        [
+          "256x256",
+          {
+            "calls": 3297,
+            "ms": 49
+          }
+        ],
+        [
+          "134x132",
+          {
+            "calls": 140,
+            "ms": 32
+          }
+        ],
+        [
+          "33x33",
+          {
+            "calls": 808,
+            "ms": 29
+          }
+        ],
+        [
+          "79x80",
+          {
+            "calls": 571,
+            "ms": 27
+          }
+        ],
+        [
+          "120x132",
+          {
+            "calls": 114,
+            "ms": 27
+          }
+        ],
+        [
+          "18x176",
+          {
+            "calls": 1693,
+            "ms": 27
+          }
+        ],
+        [
+          "3840x18",
+          {
+            "calls": 78,
+            "ms": 18
+          }
+        ]
+      ],
+      "label": "continuous-LMB",
+      "frames": 78,
+      "p50": 55.61999999999898,
+      "p95": 72.26000000000022,
+      "worst": 88.97999999999956,
+      "framesOver25ms": 77,
+      "newCanvases": 28,
+      "maxCanvasPerFrame": 4,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 189,
+        "tintPixels": 2946480,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 189,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 46
+    },
+    "warmAttack": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 72,
+            "ms": 683
+          }
+        ],
+        [
+          "80x80",
+          {
+            "calls": 4060,
+            "ms": 258
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 72,
+            "ms": 144
+          }
+        ],
+        [
+          "72x72",
+          {
+            "calls": 1932,
+            "ms": 107
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 1003,
+            "ms": 92
+          }
+        ],
+        [
+          "156x156",
+          {
+            "calls": 60,
+            "ms": 58
+          }
+        ],
+        [
+          "18x176",
+          {
+            "calls": 2184,
+            "ms": 50
+          }
+        ],
+        [
+          "79x80",
+          {
+            "calls": 585,
+            "ms": 46
+          }
+        ],
+        [
+          "256x256",
+          {
+            "calls": 3929,
+            "ms": 34
+          }
+        ],
+        [
+          "120x132",
+          {
+            "calls": 96,
+            "ms": 32
+          }
+        ],
+        [
+          "33x33",
+          {
+            "calls": 816,
+            "ms": 31
+          }
+        ],
+        [
+          "134x132",
+          {
+            "calls": 140,
+            "ms": 30
+          }
+        ]
+      ],
+      "label": "continued-LMB",
+      "frames": 72,
+      "p50": 61.18000000000029,
+      "p95": 97.31999999999971,
+      "worst": 127.18000000000029,
+      "framesOver25ms": 71,
+      "newCanvases": 17,
+      "maxCanvasPerFrame": 2,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 189,
+        "tintPixels": 2946480,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 189,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 70
+    }
+  },
+  "liveAfter": {
+    "engine": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:160.0) Gecko/20100101 Firefox/160.0",
+    "context": {
+      "alpha": true,
+      "colorSpace": "srgb",
+      "desynchronized": false,
+      "willReadFrequently": false
+    },
+    "preparationMs": 8534,
+    "totalProfileMs": 20474,
+    "scope": "Real Firefox RAF, live game/continuous primary attack, isolated headless profile; not a guarantee on visible user browser",
+    "cold": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 21,
+            "ms": 76
+          }
+        ],
+        [
+          "3730x18",
+          {
+            "calls": 21,
+            "ms": 7
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 42,
+            "ms": 6
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 4,
+            "ms": 5
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 882,
+            "ms": 4
+          }
+        ],
+        [
+          "3820x18",
+          {
+            "calls": 21,
+            "ms": 4
+          }
+        ],
+        [
+          "3840x18",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "120x1302",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "180x174",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "40x1120",
+          {
+            "calls": 44,
+            "ms": 3
+          }
+        ],
+        [
+          "6x24",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "1x6",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ]
+      ],
+      "label": "cold-start",
+      "frames": 21,
+      "p50": 27.840000000000146,
+      "p95": 166.26000000000022,
+      "worst": 210.47999999999956,
+      "framesOver25ms": 13,
+      "newCanvases": 24,
+      "maxCanvasPerFrame": 20,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 188,
+        "tintPixels": 2922144,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 188,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "idle": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 21,
+            "ms": 81
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 21,
+            "ms": 74
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 42,
+            "ms": 28
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 882,
+            "ms": 21
+          }
+        ],
+        [
+          "16x32",
+          {
+            "calls": 21,
+            "ms": 9
+          }
+        ],
+        [
+          "3730x18",
+          {
+            "calls": 21,
+            "ms": 6
+          }
+        ],
+        [
+          "3890x18",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "3840x18",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "3860x18",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "180x174",
+          {
+            "calls": 21,
+            "ms": 3
+          }
+        ],
+        [
+          "360x224",
+          {
+            "calls": 50,
+            "ms": 3
+          }
+        ],
+        [
+          "12x12",
+          {
+            "calls": 420,
+            "ms": 3
+          }
+        ]
+      ],
+      "label": "idle",
+      "frames": 21,
+      "p50": 55.42000000000007,
+      "p95": 166.6200000000008,
+      "worst": 232.86000000000058,
+      "framesOver25ms": 20,
+      "newCanvases": 0,
+      "maxCanvasPerFrame": 0,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 188,
+        "tintPixels": 2922144,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 188,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 0
+    },
+    "attack": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 69,
+            "ms": 274
+          }
+        ],
+        [
+          "80x80",
+          {
+            "calls": 3312,
+            "ms": 263
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 69,
+            "ms": 167
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 980,
+            "ms": 67
+          }
+        ],
+        [
+          "156x156",
+          {
+            "calls": 60,
+            "ms": 44
+          }
+        ],
+        [
+          "256x256",
+          {
+            "calls": 3303,
+            "ms": 41
+          }
+        ],
+        [
+          "134x132",
+          {
+            "calls": 151,
+            "ms": 37
+          }
+        ],
+        [
+          "18x176",
+          {
+            "calls": 1080,
+            "ms": 36
+          }
+        ],
+        [
+          "79x80",
+          {
+            "calls": 500,
+            "ms": 34
+          }
+        ],
+        [
+          "120x132",
+          {
+            "calls": 94,
+            "ms": 28
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 2898,
+            "ms": 23
+          }
+        ],
+        [
+          "3820x18",
+          {
+            "calls": 69,
+            "ms": 20
+          }
+        ]
+      ],
+      "label": "continuous-LMB",
+      "frames": 69,
+      "p50": 61.07999999999993,
+      "p95": 122.52000000000044,
+      "worst": 135.42000000000007,
+      "framesOver25ms": 67,
+      "newCanvases": 26,
+      "maxCanvasPerFrame": 5,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 189,
+        "tintPixels": 2946480,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 189,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 61
+    },
+    "warmAttack": {
+      "textures": [
+        [
+          "1556x1556",
+          {
+            "calls": 77,
+            "ms": 261
+          }
+        ],
+        [
+          "80x80",
+          {
+            "calls": 4527,
+            "ms": 250
+          }
+        ],
+        [
+          "1389x720",
+          {
+            "calls": 77,
+            "ms": 176
+          }
+        ],
+        [
+          "18x176",
+          {
+            "calls": 2797,
+            "ms": 75
+          }
+        ],
+        [
+          "200x200",
+          {
+            "calls": 1216,
+            "ms": 72
+          }
+        ],
+        [
+          "256x256",
+          {
+            "calls": 4911,
+            "ms": 62
+          }
+        ],
+        [
+          "72x72",
+          {
+            "calls": 1544,
+            "ms": 54
+          }
+        ],
+        [
+          "156x156",
+          {
+            "calls": 65,
+            "ms": 53
+          }
+        ],
+        [
+          "4x4",
+          {
+            "calls": 3234,
+            "ms": 43
+          }
+        ],
+        [
+          "79x80",
+          {
+            "calls": 761,
+            "ms": 38
+          }
+        ],
+        [
+          "3890x18",
+          {
+            "calls": 77,
+            "ms": 30
+          }
+        ],
+        [
+          "134x132",
+          {
+            "calls": 140,
+            "ms": 29
+          }
+        ]
+      ],
+      "label": "continued-LMB",
+      "frames": 77,
+      "p50": 59.419999999998254,
+      "p95": 83.92000000000189,
+      "worst": 89.60000000000218,
+      "framesOver25ms": 76,
+      "newCanvases": 12,
+      "maxCanvasPerFrame": 2,
+      "cache": {
+        "entries": 0,
+        "pixels": 0,
+        "tintEntries": 189,
+        "tintPixels": 2946480,
+        "frameEntries": 294,
+        "pooled": 8,
+        "tints": 189,
+        "lights": 0,
+        "evictions": 0
+      },
+      "gameStage": "normal",
+      "particles": 116
+    }
+  }
+}

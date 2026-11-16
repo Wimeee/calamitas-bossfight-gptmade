@@ -1,7 +1,8 @@
-import { playerConfig } from './player.js?v=31.1.0';
+import { playerConfig } from './player.js?v=31.1.1';
 
 export const movementConfig=Object.freeze({
-  halfWidth:10,halfHeight:18,runSpeed:playerConfig.movementSpeed,acceleration:3400,braking:4200,airBraking:2200,
+  // Responsive browser platform controls; native boots' top speed stays intact.
+  halfWidth:10,halfHeight:18,runSpeed:playerConfig.movementSpeed,acceleration:5600,braking:9000,turnAcceleration:10000,airBraking:2200,
   gravity:1800,jumpSpeed:690,jumpCut:.48,jumpGrace:.1,jumpBuffer:.12,jumpSustain:.16,
   // Wings of Rebirth, pinned Calamity 2.2.2 baseline (native art 2.2.4).
   // Terraria ticks -> seconds; vanilla FasterJumpSpeed off: base jump 5.01 + 1.

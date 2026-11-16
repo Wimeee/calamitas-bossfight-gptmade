@@ -1,12 +1,12 @@
-import {ctx} from '../core/dom.js?v=31.1.0';
-import {W} from '../core/config.js?v=31.1.0';
-import {renderQuality} from '../core/settings.js?v=31.1.0';
-import {nativeText} from './hud-atlas.js?v=31.1.0';
-import {circleVisible} from './visibility.js?v=31.1.0';
-import {helperImage,helperTint} from './helper-atlas.js?v=31.1.0';
+import {ctx} from '../core/dom.js?v=31.1.1';
+import {W} from '../core/config.js?v=31.1.1';
+import {renderQuality} from '../core/settings.js?v=31.1.1';
+import {nativeText} from './hud-atlas.js?v=31.1.1';
+import {circleVisible} from './visibility.js?v=31.1.1';
+import {helperImage,helperTint} from './helper-atlas.js?v=31.1.1';
 const images={};let loading;
 export function rogueImage(name){return images[name];}
-export function initializeRogueAtlas(){if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);return loading=Promise.all(['celestus','celestus-glow','mini','nano','heal','item','item-glow','nanotech','sheath','emblem','stealth-border','stealth-fill','stealth-full','stealth-strike'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[name]=im;resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/rogue-original/'+name+'.png?v=31.1.0',import.meta.url).href;}))).then(r=>r.every(Boolean));}
+export function initializeRogueAtlas(){if(loading)return loading;if(typeof Image==='undefined')return Promise.resolve(false);return loading=Promise.all(['celestus','celestus-glow','mini','nano','heal','item','item-glow','nanotech','sheath','emblem','stealth-border','stealth-fill','stealth-full','stealth-strike'].map(name=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[name]=im;resolve(true);};im.onerror=()=>resolve(false);im.src=new URL('../../assets/rogue-original/'+name+'.png?v=31.1.1',import.meta.url).href;}))).then(r=>r.every(Boolean));}
 function sprite(name,x,y,angle,alpha=1,scale=1){const im=images[name];if(!im)return;ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.globalAlpha*=alpha;ctx.drawImage(im,-im.width*scale/2,-im.height*scale/2,im.width*scale,im.height*scale);ctx.restore();}
 export function drawNativeRogue(g){
  const p=g.player,k=p.kit?.rogue;if(p.weapon!==4||!k||g.mode==='dead'||g.mode==='won')return;const low=renderQuality()==='low';ctx.save();ctx.imageSmoothingEnabled=false;

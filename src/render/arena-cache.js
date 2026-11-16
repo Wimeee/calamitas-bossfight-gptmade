@@ -1,12 +1,12 @@
-import {renderScale} from '../core/settings.js?v=31.1.0';
-import {state} from '../core/state.js?v=31.1.0';
-import {cameraView} from '../world/camera.js?v=31.1.0';
-import {arena} from '../core/arena.js?v=31.1.0';
-import {ctx} from '../core/dom.js?v=31.1.0';
-import {W,H} from '../core/config.js?v=31.1.0';
-import {arenaColors} from '../world/arena-state.js?v=31.1.0';
-import {arenaImage,arenaTexture} from './arena-atlas.js?v=31.1.0';
-import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=31.1.0';
+import {renderScale} from '../core/settings.js?v=31.1.1';
+import {state} from '../core/state.js?v=31.1.1';
+import {cameraView} from '../world/camera.js?v=31.1.1';
+import {arena} from '../core/arena.js?v=31.1.1';
+import {ctx} from '../core/dom.js?v=31.1.1';
+import {W,H} from '../core/config.js?v=31.1.1';
+import {arenaColors} from '../world/arena-state.js?v=31.1.1';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=31.1.1';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=31.1.1';
 let field=null,mask=null;
 let backdrop=null,backdropSource=null,backdropKey='';
 function backdropRaster(image){
@@ -28,9 +28,18 @@ function clear(c){c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeO
 function nativeField(c,texture,v,dx,dy,scale,alpha){
  if(!texture||alpha<=0)return;c.save();c.translate(dx,dy);c.scale(scale,scale);c.globalAlpha=alpha;c.fillStyle=c.createPattern(texture,'repeat');c.fillRect((v.x-dx)/scale,(v.y-dy)/scale,v.w/scale,v.h/scale);c.restore();
 }
+export function paintBackdropStamp(c,image,x,y,w,h){
+ const m=c.getTransform?.();
+ // The raster already has the final backing resolution. Fractional rescaling
+ // of this large canvas is costly in Firefox; place it on backing pixels once.
+ // Keep the general path for unusual transforms or the oversized-source fallback.
+ if(m&&Number.isFinite(m.e)&&Number.isFinite(m.f)&&m.a>0&&m.d>0&&m.b===0&&m.c===0&&Math.abs(m.a*w-image.width)<=1&&Math.abs(m.d*h-image.height)<=1){
+  c.save();c.setTransform(1,0,0,1,0,0);c.drawImage(image,Math.round(m.a*x+m.e),Math.round(m.d*y+m.f));c.restore();
+ }else c.drawImage(image,x,y,w,h);
+}
 export function drawBackdropBase(){
  const g=state.game,v=cameraView(g),t=g?.ritual?g.ritual.ambient:g?.t||0;ctx.fillStyle='#100b11';ctx.fillRect(v.x,v.y,v.w,v.h);
- const image=arenaImage('CalamitasBackground');if(image){const scale=Math.max(v.w/image.width,v.h/image.height)*1.12,w=image.width*scale,h=image.height*scale;ctx.drawImage(backdropRaster(image),v.x+(v.w-w)/2+Math.sin(t*.11)*24,v.y+(v.h-h)/2+Math.cos(t*.08)*18,w,h);}
+ const image=arenaImage('CalamitasBackground');if(image){const scale=Math.max(v.w/image.width,v.h/image.height)*1.12,w=image.width*scale,h=image.height*scale;paintBackdropStamp(ctx,backdropRaster(image),v.x+(v.w-w)/2+Math.sin(t*.11)*24,v.y+(v.h-h)/2+Math.cos(t*.08)*18,w,h);}
  const a=g?.arenaState||{phase:0,previous:0,colorMix:1};
  for(const [phase,mix] of [[a.previous,1-a.colorMix],[a.phase,a.colorMix]])nativeField(ctx,arenaTexture('arenaSmoke',phase),v,-t*7+Math.sin(t*.14)*28,t*3,2.8,.1*mix);
  const cinder=arenaImage('CalamitasCinder');if(cinder){ctx.save();for(let i=0;i<(state.deviceMode==='mobile'?12:42);i++){const speed=12+i%4*5,x=v.x+((i*239.17+t*3+Math.sin(t*.5+i)*22)%v.w+v.w)%v.w,y=v.y+((i*173.7-t*speed)%v.h+v.h)%v.h;ctx.globalAlpha=.3+.25*(.5+.5*Math.sin(t*1.6+i));ctx.drawImage(cinder,x,y,4,4);}ctx.restore();}

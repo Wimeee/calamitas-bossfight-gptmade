@@ -1,4 +1,4 @@
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.0';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.1';
 
 const images = new Map();
 let ready = null;

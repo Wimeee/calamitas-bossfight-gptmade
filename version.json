@@ -1,4 +1,4 @@
 {
-  "version": "31.1.0",
-  "notes": "Battle results and local class/difficulty records; last20 attempts; isolated practice/debug; bilingual summaries"
+  "version": "31.1.1",
+  "notes": "Sharper platform controls; reduced Firefox backdrop resampling and redundant HUD writes"
 }

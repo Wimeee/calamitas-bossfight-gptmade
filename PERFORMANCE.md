@@ -1,5 +1,15 @@
 # Замір v17
 
+## v31.1.1 — platform response and Firefox work reduction
+
+Ground movement now uses5600 acceleration,9000 release braking and10000 opposing-direction acceleration; native boots'555.552px/s top speed, airborne acceleration, wings and dash are unchanged. Actual production physics at240Hz changed the first opposite velocity from166.7ms to58.3ms. Tests cover starts/reversal/release at30/60/120/180Hz.
+
+HUD now compares localized output and skips unchanged text/property writes, including translated milestone markup. This avoids creating replacement text nodes and waking the localization observer unnecessarily. It does not reduce HUD refresh frequency or affect simulation.
+
+The prepared large backdrop canvas was still fractionally rescaled each frame. With an axis-aligned camera and destination within1backing pixel of the cached raster, draw it at native backing size with rounded backing-pixel position. The background may shift by up to0.5backing pixel and its extent by less than1pixel; source resolution and foreground geometry stay intact. General scaling/rotation and oversized fallback keep the old path.
+
+Frozen Firefox ABA source-draw cost9.46/4.06/10.71ms per frame (old/aligned/old). Separate live samples reduced source-draw cost roughly9–15ms to3–4ms. Whole-scene median/tail timings were mixed, with long frames remaining; this is NOT proof that all microfreezes are solved or a guaranteed user-device FPS. The immutable-ImageBitmap experiment showed no reliable benefit and was not shipped. Raw results: benchmarks/v31.1.1-input-pacing.json.
+
 Дата: 29.10.2026. Порівняння v16 і модульного коду на цьому комп’ютері. П’ять повторів, медіана; seeded-середовище тестів.
 
 | Обчислення | v16 | v17 |

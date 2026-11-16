@@ -1,1 +1,1 @@
-export {initializeRanger,rangerState,activateRanger,updateRanger,attackRanger,updateRangerCombat} from './photoviscerator.js?v=31.1.0';
+export {initializeRanger,rangerState,activateRanger,updateRanger,attackRanger,updateRangerCombat} from './photoviscerator.js?v=31.1.1';
