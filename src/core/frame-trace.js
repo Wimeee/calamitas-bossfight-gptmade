@@ -1,7 +1,7 @@
-import {state} from './state.js?v=31.1.3';
-import {renderQuality} from './settings.js?v=31.1.3';
-import {VERSION} from './config.js?v=31.1.3';
-import {canvas} from './dom.js?v=31.1.3';
+import {state} from './state.js?v=31.1.4';
+import {renderQuality} from './settings.js?v=31.1.4';
+import {VERSION} from './config.js?v=31.1.4';
+import {canvas} from './dom.js?v=31.1.4';
 const classes=['melee','ranger','mage','summon','rogue'];
 const rounded=n=>Number.isFinite(n)?Math.round(n*100)/100:null;
 export function createFrameTrace(capacity=2048){

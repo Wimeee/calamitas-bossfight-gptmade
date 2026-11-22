@@ -1,4 +1,4 @@
 {
-  "version": "31.1.3",
-  "notes": "Add local frame-time report to capture remaining real-device stutters"
+  "version": "31.1.4",
+  "notes": "Reuse Sepulcher pose buffers and remove per-frame segment/arm copies without visual changes"
 }

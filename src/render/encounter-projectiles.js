@@ -1,12 +1,12 @@
-import {renderQuality} from '../core/settings.js?v=31.1.3';
-import {projectileMotionPosition} from '../combat/motion-collision.js?v=31.1.3';
-import {drawBrotherProjectile} from './brother-projectiles.js?v=31.1.3';
-import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=31.1.3';
-import {ctx} from '../core/dom.js?v=31.1.3';
-import {settings} from '../core/settings.js?v=31.1.3';
-import {line} from './primitives.js?v=31.1.3';
-import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=31.1.3';
-import {TAU} from '../core/config.js?v=31.1.3';
+import {renderQuality} from '../core/settings.js?v=31.1.4';
+import {projectileMotionPosition} from '../combat/motion-collision.js?v=31.1.4';
+import {drawBrotherProjectile} from './brother-projectiles.js?v=31.1.4';
+import {encounterProjectiles as spec} from '../../config/encounter-projectiles.js?v=31.1.4';
+import {ctx} from '../core/dom.js?v=31.1.4';
+import {settings} from '../core/settings.js?v=31.1.4';
+import {line} from './primitives.js?v=31.1.4';
+import {paintProjectileFrame} from './encounter-projectiles-atlas.js?v=31.1.4';
+import {TAU} from '../core/config.js?v=31.1.4';
 
 // Source-accurate projectile kind mapping:
 // - 'dart' → 'barrage' (BrimstoneBarrage.cs) - used by Sepulcher, seekers, fireblast/gigablast explosions

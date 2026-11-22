@@ -1,5 +1,5 @@
-import { worldConfig } from '../../config/world.js?v=31.1.3';
-import { movementConfig as config } from '../../config/movement.js?v=31.1.3';
+import { worldConfig } from '../../config/world.js?v=31.1.4';
+import { movementConfig as config } from '../../config/movement.js?v=31.1.4';
 
 let cached=null,key='';
 export function getTerrain(){

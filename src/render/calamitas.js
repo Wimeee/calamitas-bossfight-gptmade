@@ -1,17 +1,17 @@
-import {renderQuality} from '../core/settings.js?v=31.1.3';
-import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=31.1.3';
-import { seq, TAU } from '../core/config.js?v=31.1.3';
-import { ctx } from '../core/dom.js?v=31.1.3';
-import { settings } from '../core/settings.js?v=31.1.3';
-import { clamp } from '../core/math.js?v=31.1.3';
-import { calamitasImage, paintCalamitasFrame } from './calamitas-atlas.js?v=31.1.3';
+import {renderQuality} from '../core/settings.js?v=31.1.4';
+import { calamitasSprites as spec } from '../../config/calamitas-sprites.js?v=31.1.4';
+import { seq, TAU } from '../core/config.js?v=31.1.4';
+import { ctx } from '../core/dom.js?v=31.1.4';
+import { settings } from '../core/settings.js?v=31.1.4';
+import { clamp } from '../core/math.js?v=31.1.4';
+import { calamitasImage, paintCalamitasFrame } from './calamitas-atlas.js?v=31.1.4';
 import {
   computeChargeShieldGeometry,
   computeForcefieldGeometry,
   interpolateFieldRadius,
   interpolateAngle,
   lerpShieldRotation
-} from './calamitas-math.js?v=31.1.3';
+} from './calamitas-math.js?v=31.1.4';
 
 const clocks = new WeakMap(), effects = new Map();
 

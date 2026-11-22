@@ -1,6 +1,6 @@
 {
   "name": "calamitas-bossfight",
-  "version": "31.1.3",
+  "version": "31.1.4",
   "private": true,
   "description": "Supreme Calamitas fan bossfight with native browser modules",
   "scripts": {

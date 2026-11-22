@@ -1,5 +1,5 @@
-import { ctx } from '../core/dom.js?v=31.1.3';
-import { hudImage,tintedHUDImage } from './hud-atlas.js?v=31.1.3';
+import { ctx } from '../core/dom.js?v=31.1.4';
+import { hudImage,tintedHUDImage } from './hud-atlas.js?v=31.1.4';
 export function drawRipperPlayerEffects(g,front=false){
  const r=g.rippers,v=r?.visuals;if(!v||g.mode==='dead'||g.mode==='won')return;const p=g.player;
  ctx.save();ctx.imageSmoothingEnabled=false;

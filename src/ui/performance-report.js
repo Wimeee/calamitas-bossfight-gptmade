@@ -1,5 +1,5 @@
-import {getPerformanceReport} from '../core/frame-trace.js?v=31.1.3';
-import {translate} from '../core/localization.js?v=31.1.3';
+import {getPerformanceReport} from '../core/frame-trace.js?v=31.1.4';
+import {translate} from '../core/localization.js?v=31.1.4';
 const byId=id=>document.getElementById(id);
 export async function copyPerformanceReport(){
  const report=getPerformanceReport(),area=byId('performance-report'),status=byId('performance-report-status');

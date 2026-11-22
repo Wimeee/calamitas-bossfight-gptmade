@@ -1,4 +1,4 @@
-import { playerConfig } from './player.js?v=31.1.3';
+import { playerConfig } from './player.js?v=31.1.4';
 
 export const movementConfig=Object.freeze({
   // Responsive browser platform controls; native boots' top speed stays intact.

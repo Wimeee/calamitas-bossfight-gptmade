@@ -1,14 +1,14 @@
-import { calamitasSamples } from './sample-audio.js?v=31.1.3';
-import {summonerSamples} from './sample-audio.js?v=31.1.3';
-import {rogueSamples} from './sample-audio.js?v=31.1.3';
-import {rangerSamples} from './sample-audio.js?v=31.1.3';
-import {mageSamples} from './sample-audio.js?v=31.1.3';
-import { meleeSamples } from './sample-audio.js?v=31.1.3';
-import { minionAudio } from '../render/minion-audio.js?v=31.1.3';
-import { state } from './state.js?v=31.1.3';
-import { battleMusic } from './battle-music.js?v=31.1.3';
-import { settings,updateSettings,subscribeSettings } from './settings.js?v=31.1.3';
-import { $ } from './dom.js?v=31.1.3';
+import { calamitasSamples } from './sample-audio.js?v=31.1.4';
+import {summonerSamples} from './sample-audio.js?v=31.1.4';
+import {rogueSamples} from './sample-audio.js?v=31.1.4';
+import {rangerSamples} from './sample-audio.js?v=31.1.4';
+import {mageSamples} from './sample-audio.js?v=31.1.4';
+import { meleeSamples } from './sample-audio.js?v=31.1.4';
+import { minionAudio } from '../render/minion-audio.js?v=31.1.4';
+import { state } from './state.js?v=31.1.4';
+import { battleMusic } from './battle-music.js?v=31.1.4';
+import { settings,updateSettings,subscribeSettings } from './settings.js?v=31.1.4';
+import { $ } from './dom.js?v=31.1.4';
 
 const audio={
   ctx:null,

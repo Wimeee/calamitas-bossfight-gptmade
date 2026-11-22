@@ -1,11 +1,11 @@
-import {updateSeekers} from './seekers.js?v=31.1.3';
-import {updateBrothers} from './brothers.js?v=31.1.3';
-import { enemyBullet } from '../combat/projectiles.js?v=31.1.3';
-import { arena } from '../core/arena.js?v=31.1.3';
-import { TAU } from '../core/config.js?v=31.1.3';
-import { clamp, lerp, norm } from '../core/math.js?v=31.1.3';
-import { state } from '../core/state.js?v=31.1.3';
-import { calamitasConfig as config } from '../../config/calamitas.js?v=31.1.3';
+import {updateSeekers} from './seekers.js?v=31.1.4';
+import {updateBrothers} from './brothers.js?v=31.1.4';
+import { enemyBullet } from '../combat/projectiles.js?v=31.1.4';
+import { arena } from '../core/arena.js?v=31.1.4';
+import { TAU } from '../core/config.js?v=31.1.4';
+import { clamp, lerp, norm } from '../core/math.js?v=31.1.4';
+import { state } from '../core/state.js?v=31.1.4';
+import { calamitasConfig as config } from '../../config/calamitas.js?v=31.1.4';
 
 // Sepulcher constants from source (SepulcherHead.cs, SepulcherBody.cs, SepulcherBodyEnergyBall.cs, SepulcherArm.cs)
 const SEPULCHER = {
@@ -397,6 +397,23 @@ function stepSepulcher(dt, g) {
   }
 }
 
+function captureSepulcherPose(w,target){
+  target??={head:{},nodes:[],arms:[]};
+  const head=target.head;head.x=w.x;head.y=w.y;head.rotation=w.rotation;head.alpha=w.alpha;
+  target.nodes.length=w.nodes.length;
+  for(let i=0;i<w.nodes.length;i++){
+    const source=w.nodes[i],pose=target.nodes[i]??(target.nodes[i]={});
+    pose.x=source.x;pose.y=source.y;pose.rotation=source.rotation;pose.alpha=source.alpha;
+  }
+  target.arms.length=w.arms.length;
+  for(let i=0;i<w.arms.length;i++){
+    const source=w.arms[i],pose=target.arms[i]??(target.arms[i]={});
+    pose.x=source.poseX??source.x;pose.y=source.poseY??source.y;
+    pose.rotation=source.poseRotation??source.rotation;pose.direction=source.direction;
+  }
+  return target;
+}
+
 function updateMinions(dt) {
   const g = state.game;
   const p = g.player;
@@ -414,21 +431,13 @@ function updateMinions(dt) {
       // Capture previous simulation state for rendering interpolation (BEFORE advancing tick)
       const w = g.sepulcher;
       if (w) {
-        w._renderPrev = {
-          head: { x: w.x, y: w.y, rotation: w.rotation, alpha: w.alpha },
-          nodes: w.nodes.map(n => ({ x: n.x, y: n.y, rotation: n.rotation, alpha: n.alpha })),
-          arms: w.arms.map(a => ({ x: a.poseX ?? a.x, y: a.poseY ?? a.y, rotation: a.poseRotation ?? a.rotation, direction: a.direction })),
-        };
+        w._renderPrev = captureSepulcherPose(w,w._renderPrev);
       }
       stepSepulcher(1/60, g);
       g.sepulcherStepRemainder = Math.max(0, g.sepulcherStepRemainder - 1/60);
       // Capture current simulation state for rendering interpolation (AFTER advancing tick)
       if (w) {
-        w._renderCurr = {
-          head: { x: w.x, y: w.y, rotation: w.rotation, alpha: w.alpha },
-          nodes: w.nodes.map(n => ({ x: n.x, y: n.y, rotation: n.rotation, alpha: n.alpha })),
-          arms: w.arms.map(a => ({ x: a.poseX ?? a.x, y: a.poseY ?? a.y, rotation: a.poseRotation ?? a.rotation, direction: a.direction })),
-        };
+        w._renderCurr = captureSepulcherPose(w,w._renderCurr);
       }
     }
   } else { g.sepulcher = null; g.sepulcherStepRemainder = 0; }

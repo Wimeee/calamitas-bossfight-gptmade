@@ -1,0 +1,107 @@
+{
+  "sourceTraceSummary": {
+    "version": "31.1.3",
+    "classId": "mage",
+    "difficulty": "death",
+    "stage": "hearts",
+    "medianMs": 5.56,
+    "p95Ms": 5.6,
+    "worstMs": 83.42,
+    "priorLogicMs": 0,
+    "priorDrawMs": 2,
+    "causeConfirmed": false
+  },
+  "before": {
+    "cases": [
+      {
+        "fraction": 0,
+        "commands": 786,
+        "sha256": "4f7583c230d825f29339bd9e3fa3af7e84f51fb117367ddaebe3db026b177067"
+      },
+      {
+        "fraction": 0.5,
+        "commands": 786,
+        "sha256": "113b545dfe5539577d64ccf784d04aa390e76d110ce13127c126512c46439613"
+      },
+      {
+        "fraction": 1,
+        "commands": 786,
+        "sha256": "836b67626585d3664556295b617f41108d457bb98c522bed2ea72c315c7f88fc"
+      },
+      {
+        "fraction": "no-snapshot",
+        "commands": 786,
+        "sha256": "9dabb13c457862c7e7ac164032c9145e156336c8daeca9cd79eef96d80a7836e"
+      }
+    ],
+    "nodeCopiesPerFrame": 103,
+    "armFilterArraysPerFrame": 12,
+    "nodes": 52,
+    "arms": 24
+  },
+  "after": {
+    "cases": [
+      {
+        "fraction": 0,
+        "commands": 786,
+        "sha256": "4f7583c230d825f29339bd9e3fa3af7e84f51fb117367ddaebe3db026b177067"
+      },
+      {
+        "fraction": 0.5,
+        "commands": 786,
+        "sha256": "113b545dfe5539577d64ccf784d04aa390e76d110ce13127c126512c46439613"
+      },
+      {
+        "fraction": 1,
+        "commands": 786,
+        "sha256": "836b67626585d3664556295b617f41108d457bb98c522bed2ea72c315c7f88fc"
+      },
+      {
+        "fraction": "no-snapshot",
+        "commands": 786,
+        "sha256": "9dabb13c457862c7e7ac164032c9145e156336c8daeca9cd79eef96d80a7836e"
+      }
+    ],
+    "nodeCopiesPerFrame": 0,
+    "armFilterArraysPerFrame": 0,
+    "nodes": 52,
+    "arms": 24
+  },
+  "firefox": {
+    "parity": [
+      {
+        "fraction": 0,
+        "differentChannels": 0
+      },
+      {
+        "fraction": 0.5,
+        "differentChannels": 0
+      },
+      {
+        "fraction": 1,
+        "differentChannels": 0
+      }
+    ],
+    "times": [
+      {
+        "name": "before",
+        "totalDrawMs": 767,
+        "frames": 60
+      },
+      {
+        "name": "pooled",
+        "totalDrawMs": 692,
+        "frames": 60
+      },
+      {
+        "name": "before",
+        "totalDrawMs": 433,
+        "frames": 60
+      }
+    ],
+    "nodes": 52,
+    "arms": 24,
+    "scope": "Actual Firefox frozen native worm frames and CPU submission, not proof of physical-device GC or stutter elimination"
+  },
+  "notes": "CPU timing did not show a reliable scene speedup; allocation pressure is reduced, GC causation and physical stutter improvement remain unproven."
+}

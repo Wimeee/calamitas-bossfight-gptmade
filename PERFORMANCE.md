@@ -1,5 +1,13 @@
 # Замір v17
 
+## v31.1.4 — remove Sepulcher pose garbage from the traced phase
+
+User's physical Firefox trace was mostly stable at5.56ms/180Hz (p955.6ms), with one83.42ms gap during Mage/Death/hearts. Preceding measured logic/draw were0/2ms: this does not establish a CPU-render spike or prove garbage collection. GPU/browser scheduling and work outside the measured sections remain possible.
+
+The affected phase nevertheless had substantial avoidable allocation:103node spread copies and12filtered arm lists every draw, plus24arm poses/96limb objects; two complete pose snapshots were also rebuilt each60Hz tick. Reuse two independent snapshot buffers and renderer-owned WeakMap scratch transforms/limbs. Read node metadata directly and scan arms by index. Warm draws now perform0node spreads/arm filtering, and simulation retains its per-node/per-arm pose records across ticks. No tempo, size, physics, alpha or collision changes.
+
+All786Canvas commands match exactly at interpolation0/.5/1 and without snapshots. Actual Firefox native PNG comparison found0different channels in all3interpolated frames. Before/pooled/before60-frame submission times767/692/433ms were noisy and do NOT demonstrate a reliable total speedup or elimination of the user's83ms stall. The proven improvement is lower transient allocation pressure. Raw data: benchmarks/v31.1.4-sepulcher-pooling.json.
+
 ## v31.1.3 — capture the remaining real-device stalls
 
 The user still reports microfreezes after31.1.2. This update adds diagnosis, not another claimed fix. A2048-slot preallocated ring samples RAF intervals, logic CPU, draw-submission CPU, callback delay, skipped mobile paints, phase/class and scene counts. Each long gap includes the preceding callback's work/phase, because its own current draw time cannot explain the already elapsed interval. Menu/pause/hidden gaps break continuity; a new attempt cannot export the old trace. No per-frame objects, JSON, storage or network are added by recording.

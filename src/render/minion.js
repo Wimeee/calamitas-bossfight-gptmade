@@ -1,12 +1,13 @@
-import {renderQuality} from '../core/settings.js?v=31.1.3';
-import {heartTendrilAnchors} from '../world/arena-state.js?v=31.1.3';
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.3';
-import {ctx} from '../core/dom.js?v=31.1.3';
-import {settings} from '../core/settings.js?v=31.1.3';
-import {hpMini,pixel,text} from './primitives.js?v=31.1.3';
-import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=31.1.3';
-import {lerp, clamp} from '../core/math.js?v=31.1.3';
+import {renderQuality} from '../core/settings.js?v=31.1.4';
+import {heartTendrilAnchors} from '../world/arena-state.js?v=31.1.4';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.4';
+import {ctx} from '../core/dom.js?v=31.1.4';
+import {settings} from '../core/settings.js?v=31.1.4';
+import {hpMini,pixel,text} from './primitives.js?v=31.1.4';
+import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=31.1.4';
+import {lerp, clamp} from '../core/math.js?v=31.1.4';
 const clocks=new WeakMap();
+const sepulcherScratch=new WeakMap();
 const now=g=>g.ritual?g.ritual.ambient:g.t;
 
 export function brotherPoseState(br,g){
@@ -46,7 +47,7 @@ function lerpVal(a, b, t) {
 }
 
 // Helper: compute limb geometry from a segment and arm pose (shared by sim/render)
-function computeArmLimbs(segment, armPose, bodyScale) {
+function computeArmLimbs(segment, armPose, bodyScale, out) {
   const segRot = segment.rotation;
   const armRot = armPose.rotation; // arm rotation AT THE TICK (before next-tick advance)
   const dir = armPose.direction;
@@ -88,11 +89,25 @@ function computeArmLimbs(segment, armPose, bodyScale) {
   const handY = upperY;
   const handAngle = upperAngle - Math.PI/2;
 
-  return {
-    forearm: { x: forearmX, y: forearmY, rotation: forearmAngle },
-    arm: { x: upperX, y: upperY, rotation: upperAngle },
-    hand: { x: handX, y: handY, rotation: handAngle },
-  };
+  out.forearm.x=forearmX;out.forearm.y=forearmY;out.forearm.rotation=forearmAngle;
+  out.arm.x=upperX;out.arm.y=upperY;out.arm.rotation=upperAngle;
+  out.hand.x=handX;out.hand.y=handY;out.hand.rotation=handAngle;
+  return out;
+}
+
+function sampleWormTransform(out,source,prev,curr,fraction){
+ if(prev&&curr){
+  out.x=lerpVal(prev.x,curr.x,fraction);out.y=lerpVal(prev.y,curr.y,fraction);
+  out.rotation=lerpAngle(prev.rotation,curr.rotation,fraction);out.alpha=lerpVal(prev.alpha,curr.alpha,fraction);
+ }else{out.x=source.x;out.y=source.y;out.rotation=source.rotation;out.alpha=source.alpha;}
+ return out;
+}
+function sampleWormArm(out,source,prev,curr,fraction){
+ if(prev&&curr){
+  out.x=lerpVal(prev.x,curr.x,fraction);out.y=lerpVal(prev.y,curr.y,fraction);
+  out.rotation=lerpAngle(prev.rotation,curr.rotation,fraction);out.direction=curr.direction;
+ }else{out.x=source.poseX??source.x;out.y=source.poseY??source.y;out.rotation=source.poseRotation??source.rotation;out.direction=source.direction;}
+ return out;
 }
 
 export function drawSepulcher(g){
@@ -103,6 +118,8 @@ export function drawSepulcher(g){
  const energySpec = spec.sepulcher.energyBall;
  const energyFps = 12; // 60/5 ticks per frame (source: frameCounter/5)
  const energyFrames = energySpec.frames || 5;
+ let scratch=sepulcherScratch.get(w);
+ if(!scratch){scratch={head:{},node:{},ahead:{},armPose:{},limbs:{forearm:{},arm:{},hand:{}}};sepulcherScratch.set(w,scratch);}
 
  // Rendering interpolation between simulation ticks
  // State snapshots are captured in minions.js at simulation tick boundaries (w._renderPrev, w._renderCurr)
@@ -114,75 +131,29 @@ export function drawSepulcher(g){
    interpFactor = Math.min(1, stepRemainder / simStep);
  }
 
- function getHead() {
-   if (!w._renderPrev || !w._renderCurr) {
-     return { x: w.x, y: w.y, rotation: w.rotation, alpha: w.alpha };
-   }
-   const prev = w._renderPrev.head;
-   const curr = w._renderCurr.head;
-   return {
-     x: lerpVal(prev.x, curr.x, interpFactor),
-     y: lerpVal(prev.y, curr.y, interpFactor),
-     rotation: lerpAngle(prev.rotation, curr.rotation, interpFactor),
-     alpha: lerpVal(prev.alpha, curr.alpha, interpFactor),
-   };
- }
- function getNode(i) {
-   const src = nodes[i];
-   // Preserve immutable metadata (isTail, isEnergyBall, index, hasArms, etc.)
-   // while interpolating transform fields
-   if (!w._renderPrev || !w._renderCurr) {
-     return { ...src, x: src.x, y: src.y, rotation: src.rotation, alpha: src.alpha };
-   }
-   const prev = w._renderPrev.nodes[i];
-   const curr = w._renderCurr.nodes[i];
-   return {
-     ...src,
-     x: lerpVal(prev.x, curr.x, interpFactor),
-     y: lerpVal(prev.y, curr.y, interpFactor),
-     rotation: lerpAngle(prev.rotation, curr.rotation, interpFactor),
-     alpha: lerpVal(prev.alpha, curr.alpha, interpFactor),
-   };
- }
- function getArmPose(i) {
-   if (!w._renderPrev || !w._renderCurr) {
-     const a = w.arms[i];
-     // Use pose rotation/position (before oscillation advance) when available
-     const rot = a.poseRotation ?? a.rotation;
-     const x = a.poseX ?? a.x;
-     const y = a.poseY ?? a.y;
-     return { x, y, rotation: rot, direction: a.direction };
-   }
-   const prev = w._renderPrev.arms[i];
-   const curr = w._renderCurr.arms[i];
-   return {
-     x: lerpVal(prev.x, curr.x, interpFactor),
-     y: lerpVal(prev.y, curr.y, interpFactor),
-     rotation: lerpAngle(prev.rotation, curr.rotation, interpFactor),
-     direction: curr.direction, // direction doesn't interpolate
-   };
- }
+ const prev=w._renderPrev,curr=w._renderCurr;
 
  // Use interpolated head for drawing
- const interpHead = getHead();
+ const interpHead = sampleWormTransform(scratch.head,w,prev?.head,curr?.head,interpFactor);
 
  // Draw segments from tail to head for proper layering
  for(let i=nodes.length-1;i>=0;i--){
-   const n = getNode(i);
-   const ahead = i===0 ? interpHead : getNode(i-1);
+   const source=nodes[i];
+   const n = sampleWormTransform(scratch.node,source,prev?.nodes[i],curr?.nodes[i],interpFactor);
+   const ahead = i===0 ? interpHead : sampleWormTransform(scratch.ahead,nodes[i-1],prev?.nodes[i-1],curr?.nodes[i-1],interpFactor);
    const angle = Math.atan2(ahead.y - n.y, ahead.x - n.x) + Math.PI / 2;
 
    // Determine segment type and scale (source: SepulcherBody.cs:125-133 alternates texture via localAI[3])
    let segmentType, scale;
-   if(n.isTail){
+   if(source.isTail){
      segmentType = 'tail';
      scale = bodyScale;
-   }else if(n.isEnergyBall){
+   }else if(source.isEnergyBall){
      segmentType = 'energyBall';
      scale = bodyScale;
    }else{
      // Body alternates between body and bodyAlt based on index (SepulcherBody.cs:127)
-     segmentType = (n.index / 2) % 2 === 0 ? 'body' : 'bodyAlt';
+     segmentType = (source.index / 2) % 2 === 0 ? 'body' : 'bodyAlt';
      scale = bodyScale;
    }
 
@@ -191,7 +162,7 @@ export function drawSepulcher(g){
    // Frame = ((frameCounter / 5) + whoAmI) % 6. We use segment index as phase offset.
    let energyFrame = 0;
    if(segmentType === 'energyBall'){
-     energyFrame = Math.floor(t * energyFps + n.index) % energyFrames;
+     energyFrame = Math.floor(t * energyFps + source.index) % energyFrames;
    }
 
    // Apply opacity cascade: segment alpha (0-255) -> opacity (0-1)
@@ -208,20 +179,17 @@ export function drawSepulcher(g){
    // Limb[1] (arm): Rotation = NPC.AngleFrom(Limb[0].Center), Center = Limb[0].Center + offsetFromSegment * 0.5f + (NPC.Center - Limb[0].Center).SafeNormalize(Vector2.UnitY) * 84f
    // Hand: drawn at Limb[1].Center with rotation Limb[1].Rotation - PiOver2
 
-   if(n.hasArms && w.arms){
-     // Find the two arms for this segment
-     const segArms = w.arms.filter(a => a.segmentIndex === i);
-     for(const arm of segArms){
-       // Find the arm index in the w.arms array
-       const armIndex = w.arms.indexOf(arm);
-       const interpArmPose = getArmPose(armIndex);
+   if(source.hasArms && w.arms){
+     for(let armIndex=0;armIndex<w.arms.length;armIndex++){
+       const arm=w.arms[armIndex];if(arm.segmentIndex!==i)continue;
+       const interpArmPose = sampleWormArm(scratch.armPose,arm,prev?.arms[armIndex],curr?.arms[armIndex],interpFactor);
 
        const dir = interpArmPose.direction; // 1 or -1
        const armAlpha = n.alpha !== undefined ? n.alpha : 255;
        const armOpacity = clamp(1 - armAlpha / 255, 0, 1);
 
        // Compute limbs using the interpolated arm pose (same pose used for simulation at this tick)
-       const limbs = computeArmLimbs(n, interpArmPose, bodyScale);
+       const limbs = computeArmLimbs(n, interpArmPose, bodyScale,scratch.limbs);
 
        // Draw forearm
        paintSepulcherSegment(ctx, 'forearm', limbs.forearm.x, limbs.forearm.y, limbs.forearm.rotation + Math.PI/2, bodyScale, armOpacity);

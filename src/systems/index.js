@@ -1,3 +1,3 @@
-import { updateRippers } from './rippers.js?v=31.1.3';
+import { updateRippers } from './rippers.js?v=31.1.4';
 function updateSystems(dt,game){updateRippers(dt,game);}
 export {updateSystems};
