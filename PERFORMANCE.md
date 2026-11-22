@@ -1,5 +1,13 @@
 # Замір v17
 
+## v31.1.2 — remove effect readbacks from battle and recover short stalls
+
+Native helper-effect alpha extraction depended only on source image but was repeated for every new tint in the renderer. Prepare9shared masks before battle, then bake the39known native colors during asset preparation. Original images, alpha=min(source alpha,source red), staticPulse/void downsampling and all colors stay unchanged. The64entry tint cache now evicts least-recently-used entries and inserts new colors instead of permanently refusing them once full.
+
+Actual isolated Firefox six-color test: before6synchronous pixel readbacks/64ms first-use preparation; shared masks0readbacks/9ms; final prewarmed palette0readbacks/time below the timer's precision. All tested output channels exactly matched the previous algorithm. This removes a demonstrated cold-effect hitch; it does not establish full-fight or physical-display FPS. Raw data: benchmarks/v31.1.2-stall-recovery.json.
+
+The RAF loop previously discarded all elapsed time beyond34ms and even advanced16ms for a zero interval. It now recovers up to100ms using simulation steps no larger than1/60s, with one presentation per desktop callback and the existing mobile60Hz paint pacing. It stops stepping after completion, and start/visibility events reset timing baselines. Production-path tests compare an80ms gap with equivalent short frames, cover pause/background/zero intervals and bound long-stall work. This prevents extra simulation slowdown after a short hitch; it cannot recreate a frame the display already missed.
+
 ## v31.1.1 — platform response and Firefox work reduction
 
 Ground movement now uses5600 acceleration,9000 release braking and10000 opposing-direction acceleration; native boots'555.552px/s top speed, airborne acceleration, wings and dash are unchanged. Actual production physics at240Hz changed the first opposite velocity from166.7ms to58.3ms. Tests cover starts/reversal/release at30/60/120/180Hz.

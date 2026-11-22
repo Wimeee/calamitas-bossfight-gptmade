@@ -1,0 +1,82 @@
+{
+  "scope": "Isolated Firefox native texture preparation microbenchmark; no claim of physical-display or full-fight FPS.",
+  "before": {
+    "reads": 6,
+    "tintMs": 64,
+    "differentChannels": 0,
+    "cases": 6,
+    "scope": "Actual Firefox native helper tint microbenchmark; source-pixel parity against prior algorithm, not fullfight FPS"
+  },
+  "sharedMasks": {
+    "reads": 0,
+    "tintMs": 9,
+    "differentChannels": 0,
+    "cases": 6,
+    "scope": "Actual Firefox native helper tint microbenchmark; source-pixel parity against prior algorithm, not fullfight FPS"
+  },
+  "prewarmed": {
+    "reads": 0,
+    "tintMs": 0,
+    "differentChannels": 0,
+    "cases": 6,
+    "scope": "Actual Firefox native helper tint microbenchmark; source-pixel parity against prior algorithm, not fullfight FPS"
+  },
+  "clockRegression": {
+    "shortGapMs": 80,
+    "oldSimulationMs": 34,
+    "newSimulationMs": 80,
+    "maxRecoveryMs": 100,
+    "maxStepMs": 16.666666666666668
+  },
+  "fiveClassBrowserSmoke": {
+    "results": [
+      {
+        "class": "melee",
+        "mode": "playing",
+        "simulatedSeconds": 0.571666666666649,
+        "finitePosition": true,
+        "pixelReadbacks": 0,
+        "projectiles": 4,
+        "activeMinions": 0
+      },
+      {
+        "class": "ranger",
+        "mode": "playing",
+        "simulatedSeconds": 0.571666666666702,
+        "finitePosition": true,
+        "pixelReadbacks": 0,
+        "projectiles": 0,
+        "activeMinions": 0
+      },
+      {
+        "class": "mage",
+        "mode": "playing",
+        "simulatedSeconds": 0.571666666666702,
+        "finitePosition": true,
+        "pixelReadbacks": 0,
+        "projectiles": 0,
+        "activeMinions": 0
+      },
+      {
+        "class": "summon",
+        "mode": "playing",
+        "simulatedSeconds": 0.5716666666665953,
+        "finitePosition": true,
+        "pixelReadbacks": 0,
+        "projectiles": 0,
+        "activeMinions": 2
+      },
+      {
+        "class": "rogue",
+        "mode": "playing",
+        "simulatedSeconds": 0.5716666666665953,
+        "finitePosition": true,
+        "pixelReadbacks": 0,
+        "projectiles": 0,
+        "activeMinions": 0
+      }
+    ],
+    "errors": [],
+    "scope": "Loaded native Firefox update/render smoke across all5classes, primary+secondary and80ms gap; not full fights or physical-phone FPS"
+  }
+}

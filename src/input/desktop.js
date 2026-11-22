@@ -1,20 +1,20 @@
-import { activateRipper } from '../systems/rippers.js?v=31.1.1';
-import { cameraView } from '../world/camera.js?v=31.1.1';
-import { beginRitual, skipRitual } from '../game/ritual.js?v=31.1.1';
-import { queueJump } from '../game/movement.js?v=31.1.1';
-import { directionTap } from './dash-gesture.js?v=31.1.1';
-import { resolveGameKey } from '../core/settings.js?v=31.1.1';
-import { releaseArk } from '../classes/melee.js?v=31.1.1';
-import { classAbility } from '../classes/shared.js?v=31.1.1';
-import { shoot } from '../combat/attacks.js?v=31.1.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=31.1.1';
-import { arena, canvasPointToWorld } from '../core/arena.js?v=31.1.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=31.1.1';
-import { canvas, root } from '../core/dom.js?v=31.1.1';
-import { clamp } from '../core/math.js?v=31.1.1';
-import { state } from '../core/state.js?v=31.1.1';
-import { changeWeapon, restartBattle, togglePause } from '../game/session.js?v=31.1.1';
-import { resetTouchInput } from './mobile.js?v=31.1.1';
+import { activateRipper } from '../systems/rippers.js?v=31.1.2';
+import { cameraView } from '../world/camera.js?v=31.1.2';
+import { beginRitual, skipRitual } from '../game/ritual.js?v=31.1.2';
+import { queueJump } from '../game/movement.js?v=31.1.2';
+import { directionTap } from './dash-gesture.js?v=31.1.2';
+import { resolveGameKey } from '../core/settings.js?v=31.1.2';
+import { releaseArk } from '../classes/melee.js?v=31.1.2';
+import { classAbility } from '../classes/shared.js?v=31.1.2';
+import { shoot } from '../combat/attacks.js?v=31.1.2';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=31.1.2';
+import { arena, canvasPointToWorld } from '../core/arena.js?v=31.1.2';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=31.1.2';
+import { canvas, root } from '../core/dom.js?v=31.1.2';
+import { clamp } from '../core/math.js?v=31.1.2';
+import { state } from '../core/state.js?v=31.1.2';
+import { changeWeapon, restartBattle, togglePause } from '../game/session.js?v=31.1.2';
+import { resetTouchInput } from './mobile.js?v=31.1.2';
 
 
 function eventPos(e){

@@ -1,9 +1,9 @@
-import { movementConfig } from '../../config/movement.js?v=31.1.1';
-import { weapons } from '../classes/registry.js?v=31.1.1';
-import { milestones } from '../core/config.js?v=31.1.1';
-import { $, root } from '../core/dom.js?v=31.1.1';
-import { state } from '../core/state.js?v=31.1.1';
-import {translate} from '../core/localization.js?v=31.1.1';
+import { movementConfig } from '../../config/movement.js?v=31.1.2';
+import { weapons } from '../classes/registry.js?v=31.1.2';
+import { milestones } from '../core/config.js?v=31.1.2';
+import { $, root } from '../core/dom.js?v=31.1.2';
+import { state } from '../core/state.js?v=31.1.2';
+import {translate} from '../core/localization.js?v=31.1.2';
 
 // Compare the displayed locale, not the source string: replacing textContent
 // recreates text nodes and wakes the localization observer even when unchanged.

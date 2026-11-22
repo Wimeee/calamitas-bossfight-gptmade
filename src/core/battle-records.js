@@ -1,4 +1,4 @@
-import {playerConfig} from '../../config/player.js?v=31.1.1';
+import {playerConfig} from '../../config/player.js?v=31.1.2';
 const KEY='utbg_battle_records_v1';
 const classes=['melee','ranger','mage','summon','rogue'],difficulties=['normal','revenge','death'];
 const finite=(n,max=1e9)=>Number.isFinite(n)&&n>=0&&n<=max;

@@ -1,19 +1,19 @@
-import {resizeViewport} from '../world/viewport.js?v=31.1.1';
-import { activateRipper } from '../systems/rippers.js?v=31.1.1';
-import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint,renderQuality } from '../core/settings.js?v=31.1.1';
-import { queueJump } from '../game/movement.js?v=31.1.1';
-import { releaseArk } from '../classes/melee.js?v=31.1.1';
-import { classAbility } from '../classes/shared.js?v=31.1.1';
-import { markCosmicTarget } from '../classes/summoner.js?v=31.1.1';
-import { shoot } from '../combat/attacks.js?v=31.1.1';
-import { dash, drinkRegeneration, heal } from '../combat/player.js?v=31.1.1';
-import { possibleTargets } from '../combat/targets.js?v=31.1.1';
-import { arena,canvasPointToWorld } from '../core/arena.js?v=31.1.1';
-import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=31.1.1';
-import { $, canvas, root } from '../core/dom.js?v=31.1.1';
-import { clamp, norm } from '../core/math.js?v=31.1.1';
-import { state } from '../core/state.js?v=31.1.1';
-import { togglePause } from '../game/session.js?v=31.1.1';
+import {resizeViewport} from '../world/viewport.js?v=31.1.2';
+import { activateRipper } from '../systems/rippers.js?v=31.1.2';
+import { MOBILE_CONTROLS_ENABLED,updateSettings,controlHint,renderQuality } from '../core/settings.js?v=31.1.2';
+import { queueJump } from '../game/movement.js?v=31.1.2';
+import { releaseArk } from '../classes/melee.js?v=31.1.2';
+import { classAbility } from '../classes/shared.js?v=31.1.2';
+import { markCosmicTarget } from '../classes/summoner.js?v=31.1.2';
+import { shoot } from '../combat/attacks.js?v=31.1.2';
+import { dash, drinkRegeneration, heal } from '../combat/player.js?v=31.1.2';
+import { possibleTargets } from '../combat/targets.js?v=31.1.2';
+import { arena,canvasPointToWorld } from '../core/arena.js?v=31.1.2';
+import { H, VIEW_X, VIEW_Y, W } from '../core/config.js?v=31.1.2';
+import { $, canvas, root } from '../core/dom.js?v=31.1.2';
+import { clamp, norm } from '../core/math.js?v=31.1.2';
+import { state } from '../core/state.js?v=31.1.2';
+import { togglePause } from '../game/session.js?v=31.1.2';
 
 let mobileAimTouch=null;
 

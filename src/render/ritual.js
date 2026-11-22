@@ -1,16 +1,16 @@
-import {renderQuality,settings} from '../core/settings.js?v=31.1.1';
-import {drawOfficialCalamitas} from './calamitas.js?v=31.1.1';
-import {drawFlightWings,drawFlightGauge} from './mobility.js?v=31.1.1';
-import {drawGlowCircle} from './glow-cache.js?v=31.1.1';
-import {drawWarriorBody,drawWarriorIdleWeapon} from './warrior.js?v=31.1.1';
-import {helperTint} from './helper-atlas.js?v=31.1.1';
-import {drawInfernumTitle} from './intro-title.js?v=31.1.1';
-import {drawRogueHUD} from './rogue.js?v=31.1.1';
-import {ctx} from '../core/dom.js?v=31.1.1';
-import {W,H} from '../core/config.js?v=31.1.1';
-import {clamp} from '../core/math.js?v=31.1.1';
-import {nearAltar,ritualConfig} from '../game/ritual.js?v=31.1.1';
-import {round,text} from './primitives.js?v=31.1.1';
+import {renderQuality,settings} from '../core/settings.js?v=31.1.2';
+import {drawOfficialCalamitas} from './calamitas.js?v=31.1.2';
+import {drawFlightWings,drawFlightGauge} from './mobility.js?v=31.1.2';
+import {drawGlowCircle} from './glow-cache.js?v=31.1.2';
+import {drawWarriorBody,drawWarriorIdleWeapon} from './warrior.js?v=31.1.2';
+import {helperTint} from './helper-atlas.js?v=31.1.2';
+import {drawInfernumTitle} from './intro-title.js?v=31.1.2';
+import {drawRogueHUD} from './rogue.js?v=31.1.2';
+import {ctx} from '../core/dom.js?v=31.1.2';
+import {W,H} from '../core/config.js?v=31.1.2';
+import {clamp} from '../core/math.js?v=31.1.2';
+import {nearAltar,ritualConfig} from '../game/ritual.js?v=31.1.2';
+import {round,text} from './primitives.js?v=31.1.2';
 const ease=(t,a,b)=>clamp((t-a)/(b-a),0,1);
 function bloom(x,y,r,color,opacity){const im=helperTint('largeBloom',color);if(!im)return;ctx.save();ctx.globalAlpha=opacity;ctx.globalCompositeOperation='lighter';ctx.drawImage(im,x-r,y-r,r*2,r*2);ctx.restore();}
 export function ritualScreenShake(g){

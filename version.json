@@ -1,4 +1,4 @@
 {
-  "version": "31.1.1",
-  "notes": "Sharper platform controls; reduced Firefox backdrop resampling and redundant HUD writes"
+  "version": "31.1.2",
+  "notes": "Prepare native effect colors before battle and recover short frame stalls without losing movement time"
 }
