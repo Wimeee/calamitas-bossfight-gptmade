@@ -1,5 +1,9 @@
 // [Ukrainian, English]. Proper item/music/author names deliberately stay native.
 export const localeEntries=[
+['Звіт про фрізи','Stutter report'],['Скопіювати звіт про фрізи','Copy stutter report'],
+['Після підсмикування повернись сюди та скопіюй звіт. Дані лише в пам’яті гри, без надсилання.','After a stutter, return here and copy the report. Data stays in game memory; nothing is uploaded.'],
+['Спершу пограй до підсмикування, потім повернись сюди.','Play until a stutter occurs, then return here.'],
+['Звіт скопійовано. Встав його в чат.','Report copied. Paste it into the chat.'],['Скопіюй виділений текст і встав його в чат.','Copy the selected text and paste it into the chat.'],
 ['Рекорди','Records'],['Особисті рекорди','Personal records'],['Підсумок бою','Battle results'],['← Назад','← Back'],
 ['Зберігаються лише в цьому браузері. Тренування й дебаг не зараховуються.','Saved in this browser only. Practice and debug runs do not count.'],
 ['Останні 20 спроб','Last 20 attempts'],['Час бою','Fight time'],['Отримано влучань','Hits taken'],['Ривків','Dashes'],

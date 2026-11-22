@@ -1,6 +1,6 @@
-import {readBattleRecords} from '../core/battle-records.js?v=31.1.2';
-import {translate,subscribeLocale} from '../core/localization.js?v=31.1.2';
-import {state} from '../core/state.js?v=31.1.2';
+import {readBattleRecords} from '../core/battle-records.js?v=31.1.3';
+import {translate,subscribeLocale} from '../core/localization.js?v=31.1.3';
+import {state} from '../core/state.js?v=31.1.3';
 const names={melee:'Melee',ranger:'Ranger',mage:'Mage',summon:'Summoner',rogue:'Rogue'};
 const difficulties={normal:'Expert',revenge:'Revengeance',death:'Death'};
 const byId=id=>document.getElementById(id);

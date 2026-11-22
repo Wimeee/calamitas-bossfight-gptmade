@@ -1,11 +1,11 @@
-import {summonerConfig as C} from '../../config/summoner.js?v=31.1.2';
-import {state} from '../core/state.js?v=31.1.2';
-import {audio} from '../core/audio.js?v=31.1.2';
-import {possibleTargets} from '../combat/targets.js?v=31.1.2';
-import {checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=31.1.2';
-import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=31.1.2';
-import {nativeWhipPoints} from './whip-motion.js?v=31.1.2';
-import {summonTarget,summonPulse,summonHit,updateSummonShots,updateSummonDebuffs} from './summoner-combat.js?v=31.1.2';
+import {summonerConfig as C} from '../../config/summoner.js?v=31.1.3';
+import {state} from '../core/state.js?v=31.1.3';
+import {audio} from '../core/audio.js?v=31.1.3';
+import {possibleTargets} from '../combat/targets.js?v=31.1.3';
+import {checkSepulcherCollision} from '../combat/sepulcher-blocking.js?v=31.1.3';
+import {damageSepulcherArea,damageSepulcherWhere} from '../combat/sepulcher-damage.js?v=31.1.3';
+import {nativeWhipPoints} from './whip-motion.js?v=31.1.3';
+import {summonTarget,summonPulse,summonHit,updateSummonShots,updateSummonDebuffs} from './summoner-combat.js?v=31.1.3';
 export function summonerState(){return state.game.player.summonState??={clock:0,step:0,ticks:0,potionTime:C.potionDuration,shots:[],pulses:[],effectId:0,volleys:0,emittedBolts:0,emittedStars:0};}
 export function summonerCapacity(g=state.game){return C.baseSlots+(g.player.summonState?.potionTime>0?C.potionSlots:0);}
 export function summonSquad(){

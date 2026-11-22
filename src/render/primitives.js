@@ -1,8 +1,8 @@
-import {translate} from '../core/localization.js?v=31.1.2';
-import { TAU } from '../core/config.js?v=31.1.2';
-import { ctx } from '../core/dom.js?v=31.1.2';
-import { clamp } from '../core/math.js?v=31.1.2';
-import { pixelArt } from './sprites.js?v=31.1.2';
+import {translate} from '../core/localization.js?v=31.1.3';
+import { TAU } from '../core/config.js?v=31.1.3';
+import { ctx } from '../core/dom.js?v=31.1.3';
+import { clamp } from '../core/math.js?v=31.1.3';
+import { pixelArt } from './sprites.js?v=31.1.3';
 
 
 function round(x,y,r,col,stroke,thick=1){

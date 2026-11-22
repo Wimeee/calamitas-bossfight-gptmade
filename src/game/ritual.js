@@ -1,17 +1,17 @@
-import { updateCamera } from '../world/camera.js?v=31.1.2';
-import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=31.1.2';
-import { getTerrain } from '../world/terrain.js?v=31.1.2';
-import { playerConfig } from '../../config/player.js?v=31.1.2';
-import { getEncounter } from '../boss/registry.js?v=31.1.2';
-import { audio } from '../core/audio.js?v=31.1.2';
-import { $ } from '../core/dom.js?v=31.1.2';
-import { state } from '../core/state.js?v=31.1.2';
-import { resetTouchInput } from '../input/mobile.js?v=31.1.2';
-import { ui,syncFlightHUD } from '../ui/hud.js?v=31.1.2';
-import { enter } from './phases.js?v=31.1.2';
-import {settings,defaults,updateSettings} from '../core/settings.js?v=31.1.2';
-import {infernumIntroState} from './intro-timeline.js?v=31.1.2';
-import {updateRogue} from '../classes/rogue.js?v=31.1.2';
+import { updateCamera } from '../world/camera.js?v=31.1.3';
+import { updatePlayerMovement,spawnNearAltar } from './movement.js?v=31.1.3';
+import { getTerrain } from '../world/terrain.js?v=31.1.3';
+import { playerConfig } from '../../config/player.js?v=31.1.3';
+import { getEncounter } from '../boss/registry.js?v=31.1.3';
+import { audio } from '../core/audio.js?v=31.1.3';
+import { $ } from '../core/dom.js?v=31.1.3';
+import { state } from '../core/state.js?v=31.1.3';
+import { resetTouchInput } from '../input/mobile.js?v=31.1.3';
+import { ui,syncFlightHUD } from '../ui/hud.js?v=31.1.3';
+import { enter } from './phases.js?v=31.1.3';
+import {settings,defaults,updateSettings} from '../core/settings.js?v=31.1.3';
+import {infernumIntroState} from './intro-timeline.js?v=31.1.3';
+import {updateRogue} from '../classes/rogue.js?v=31.1.3';
 
 export const ritualConfig=Object.freeze({x:500,get y(){return getTerrain().altar.y-24;},range:86,spawnAt:270/60,duration:(270+300)/60,skipAfter:.8});
 

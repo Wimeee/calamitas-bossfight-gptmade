@@ -1,10 +1,10 @@
-import { kitHint } from '../classes/shared.js?v=31.1.2';
-import {drawNativeRogue} from './rogue.js?v=31.1.2';
-import { TAU } from '../core/config.js?v=31.1.2';
-import { ctx } from '../core/dom.js?v=31.1.2';
-import { clamp } from '../core/math.js?v=31.1.2';
-import { state } from '../core/state.js?v=31.1.2';
-import { line, pixel, round, text } from './primitives.js?v=31.1.2';
+import { kitHint } from '../classes/shared.js?v=31.1.3';
+import {drawNativeRogue} from './rogue.js?v=31.1.3';
+import { TAU } from '../core/config.js?v=31.1.3';
+import { ctx } from '../core/dom.js?v=31.1.3';
+import { clamp } from '../core/math.js?v=31.1.3';
+import { state } from '../core/state.js?v=31.1.3';
+import { line, pixel, round, text } from './primitives.js?v=31.1.3';
 
 
 function drawClassKit(g){

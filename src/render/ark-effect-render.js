@@ -1,10 +1,10 @@
-import {state} from '../core/state.js?v=31.1.2';
-import {renderQuality} from '../core/settings.js?v=31.1.2';
-import {ctx} from '../core/dom.js?v=31.1.2';
-import {circleVisible} from './visibility.js?v=31.1.2';
-import {settings} from '../core/settings.js?v=31.1.2';
-import {arkParticlePose} from '../systems/ark-effects.js?v=31.1.2';
-import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=31.1.2';
+import {state} from '../core/state.js?v=31.1.3';
+import {renderQuality} from '../core/settings.js?v=31.1.3';
+import {ctx} from '../core/dom.js?v=31.1.3';
+import {circleVisible} from './visibility.js?v=31.1.3';
+import {settings} from '../core/settings.js?v=31.1.3';
+import {arkParticlePose} from '../systems/ark-effects.js?v=31.1.3';
+import {arkEffectTexture,arkFrameTexture,drawNativeArkSpark,drawNativeRipMask,drawNativeArkLight} from './ark-native.js?v=31.1.3';
 
 function image(name,x,y,sx,sy,angle,alpha,color='#fff',frame=null){
  const texture=frame?arkFrameTexture(name,color,frame):arkEffectTexture(name,color);if(!texture||sx<=0||sy<=0||alpha<=0)return;

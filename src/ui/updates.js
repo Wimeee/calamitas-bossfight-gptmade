@@ -1,4 +1,4 @@
-import { VERSION } from '../core/config.js?v=31.1.2';
+import { VERSION } from '../core/config.js?v=31.1.3';
 
 
 function initializeUpdates(){

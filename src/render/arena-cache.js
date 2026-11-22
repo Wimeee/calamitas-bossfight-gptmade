@@ -1,12 +1,12 @@
-import {renderScale} from '../core/settings.js?v=31.1.2';
-import {state} from '../core/state.js?v=31.1.2';
-import {cameraView} from '../world/camera.js?v=31.1.2';
-import {arena} from '../core/arena.js?v=31.1.2';
-import {ctx} from '../core/dom.js?v=31.1.2';
-import {W,H} from '../core/config.js?v=31.1.2';
-import {arenaColors} from '../world/arena-state.js?v=31.1.2';
-import {arenaImage,arenaTexture} from './arena-atlas.js?v=31.1.2';
-import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=31.1.2';
+import {renderScale} from '../core/settings.js?v=31.1.3';
+import {state} from '../core/state.js?v=31.1.3';
+import {cameraView} from '../world/camera.js?v=31.1.3';
+import {arena} from '../core/arena.js?v=31.1.3';
+import {ctx} from '../core/dom.js?v=31.1.3';
+import {W,H} from '../core/config.js?v=31.1.3';
+import {arenaColors} from '../world/arena-state.js?v=31.1.3';
+import {arenaImage,arenaTexture} from './arena-atlas.js?v=31.1.3';
+import {paintArenaFeather,ARENA_FEATHER_OUTER,ARENA_FEATHER_INNER} from './arena-feather.js?v=31.1.3';
 let field=null,mask=null;
 let backdrop=null,backdropSource=null,backdropKey='';
 function backdropRaster(image){

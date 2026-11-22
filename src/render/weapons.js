@@ -1,14 +1,14 @@
-import {drawNativeWhip} from './summoner.js?v=31.1.2';
-import {drawPhotoHeld} from './ranger.js?v=31.1.2';
-import {drawMageHeld} from './mage.js?v=31.1.2';
-import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=31.1.2';
-import { weapons } from '../classes/registry.js?v=31.1.2';
-import { TAU } from '../core/config.js?v=31.1.2';
-import { ctx } from '../core/dom.js?v=31.1.2';
-import { clamp } from '../core/math.js?v=31.1.2';
-import { state } from '../core/state.js?v=31.1.2';
-import { drawArkPair } from './melee.js?v=31.1.2';
-import { line, pixel, round } from './primitives.js?v=31.1.2';
+import {drawNativeWhip} from './summoner.js?v=31.1.3';
+import {drawPhotoHeld} from './ranger.js?v=31.1.3';
+import {drawMageHeld} from './mage.js?v=31.1.3';
+import { drawWarriorIdleWeapon, drawWarriorProjectile } from './warrior.js?v=31.1.3';
+import { weapons } from '../classes/registry.js?v=31.1.3';
+import { TAU } from '../core/config.js?v=31.1.3';
+import { ctx } from '../core/dom.js?v=31.1.3';
+import { clamp } from '../core/math.js?v=31.1.3';
+import { state } from '../core/state.js?v=31.1.3';
+import { drawArkPair } from './melee.js?v=31.1.3';
+import { line, pixel, round } from './primitives.js?v=31.1.3';
 
 
 function drawPixelWhip(g){

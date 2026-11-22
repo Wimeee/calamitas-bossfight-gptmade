@@ -1,11 +1,11 @@
-import {renderQuality} from '../core/settings.js?v=31.1.2';
-import {heartTendrilAnchors} from '../world/arena-state.js?v=31.1.2';
-import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.2';
-import {ctx} from '../core/dom.js?v=31.1.2';
-import {settings} from '../core/settings.js?v=31.1.2';
-import {hpMini,pixel,text} from './primitives.js?v=31.1.2';
-import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=31.1.2';
-import {lerp, clamp} from '../core/math.js?v=31.1.2';
+import {renderQuality} from '../core/settings.js?v=31.1.3';
+import {heartTendrilAnchors} from '../world/arena-state.js?v=31.1.3';
+import { minionSprites as spec } from '../../config/minion-sprites.js?v=31.1.3';
+import {ctx} from '../core/dom.js?v=31.1.3';
+import {settings} from '../core/settings.js?v=31.1.3';
+import {hpMini,pixel,text} from './primitives.js?v=31.1.3';
+import {minionImage,paintMinionFrame,paintSepulcherSegment} from './minion-atlas.js?v=31.1.3';
+import {lerp, clamp} from '../core/math.js?v=31.1.3';
 const clocks=new WeakMap();
 const now=g=>g.ritual?g.ritual.ambient:g.t;
 

@@ -1,0 +1,57 @@
+{
+  "version": "31.1.2",
+  "samples": 9,
+  "capacity": 2048,
+  "summary": {
+    "medianIntervalMs": 76.54,
+    "p95IntervalMs": 1384.08,
+    "worstIntervalMs": 1384.08,
+    "over25ms": 8
+  },
+  "worst": [
+    {
+      "atMs": 12161.42,
+      "intervalMs": 1384.08,
+      "logicMs": 4,
+      "drawMs": 90,
+      "callbackDelayMs": 2.58,
+      "steps": 6,
+      "painted": true,
+      "gameSeconds": 0.1,
+      "projectiles": 0,
+      "shots": 1,
+      "effects": 0,
+      "classId": "melee",
+      "stage": "normal",
+      "previousStage": "normal",
+      "previousLogicMs": 0,
+      "previousDrawMs": 1206,
+      "previousPainted": true
+    },
+    {
+      "atMs": 12403.36,
+      "intervalMs": 241.94,
+      "logicMs": 2,
+      "drawMs": 57,
+      "callbackDelayMs": 4.64,
+      "steps": 6,
+      "painted": true,
+      "gameSeconds": 0.2,
+      "projectiles": 0,
+      "shots": 1,
+      "effects": 0,
+      "classId": "melee",
+      "stage": "normal",
+      "previousStage": "normal",
+      "previousLogicMs": 4,
+      "previousDrawMs": 90,
+      "previousPainted": true
+    }
+  ],
+  "fallbackVisible": true,
+  "buttonVisible": true,
+  "gameUnchanged": true,
+  "errors": [],
+  "recorder100000CallsMs": 12,
+  "scope": "Actual Firefox diagnostic and local-copy fallback; recorder CPU microbenchmark, not physical-device FPS"
+}

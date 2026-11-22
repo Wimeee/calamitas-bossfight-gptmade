@@ -1,5 +1,13 @@
 # Замір v17
 
+## v31.1.3 — capture the remaining real-device stalls
+
+The user still reports microfreezes after31.1.2. This update adds diagnosis, not another claimed fix. A2048-slot preallocated ring samples RAF intervals, logic CPU, draw-submission CPU, callback delay, skipped mobile paints, phase/class and scene counts. Each long gap includes the preceding callback's work/phase, because its own current draw time cannot explain the already elapsed interval. Menu/pause/hidden gaps break continuity; a new attempt cannot export the old trace. No per-frame objects, JSON, storage or network are added by recording.
+
+Settings→Copy stutter report exports25worst intervals on demand, using Clipboard API or selectable text. Copying does not change battle state. Metadata is current at export; timing samples belong to their captured phases. CPU timing cannot identify GPU completion, garbage collection or another browser process by itself.
+
+Actual Firefox pre-release test: capture/paused export/fallback worked, button was visible,0JS errors and unchanged battle state. Recorder-only100000-call test took12ms in that environment; this is not a measurement of total instrumentation or physical FPS. Raw pre-version-bump result: benchmarks/v31.1.3-frame-trace.json. A user's report from immediately after a physical Firefox stutter is the next required evidence.
+
 ## v31.1.2 — remove effect readbacks from battle and recover short stalls
 
 Native helper-effect alpha extraction depended only on source image but was repeated for every new tint in the renderer. Prepare9shared masks before battle, then bake the39known native colors during asset preparation. Original images, alpha=min(source alpha,source red), staticPulse/void downsampling and all colors stay unchanged. The64entry tint cache now evicts least-recently-used entries and inserts new colors instead of permanently refusing them once full.

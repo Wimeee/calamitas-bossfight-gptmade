@@ -1,7 +1,7 @@
-import {practicePhases,practiceAttacks} from '../../config/practice.js?v=31.1.2';
-import {enterCalamitas} from '../boss/phases.js?v=31.1.2';
-import {spawnMaelstrom,updateMaelstrom} from '../boss/maelstrom.js?v=31.1.2';
-import {resetArenaState} from '../world/arena-state.js?v=31.1.2';
+import {practicePhases,practiceAttacks} from '../../config/practice.js?v=31.1.3';
+import {enterCalamitas} from '../boss/phases.js?v=31.1.3';
+import {spawnMaelstrom,updateMaelstrom} from '../boss/maelstrom.js?v=31.1.3';
+import {resetArenaState} from '../world/arena-state.js?v=31.1.3';
 
 export function configurePractice(g,options){
  const phase=practicePhases.find(item=>item.id===options?.id);if(!phase)return false;

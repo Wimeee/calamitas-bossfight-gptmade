@@ -1,4 +1,4 @@
 {
-  "version": "31.1.2",
-  "notes": "Prepare native effect colors before battle and recover short frame stalls without losing movement time"
+  "version": "31.1.3",
+  "notes": "Add local frame-time report to capture remaining real-device stutters"
 }

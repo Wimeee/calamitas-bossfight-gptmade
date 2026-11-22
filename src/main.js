@@ -1,18 +1,18 @@
-import {prepareBattleAssets} from './core/battle-assets.js?v=31.1.2';
-import {initializeLocalization} from './core/localization.js?v=31.1.2';
-import { initializeViewport } from './world/viewport.js?v=31.1.2';
-import { initializeMenu } from './ui/menu.js?v=31.1.2';
-import { configureArena } from './core/arena.js?v=31.1.2';
-import { MOBILE_CONTROLS_ENABLED } from './core/settings.js?v=31.1.2';
-import { VERSION } from './core/config.js?v=31.1.2';
-import { $, root } from './core/dom.js?v=31.1.2';
-import { initializeDesktop } from './input/desktop.js?v=31.1.2';
-import { initializeFullscreen } from './input/fullscreen.js?v=31.1.2';
-import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=31.1.2';
-import { draw } from './render/scene.js?v=31.1.2';
-import { initializeSprites } from './render/sprites.js?v=31.1.2';
-import { initializeControls } from './ui/controls.js?v=31.1.2';
-import { initializeUpdates } from './ui/updates.js?v=31.1.2';
+import {prepareBattleAssets} from './core/battle-assets.js?v=31.1.3';
+import {initializeLocalization} from './core/localization.js?v=31.1.3';
+import { initializeViewport } from './world/viewport.js?v=31.1.3';
+import { initializeMenu } from './ui/menu.js?v=31.1.3';
+import { configureArena } from './core/arena.js?v=31.1.3';
+import { MOBILE_CONTROLS_ENABLED } from './core/settings.js?v=31.1.3';
+import { VERSION } from './core/config.js?v=31.1.3';
+import { $, root } from './core/dom.js?v=31.1.3';
+import { initializeDesktop } from './input/desktop.js?v=31.1.3';
+import { initializeFullscreen } from './input/fullscreen.js?v=31.1.3';
+import { initializeMobile, setDeviceMode, updateMobileLabels } from './input/mobile.js?v=31.1.3';
+import { draw } from './render/scene.js?v=31.1.3';
+import { initializeSprites } from './render/sprites.js?v=31.1.3';
+import { initializeControls } from './ui/controls.js?v=31.1.3';
+import { initializeUpdates } from './ui/updates.js?v=31.1.3';
 
 
 function initializeGame(){
